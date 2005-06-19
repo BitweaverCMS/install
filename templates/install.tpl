@@ -9,13 +9,13 @@
 	<link rel="shortcut icon" href="{$gBitLoc.INSTALL_PKG_URL}favicon.ico" type="image/x-icon" />
 
 	<!--[if gte IE 5.5000]>
-		<script type="text/javascript" src="{$gBitLoc.THEMES_PKG_URL}pngfix.js"></script>
+		<script type="text/javascript" src="{$gBitLoc.THEMES_PKG_URL}js/pngfix.js"></script>
 	<![endif]-->
 
 	<script type="text/javascript"><!--
 		var tikiRootUrl = "{$gBitLoc.BIT_ROOT_URL}";
 	--></script>
-	<script type="text/javascript" src="{$gBitLoc.THEMES_PKG_URL}tabs/tabpane.js"></script>
+	<script type="text/javascript" src="{$gBitLoc.THEMES_PKG_URL}js/tabs/tabpane.js"></script>
 </head>
 
 {strip}
