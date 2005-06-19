@@ -1,6 +1,6 @@
 <?php
 
-// $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.1 2005/06/19 04:51:19 bitweaver Exp $
+// $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2 2005/06/19 08:09:01 lsces Exp $
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -17,11 +17,11 @@ $config_file = (strpos($_SERVER["SERVER_SOFTWARE"],"IIS") ? str_replace( "/", "\
 
 // DO THIS FIRST! Before we include any kernel stuff to avoid duplicate defines
 if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
-	if ( $_REQUEST['db'] == "firebird15" && empty( $gBitDbName ) ) {
+	if ( $_REQUEST['db'] == "firebird" && empty( $gBitDbName ) ) {
 		{
 			//	Should only be called when creating the datatabse
-			require_once("create_firebird15_database.php");
-			Firebird15CreateDB($_REQUEST['host'], $_REQUEST['user'], $_REQUEST['pass'], $_REQUEST['name'], $_REQUEST['fbpath']);
+			require_once("create_firebird_database.php");
+			FirebirdCreateDB($_REQUEST['host'], $_REQUEST['user'], $_REQUEST['pass'], $_REQUEST['name'], $_REQUEST['fbpath']);
 		}
 	}
 	if ( empty( $gBitDbType ) ) {

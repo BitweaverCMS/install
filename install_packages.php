@@ -1,6 +1,6 @@
 <?php
 
-// $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.1 2005/06/19 04:51:19 bitweaver Exp $
+// $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.2 2005/06/19 08:09:01 lsces Exp $
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -36,7 +36,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 	if( $gBitInstallDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
 		$tablePrefix = $gBitInstaller->getTablePrefix();
 
-		$dict = NewDataDictionary( $gBitInstallDb );
+		$dict = NewDataDictionary( $gBitInstallDb, $gBitDbType );
 		// SHOULD HANDLE INNODB so foreign keys are cool - XOXO spiderr
 		// $tableOptions = array('mysql' => 'TYPE=INNODB', 'REPLACE');
 		$sqlArray = array();

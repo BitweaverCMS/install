@@ -51,7 +51,7 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 //    mssql          MS-SQL (experimental)
 //    pgsql          PostgreSQL 7.x
 //    oci8po         Oracle (9i and newer)
-//    firebird15     FireBird15
+//    firebird       FireBird
 //    sybase         Sybase
 \$gBitDbType    = \"$gBitDbType\";
 

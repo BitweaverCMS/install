@@ -15,7 +15,7 @@
 */
 
 // This needs tidying up and linking properly at some point
-	function Firebird15CreateDB($host, $user, $pass, $dbalias, $fbpath)
+	function FirebirdCreateDB($host, $user, $pass, $dbalias, $fbpath)
 	{
     	$sql = 'CREATE DATABASE "'.$host.':'.$dbalias.'"';
     	if (strlen($user) > 0)

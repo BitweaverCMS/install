@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.1 2005/06/19 04:51:19 bitweaver Exp $
+// $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.2 2005/06/19 08:09:01 lsces Exp $
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -34,7 +34,7 @@ if( function_exists( 'mssql_connect' ) ) {
 	$dbtodsn['mssql'] = 'MS-SQL (experimental)';
 }
 if( function_exists( 'ibase_connect' ) ) {
-	$dbtodsn['firebird15'] = 'Firebird 1.5';
+	$dbtodsn['firebird'] = 'Firebird 1.5+';
 	if ( empty($fbpath) ) {
 		if ( isWindows() )
 			$fbpath = 'c:\Program Files\Firebird\Firebird_1_5\bin\isql';

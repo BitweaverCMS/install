@@ -88,7 +88,7 @@ class BitInstaller extends BitSystem {
 					$result = $this->query( "SET search_path TO $schema" );
 				}
 				break;
-			case "firebird15":
+			case "firebird":
 				$result = $this->mDb->mDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
 				break;
 		}
