@@ -30,8 +30,8 @@
 			<li>Best methods to get in contact with us
 				<ul>
 					<li>IRC (<a class="external" href="http://www.bitweaver.org/wiki/index.php?page=ConnectingToIrc">instructions</a> on connecting to irc)</li>
-					<li><a class="external" href="http://sourceforge.net/mail/?group_id=101599">Sourceforge mailing list</a></li>
-					<li>If you wish to report any bugs, we urge you to do this at <a class="external" href="http://sourceforge.net/tracker/?atid=630083&amp;group_id=101599&amp;func=browse">Sourceforge</a></li>
+					<li><a class="external" href="http://sourceforge.net/mail/?group_id=141358">Sourceforge mailing list</a></li>
+					<li>If you wish to report any bugs, we urge you to do this at <a class="external" href="http://sourceforge.net/tracker/?atid=749176&amp;group_id=1413589&amp;func=browse">Sourceforge</a></li>
 					<li>the <a class="external" href="http://www.bitweaver.org/forums/viewforum.php?f=5">bitweaver Forums</a> might contain useful information.</li>
 					<li><a class="external" href="http://www.bitweaver.org/">bitweaver</a> currently contains all the documentation we have.</li>
 				</ul>

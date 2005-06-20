@@ -39,7 +39,7 @@ bitweaver was built with extensibility in mind and thus we have made it \'\'easy
 * If you want to find out more about existing packages and how to install them, you can find information at [http://www.bitweaver.org|bitweaver].
 * Best methods to get in contact with us
 	** IRC ([http://www.bitweaver.org/wiki/index.php?page=ConnectingToIrc|instructions] on connecting to irc)
-	** [http://sourceforge.net/mail/?group_id=101599|Sourceforge mailing list]
+	** [http://sourceforge.net/mail/?group_id=141358|Sourceforge mailing list]
 	** If you wish to report any bugs, we urge you to do this at [http://sourceforge.net/tracker/?atid=630083&group_id=101599&func=browse|Sourceforge]
 	** the [http://www.bitweaver.org/forums/viewforum.php?f=5|bitweaver Forums] might contain useful information.
 	** [http://www.bitweaver.org/|bitweaver] currently contains all the documentation we have.
