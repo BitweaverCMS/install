@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.2 2005/06/19 08:09:01 lsces Exp $
+// $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.3 2005/06/21 10:21:26 wolff_borg Exp $
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -22,7 +22,7 @@ if( function_exists( 'mysqli_connect' ) ) {
 	$dbtodsn['mysql'] = 'MySQLi 4.x';
 }
 if( function_exists( 'pg_connect' ) ) {
-	$dbtodsn['pgsql'] = 'PostgreSQL 7.x';
+	$dbtodsn['postgres'] = 'PostgreSQL 7.x';
 }
 if( function_exists( 'ocilogon' ) ) {
 	$dbtodsn['oci8'] = 'Oracle 8.i';

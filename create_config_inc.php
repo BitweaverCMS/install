@@ -49,7 +49,7 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 //    mysql          Standard MySQL
 //    sqlite         SQLLite
 //    mssql          MS-SQL (experimental)
-//    pgsql          PostgreSQL 7.x
+//    postgres          PostgreSQL 7.x
 //    oci8po         Oracle (9i and newer)
 //    firebird       FireBird
 //    sybase         Sybase
