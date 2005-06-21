@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.2 2005/06/21 17:02:21 spiderr Exp $
+// $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.3 2005/06/21 19:23:17 squareing Exp $
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -44,6 +44,12 @@ $formInstallValues = array(
 	'site_slogan',
 	'bitlanguage',
 );
+
+if( extension_loaded( 'imagick' ) && extension_loaded( 'gd' ) ) {
+	$smarty->assign( 'choose_image_processor', TRUE );
+	$formInstallValues[] = 'image_processor';
+}
+
 $smarty->assign( 'feature_server_name', $_SERVER['SERVER_NAME'] );
 
 // get list of available languages

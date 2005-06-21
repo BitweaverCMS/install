@@ -54,12 +54,12 @@
 		{/forminput}
 	</div>
 
-	{*<div class="row">
-		{formlabel label="Server name"}
+	<div class="row">
+		{formlabel label="Image Processor"}
 		{forminput}
-			{formfeedback note=`$gBitSystemPrefs.feature_server_name`}
+			{formfeedback note=`$gBitSystemPrefs.image_processor`}
 		{/forminput}
-	</div>*}
+	</div>
 
 	<div class="row submit">
 		<input type="submit" value="Continue Install Process" />

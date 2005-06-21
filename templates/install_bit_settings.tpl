@@ -66,14 +66,24 @@
 		{formlabel label="Language" for="language"}
 		{forminput}
 			<select name="bitlanguage" id="bitlanguage">
-                                {foreach from=$languages key=langCode item=lang}
-                                        <option value="{$langCode}" {if $langCode eq "en"}selected="selected"{/if}>{$lang.full_name|escape}</option>
-                                {/foreach}
+				{foreach from=$languages key=langCode item=lang}
+						<option value="{$langCode}" {if $langCode eq "en"}selected="selected"{/if}>{$lang.full_name|escape}</option>
+				{/foreach}
 			</select>
 			{formhelp note="Select the default language of your site."}
-
 		{/forminput}
 	</div>
+
+	{if $choose_image_processor}
+		<div class="row">
+			{formlabel label="Image Processor"}
+			{forminput}
+				<label><input type="radio" name="image_processor" value="gd" /> gdLibrary</label>
+				<br />
+				<label><input type="radio" name="image_processor" value="imagick" checked="checked" /> ImageMagick</label>
+			{/forminput}
+		</div>
+	{/if}
 
 	<div class="row submit">
 		<input type="submit" name="fSubmitBitSettings" value="{tr}Set Preferences{/tr}" />
