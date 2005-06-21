@@ -36,9 +36,7 @@ mkdir -p "/tmp/$fname/"
 cd "/tmp/$fname/"
 cvs -qz5 -d :ext:$SFUSER@cvs.sf.net:/cvsroot/bitweaver/ export -d $BUILDDIR $BRANCH $MODULE
 cd "/tmp/$fname/"
-if [ -d "$BUILDDIR/storage" ] ; then
-	mkdir "$BUILDDIR/storage"
-fi
+mkdir "$BUILDDIR/storage"
 if [ -d "$BUILDDIR/phpbb" ] ; then
 	touch "$BUILDDIR/phpbb/config.php"
 fi
