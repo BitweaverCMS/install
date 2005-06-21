@@ -74,7 +74,7 @@ class BitInstaller extends BitSystem {
 				// avoid database change messages
 				ini_set('sybct.min_server_severity', '11');
 				break;
-			case "pgsql":
+			case "postgres":
 				// Do a little prep work for postgres, no break, cause we want default case too
 				$ret = preg_replace( '/`/', '"', BIT_DB_PREFIX );
 				if( preg_match( '/\./', $ret ) ) {
@@ -236,7 +236,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 								}
 								break;
 							case 'PGSQL' :
-								if( preg_match( '/pgsql/', $gBitDbType ) ) {
+								if( preg_match( '/postgres/', $gBitDbType ) ) {
 									$sql = $step[$dbType];
 								}
 								break;
@@ -298,7 +298,7 @@ function process_sql_file( $file, $gBitDbType, $pBitDbPrefix ) {
 	  case "oci8":
 	    $splitString = "#(;\n)|(\n/\n)#";
 	    break;
-	  case "pgsql":
+	  case "postgres":
 	  	// Do a little prep work for postgres, no break, cause we want default case too
 	  	if( preg_match( '/\./', $pBitDbPrefix ) ) {
 			$schema = preg_replace( '/[`\.]/', '', $pBitDbPrefix );
@@ -336,8 +336,7 @@ function process_sql_file( $file, $gBitDbType, $pBitDbPrefix ) {
 					break;
 				case "sqlite":
 					$statement = preg_replace("/`/", "", $statement);
-				case "pgsql":
-				case "postgres7":
+				case "postgres":
 				case "sybase":
 				case "mssql":
 					$statement = preg_replace("/`/", "\"", $statement);
@@ -397,66 +396,8 @@ function check_session_save_path() {
 	}
 }
 
-function error_and_exit() {
-	global $errors;
-        $PHP_CONFIG_FILE_PATH = PHP_CONFIG_FILE_PATH;
-
-        ob_start();
-        phpinfo (INFO_MODULES);
-        $httpd_conf = 'httpd.conf';
-
-        if (preg_match('/Server Root<\/b><\/td><td\s+align="left">([^<]*)</', ob_get_contents(), $m)) {
-                $httpd_conf = $m[1] . '/' . $httpd_conf;
-        }
-
-        ob_end_clean();
-
-        print "<html><body>\n<h2><font color=\"red\">bitweaver Installer cannot proceed:</font></h2>\n<pre>\n$errors";
-
-        if (!isWindows()) {
-                print "You may either create missing directories and chmod directories manually to 777, or run one of the sets of commands below.
-<b><a href=\"".INSTALL_PKG_URL."install.php\">Execute the bitweaver Installer again</a></b> after you run the commands below.
-
-If you cannot become root, and are NOT part of the group $wwwgroup:
-        \$ bash
-        \$ cd $docroot
-        \$ chmod +x setup.sh
-        \$ ./setup.sh yourlogin yourgroup 02777
-        Tip: You can find your group using the command 'id'.
-
-If you cannot become root, but are a member of the group $wwwgroup:
-        \$ bash
-        \$ cd $docroot
-        \$ chmod +x setup.sh
-        \$ ./setup.sh mylogin $wwwgroup</i>
-
-If you can become root:
-        \$ bash
-        \$ cd $docroot
-        \$ chmod +x setup.sh
-        \$ su -c './setup.sh $wwwuser'
-
-If you have problems accessing a directory, check the session.save_path or open_basedir entries in
-$PHP_CONFIG_FILE_PATH/php.ini or $httpd_conf.
-
-Once you have executed these commands, this message will disappear!
-
-Note: If you cannot become root, you will not be able to delete certain
-files created by apache, and will need to ask your system administrator
-to delete them for you if needed.
-
-<a class=\"external\" href=\"http://bitweaver.org/\">Consult the bitweaver installation guide</a> if you need more help.
-
-<b><a href=\"".INSTALL_PKG_URL."install.php\">Execute the bitweaver Installer again</a></b> if you have completed the steps above.";
-        }
-	print "</pre></body></html>";
-        exit;
-}
-
-
-
 function makeConnection($gBitDbType, $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) {
-	$gDb = &ADONewConnection( ( $gBitDbType =='pgsql' ? 'postgres7' : $gBitDbType ));
+	$gDb = &ADONewConnection( $gBitDbType );
 	if( !$gDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
 		echo $gDb->ErrorMsg()."\n";
 		die;
