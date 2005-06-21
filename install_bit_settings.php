@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.1 2005/06/19 04:51:19 bitweaver Exp $
+// $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.2 2005/06/21 17:02:21 spiderr Exp $
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -53,13 +53,10 @@ $smarty->assign_by_ref("languages",$languages );
 
 // process form
 if( isset( $_REQUEST['fSubmitBitSettings'] ) ) {
-/*	foreach( $formInstallToggles as $item => $data ) {
-		simple_set_toggle( $item );
-	}
-*/
 	foreach( $formInstallValues as $item ) {
 		simple_set_value( $item );
 	}
+
 	$gBitLanguage->setLanguage( $_REQUEST['bitlanguage'] );
 	$smarty->assign( "siteLanguage",$languages[$_REQUEST['bitlanguage']] );
 	// advance a step in the installer

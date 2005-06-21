@@ -1,6 +1,6 @@
 <?php
 
-// $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.2 2005/06/19 08:09:01 lsces Exp $
+// $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3 2005/06/21 17:02:21 spiderr Exp $
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -118,6 +118,10 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 			// and let's turn on phpBB so people can find it easily.
 			if( defined( 'PHPBB_PKG_NAME' ) ) {
 				$gBitInstaller->storePreference( 'package_phpbb', 'y' );
+			}
+			// and let's turn OFF tinymce cause it is annoying if you want to use the wiki
+			if( defined( 'TINYMCE_PKG_NAME' ) ) {
+				$gBitInstaller->storePreference( 'package_tinymce', 'n' );
 			}
 			// 4. run the defaults through afterwards so we can be sure all tables needed have been created
 			foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
