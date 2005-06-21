@@ -1,6 +1,6 @@
 <?php
 
-// $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.1 2005/06/19 04:51:19 bitweaver Exp $
+// $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.2 2005/06/21 12:27:19 lsces Exp $
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -122,6 +122,7 @@ function check_settings() {
 		array( 'File Uploads','file_uploads','shouldbe' => 'ON' ),
 		array( 'Magic Quotes GPC','magic_quotes_gpc','shouldbe' => 'ON' ),
 		array( 'Magic Quotes Runtime','magic_quotes_runtime','shouldbe' => 'OFF' ),
+		array( 'Magic Quotes Sybase','magic_quotes_sybase','shouldbe' => 'OFF' ),
 		array( 'Register Globals','register_globals','shouldbe' => 'OFF' ),
 		array( 'Output Buffering','output_buffering','shouldbe' => 'OFF' ),
 		array( 'Session auto start','session.auto_start','shouldbe' => 'OFF' ),
