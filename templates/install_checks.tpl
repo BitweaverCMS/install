@@ -3,6 +3,8 @@
 {form legend="Server Settings"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
+	<h3>Required Settings</h3>
+
 	<div class="row">
 		<p>
 			The settings below are required by bitweaver to run. If any of these settings are not met, you will have to change these before you can continue with the installation process.
@@ -40,6 +42,8 @@
 			{/if}
 		</ul>
 	</div>
+
+	<h3>Recommended Extensions</h3>
 
 	<div class="row">
 		<p>
@@ -82,6 +86,8 @@
 		</ul>
 	</div>
 
+	<h3>Recommended Settings</h3>
+
 	<div class="row">
 		<p>
 			The following are settings that aren't strictly required by bitweaver to run, but are recommendations.<br />
@@ -109,6 +115,7 @@
 								{biticon ipackage=liberty iname=success iexplain=success}
 							{else}
 								{biticon ipackage=liberty iname=warning iexplain=warning}
+								{assign var=rec_warning value=true}
 							{/if}
 						</td>
 					</tr>
@@ -116,6 +123,24 @@
 			</table>
 		{/forminput}
 	</div>
+
+	<div class="row">
+		<ul class="result">
+			{if $rec_warning}
+				<li class="warning">
+					{biticon ipackage=liberty iname=warning iexplain=warning}
+					Not all the recommended setting have been met. However,  your site might still work without problems. Please keep these settings in mind when you run into problems.
+				</li>
+			{else}
+				<li class="success">
+					{biticon ipackage=liberty iname=success iexplain=success}
+					All recommended settings have been met.
+				</li>
+			{/if}
+		</ul>
+	</div>
+
+	<h3>Settings worth knowing about</h3>
 
 	<div class="row">
 		<p>
