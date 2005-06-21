@@ -69,7 +69,7 @@
 
 	<div class="body">
 		<div class="bittop">
-			<h1>bitweaver <strong>{$bitMajorVersion}{$bitMinorVersion} -{$bitBranch}-</strong></h1>
+			<h1>bitweaver <strong>{$bitMajorVersion}.{$bitMinorVersion}.{$bitSubVersion} {$bitLevel}</strong></h1>
 		</div>
 
 		{include file=$install_file}
