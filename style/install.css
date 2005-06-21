@@ -22,8 +22,8 @@ a.external		{background:transparent url('../../themes/icons/external_link.png') 
 a:hover			{text-decoration:underline;}
 .icon			{border:0;vertical-align:middle;}
 			/*styling */
-.bittop		{background:#fff url('images/bitweaver.gif') top left no-repeat;}
-.bittop h1		{font-size:10px;color:#d0d0d0;text-align:right;padding:100px 10px 0 0;margin:0;}
+.bittop		{background:#dedede url('images/logo_text.png') center center no-repeat;}
+.bittop h1		{font-size:10px;color:#d0d0d0;text-align:right;padding:90px 10px 0 0;margin:0;}
 .header			{}
 .clear			{clear:both;}
 			/*forms */
@@ -55,7 +55,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {background:#fc0;color:#0
 .nav ul,.nav li,ul.result,.result li{padding:0;margin:0;}
 ul				{padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;}
 .nav li,.result li{list-style:none;border-bottom:1px dotted #bbb;padding:7px;}
-.nav .title		{letter-spacing:1px;color:#900;text-align:center;padding:110px 0 10px 0;background:#fff url('images/logo.gif') top center no-repeat;}
+.nav .title		{letter-spacing:1px;color:#900;text-align:center;padding:80px 0 10px 0;background:#dedede url('images/logo_symbol.png') top center no-repeat;}
 .progressbar	{background:#fff;font-size:10px;color:#999;padding:15px 5px;}
 .progressbar small{color:#bbb;}
 .result li li {border:0;padding:1px;list-style:circle;}
