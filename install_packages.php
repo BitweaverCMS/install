@@ -1,6 +1,6 @@
 <?php
 
-// $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3 2005/06/21 17:02:21 spiderr Exp $
+// $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.1 2005/06/25 17:46:12 squareing Exp $
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -18,7 +18,14 @@ ini_set("max_execution_time", "86400");
 $smarty->assign( 'next_step',$step );
 
 // pass all package data to template
-$smarty->assign_by_ref( 'schema', $gBitInstaller->mPackages );
+$schema = $gBitInstaller->mPackages;
+ksort( $schema );
+$smarty->assign_by_ref( 'schema', $schema );
+
+// confirm that we have all the admin data in the session before proceeding
+if( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) {
+	$smarty->assign( 'error', $error = TRUE );
+}
 
 if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 	if( $gBitDbType == 'sybase' ) {
@@ -47,10 +54,12 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 			// value into other packages tables - typically users_permissions, bit_preferences, etc...
 			sort( $_REQUEST['PACKAGE'] );
 			// 1. let's generate all the tables's
-			if ( $_SESSION['first_install'] )
+			if ( $_SESSION['first_install'] ) {
 				$build = array( 'NEW' );
-			else
+			} else {
 				$build = array( 'REPLACE' );
+			}
+
 			foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 				if( in_array( $package, $_REQUEST['PACKAGE'] ) || ( empty( $gBitInstaller->mPackages[$package]['installed'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) ) {
 					// Install tables
@@ -70,13 +79,14 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 //vd( $sql );
 							if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 							} else {
-								print '<dd><font color="red">Failed to create '.$completeTableName.'</font>';
+								print '<span class="error">Failed to create '.$completeTableName.'</span>';
 								array_push( $failedcommands, $sql );
 							}
 						}
 					}
 				}
 			}
+
 			// 2. let's generate all the indexes, and sequences
 			foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 				$schemaQuote = strrpos( BIT_DB_PREFIX, '`' );
@@ -90,7 +100,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 							$sql = $dict->CreateIndexSQL( $tableIdx, $completeTableName, $gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['cols'], $gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['opts'] );
 							if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 							} else {
-								print '<dd><font color="red">Failed to create '.$completeTableName.'</font>';
+								print '<span class="error">Failed to create '.$completeTableName.'</span>';
 								array_push( $failedcommands, $sql );
 							}
 						}
@@ -102,9 +112,11 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 					}
 				}
 			}
+
 			// Force a reload of all our preferences
 			$gBitInstaller->mPrefs = '';
 			$gBitInstaller->loadPreferences();
+
 			// 3. activate all selected & required packages
 			foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 				if( in_array( $package, $_REQUEST['PACKAGE'] ) || !empty( $gBitInstaller->mPackages[$package]['required'] ) ) {
@@ -115,14 +127,17 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 					}
 				}
 			}
+
 			// and let's turn on phpBB so people can find it easily.
 			if( defined( 'PHPBB_PKG_NAME' ) ) {
 				$gBitInstaller->storePreference( 'package_phpbb', 'y' );
 			}
+
 			// and let's turn OFF tinymce cause it is annoying if you want to use the wiki
 			if( defined( 'TINYMCE_PKG_NAME' ) ) {
 				$gBitInstaller->storePreference( 'package_tinymce', 'n' );
 			}
+
 			// 4. run the defaults through afterwards so we can be sure all tables needed have been created
 			foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 				if( in_array( $package, $_REQUEST['PACKAGE'] ) || ( empty( $gBitInstaller->mPackages[$package]['installed'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) ) {
@@ -136,6 +151,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 					}
 				}
 			}
+
 			// only install modules during the first install
 			if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 				// Some packages have some special things to take care of here.
@@ -195,8 +211,9 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 				$categlib->add_category( NULL, 'TOP', NULL, 0 );
 			}
 		}
-		$smarty->assign( 'next_step',$step + 1 );
-		$smarty->assign( 'package_list',$package_list );
+		$smarty->assign( 'next_step', $step + 1 );
+		$smarty->assign( 'package_list', $package_list );
+		$smarty->assign( 'failedcommands', !empty( $failedcommands ) ? $failedcommands : NULL );
 		// display the confirmation page
 		$app = '_done';
 	} else {
