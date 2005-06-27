@@ -1,12 +1,13 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/process_sql.php,v 1.1.1.1.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/process_sql.php,v 1.1.1.1.2.2 2005/06/27 17:48:09 lsces Exp $
  * @package install
  * @subpackage functions
  */
 
 /**
- * Global flag to indicate we are installin
+ * Global flag to indicate we are installing
+ * @ignore 
  */
 define( 'BIT_INSTALL', 'TRUE' );
 	global $failedcommands;
