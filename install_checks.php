@@ -1,6 +1,9 @@
 <?php
-
-// $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.2 2005/06/21 12:27:19 lsces Exp $
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.2.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @package install
+ * @subpackage functions
+ */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -24,6 +27,9 @@ if( !isset( $_SERVER['HTTP_REFERER'] ) ) {
 	$error = TRUE;
 }
 
+/**
+ * check_settings
+ */
 function check_settings() {
 	global $smarty,$error,$warning;
 	$config_file = clean_file_path( empty($_SERVER['CONFIG_INC']) ? (KERNEL_PKG_PATH.'config_inc.php') : $_SERVER['CONFIG_INC'] );
@@ -154,6 +160,9 @@ function check_settings() {
 	return $res;
 }
 
+/**
+ * get_php_setting
+ */
 function get_php_setting( $val ) {
 	$r = ( ini_get( $val ) == '1' ? 1 : 0 );
 	return $r ? 'ON' : 'OFF';

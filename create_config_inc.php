@@ -1,5 +1,13 @@
 <?php
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.3.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @package install
+ * @subpackage functions
+ */
 
+/**
+ * create_config
+ */
 function create_config($gBitDbType,$gBitDbHost,$gBitDbUser,$gBitDbPassword,$gBitDbName,$bit_db_prefix="",$root_url_bit,$auto_bug_submit='FALSE') {
 	$config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
 	// We can't call clean_file_path here even though we would like to.

@@ -1,4 +1,13 @@
 <?php
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_database.php,v 1.1.1.1.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @package install
+ * @subpackage upgrade
+ */
+
+/**
+ * required setup
+ */
 $app = '';
 include_once( INSTALL_PKG_PATH.'install_database.php' );
 // update the MySQL settings in the db server array

@@ -1,12 +1,17 @@
 <?php
-
-// $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.1 2005/06/25 17:17:13 squareing Exp $
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.2 2005/06/27 12:49:50 lsces Exp $
+ * @package install
+ * @subpackage functions
+ */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-// Global flag to indicate we are installing
+/**
+ * Global flag to indicate we are installing
+ */
 define( 'BIT_INSTALL', 'TRUE' );
 global $smarty;
 

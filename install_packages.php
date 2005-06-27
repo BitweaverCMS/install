@@ -1,6 +1,9 @@
 <?php
-
-// $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.1 2005/06/25 17:46:12 squareing Exp $
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.2 2005/06/27 12:49:50 lsces Exp $
+ * @package install
+ * @subpackage functions
+ */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -154,7 +157,9 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 
 			// only install modules during the first install
 			if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
-				// Some packages have some special things to take care of here.
+				/**
+				 * Some packages have some special things to take care of here.
+				 */
 				require_once( KERNEL_PKG_PATH.'mod_lib.php' );
 				foreach( $gBitInstaller->mInstallModules as $mod ) {
 					$mod['user_id'] = ROOT_USER_ID;
@@ -204,7 +209,10 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 				unset( $_SESSION['password'] );
 				unset( $_SESSION['email'] );
 			}
-
+			
+			/** 
+			 * setup categories
+			 */
 			if( in_array( 'categories', $_REQUEST['PACKAGE'] ) ) {
 				// Installing categories has some special things to take care of here and needs a separate check.
 				require_once( CATEGORIES_PKG_PATH.'categ_lib.php' );
