@@ -1,4 +1,9 @@
 <?php
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_firebird_database.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @package install
+ * @subpackage functions
+ */
 
 /**
   V4.22 15 Apr 2004  (c) 2000-2004 John Lim (jlim@natsoft.com.my). All rights reserved.
@@ -13,11 +18,9 @@
   Still need to be extended to allow selection of OS tmp directory, 
   and path to Firebird bin directory 
 */
-
-// This needs tidying up and linking properly at some point
 	function FirebirdCreateDB($host, $user, $pass, $dbalias, $fbpath)
 	{
-    	$sql = 'CREATE DATABASE "'.$host.':'.$dbalias.'"';
+		$sql = 'CREATE DATABASE "'.$host.':'.$dbalias.'"';
     	if (strlen($user) > 0)
         	$sql .= ' USER "'.$user.'"';
         if (strlen($pass) > 0)

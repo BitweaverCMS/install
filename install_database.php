@@ -1,5 +1,9 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.3 2005/06/21 10:21:26 wolff_borg Exp $
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.4 2005/06/28 07:45:45 spiderr Exp $
+ * @package install
+ * @subpackage functions
+ */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.

@@ -1,6 +1,9 @@
 <?php
-
-// $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1 2005/06/19 04:51:18 bitweaver Exp $
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @package install
+ * @subpackage functions
+ */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -10,6 +13,9 @@
 if( isset( $_REQUEST['step'] ) && $_REQUEST['step'] == '3' ) {
 	ini_set( 'display_errors', '0' );
 }
+/**
+ * required setup
+ */
 require_once( 'install_inc.php' );
 
 // this variable will be appended to the template file called - useful for displaying messages after data input

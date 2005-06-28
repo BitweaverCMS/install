@@ -1,5 +1,13 @@
 <?php
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.4 2005/06/28 07:45:45 spiderr Exp $
+ * @package install
+ */
 
+/**
+ * @package install
+ * @subpackage BitInstaller
+ */
 class BitInstaller extends BitSystem {
 
 	function BitInstaller() {

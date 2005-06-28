@@ -37,6 +37,7 @@ cd "/tmp/$fname/"
 cvs -qz5 -d :ext:$SFUSER@cvs.sf.net:/cvsroot/bitweaver/ export -d $BUILDDIR $BRANCH $MODULE
 cd "/tmp/$fname/"
 mkdir "$BUILDDIR/storage"
+mv "$BUILDDIR/favicon.ico.sample" "$BUILDDIR/favicon.ico"
 if [ -d "$BUILDDIR/phpbb" ] ; then
 	touch "$BUILDDIR/phpbb/config.php"
 fi

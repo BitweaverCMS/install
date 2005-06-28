@@ -1,6 +1,9 @@
 <?php
-
-// $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.1 2005/06/19 04:51:18 bitweaver Exp $
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @package install
+ * @subpackage upgrade
+ */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -12,6 +15,9 @@ $config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SE
 // set the maximum execution time to very high
 ini_set( "max_execution_time", "86400" );
 
+/**
+ * required setup
+ */
 include_once( $config_file ); // relative, but we know we are in the installer here...
 $gBitInstaller->scanPackages( 'admin/upgrade_inc.php' );
 

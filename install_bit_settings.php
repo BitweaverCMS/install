@@ -1,5 +1,9 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.3 2005/06/21 19:23:17 squareing Exp $
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.4 2005/06/28 07:45:45 spiderr Exp $
+ * @package install
+ * @subpackage functions
+ */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -8,10 +12,16 @@
 // assign next step in installation process
 $smarty->assign( 'next_step',$step );
 
+/**
+ * simple_set_toggle
+ */
 function simple_set_toggle($feature, $pPackageName=NULL) {
 	toggle_preference( $feature, (isset($_REQUEST[$feature][0]) ? $_REQUEST[$feature][0] : NULL), $pPackageName );
 }
 
+/**
+ * toggle_preference
+ */
 function toggle_preference( $pName, $pValue, $pPackageName=NULL ) {
 	global $_REQUEST, $gBitSystem, $smarty;
 
@@ -25,6 +35,9 @@ function toggle_preference( $pName, $pValue, $pPackageName=NULL ) {
 	$gBitSystem->storePreference( $pName, $prefValue, $pPackageName );
 }
 
+/**
+ * simple_set_value
+ */
 function simple_set_value($feature) {
 	global $_REQUEST, $gBitSystem, $smarty;
 	if (isset($_REQUEST[$feature])) {

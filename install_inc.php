@@ -1,12 +1,17 @@
 <?php
-
-// $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2 2005/06/19 08:09:01 lsces Exp $
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.3 2005/06/28 07:45:45 spiderr Exp $
+ * @package install
+ * @subpackage functions
+ */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-// Global flag to indicate we are installing
+/**
+ * Global flag to indicate we are installing
+ */
 define( 'BIT_INSTALL', 'TRUE' );
 global $smarty;
 
@@ -42,7 +47,7 @@ $gBitInstaller = new BitInstaller();
 $gBitInstaller->setStyle( DEFAULT_THEME );
 $gBitInstaller->scanPackages();
 
-// we need this massive array available during install to work out if tp has already been installed
+// we need this massive array available during install to work out if bitweaver has already been installed
 $gBitInstaller->verifyInstalledPackages();
 
 // After install. This should remove this script.

@@ -1,5 +1,14 @@
 <?php
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_blogs_inc.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @package install
+ * @subpackage pumps
+ */
+
 // keep in mind that most recent blog posts are show at the top of the blog
+/**
+ * required setup
+ */
 include_once( BLOGS_PKG_PATH.'BitBlog.php' );
 
 $bid = $gBlog->replace_blog('bitweaver Blog','Sample Blog added during the installation process',ROOT_USER_ID,'y',10,0,NULL, 'y', 'y','n');

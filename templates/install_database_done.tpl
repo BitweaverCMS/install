@@ -70,7 +70,7 @@
 
 	<div class="row">
 		<p>
-			This information was stored in the file '<strong>{$gBitLoc.INSTALL_PKG_PATH}kernel/config_inc.php</strong>'. if you should have to modify the settings at some point, you can use this installer, or modify that file directly.
+			This information was stored in the file '<strong>{$gBitLoc.KERNEL_PKG_PATH}config_inc.php</strong>'. if you should have to modify the settings at some point, you can use this installer, or modify that file directly.
 		</p>
 		<p>
 			If you are interested in debugging bitweaver, please view this file, as there are some additional debugging options that can't be set elsewhere.
