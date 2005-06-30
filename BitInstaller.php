@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.2 2005/06/30 00:21:54 spiderr Exp $
  * @package install
  */
 
@@ -41,6 +41,10 @@ class BitInstaller extends BitSystem {
 		global $smarty;
 		$smarty->verifyCompileDir();
 		$smarty->display( $pTemplate );
+	}
+
+	function isInstalled() {
+		return ( !empty( $this->mPackages['kernel']['installed'] ) );
 	}
 
 	function getWebServerUid() {

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.2 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.3 2005/06/30 00:22:01 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -26,7 +26,7 @@ ksort( $schema );
 $smarty->assign_by_ref( 'schema', $schema );
 
 // confirm that we have all the admin data in the session before proceeding
-if( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) {
+if( !$gBitInstaller && (empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] )) ) {
 	$smarty->assign( 'error', $error = TRUE );
 }
 
