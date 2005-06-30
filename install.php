@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.2 2005/06/30 00:24:35 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -69,9 +69,6 @@ if( $onlyDuringFirstInstall ) {
 		$install_file[$i]['file'] = 'data';
 		$install_file[$i++]['name'] = 'Database Population';
 	}
-} else {
-	$install_file[$i]['file'] = 'beta1_beta2';
-	$install_file[$i++]['name'] = 'Beta 1 --&gt; Beta 2';
 }
 $install_file[$i]['file'] = 'final';
 $install_file[$i]['name'] = 'Installation Complete';
