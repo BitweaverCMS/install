@@ -17,7 +17,7 @@
 			{else}
 				<li class="success">
 					{biticon ipackage=liberty iname=success iexplain=success}
-					Administrator configured succesfully
+					Administrator configured successfully
 				</li>
 			{/if}
 		</ul>
