@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.2 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.3 2005/07/05 15:27:06 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -36,17 +36,21 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 	}
 }
 
-include("../bit_setup_inc.php");
+require_once("../bit_setup_inc.php");
 require_once( 'BitInstaller.php' );
 
 require_once( USERS_PKG_PATH.'BitUser.php' );
 
 // set some preferences during installation
-global $gBitInstaller;
+global $gBitInstaller, $gBitSystem;
 $gBitInstaller = new BitInstaller();
 $gBitInstaller->setStyle( DEFAULT_THEME );
-$gBitInstaller->scanPackages();
-
+// this is important! since bit_setup_inc's are only included_once, and $gBitSystem has already scanned them, we need to make a copy - spiderr
+if( !empty( $gBitSystem->mPackages ) ) {
+	$gBitInstaller->mPackages = $gBitSystem->mPackages;
+} else {
+	$gBitInstaller->scanPackages();
+}
 // we need this massive array available during install to work out if bitweaver has already been installed
 $gBitInstaller->verifyInstalledPackages();
 
@@ -82,8 +86,6 @@ if( !isset($_SESSION) ) {
 	session_start();
 }
 
-//vd($_SESSION);
-
 // if we came from anywhere appart from some installer page, nuke all settings in the _SESSION and set first_install FALSE
 if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE ) ||
 	( isset( $_SESSION['upgrade'] ) && $_SESSION['upgrade'] != TRUE ) ||
@@ -99,5 +101,4 @@ if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE
 }
 // this is needed because some pages display some additional information during a first install
 $smarty->assign( 'first_install',$_SESSION['first_install'] );
-//vd($_SESSION);
 ?>

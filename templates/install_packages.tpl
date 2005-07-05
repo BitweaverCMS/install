@@ -34,10 +34,10 @@
 							{if !$item.installed and !$item.required}
 								<div class="row">
 									<div class="formlabel">
-										<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$item.name`}</label>
+										<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 									</div>
 									{forminput}
-										<label><input type="checkbox" name="PACKAGE[]" value="{$package}" id="{$package}" checked="checked" /> {$item.name|capitalize}</label>
+										<label><input type="checkbox" name="PACKAGE[]" value="{$package}" id="{$package}" checked="checked" /> {$package|capitalize}</label>
 										{formhelp note=`$item.info`}
 										{formhelp note="<strong>Location</strong>: `$item.url`"}
 										{formhelp package=$package}
@@ -60,10 +60,10 @@
 								{if $item.installed and !$item.required}
 									<div class="row">
 										<div class="formlabel">
-											<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$item.name`}</label>
+											<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 										</div>
 										{forminput}
-											<label><input type="checkbox" name="PACKAGE[]" value="{$package}" id="{$package}" /> {$item.name|capitalize}</label>
+											<label><input type="checkbox" name="PACKAGE[]" value="{$package}" id="{$package}" /> {$package|capitalize}</label>
 											{formhelp note=`$item.info`}
 											{formhelp note="<strong>Location</strong>: `$item.url`"}
 											{formhelp package=$package}
@@ -94,13 +94,13 @@
 							{if $item.required}
 								<div class="row">
 									<div class="formlabel">
-										{biticon ipackage=$package iname="pkg_$package" iexplain=`$item.name`}
+										{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}
 									</div>
 									{forminput}
 										{if !$item.installed}
 											<input type="hidden" name="PACKAGE[]" value="{$package}" />
 										{/if}
-										{$item.name|capitalize}
+										{$package|capitalize}
 										{formhelp note=`$item.info`}
 										{formhelp note="<strong>Location</strong>: `$item.url`"}
 										{formhelp package=$package}
