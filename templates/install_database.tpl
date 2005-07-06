@@ -34,6 +34,7 @@
 				{formfeedback warning='You currently have no Database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">bitweaver Team</a>.'}
 			{/if}
 			{formhelp note="The type of database you intend to use."}
+			{formfeedback warning="If the database you wish to use is not listed above, the version of PHP on this server does not have support for that database installed or compiled in."}
 		{/forminput}
 	</div>
 
@@ -74,7 +75,7 @@
 					create a Firebird alias for the bitweaver database in aliases.conf and then use that
 					aliase as the database name, or provide a full path and file name to create
 					the database in an existing directory."}
-			{else}	
+			{else}
 				{formhelp note="The name of the database where bitweaver will create tables. You can
 					create the database using mysqladmin, or PHPMyAdmin or ask your
 					hosting service to create a MySQL database.
@@ -88,9 +89,9 @@
 		{forminput}
 			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit}" />
 			{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple
-				independent install to share a single database. All bitweaver tables begin with 'bit_' or 'users_', 
-				so you rarely need to enter a prefix. If you are NOT running MySQL (i.e. Postgres, Oracle, etc.) 
-				you can end the prefix string with a '.' (period) to use a schema in systems that support it. 
+				independent install to share a single database. All bitweaver tables begin with 'bit_' or 'users_',
+				so you rarely need to enter a prefix. If you are NOT running MySQL (i.e. Postgres, Oracle, etc.)
+				you can end the prefix string with a '.' (period) to use a schema in systems that support it.
 				<strong>MySQL does NOT support schemas.</strong>"}
 		{/forminput}
 	</div>
