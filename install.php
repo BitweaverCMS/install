@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.2 2005/06/30 00:24:35 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.3 2005/07/08 08:08:13 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -100,10 +100,10 @@ for( $done = 0; $done < $step; $done++ ) {
 if( $app == "_done" ) {
 	$install_file[$step]['state'] = 'success';
 	$done++;
-} elseif( $failedcommands || isset( $warning ) ) {
-	$install_file[$step]['state'] = 'warning';
 } elseif( isset( $error ) ) {
 	$install_file[$step]['state'] = 'error';
+} elseif( $failedcommands || isset( $warning ) ) {
+	$install_file[$step]['state'] = 'warning';
 } else {
 	$install_file[$step]['state'] = 'current';
 }
