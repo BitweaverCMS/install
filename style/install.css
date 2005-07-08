@@ -50,6 +50,10 @@ li.error,li.warning,li.success {list-style:none;padding:4px;margin:0;}
 .submit			{text-align:center;margin:10px 0 0 0;}
 input[type="submit"] {border:1px solid black;background:#2c4268;color:#fff;padding:5px 10px;}
 input[type="submit"]:hover, input[type="submit"]:focus {background:#fc0;color:#000;}
+
+dl	{padding:0; margin:0.5em 0; line-height:1.3em;}
+dt	{padding:0; margin:0; width:30%; text-align:right; font-weight:bold;}
+dd	{padding:0; margin:-1.3em 0 0.5em 32%;}
 			/*navigation and status */
 .nav			{background:#fff;font-size:10px;border:1px solid #2c4268;}
 .nav ul,.nav li,ul.result,.result li{padding:0;margin:0;}
