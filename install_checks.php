@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.2.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.2.2.2 2005/07/08 08:19:22 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -119,6 +119,7 @@ function check_settings() {
 		$recommended[$i]['passed'] = TRUE;
 	} else {
 		$recommended[$i]['passed'] = FALSE;
+		$smarty->assign( 'memory_warning', TRUE );
 	}
 	$i++;
 	// now continue with easy toggle checks

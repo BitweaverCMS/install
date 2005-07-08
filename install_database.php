@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.3.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.3.2.2 2005/07/08 08:19:22 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -92,20 +92,8 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 			$_SESSION['first_install'] = FALSE;
 		}
 	} else {
-		$smarty->assign( 'error', 'Database connection could not be established.
-			<ul>
-				<li>Perhaps your database is not available</li>
-				<li>or the server cannot connect to it</li>
-				<li>or you have made a typo</li>
-				<li>Please double check the following settings:
-					<ul>
-						<li><strong>database name</strong></li>
-						<li><strong>database username</strong></li>
-						<li><strong>database password</strong></li>
-					</ul>
-				</li>
-			</ul>' );
-		$error = 1;
+		$smarty->assign( 'error', TRUE );
+		$error = TRUE;
 	}
 }
 ?>

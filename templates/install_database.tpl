@@ -15,7 +15,19 @@
 				{elseif $error}
 					<li class="error">
 						{biticon ipackage=liberty iname=error iexplain=error}
-						{$error}
+						Database connection could not be established.
+						<ul>
+							<li>Perhaps your database is not available</li>
+							<li>or the server cannot connect to it</li>
+							<li>or you have made a typo</li>
+							<li>Please double check the following settings:
+								<ul>
+									<li><strong>database name</strong></li>
+									<li><strong>database username</strong></li>
+									<li><strong>database password</strong></li>
+								</ul>
+							</li>
+						</ul>
 					</li>
 				{/if}
 			</ul>
