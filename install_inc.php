@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.3 2005/07/05 15:27:06 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.4 2005/07/12 11:37:32 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -16,7 +16,7 @@ define( 'BIT_INSTALL', 'TRUE' );
 global $smarty;
 
 // use relative path if no CONFIG_INC path specified - we know we are in installer here...
-$config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC']; 
+$config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
 // We can't call clean_file_path here even though we would like to.
 $config_file = (strpos($_SERVER["SERVER_SOFTWARE"],"IIS") ? str_replace( "/", "\\", $config_file) : $config_file);
 
@@ -77,8 +77,6 @@ if( empty( $_REQUEST['baseurl'] ) ) {
 }
 
 $errors = '';
-$path = $_SERVER['SCRIPT_FILENAME'];
-$docroot = dirname($path);
 
 // do some session stuff
 check_session_save_path();
