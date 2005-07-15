@@ -112,7 +112,7 @@
 	<div class="row">
 		{formlabel label="Firebird Installation Path" for="fbpath"}
 		{forminput}
-			<input type="text" size="64" name="fbpath" id="fbpath" value="{$fbpath}" />
+			<input type="text" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
 			{formhelp note="If you have modified your Firebird installation from the default please enter the correct
 				path to the base firebird directory. This is used to find isql in order to create the initial blank
 				database and should be maintained in the correct format for your OS."}
