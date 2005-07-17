@@ -75,7 +75,7 @@
 			{if $warning}
 				<li class="warning">
 					{biticon ipackage=liberty iname=warning iexplain=warning}
-					Before you continue, we suggest that you try and install the mentioned extensions. This will avoid any unnecessary grievances later on.
+					Before you continue, we suggest that you try and install the mentioned extensions. If you can not do so, please bear in mind that these extensions can be installed at any time and might enhance your bitweaver experience.
 				</li>
 			{else}
 				<li class="success">
@@ -126,6 +126,12 @@
 
 	<div class="row">
 		<ul class="result">
+			{if $memory_warning}
+				<li class="warning">
+					{biticon ipackage=liberty iname=warning iexplain=warning}
+					Your memory limit settings are rather low. bitweaver requires at least 8MB memory to run, even having a limit of 8MB might cause undesired results. If you end up laoding blank pages, it might be the <strong>memory_limit</strong> setting in your <strong>php.ini</strong> file. if possible, please get your host to increase the limit to <strong>16MB</strong>.
+				</li>
+			{/if}
 			{if $rec_warning}
 				<li class="warning">
 					{biticon ipackage=liberty iname=warning iexplain=warning}

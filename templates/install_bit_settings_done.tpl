@@ -54,12 +54,14 @@
 		{/forminput}
 	</div>
 
-	<div class="row">
-		{formlabel label="Image Processor"}
-		{forminput}
-			{formfeedback note=`$gBitSystemPrefs.image_processor`}
-		{/forminput}
-	</div>
+	{if $gBitSystemPrefs.image_processor}
+		<div class="row">
+			{formlabel label="Image Processor"}
+			{forminput}
+				{formfeedback note=`$gBitSystemPrefs.image_processor`}
+			{/forminput}
+		</div>
+	{/if}
 
 	<div class="row submit">
 		<input type="submit" value="Continue Install Process" />

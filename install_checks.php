@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.3 2005/06/28 07:45:45 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.4 2005/07/17 17:36:04 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -119,6 +119,7 @@ function check_settings() {
 		$recommended[$i]['passed'] = TRUE;
 	} else {
 		$recommended[$i]['passed'] = FALSE;
+		$smarty->assign( 'memory_warning', TRUE );
 	}
 	$i++;
 	// now continue with easy toggle checks
@@ -148,6 +149,7 @@ function check_settings() {
 	$php_ini_gets = array(
 		array( '<strong>Maximum post size</strong> will restrict the size of files when you upload a file using a form.','post_max_size' ),
 		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads.','upload_max_filesize' ),
+		array( '<strong>Maximum execution time</strong> is related to time outs in PHP - affects database upgrades and backups.','max_execution_time' ),
 	);
 	foreach( $php_ini_gets as $php_ini_get ) {
 		$show[] = $php_ini_get[0].'<br />This value is set to <strong>'.ini_get( $php_ini_get[1] ).'</strong>';

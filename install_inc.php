@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.3 2005/06/28 07:45:45 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.4 2005/07/17 17:36:04 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -16,7 +16,7 @@ define( 'BIT_INSTALL', 'TRUE' );
 global $smarty;
 
 // use relative path if no CONFIG_INC path specified - we know we are in installer here...
-$config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC']; 
+$config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
 // We can't call clean_file_path here even though we would like to.
 $config_file = (strpos($_SERVER["SERVER_SOFTWARE"],"IIS") ? str_replace( "/", "\\", $config_file) : $config_file);
 
@@ -36,17 +36,21 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 	}
 }
 
-include("../bit_setup_inc.php");
+require_once("../bit_setup_inc.php");
 require_once( 'BitInstaller.php' );
 
 require_once( USERS_PKG_PATH.'BitUser.php' );
 
 // set some preferences during installation
-global $gBitInstaller;
+global $gBitInstaller, $gBitSystem;
 $gBitInstaller = new BitInstaller();
 $gBitInstaller->setStyle( DEFAULT_THEME );
-$gBitInstaller->scanPackages();
-
+// this is important! since bit_setup_inc's are only included_once, and $gBitSystem has already scanned them, we need to make a copy - spiderr
+if( !empty( $gBitSystem->mPackages ) ) {
+	$gBitInstaller->mPackages = $gBitSystem->mPackages;
+} else {
+	$gBitInstaller->scanPackages();
+}
 // we need this massive array available during install to work out if bitweaver has already been installed
 $gBitInstaller->verifyInstalledPackages();
 
@@ -73,16 +77,12 @@ if( empty( $_REQUEST['baseurl'] ) ) {
 }
 
 $errors = '';
-$path = $_SERVER['SCRIPT_FILENAME'];
-$docroot = dirname($path);
 
 // do some session stuff
 check_session_save_path();
 if( !isset($_SESSION) ) {
 	session_start();
 }
-
-//vd($_SESSION);
 
 // if we came from anywhere appart from some installer page, nuke all settings in the _SESSION and set first_install FALSE
 if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE ) ||
@@ -99,5 +99,4 @@ if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE
 }
 // this is needed because some pages display some additional information during a first install
 $smarty->assign( 'first_install',$_SESSION['first_install'] );
-//vd($_SESSION);
 ?>

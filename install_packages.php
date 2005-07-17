@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.4 2005/06/28 07:45:45 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.5 2005/07/17 17:36:04 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -26,7 +26,7 @@ ksort( $schema );
 $smarty->assign_by_ref( 'schema', $schema );
 
 // confirm that we have all the admin data in the session before proceeding
-if( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) {
+if( !$gBitInstaller && (empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] )) ) {
 	$smarty->assign( 'error', $error = TRUE );
 }
 
@@ -134,11 +134,6 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 			// and let's turn on phpBB so people can find it easily.
 			if( defined( 'PHPBB_PKG_NAME' ) ) {
 				$gBitInstaller->storePreference( 'package_phpbb', 'y' );
-			}
-
-			// and let's turn OFF tinymce cause it is annoying if you want to use the wiki
-			if( defined( 'TINYMCE_PKG_NAME' ) ) {
-				$gBitInstaller->storePreference( 'package_tinymce', 'n' );
 			}
 
 			// 4. run the defaults through afterwards so we can be sure all tables needed have been created
