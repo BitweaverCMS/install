@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.2 2005/06/30 00:21:54 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.3 2005/07/22 10:05:14 wolff_borg Exp $
  * @package install
  */
 
@@ -392,14 +392,14 @@ function check_session_save_path() {
 
         	if (!is_dir($save_path)) {
                 	$errors .= "The directory '$save_path' does not exist or PHP is not allowed to access it (check session.save_path or open_basedir entries in php.ini).\n";
-        	} else if (!is_writeable($save_path)) {
+        	} else if (!bw_is_writeable($save_path)) {
                 	$errors .= "The directory '$save_path' is not writeable.\n";
         	}
 
         	if ($errors) {
                 	$save_path = BitSystem::tempdir();
 
-                	if (is_dir($save_path) && is_writeable($save_path)) {
+                	if (is_dir($save_path) && bw_is_writeable($save_path)) {
                         	ini_set('session.save_path', $save_path);
 
                         	$errors = '';

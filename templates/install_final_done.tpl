@@ -1,6 +1,6 @@
 <h1>Installation Complete</h1>
 
-{form ipackage='root' legend="Installation has been completed sucessfully"}
+{form action="`$gBitLoc.BIT_ROOT_URL`index.php" legend="Installation has been completed sucessfully"}
 	<div class="row">
 		<ul class="result">
 			<li class="success">
