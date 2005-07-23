@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_upgrade.php,v 1.1.1.1.2.2 2005/07/22 10:05:14 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_upgrade.php,v 1.1.1.1.2.3 2005/07/23 07:53:25 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -16,7 +16,7 @@ if( isset( $_REQUEST['upgrade'] ) ) {
 	header( 'Location: '.INSTALL_PKG_URL.'upgrade.php' );
 	die;
 } elseif( isset( $_REQUEST['continue_install'] ) ) {
-	header( 'Location: http://'.$_SERVER['HTTP_HOST']."/".INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );
+	header( 'Location: http://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );
 	die;
 } else {
 	$smarty->assign( 'next_step',$step );
