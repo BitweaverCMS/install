@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.4 2005/07/06 11:59:05 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.5 2005/07/23 02:59:08 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -205,14 +205,6 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 				unset( $_SESSION['email'] );
 			}
 			
-			/** 
-			 * setup categories
-			 */
-			if( in_array( 'categories', $_REQUEST['PACKAGE'] ) ) {
-				// Installing categories has some special things to take care of here and needs a separate check.
-				require_once( CATEGORIES_PKG_PATH.'categ_lib.php' );
-				$categlib->add_category( NULL, 'TOP', NULL, 0 );
-			}
 		}
 		$smarty->assign( 'next_step', $step + 1 );
 		$smarty->assign( 'package_list', $package_list );
