@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.5 2005/07/17 17:36:04 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.6 2005/07/25 20:02:06 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -26,7 +26,7 @@ ksort( $schema );
 $smarty->assign_by_ref( 'schema', $schema );
 
 // confirm that we have all the admin data in the session before proceeding
-if( !$gBitInstaller && (empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] )) ) {
+if( !$gBitInstaller && ( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) ) {
 	$smarty->assign( 'error', $error = TRUE );
 }
 
@@ -205,14 +205,6 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 				unset( $_SESSION['email'] );
 			}
 			
-			/** 
-			 * setup categories
-			 */
-			if( in_array( 'categories', $_REQUEST['PACKAGE'] ) ) {
-				// Installing categories has some special things to take care of here and needs a separate check.
-				require_once( CATEGORIES_PKG_PATH.'categ_lib.php' );
-				$categlib->add_category( NULL, 'TOP', NULL, 0 );
-			}
 		}
 		$smarty->assign( 'next_step', $step + 1 );
 		$smarty->assign( 'package_list', $package_list );

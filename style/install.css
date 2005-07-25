@@ -60,8 +60,7 @@ dd	{padding:0; margin:-1.3em 0 0.5em 32%;}
 ul				{padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;}
 .nav li,.result li{list-style:none;border-bottom:1px dotted #bbb;padding:7px;}
 .nav .title		{letter-spacing:1px;color:#900;text-align:center;padding:110px 0 10px 0;background:#fff url('images/ometer.gif') top center no-repeat;}
-.progressbar	{background:#fff;font-size:10px;color:#999;padding:15px 5px;}
-.progressbar small{color:#bbb;}
+.progressbar	{background:#fff;font-size:10px;color:#666;padding:15px 5px;}
 .result li li {border:0;padding:1px;list-style:circle;}
 			/*tabs */
 .tabsystem .tabcontainer ul,.tabsystem .tabcontainer li

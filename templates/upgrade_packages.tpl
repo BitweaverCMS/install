@@ -16,7 +16,7 @@
 		{forminput}
 			<select name="upgrade_from">
 				<option value="TikiWiki 1.8">TikiWiki 1.8</option>
-				<option value="BONNIE">bitweaver 2.0 -BONNIE-</option>
+				<option value="BONNIE">bitweaver ReleaseZero -BONNIE-</option>
 				{formhelp note="The type of application you intend to upgrade"}
 			</select>
 		{/forminput}

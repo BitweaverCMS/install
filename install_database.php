@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.5 2005/07/17 17:36:04 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.6 2005/07/25 20:02:06 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -35,7 +35,7 @@ if( function_exists( 'sybase_connect' ) ) {
 	$dbtodsn['sybase'] = 'Sybase';
 }
 if( function_exists( 'mssql_connect' ) ) {
-	$dbtodsn['mssql'] = 'MS-SQL (experimental)';
+	$dbtodsn['mssql'] = 'MS-SQL 8.0+';
 }
 if( function_exists( 'ibase_connect' ) ) {
 	$dbtodsn['firebird'] = 'Firebird 1.5+';

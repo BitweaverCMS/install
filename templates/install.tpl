@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+{strip}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,8 +18,6 @@
 	--></script>
 	<script type="text/javascript" src="{$gBitLoc.THEMES_PKG_URL}js/tabs/tabpane.js"></script>
 </head>
-
-{strip}
 
 <body>
 
@@ -56,14 +55,20 @@
 			<li>
 				{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
 			</li>
+			<li class="warning">
+				{biticon ipackage=liberty iname=warning iexplain=warning iforce=icon}&nbsp;
+				Please don't use the browser back button.
+			</li>
+			<li>
+				{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
+			</li>
 		</ul>
 
 		<div class="progressbar">
 			{$section|default:"Install"} Progress
-			<div style="border:1px solid #ddd;background:#eee;margin:2px 0;">
-				<div style="height:20px;width:{$progress}%;background:#f30;"></div>
+			<div style="border:1px solid #ccc;background:#eee;margin:2px 0;">
+				<div style="width:{$progress}%;background:#f30;text-align:center;padding:5px 0;color:#fff;">{$progress}%</div>
 			</div>
-			<small>{$progress}% done</small>
 		</div>
 	</div> <!-- end .nav -->
 
@@ -80,5 +85,4 @@
 
 </body>
 </html>
-
 {/strip}

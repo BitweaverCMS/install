@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.4 2005/07/17 17:36:04 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.5 2005/07/25 20:02:06 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -8,7 +8,6 @@
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-
 
 // assign next step in installation process
 $smarty->assign( 'next_step',$step + 1 );
@@ -48,14 +47,14 @@ function check_settings() {
 	}
 	// check file and directory permissisions
 	$i++;
-	if( @file_exists( $config_file ) && @is_writable( $config_file ) ) {
-		$required[$i]['note'] = 'The configuration file \'<strong>config_inc.php</strong>\' is available and the file is writeable.';
+	if( @file_exists( $config_file ) && @bw_is_writeable( $config_file ) ) {
+		$required[$i]['note'] = 'The configuration file \'<strong>'.$config_file.'</strong>\' is available and the file is writeable.';
 		$required[$i]['passed'] = TRUE;
-	} elseif( @file_exists( $config_file ) && !@is_writable( $config_file ) ) {
-		$required[$i]['note'] = 'The configuration file \'<strong>config_inc.php</strong>\' is available but the file is not writeable. Please execute something like:<br />chmod 777 '.$config_file;
+	} elseif( @file_exists( $config_file ) && !@bw_is_writeable( $config_file ) ) {
+		$required[$i]['note'] = 'The configuration file \'<strong>'.$config_file.'</strong>\' is available but the file is not writeable. Please execute something like:<br />chmod 777 '.$config_file;
 		$required[$i]['passed'] = FALSE;
 	} else {
-		$required[$i]['note'] = 'The configuration file \'<strong>config_inc.php</strong>\' is not available. Please execute something like:<br />touch '.KERNEL_PKG_PATH.'config_inc.php; chmod 777 '.$config_file;
+		$required[$i]['note'] = 'The configuration file \'<strong>'.$config_file.'</strong>\' is not available. Please execute something like:<br />touch '.KERNEL_PKG_PATH.'config_inc.php; chmod 777 '.$config_file;
 		$required[$i]['passed'] = FALSE;
 	}
 	$i++;
@@ -63,14 +62,14 @@ function check_settings() {
 	foreach( $dir_check as $d ) {
 		// final attempt to create the required directories
 		@mkdir( BIT_ROOT_PATH.$d,0644 );
-		if( @is_dir( BIT_ROOT_PATH.$d ) && is_writeable( BIT_ROOT_PATH.$d ) ) {
-			$required[$i]['note'] = 'The directory \'<strong>'.$d.'</strong>\' is available and it is writeable.';
+		if( @is_dir( BIT_ROOT_PATH.$d ) && bw_is_writeable( BIT_ROOT_PATH.$d ) ) {
+			$required[$i]['note'] = 'The directory \'<strong>'.BIT_ROOT_PATH.$d.'</strong>\' is available and it is writeable.';
 			$required[$i]['passed'] = TRUE;
-		} elseif( @is_dir( BIT_ROOT_PATH.$d ) && !is_writeable( BIT_ROOT_PATH.$d ) ) {
-			$required[$i]['note'] = 'The directory \'<strong>'.$d.'</strong>\' is available but it is not writeable.<br />Please execute something like:<br />chmod -R 777 '.BIT_ROOT_PATH.$d;
+		} elseif( @is_dir( BIT_ROOT_PATH.$d ) && !bw_is_writeable( BIT_ROOT_PATH.$d ) ) {
+			$required[$i]['note'] = 'The directory \'<strong>'.BIT_ROOT_PATH.$d.'</strong>\' is available but it is not writeable.<br />Please execute something like:<br />chmod -R 777 '.BIT_ROOT_PATH.$d;
 			$required[$i]['passed'] = FALSE;
 		} else {
-			$required[$i]['note'] = 'The directory \'<strong>'.$d.'</strong>\' is not available and we cannot create it automaticalliy.<br />Please execute something like:<br />mkdir -m 777 '.BIT_ROOT_PATH.$d;
+			$required[$i]['note'] = 'The directory \'<strong>'.BIT_ROOT_PATH.$d.'</strong>\' is not available and we cannot create it automaticalliy.<br />Please execute something like:<br />mkdir -m 777 '.BIT_ROOT_PATH.$d;
 			$required[$i]['passed'] = FALSE;
 		}
 		$i++;
@@ -147,9 +146,9 @@ function check_settings() {
 
 	// settings that are useful to know about
 	$php_ini_gets = array(
-		array( '<strong>Maximum post size</strong> will restrict the size of files when you upload a file using a form.','post_max_size' ),
-		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads.','upload_max_filesize' ),
-		array( '<strong>Maximum execution time</strong> is related to time outs in PHP - affects database upgrades and backups.','max_execution_time' ),
+		array( '<strong>Maximum post size</strong> will restrict the size of files when you upload a file using a form - recommended <strong>8M</strong>.','post_max_size' ),
+		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads - recommended <strong>8M</strong>.','upload_max_filesize' ),
+		array( '<strong>Maximum execution time</strong> is related to time outs in PHP - affects database upgrades and backups - recommended <strong>60</strong>.','max_execution_time' ),
 	);
 	foreach( $php_ini_gets as $php_ini_get ) {
 		$show[] = $php_ini_get[0].'<br />This value is set to <strong>'.ini_get( $php_ini_get[1] ).'</strong>';
