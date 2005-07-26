@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_data.php,v 1.1.1.1.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_data.php,v 1.1.1.1.2.2 2005/07/26 15:50:07 drewslater Exp $
  * @package install
  * @subpackage functions
  */
@@ -10,7 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 // assign next step in installation process
-$smarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step',$step );
 
 $pumpList = false;
 foreach( array_keys( $gBitSystem->mPackages ) as $package ) {
@@ -20,7 +20,7 @@ foreach( array_keys( $gBitSystem->mPackages ) as $package ) {
 		}
 	}
 }
-$smarty->assign( 'pumpList',$pumpList );
+$gBitSmarty->assign( 'pumpList',$pumpList );
 
 /**
  * datapump setup
@@ -29,9 +29,9 @@ if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
 	foreach( $pumpList as $pump ) {
 		include_once( 'pump_'.$pump.'_inc.php' );
 	}
-	$smarty->assign( 'pumpedData',$pumpedData );
+	$gBitSmarty->assign( 'pumpedData',$pumpedData );
 	$app = '_done';
-	$smarty->assign( 'next_step',$step + 1 );
+	$gBitSmarty->assign( 'next_step',$step + 1 );
 	$gBitSystem->storePreference( 'wikiHomePage',$pumpedData['Wiki'][0] );
 } elseif( isset( $_REQUEST['skip'] ) ) {
 	$goto = $step + 1;

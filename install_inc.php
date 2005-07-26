@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.4 2005/07/12 11:37:32 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.5 2005/07/26 15:50:07 drewslater Exp $
  * @package install
  * @subpackage functions
  */
@@ -13,7 +13,7 @@
  * Global flag to indicate we are installing
  */
 define( 'BIT_INSTALL', 'TRUE' );
-global $smarty;
+global $gBitSmarty;
 
 // use relative path if no CONFIG_INC path specified - we know we are in installer here...
 $config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
@@ -56,7 +56,7 @@ $gBitInstaller->verifyInstalledPackages();
 
 // After install. This should remove this script.
 if (isset($_REQUEST['kill'])) {
-	$smarty->assign( 'script',kill_script() );
+	$gBitSmarty->assign( 'script',kill_script() );
 }
 
 // set prefs to display help during install
@@ -98,5 +98,5 @@ if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE
 	$_SESSION['first_install'] = FALSE;
 }
 // this is needed because some pages display some additional information during a first install
-$smarty->assign( 'first_install',$_SESSION['first_install'] );
+$gBitSmarty->assign( 'first_install',$_SESSION['first_install'] );
 ?>

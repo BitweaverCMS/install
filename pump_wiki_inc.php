@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_wiki_inc.php,v 1.2.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_wiki_inc.php,v 1.2.2.2 2005/07/26 15:50:07 drewslater Exp $
  * @package install
  * @subpackage pumps
  */
@@ -159,7 +159,7 @@ foreach( $pageHash as $page ) {
 		$pumpedData['Wiki'][] = $page['title'];
 	} else {
 		$error = $newPage->mErrors;
-		$smarty->assign( 'error',$error );
+		$gBitSmarty->assign( 'error',$error );
 	}
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.3.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.3.2.2 2005/07/26 15:50:07 drewslater Exp $
  * @package install
  * @subpackage functions
  */
@@ -10,7 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 // assign next step in installation process
-$smarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step',$step );
 
 /**
  * simple_set_toggle
@@ -23,7 +23,7 @@ function simple_set_toggle($feature, $pPackageName=NULL) {
  * toggle_preference
  */
 function toggle_preference( $pName, $pValue, $pPackageName=NULL ) {
-	global $_REQUEST, $gBitSystem, $smarty;
+	global $_REQUEST, $gBitSystem, $gBitSmarty;
 
 	if (isset($pValue) && $pValue == "on") {
 		$prefValue='y';
@@ -39,15 +39,15 @@ function toggle_preference( $pName, $pValue, $pPackageName=NULL ) {
  * simple_set_value
  */
 function simple_set_value($feature) {
-	global $_REQUEST, $gBitSystem, $smarty;
+	global $_REQUEST, $gBitSystem, $gBitSmarty;
 	if (isset($_REQUEST[$feature])) {
 		$gBitSystem->storePreference($feature, $_REQUEST[$feature]);
-		$smarty->assign($feature, $_REQUEST[$feature]);
+		$gBitSmarty->assign($feature, $_REQUEST[$feature]);
 	}
 }
 
 // pass all package data to template
-$smarty->assign_by_ref( 'schema', $gBitInstaller->mPackages );
+$gBitSmarty->assign_by_ref( 'schema', $gBitInstaller->mPackages );
 
 // settings that aren't just toggles
 $formInstallValues = array(
@@ -59,16 +59,16 @@ $formInstallValues = array(
 );
 
 if( extension_loaded( 'imagick' ) && extension_loaded( 'gd' ) ) {
-	$smarty->assign( 'choose_image_processor', TRUE );
+	$gBitSmarty->assign( 'choose_image_processor', TRUE );
 	$formInstallValues[] = 'image_processor';
 }
 
-$smarty->assign( 'feature_server_name', $_SERVER['SERVER_NAME'] );
+$gBitSmarty->assign( 'feature_server_name', $_SERVER['SERVER_NAME'] );
 
 // get list of available languages
 $languages = array();
 $languages = $gBitLanguage->listLanguages();
-$smarty->assign_by_ref("languages",$languages );
+$gBitSmarty->assign_by_ref("languages",$languages );
 
 // process form
 if( isset( $_REQUEST['fSubmitBitSettings'] ) ) {
@@ -77,10 +77,10 @@ if( isset( $_REQUEST['fSubmitBitSettings'] ) ) {
 	}
 
 	$gBitLanguage->setLanguage( $_REQUEST['bitlanguage'] );
-	$smarty->assign( "siteLanguage",$languages[$_REQUEST['bitlanguage']] );
+	$gBitSmarty->assign( "siteLanguage",$languages[$_REQUEST['bitlanguage']] );
 	// advance a step in the installer
 	$app = '_done';
-	$smarty->assign( 'next_step',$step + 1 );
+	$gBitSmarty->assign( 'next_step',$step + 1 );
 } elseif( isset( $_REQUEST['skip'] ) ) {
 	$goto = $step + 1;
 	header( "Location: install.php?step=$goto" );
@@ -94,5 +94,5 @@ foreach( $gBitSystem->mPackages as $package ) {
 		$foreign_packages[] = $package;
 	}
 }
-$smarty->assign("foreign_packages",$foreign_packages );
+$gBitSmarty->assign("foreign_packages",$foreign_packages );
 ?>

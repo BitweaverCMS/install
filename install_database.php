@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.3.2.3 2005/07/23 03:33:41 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.3.2.4 2005/07/26 15:50:07 drewslater Exp $
  * @package install
  * @subpackage functions
  */
@@ -10,7 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 // assign next step in installation process
-$smarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step',$step );
 
 // check what db servers are available and display them accordingly - only seems to work with *nix
 $dbtodsn = array();
@@ -45,27 +45,27 @@ if( function_exists( 'ibase_connect' ) ) {
 		else
 			$fbpath = '/opt/firebird/bin/isql';
 	}
-	$smarty->assign( 'fbpath', $fbpath );
+	$gBitSmarty->assign( 'fbpath', $fbpath );
 	if ( empty($gBitDbName) ) $gBitDbName = 'bitweaver';
 }
 if( function_exists( 'sqlite_open' ) ) {
 	$dbtodsn['sqlite'] = 'SQLLite';
 }
-$smarty->assign_by_ref('dbservers', $dbtodsn);
+$gBitSmarty->assign_by_ref('dbservers', $dbtodsn);
 
-$smarty->assign( 'gBitDbType', $gBitDbType );
-$smarty->assign( 'gBitDbHost', $gBitDbHost );
-$smarty->assign( 'gBitDbUser', $gBitDbUser );
-$smarty->assign( 'gBitDbPassword', $gBitDbPassword );
-$smarty->assign( 'gBitDbName', $gBitDbName );
-$smarty->assign( 'db_prefix_bit', BIT_DB_PREFIX );
-$smarty->assign( 'root_url_bit', $root_url_bit );
+$gBitSmarty->assign( 'gBitDbType', $gBitDbType );
+$gBitSmarty->assign( 'gBitDbHost', $gBitDbHost );
+$gBitSmarty->assign( 'gBitDbUser', $gBitDbUser );
+$gBitSmarty->assign( 'gBitDbPassword', $gBitDbPassword );
+$gBitSmarty->assign( 'gBitDbName', $gBitDbName );
+$gBitSmarty->assign( 'db_prefix_bit', BIT_DB_PREFIX );
+$gBitSmarty->assign( 'root_url_bit', $root_url_bit );
 if( defined( 'AUTO_BUG_SUBMIT' ) ) {
-	$smarty->assign( 'auto_bug_submit', AUTO_BUG_SUBMIT );
+	$gBitSmarty->assign( 'auto_bug_submit', AUTO_BUG_SUBMIT );
 }
 
-$smarty->assign( 'gBitDbPassword_input', $gBitDbPassword );
-$smarty->assign( 'gBitDbPassword_print', preg_replace( '/./','&bull;',$gBitDbPassword ) );
+$gBitSmarty->assign( 'gBitDbPassword_input', $gBitDbPassword );
+$gBitSmarty->assign( 'gBitDbPassword_print', preg_replace( '/./','&bull;',$gBitDbPassword ) );
 
 // next block checks if there is a config_inc.php and if we can connect through this.
 if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
@@ -79,7 +79,7 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 	if( $gBitDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
 		// display success page when done
 		$app = '_done';
-		$smarty->assign( 'next_step',$step + 1 );
+		$gBitSmarty->assign( 'next_step',$step + 1 );
 		// this is where we tell the installer that this is the first install
 		// if so, clear out session variables
 		// if we are coming here from the upgrade process, don't change any value
@@ -92,7 +92,7 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 			$_SESSION['first_install'] = FALSE;
 		}
 	} else {
-		$smarty->assign( 'error', TRUE );
+		$gBitSmarty->assign( 'error', TRUE );
 		$error = TRUE;
 	}
 }

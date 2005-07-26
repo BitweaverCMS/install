@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.6 2005/07/24 08:52:23 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.7 2005/07/26 15:50:07 drewslater Exp $
  * @package install
  * @subpackage functions
  */
@@ -18,16 +18,16 @@ if( !isset( $step ) ) {
 ini_set("max_execution_time", "86400");
 
 // assign next step in installation process
-$smarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step',$step );
 
 // pass all package data to template
 $schema = $gBitInstaller->mPackages;
 ksort( $schema );
-$smarty->assign_by_ref( 'schema', $schema );
+$gBitSmarty->assign_by_ref( 'schema', $schema );
 
 // confirm that we have all the admin data in the session before proceeding
 if( !$gBitInstaller && ( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) ) {
-	$smarty->assign( 'error', $error = TRUE );
+	$gBitSmarty->assign( 'error', $error = TRUE );
 }
 
 if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
@@ -206,9 +206,9 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 			}
 			
 		}
-		$smarty->assign( 'next_step', $step + 1 );
-		$smarty->assign( 'package_list', $package_list );
-		$smarty->assign( 'failedcommands', !empty( $failedcommands ) ? $failedcommands : NULL );
+		$gBitSmarty->assign( 'next_step', $step + 1 );
+		$gBitSmarty->assign( 'package_list', $package_list );
+		$gBitSmarty->assign( 'failedcommands', !empty( $failedcommands ) ? $failedcommands : NULL );
 		// display the confirmation page
 		$app = '_done';
 	} else {

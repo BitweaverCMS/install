@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database_reset.php,v 1.1.1.1.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database_reset.php,v 1.1.1.1.2.2 2005/07/26 15:50:07 drewslater Exp $
  * @package install
  * @subpackage functions
  */
@@ -10,7 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 // assign next step in installation process
-$smarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step',$step );
 //vd($_REQUEST);
 if( isset( $_REQUEST['continue_install'] ) ) {
 	header( 'Location: '.INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.1.1.1.2.1 2005/06/27 12:49:49 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.1.1.1.2.2 2005/07/26 15:50:07 drewslater Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -9,7 +9,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-$smarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step',$step );
 $config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
 
 // set the maximum execution time to very high
@@ -26,8 +26,8 @@ $upgradePath = array (
 	'BONNIE' => array( 'BONNIE' => 'CLYDE' ),
 );
 
-$smarty->assign( 'upgradeFrom', $gUpgradeFrom );
-$smarty->assign( 'upgradeTo', $gUpgradeTo );
+$gBitSmarty->assign( 'upgradeFrom', $gUpgradeFrom );
+$gBitSmarty->assign( 'upgradeTo', $gUpgradeTo );
 
 $upPackages = array();
 
@@ -62,9 +62,9 @@ if( !empty( $_REQUEST['upgrade'] ) ) {
 		}
 	}
 
-	$smarty->assign( 'package_list', $upPackages );
+	$gBitSmarty->assign( 'package_list', $upPackages );
 
 	$app = '_done';
-	$smarty->assign( 'next_step',$step + 1 );
+	$gBitSmarty->assign( 'next_step',$step + 1 );
 }
 ?>
