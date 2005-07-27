@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.3.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.3.2.2 2005/07/27 13:21:06 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -12,7 +12,7 @@ function create_config($gBitDbType,$gBitDbHost,$gBitDbUser,$gBitDbPassword,$gBit
 	$config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
 	// We can't call clean_file_path here even though we would like to.
 	$config_file = (strpos($_SERVER["SERVER_SOFTWARE"],"IIS") ? str_replace( "/", "\\", $config_file) : $config_file);
-	
+
 	$gBitDbType=addslashes($gBitDbType);
 	$gBitDbHost=addslashes($gBitDbHost);
 	$gBitDbUser=addslashes($gBitDbUser);
@@ -42,13 +42,13 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 
 
 // bitweaver can store its data in multiple different back ends. Currently we
-// support MySQL, MSSQL, Firebird, Sybase, PostgreSQL and Oracle. 
-// Enter the hostname where your database lives, and the username and 
+// support MySQL, MSSQL, Firebird, Sybase, PostgreSQL and Oracle.
+// Enter the hostname where your database lives, and the username and
 // password you use to connect to it.
 //
 // You must specify the name of a database that already exists. bitweaver will
 // not create the database for you, because it's very difficult to do that in
-// a reliable, database-neutral fashion. The user that you use should have 
+// a reliable, database-neutral fashion. The user that you use should have
 // the following permissions:
 //
 //    SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, DROP
@@ -103,6 +103,11 @@ define( 'BIT_ROOT_URL', '$root_url_bit' );
 //\$gDebug = TRUE;
 
 
+// This allows you to set a custom path to your PHP tmp directory - used for ADODB caching if active, and other stuff
+// This is usually only needed in very restrictive hosting environments.
+//\$gTempDir = '/path/to/private/directory';
+
+
 // This will turn on ADODB performance monitoring and log all queries. This should
 // not be enabled except when doing query analysis due to an overall performance drop.
 // see kernel/admin/db_performance.php for statistics
@@ -111,13 +116,13 @@ define( 'BIT_ROOT_URL', '$root_url_bit' );
 
 // \$gPreScan can be used to specify the order in which packages are scanned by the kernel.
 // In the example provided below, the kernel package is processed first, followed by the users and liberty packages.
-// Any packages not specified in \$gPreScan are processed in the traditional order 
+// Any packages not specified in \$gPreScan are processed in the traditional order
 //\$gPreScan = array( 'kernel', 'users', 'liberty' );
 
 
 // if you set AUTO_BUG_SUBMIT to TRUE, the application will know that this site is running live and is not used for testing purposes.
 // This will prevent any horrible error pages from appearing and will redirect the user to a 'nicer' error page and
-// will automatically email the team with details regarding the error. 
+// will automatically email the team with details regarding the error.
 // Bugs added to http://www.sourceforge.net will get processed faster since more people have access to these.
 define( 'AUTO_BUG_SUBMIT', $auto_bug_submit );
 
