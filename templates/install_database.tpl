@@ -97,6 +97,9 @@
 	</div>
 
 	<div class="row">
+	{ if ( $fbpath ) }
+		{formhelp note="<strong>Do not use Prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
+	{/if}
 		{formlabel label="Database Prefix" for="prefix"}
 		{forminput}
 			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit}" />
