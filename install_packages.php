@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.8 2005/07/31 14:16:41 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.9 2005/08/01 19:57:21 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -77,8 +77,6 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 								print '<dd><font color="red">Failed to create '.$completeTableName.'</font>';
 							}
 */
-							// clean up and back ticks in the DataDict
-							$gBitInstaller->mDb->convertQuery( $gBitInstaller->mPackages[$package]['tables'][$tableName] );
 							$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$tableName], $build );
 // Uncomment this line to see the create sql
 //vd( $sql );
