@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.3 2005/08/01 18:40:30 squareing Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -74,17 +74,17 @@ foreach( $install_file as $key => $menu_step ) {
 		}
 	}
 }
-$smarty->assign( 'step', $step );
-$smarty->assign( 'menu_steps', $install_file );
-$smarty->assign( 'menu_file', 'upgrade.php' );
-$smarty->assign( 'section', 'Upgrade' );
+$gBitSmarty->assign( 'step', $step );
+$gBitSmarty->assign( 'menu_steps', $install_file );
+$gBitSmarty->assign( 'menu_file', 'upgrade.php' );
+$gBitSmarty->assign( 'section', 'Upgrade' );
 
 $steps = ( count( $install_file ) );
 $progress = ( ceil( 100 / $steps * $done ) );
-$smarty->assign( 'progress', $progress );
+$gBitSmarty->assign( 'progress', $progress );
 
 
-$smarty->assign( 'install_file', INSTALL_PKG_PATH."templates/upgrade_".$install_file[$step]['file'].$app.".tpl" );
+$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/upgrade_".$install_file[$step]['file'].$app.".tpl" );
 $gBitInstaller->display( INSTALL_PKG_PATH.'templates/install.tpl', $install_file[$step]['name'] );
 
 // -------------------------------------------------------------------------------------------------------- //
@@ -141,17 +141,17 @@ if ( isset( $_REQUEST['fSubmitWelcome'] ) ) {
 	$install_file = 'upgrade_results';
 } else {
 	$install_file= 'upgrade_welcome';
-	$smarty->assign( 'upgradeFrom', $gUpgradeFrom );
-	$smarty->assign( 'upgradeTo', $gUpgradeTo );
+	$gBitSmarty->assign( 'upgradeFrom', $gUpgradeFrom );
+	$gBitSmarty->assign( 'upgradeTo', $gUpgradeTo );
 }
 
-$smarty->assign( 'install_file', INSTALL_PKG_PATH."templates/".$install_file.".tpl" );
+$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/".$install_file.".tpl" );
 if( file_exists( $install_file.'.php' ) ) {
 	// finally we are ready to include the actual php file
 	include_once( $install_file.'.php' );
 }
 
-$smarty->display( INSTALL_PKG_PATH.'templates/install.tpl' );
+$gBitSmarty->display( INSTALL_PKG_PATH.'templates/install.tpl' );
 */
 
 ?>

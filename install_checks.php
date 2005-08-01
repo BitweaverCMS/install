@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.5 2005/07/25 20:02:06 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.6 2005/08/01 18:40:30 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -10,19 +10,19 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 // assign next step in installation process
-$smarty->assign( 'next_step',$step + 1 );
+$gBitSmarty->assign( 'next_step',$step + 1 );
 
 $check_settings = check_settings();
 
-$smarty->assign( "error",$error );
-$smarty->assign( "warning",$warning );
-$smarty->assign( "required",$check_settings['required'] );
-$smarty->assign( "extensions",$check_settings['extensions'] );
-$smarty->assign( "recommended",$check_settings['recommended'] );
-$smarty->assign( "show",$check_settings['show'] );
+$gBitSmarty->assign( "error",$error );
+$gBitSmarty->assign( "warning",$warning );
+$gBitSmarty->assign( "required",$check_settings['required'] );
+$gBitSmarty->assign( "extensions",$check_settings['extensions'] );
+$gBitSmarty->assign( "recommended",$check_settings['recommended'] );
+$gBitSmarty->assign( "show",$check_settings['show'] );
 
 if( !isset( $_SERVER['HTTP_REFERER'] ) ) {
-	$smarty->assign( "http_referer_error", TRUE );
+	$gBitSmarty->assign( "http_referer_error", TRUE );
 	$error = TRUE;
 }
 
@@ -30,7 +30,7 @@ if( !isset( $_SERVER['HTTP_REFERER'] ) ) {
  * check_settings
  */
 function check_settings() {
-	global $smarty,$error,$warning;
+	global $gBitSmarty,$error,$warning;
 	$config_file = clean_file_path( empty($_SERVER['CONFIG_INC']) ? (KERNEL_PKG_PATH.'config_inc.php') : $_SERVER['CONFIG_INC'] );
 
 
@@ -118,7 +118,7 @@ function check_settings() {
 		$recommended[$i]['passed'] = TRUE;
 	} else {
 		$recommended[$i]['passed'] = FALSE;
-		$smarty->assign( 'memory_warning', TRUE );
+		$gBitSmarty->assign( 'memory_warning', TRUE );
 	}
 	$i++;
 	// now continue with easy toggle checks

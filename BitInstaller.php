@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.6 2005/07/25 20:02:06 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.7 2005/08/01 18:40:30 squareing Exp $
  * @package install
  */
 
@@ -38,9 +38,9 @@ class BitInstaller extends BitSystem {
 		if( !empty( $pBrowserTitle ) ) {
 			$this->setBrowserTitle( $pBrowserTitle );
 		}
-		global $smarty;
-		$smarty->verifyCompileDir();
-		$smarty->display( $pTemplate );
+		global $gBitSmarty;
+		$gBitSmarty->verifyCompileDir();
+		$gBitSmarty->display( $pTemplate );
 	}
 
 	function isInstalled() {
@@ -286,7 +286,7 @@ function process_sql_file( $file, $gBitDbType, $pBitDbPrefix ) {
 
 	global $succcommands;
 	global $failedcommands;
-	global $smarty;
+	global $gBitSmarty;
 	if(!isset($succcommands)) {
 	  $succcommands=array();
 	  $failedcommands=array();
@@ -370,8 +370,8 @@ function process_sql_file( $file, $gBitDbType, $pBitDbPrefix ) {
 		}
 	}
 
-	$smarty->assign_by_ref('succcommands', $succcommands);
-	$smarty->assign_by_ref('failedcommands', $failedcommands);
+	$gBitSmarty->assign_by_ref('succcommands', $succcommands);
+	$gBitSmarty->assign_by_ref('failedcommands', $failedcommands);
 
 	return( empty( $failedcommands ) );
 }

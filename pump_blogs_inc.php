@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_blogs_inc.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_blogs_inc.php,v 1.3 2005/08/01 18:40:30 squareing Exp $
  * @package install
  * @subpackage pumps
  */
@@ -54,7 +54,7 @@ foreach( $blogHash as $blog ) {
 		$pumpedData['Blog'][] = $blog['title'];
 	} else {
 		$error = $newPost->mErrors;
-		$smarty->assign( 'error',$error );
+		$gBitSmarty->assign( 'error',$error );
 	}
 }
 

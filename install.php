@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.4 2005/07/25 20:02:06 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.5 2005/08/01 18:40:30 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -77,15 +77,15 @@ $install_file[$i]['name'] = 'Installation Complete';
 // if we have to log in, call login template and die
 if( !empty( $gBitDbType ) && $gBitInstaller->isPackageActive( 'users' ) && !$gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
 	$install_file = 'login';
-	$smarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file.".tpl" );
-	$smarty->display( INSTALL_PKG_PATH.'templates/install.tpl' );
+	$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file.".tpl" );
+	$gBitSmarty->display( INSTALL_PKG_PATH.'templates/install.tpl' );
 	die;
 }
 
 // if the page has been renamed to anything else than 'install.php' we send it to the last installation stage
 if( !strpos( $_SERVER['PHP_SELF'],'install/install.php' ) ) {
 	$step = $i;
-	$smarty->assign( 'renamed',basename( $_SERVER['PHP_SELF'] ) );
+	$gBitSmarty->assign( 'renamed',basename( $_SERVER['PHP_SELF'] ) );
 }
 
 // finally we are ready to include the actual php file
@@ -117,13 +117,13 @@ foreach( $install_file as $key => $menu_step ) {
 		}
 	}
 }
-$smarty->assign( 'step', $step );
-$smarty->assign( 'menu_steps', $install_file );
+$gBitSmarty->assign( 'step', $step );
+$gBitSmarty->assign( 'menu_steps', $install_file );
 
 $steps = ( count( $install_file ) );
 $progress = ( ceil( 100 / $steps * $done ) );
-$smarty->assign( 'progress', $progress );
+$gBitSmarty->assign( 'progress', $progress );
 
-$smarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file[$step]['file'].$app.".tpl" );
+$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file[$step]['file'].$app.".tpl" );
 $gBitInstaller->display( INSTALL_PKG_PATH.'templates/install.tpl', $install_file[$step]['name'] );
 ?>

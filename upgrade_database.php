@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_database.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_database.php,v 1.3 2005/08/01 18:40:30 squareing Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -21,5 +21,5 @@ if( function_exists( 'mysql_connect' ) ) {
 		$dbtodsn['mysql'] = 'MySQL 3.x';
 	}
 }
-$smarty->assign( 'include_template', INSTALL_PKG_PATH."templates/install_database".$app.".tpl" );
+$gBitSmarty->assign( 'include_template', INSTALL_PKG_PATH."templates/install_database".$app.".tpl" );
 ?>

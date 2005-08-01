@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_final.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_final.php,v 1.3 2005/08/01 18:40:30 squareing Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -11,7 +11,7 @@
 
 // this is set to tell the progress meter to include this page --> 100% completed
 $app = '_done';
-$smarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step',$step );
 
 if( isset( $_REQUEST['enter_bitweaver'] ) ) {
 	$_SESSION = NULL;
@@ -21,6 +21,6 @@ if( isset( $_REQUEST['enter_bitweaver'] ) ) {
 	header( 'Location: '.INSTALL_PKG_URL.'install.php?step=5' );
 	die;
 } else {
-	$smarty->assign( 'next_step',$step );
+	$gBitSmarty->assign( 'next_step',$step );
 }
 ?>

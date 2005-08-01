@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_welcome.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_welcome.php,v 1.3 2005/08/01 18:40:30 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -10,5 +10,5 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 // assign next step in installation process
-$smarty->assign( 'next_step',$step + 1 );
+$gBitSmarty->assign( 'next_step',$step + 1 );
 ?>
