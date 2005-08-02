@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.10 2005/08/02 03:38:31 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.11 2005/08/02 04:25:58 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -26,8 +26,10 @@ ksort( $schema );
 $gBitSmarty->assign_by_ref( 'schema', $schema );
 
 // confirm that we have all the admin data in the session before proceeding
-if( !$gBitInstaller && ( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) ) {
-	$gBitSmarty->assign( 'error', $error = TRUE );
+if( !empty( $_REQUEST['PACKAGE'] ) && in_array( 'users', $_REQUEST['PACKAGE'] ) && ( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) ) {
+	// we have lost our session password and we are not installed
+// 	header( 'Location: install.php?step=4' );
+// 	die;
 }
 
 if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
@@ -42,12 +44,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 		$gBitInstaller->debug();
 		$gBitInstallDb->debug = 99;
 	}
-
-	if( empty( $_SESSION['password'] ) && in_array( 'users', $_REQUEST['PACKAGE'] ) ) {
-		// we have lost our session password and we are not installed
-		header( 'Location: install.php?step=4' );
-		die;
-	} elseif( $gBitInstallDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
+	if( $gBitInstallDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
 		$tablePrefix = $gBitInstaller->getTablePrefix();
 
 		$dict = NewDataDictionary( $gBitInstallDb, $gBitDbType );

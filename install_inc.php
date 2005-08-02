@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.5 2005/07/26 15:50:07 drewslater Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.6 2005/08/02 04:25:58 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -38,7 +38,6 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 
 require_once("../bit_setup_inc.php");
 require_once( 'BitInstaller.php' );
-
 require_once( USERS_PKG_PATH.'BitUser.php' );
 
 // set some preferences during installation
@@ -79,9 +78,10 @@ if( empty( $_REQUEST['baseurl'] ) ) {
 $errors = '';
 
 // do some session stuff
-check_session_save_path();
+// check_session_save_path();
 if( !isset($_SESSION) ) {
-	session_start();
+// 	session_start();
+// 	vd( "session start" );
 }
 
 // if we came from anywhere appart from some installer page, nuke all settings in the _SESSION and set first_install FALSE

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.4 2005/07/26 15:50:07 drewslater Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.5 2005/08/02 04:25:58 spiderr Exp $
  * @package install
  */
 
@@ -35,6 +35,9 @@ class BitInstaller extends BitSystem {
 	function display($pTemplate, $pBrowserTitle=NULL)
 	{
 		header( 'Content-Type: text/html; charset=utf-8' );
+		// force the session to close *before* displaying. Why? Note this very important comment from http://us4.php.net/exec
+		session_write_close();
+
 		if( !empty( $pBrowserTitle ) ) {
 			$this->setBrowserTitle( $pBrowserTitle );
 		}
@@ -52,30 +55,30 @@ class BitInstaller extends BitSystem {
 		global $wwwgroup;
 		$wwwuser = '';
 		$wwwgroup = '';
-	
+
 		if (isWindows()) {
 				$wwwuser = 'SYSTEM';
-	
+
 				$wwwgroup = 'SYSTEM';
 		}
-	
+
 		if (function_exists('posix_getuid')) {
 				$user = @posix_getpwuid(@posix_getuid());
-	
+
 				$group = @posix_getpwuid(@posix_getgid());
 				$wwwuser = $user ? $user['name'] : false;
 				$wwwgroup = $group ? $group['name'] : false;
 		}
-	
+
 		if (!$wwwuser) {
 				$wwwuser = 'nobody (or the user account the web server is running under)';
 		}
-	
+
 		if (!$wwwgroup) {
 				$wwwgroup = 'nobody (or the group account the web server is running under)';
 		}
 	}
-	
+
 	function getTablePrefix() {
 		global $gBitDbType;
 		$ret = BIT_DB_PREFIX;
@@ -106,14 +109,14 @@ class BitInstaller extends BitSystem {
 		}
 		return $ret;
 	}
-	
+
 	function upgradePackage( $package ) {
 		global $gBitSystem;
 		if( !empty( $gBitSystem->mUpgrades[$package] ) ) {
 			$tablePrefix = $this->getTablePrefix();
 			$dict = NewDataDictionary( $this->mDb->mDb );
 			for( $i=0; $i<count( $gBitSystem->mUpgrades[$package] ); $i++ ) {
-	
+
 if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 	vd( "[$package][$i] is NOT array" );
 	vd( $gBitSystem->mUpgrades[$package][$i] );
@@ -173,7 +176,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 								foreach( array_keys( $rename ) as $tableName ) {
 									$completeTableName = $tablePrefix.$tableName;
 									foreach( $rename[$tableName] as $from=>$flds ) {
-										// MySQL needs the fields string, others do not.  
+										// MySQL needs the fields string, others do not.
 										// see http://phplens.com/lens/adodb/docs-datadict.htm
 										$to = substr( $flds, 0, strpos( $flds, ' ') );
 										if( $sql = @$dict->RenameColumnSQL( $completeTableName, $from, $to, $flds ) ) {
@@ -232,10 +235,10 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									}
 								}
 							}
-							
+
 							break;
 						}
-						
+
 					}
 					break;
 				case 'QUERY':
