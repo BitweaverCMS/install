@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.9 2005/08/01 19:57:21 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.10 2005/08/02 03:38:31 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -43,7 +43,11 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 		$gBitInstallDb->debug = 99;
 	}
 
-	if( $gBitInstallDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
+	if( empty( $_SESSION['password'] ) && in_array( 'users', $_REQUEST['PACKAGE'] ) ) {
+		// we have lost our session password and we are not installed
+		header( 'Location: install.php?step=4' );
+		die;
+	} elseif( $gBitInstallDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
 		$tablePrefix = $gBitInstaller->getTablePrefix();
 
 		$dict = NewDataDictionary( $gBitInstallDb, $gBitDbType );
