@@ -1,12 +1,11 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.5 2005/08/02 04:25:58 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.6 2005/08/03 22:40:59 lsces Exp $
  * @package install
  */
 
 /**
  * @package install
- * @subpackage BitInstaller
  */
 class BitInstaller extends BitSystem {
 
