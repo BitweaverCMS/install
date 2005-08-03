@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.11 2005/08/02 04:25:58 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.12 2005/08/03 01:09:40 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -28,8 +28,8 @@ $gBitSmarty->assign_by_ref( 'schema', $schema );
 // confirm that we have all the admin data in the session before proceeding
 if( !empty( $_REQUEST['PACKAGE'] ) && in_array( 'users', $_REQUEST['PACKAGE'] ) && ( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) ) {
 	// we have lost our session password and we are not installed
-// 	header( 'Location: install.php?step=4' );
-// 	die;
+ 	header( 'Location: install.php?step=1' );
+ 	die;
 }
 
 if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
