@@ -7,16 +7,16 @@
 		<!-- @import url(style/install.css); -->
 	</style>
 	<title>Install bitweaver - {$browserTitle}</title>
-	<link rel="shortcut icon" href="{$gBitLoc.INSTALL_PKG_URL}favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="{$smarty.const.INSTALL_PKG_URL}favicon.ico" type="image/x-icon" />
 
 	<!--[if gte IE 5.5000]>
-		<script type="text/javascript" src="{$gBitLoc.THEMES_PKG_URL}js/pngfix.js"></script>
+		<script type="text/javascript" src="{$smarty.const.THEMES_PKG_URL}js/pngfix.js"></script>
 	<![endif]-->
 
 	<script type="text/javascript"><!--
-		var tikiRootUrl = "{$gBitLoc.BIT_ROOT_URL}";
+		var tikiRootUrl = "{$smarty.const.BIT_ROOT_URL}";
 	--></script>
-	<script type="text/javascript" src="{$gBitLoc.THEMES_PKG_URL}js/tabs/tabpane.js"></script>
+	<script type="text/javascript" src="{$smarty.const.THEMES_PKG_URL}js/tabs/tabpane.js"></script>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
 				<li class="{$step.state}">
 					{biticon ipackage=liberty iname=`$step.state` iexplain=`$step.state` iforce=icon}&nbsp;
 					{if $step.state ne 'spacer'}
-						<a href="{$gBitLoc.install}{$menu_file|default:"install.php"}?step={$key}">
+						<a href="{$smarty.const.BIT_ROOT_URL}{$menu_file|default:"install.php"}?step={$key}">
 					{/if}
 						{$step.name}
 					{if $step.state ne 'spacer'}
@@ -50,7 +50,7 @@
 			</li>
 			<li class="help">
 				{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
-				<a href="{$gBitLoc.install}{$menu_file|default:"install.php"}?step=0">Start over</a>
+				<a href="{$smarty.const.BIT_ROOT_URL}{$menu_file|default:"install.php"}?step=0">Start over</a>
 			</li>
 			<li>
 				{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
