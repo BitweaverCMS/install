@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.6 2005/08/03 22:40:59 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.7 2005/08/06 18:31:24 lsces Exp $
  * @package install
  */
 
@@ -103,7 +103,7 @@ class BitInstaller extends BitSystem {
 				}
 				break;
 			case "firebird":
-				$result = $this->mDb->mDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
+				$result = $this->mDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
 				break;
 		}
 		return $ret;
@@ -113,7 +113,7 @@ class BitInstaller extends BitSystem {
 		global $gBitSystem;
 		if( !empty( $gBitSystem->mUpgrades[$package] ) ) {
 			$tablePrefix = $this->getTablePrefix();
-			$dict = NewDataDictionary( $this->mDb->mDb );
+			$dict = NewDataDictionary( $gBitDb->mDb );
 			for( $i=0; $i<count( $gBitSystem->mUpgrades[$package] ); $i++ ) {
 
 if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
