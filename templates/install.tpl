@@ -20,69 +20,67 @@
 </head>
 
 <body>
-
-<div class="display install">
-	<div class="nav">
-		<ul>
-			<li class="title">
-				{$section|default:"Install"}ometer
-			</li>
-
-			{foreach from=$menu_steps item=step key=key}
-				<li class="{$step.state}">
-					{biticon ipackage=liberty iname=`$step.state` iexplain=`$step.state` iforce=icon}&nbsp;
-					{if $step.state ne 'spacer'}
-						<a href="{$smarty.const.BIT_ROOT_URL}{$menu_file|default:"install.php"}?step={$key}">
-					{/if}
-						{$step.name}
-					{if $step.state ne 'spacer'}
-						</a>
-					{/if}
+	<div class="display install">
+		<div class="nav">
+			<ul>
+				<li class="title">
+					{$section|default:"Install"}ometer
 				</li>
-			{/foreach}
 
-			<li>
-				{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
-			</li>
-			<li class="help">
-				{biticon ipackage=liberty iname=help iexplain=help iforce=icon}&nbsp;
-				<a class="external" href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc">{$section|default:"Install"} Help</a>
-			</li>
-			<li class="help">
-				{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
-				<a href="{$smarty.const.BIT_ROOT_URL}{$menu_file|default:"install.php"}?step=0">Start over</a>
-			</li>
-			<li>
-				{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
-			</li>
-			<li class="warning">
-				{biticon ipackage=liberty iname=warning iexplain=warning iforce=icon}&nbsp;
-				Please don't use the browser back button.
-			</li>
-			<li>
-				{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
-			</li>
-		</ul>
+				{foreach from=$menu_steps item=step key=key}
+					<li class="{$step.state}">
+						{biticon ipackage=liberty iname=`$step.state` iexplain=`$step.state` iforce=icon}&nbsp;
+						{if $step.state ne 'spacer'}
+							<a href="{$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step={$key}">
+						{/if}
+							{$step.name}
+						{if $step.state ne 'spacer'}
+							</a>
+						{/if}
+					</li>
+				{/foreach}
 
-		<div class="progressbar">
-			{$section|default:"Install"} Progress
-			<div style="border:1px solid #ccc;background:#eee;margin:2px 0;">
-				<div style="width:{$progress}%;background:#f30;text-align:center;padding:5px 0;color:#fff;">{$progress}%</div>
+				<li>
+					{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
+				</li>
+				<li class="help">
+					{biticon ipackage=liberty iname=help iexplain=help iforce=icon}&nbsp;
+					<a class="external" href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc">{$section|default:"Install"} Help</a>
+				</li>
+				<li class="help">
+					{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
+					<a href="{$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step=0">Start over</a>
+				</li>
+				<li>
+					{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
+				</li>
+				<li class="warning">
+					{biticon ipackage=liberty iname=warning iexplain=warning iforce=icon}&nbsp;
+					Please don't use the browser back button.
+				</li>
+				<li>
+					{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
+				</li>
+			</ul>
+
+			<div class="progressbar">
+				{$section|default:"Install"} Progress
+				<div style="border:1px solid #ccc;background:#eee;margin:2px 0;">
+					<div style="width:{$progress}%;background:#f30;text-align:center;padding:5px 0;color:#fff;">{$progress}%</div>
+				</div>
 			</div>
-		</div>
-	</div> <!-- end .nav -->
+		</div> <!-- end .nav -->
 
-	<div class="body">
-		<div class="bittop">
-			<h1>bitweaver <strong>{$bitMajorVersion}.{$bitMinorVersion}.{$bitSubVersion} {$bitLevel}</strong></h1>
-		</div>
+		<div class="body">
+			<div class="bittop">
+				<h1>bitweaver <strong>{$bitMajorVersion}.{$bitMinorVersion}.{$bitSubVersion} {$bitLevel}</strong></h1>
+			</div>
 
-		{include file=$install_file}
-	</div> <!-- end .body -->
+			{include file=$install_file}
+		</div> <!-- end .body -->
 
-	<div class="clear"></div>
-</div> <!-- end .install -->
-
+		<div class="clear"></div>
+	</div> <!-- end .install -->
 </body>
 </html>
 {/strip}
