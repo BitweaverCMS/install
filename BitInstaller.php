@@ -1,12 +1,11 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.7 2005/08/01 18:40:30 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.8 2005/08/07 17:37:51 squareing Exp $
  * @package install
  */
 
 /**
  * @package install
- * @subpackage BitInstaller
  */
 class BitInstaller extends BitSystem {
 
@@ -35,6 +34,9 @@ class BitInstaller extends BitSystem {
 	function display($pTemplate, $pBrowserTitle=NULL)
 	{
 		header( 'Content-Type: text/html; charset=utf-8' );
+		// force the session to close *before* displaying. Why? Note this very important comment from http://us4.php.net/exec
+		session_write_close();
+
 		if( !empty( $pBrowserTitle ) ) {
 			$this->setBrowserTitle( $pBrowserTitle );
 		}
@@ -52,30 +54,30 @@ class BitInstaller extends BitSystem {
 		global $wwwgroup;
 		$wwwuser = '';
 		$wwwgroup = '';
-	
+
 		if (isWindows()) {
 				$wwwuser = 'SYSTEM';
-	
+
 				$wwwgroup = 'SYSTEM';
 		}
-	
+
 		if (function_exists('posix_getuid')) {
 				$user = @posix_getpwuid(@posix_getuid());
-	
+
 				$group = @posix_getpwuid(@posix_getgid());
 				$wwwuser = $user ? $user['name'] : false;
 				$wwwgroup = $group ? $group['name'] : false;
 		}
-	
+
 		if (!$wwwuser) {
 				$wwwuser = 'nobody (or the user account the web server is running under)';
 		}
-	
+
 		if (!$wwwgroup) {
 				$wwwgroup = 'nobody (or the group account the web server is running under)';
 		}
 	}
-	
+
 	function getTablePrefix() {
 		global $gBitDbType;
 		$ret = BIT_DB_PREFIX;
@@ -96,24 +98,24 @@ class BitInstaller extends BitSystem {
 					if( $quote !== 0 ) {
 						$schema = '"'.$schema;
 					}
-					$result = $this->query( "CREATE SCHEMA $schema" );
-					$result = $this->query( "SET search_path TO $schema" );
+					$result = $this->mDb->query( "CREATE SCHEMA $schema" );
+					$result = $this->mDb->query( "SET search_path TO $schema" );
 				}
 				break;
 			case "firebird":
-				$result = $this->mDb->mDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
+				$result = $this->mDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
 				break;
 		}
 		return $ret;
 	}
-	
+
 	function upgradePackage( $package ) {
-		global $gBitSystem;
+		global $gBitSystem, $gBitDb;
 		if( !empty( $gBitSystem->mUpgrades[$package] ) ) {
 			$tablePrefix = $this->getTablePrefix();
-			$dict = NewDataDictionary( $this->mDb->mDb );
+			$dict = NewDataDictionary( $gBitSystem->getDb );
 			for( $i=0; $i<count( $gBitSystem->mUpgrades[$package] ); $i++ ) {
-	
+
 if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 	vd( "[$package][$i] is NOT array" );
 	vd( $gBitSystem->mUpgrades[$package][$i] );
@@ -159,7 +161,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									$completeTableName = $tablePrefix.$tableName;
 									if( $sql = @$dict->RenameTableSQL( $completeTableName, $tablePrefix.$rename[$tableName] ) ) {
 										foreach( $sql AS $query ) {
-											$this->query( $query );
+											$this->mDb->query( $query );
 										}
 									} else {
 										print '<dd><font color="red">Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</font>';
@@ -173,12 +175,12 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 								foreach( array_keys( $rename ) as $tableName ) {
 									$completeTableName = $tablePrefix.$tableName;
 									foreach( $rename[$tableName] as $from=>$flds ) {
-										// MySQL needs the fields string, others do not.  
+										// MySQL needs the fields string, others do not.
 										// see http://phplens.com/lens/adodb/docs-datadict.htm
 										$to = substr( $flds, 0, strpos( $flds, ' ') );
 										if( $sql = @$dict->RenameColumnSQL( $completeTableName, $from, $to, $flds ) ) {
 											foreach( $sql AS $query ) {
-												$this->query( $query );
+												$this->mDb->query( $query );
 											}
 										} else {
 											print '<dd><font color="red">Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</font>';
@@ -195,7 +197,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									foreach( $drop[$tableName] as $col ) {
 										if( $sql = $dict->DropColumnSQL( $completeTableName, $col ) ) {
 											foreach( $sql AS $query ) {
-												$this->query( $query );
+												$this->mDb->query( $query );
 											}
 										} else {
 											print '<dd><font color="red">Failed to drop column '.$completeTableName.'</font>';
@@ -224,7 +226,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									$completeTableName = $tablePrefix.$indices[$index][0];
 									if( $sql = $dict->CreateIndexSQL( $index, $completeTableName, $indices[$index][1], $indices[$index][2] ) ) {
 										foreach( $sql AS $query ) {
-											$this->query( $query );
+											$this->mDb->query( $query );
 										}
 									} else {
 										print '<dd><font color="red">Failed to create index '.$index.'</font>';
@@ -232,10 +234,10 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									}
 								}
 							}
-							
+
 							break;
 						}
-						
+
 					}
 					break;
 				case 'QUERY':
@@ -258,7 +260,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 						}
 						if( !empty( $sql ) ) {
 							foreach( $sql as $query ) {
-								$this->query( $query );
+								$this->mDb->query( $query );
 							}
 							$sql = NULL;
 						}
