@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.9 2005/08/07 13:18:29 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.10 2005/08/07 16:23:23 lsces Exp $
  * @package install
  */
 
@@ -98,12 +98,12 @@ class BitInstaller extends BitSystem {
 					if( $quote !== 0 ) {
 						$schema = '"'.$schema;
 					}
-					$result = $this->getDb()->query( "CREATE SCHEMA $schema" );
-					$result = $this->getDb()->query( "SET search_path TO $schema" );
+					$result = $this->mDb->query( "CREATE SCHEMA $schema" );
+					$result = $this->mDb->query( "SET search_path TO $schema" );
 				}
 				break;
 			case "firebird":
-				$result = $this->getDb()->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
+				$result = $this->mDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
 				break;
 		}
 		return $ret;
@@ -113,7 +113,7 @@ class BitInstaller extends BitSystem {
 		global $gBitSystem, $gBitDb;
 		if( !empty( $gBitSystem->mUpgrades[$package] ) ) {
 			$tablePrefix = $this->getTablePrefix();
-			$dict = NewDataDictionary( $gBitSystem->getDb() );
+			$dict = NewDataDictionary( $gBitSystem->getDb );
 			for( $i=0; $i<count( $gBitSystem->mUpgrades[$package] ); $i++ ) {
 
 if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
@@ -161,7 +161,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									$completeTableName = $tablePrefix.$tableName;
 									if( $sql = @$dict->RenameTableSQL( $completeTableName, $tablePrefix.$rename[$tableName] ) ) {
 										foreach( $sql AS $query ) {
-											$this->getDb()->query( $query );
+											$this->mDb->query( $query );
 										}
 									} else {
 										print '<dd><font color="red">Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</font>';
@@ -180,7 +180,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 										$to = substr( $flds, 0, strpos( $flds, ' ') );
 										if( $sql = @$dict->RenameColumnSQL( $completeTableName, $from, $to, $flds ) ) {
 											foreach( $sql AS $query ) {
-												$this->getDb()->query( $query );
+												$this->mDb->query( $query );
 											}
 										} else {
 											print '<dd><font color="red">Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</font>';
@@ -197,7 +197,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									foreach( $drop[$tableName] as $col ) {
 										if( $sql = $dict->DropColumnSQL( $completeTableName, $col ) ) {
 											foreach( $sql AS $query ) {
-												$this->getDb()->query( $query );
+												$this->mDb->query( $query );
 											}
 										} else {
 											print '<dd><font color="red">Failed to drop column '.$completeTableName.'</font>';
@@ -226,7 +226,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									$completeTableName = $tablePrefix.$indices[$index][0];
 									if( $sql = $dict->CreateIndexSQL( $index, $completeTableName, $indices[$index][1], $indices[$index][2] ) ) {
 										foreach( $sql AS $query ) {
-											$this->getDb()->query( $query );
+											$this->mDb->query( $query );
 										}
 									} else {
 										print '<dd><font color="red">Failed to create index '.$index.'</font>';
@@ -260,7 +260,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 						}
 						if( !empty( $sql ) ) {
 							foreach( $sql as $query ) {
-								$this->getDb()->query( $query );
+								$this->mDb->query( $query );
 							}
 							$sql = NULL;
 						}
