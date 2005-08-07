@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.7 2005/08/06 18:31:24 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.8 2005/08/07 01:06:03 jht001 Exp $
  * @package install
  */
 
@@ -110,7 +110,7 @@ class BitInstaller extends BitSystem {
 	}
 
 	function upgradePackage( $package ) {
-		global $gBitSystem;
+		global $gBitSystem, $gBitDb;
 		if( !empty( $gBitSystem->mUpgrades[$package] ) ) {
 			$tablePrefix = $this->getTablePrefix();
 			$dict = NewDataDictionary( $gBitDb->mDb );
