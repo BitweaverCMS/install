@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.12 2005/08/03 01:09:40 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.13 2005/08/08 09:43:34 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -145,7 +145,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 					$package_list[] = $package;
 					if( !empty( $gBitInstaller->mPackages[$package]['defaults'] ) ) {
 						foreach( $gBitInstaller->mPackages[$package]['defaults'] as $def ) {
-							$gBitInstaller->query( $def );
+							$gBitInstaller->mDb->query( $def );
 						}
 					}
 				}
