@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_data.php,v 1.1.1.1.2.2 2005/07/26 15:50:07 drewslater Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_data.php,v 1.1.1.1.2.3 2005/08/11 03:39:17 msteryguest Exp $
  * @package install
  * @subpackage functions
  */
@@ -25,6 +25,8 @@ $gBitSmarty->assign( 'pumpList',$pumpList );
 /**
  * datapump setup
  */
+ 
+
 if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
 	foreach( $pumpList as $pump ) {
 		include_once( 'pump_'.$pump.'_inc.php' );
@@ -34,7 +36,9 @@ if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
 	$gBitSmarty->assign( 'next_step',$step + 1 );
 	$gBitSystem->storePreference( 'wikiHomePage',$pumpedData['Wiki'][0] );
 } elseif( isset( $_REQUEST['skip'] ) ) {
+	$app = '_done';
 	$goto = $step + 1;
+	$gBitSmarty->assign( 'next_step',$goto );
 	header( "Location: install.php?step=$goto" );
 }
 ?>

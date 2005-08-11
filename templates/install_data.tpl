@@ -33,6 +33,6 @@
 		{if $pumpList}
 			<input type="submit" value="Populate my site" name="fSubmitDataPump" /> 
 		{/if}
-		<input type="submit" value="Skip" name="skip" />
+		<input type="submit" value="skip" name="skip" />
 	</div>
 {/form}
