@@ -1,6 +1,14 @@
 <h1>Sample Data</h1>
 
-{form legend="Your Database has been Populated"}
+{if ($pumpedData[0][0] == '') }
+	{assign var="formlegend" value="Database Population has been skipped"}
+{else}
+	{assign var="formlegend" value="Your Database has been Populated"}	
+	$pumpedData[0][0]
+{/if}
+	
+	{form legend=$formlegend}
+
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="row">
@@ -14,8 +22,13 @@
 				</li>
 			{else}
 				<li class="success">
-					{biticon ipackage=liberty iname=success iexplain=success}
-					The Sample data was successfully added to your database
+					{if $pumpedData[0][0]==''}
+						{biticon ipackage=liberty iname=success iexplain=success}
+						The Sample data was not added to your database
+					{else}
+						{biticon ipackage=liberty iname=success iexplain=success}
+						The Sample data was successfully added to your database						
+					{/if}
 				</li>
 			{/if}
 		</ul>
