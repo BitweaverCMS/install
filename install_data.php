@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_data.php,v 1.1.1.1.2.3 2005/08/11 03:39:17 msteryguest Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_data.php,v 1.1.1.1.2.4 2005/08/11 05:59:47 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -25,8 +25,6 @@ $gBitSmarty->assign( 'pumpList',$pumpList );
 /**
  * datapump setup
  */
- 
-
 if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
 	foreach( $pumpList as $pump ) {
 		include_once( 'pump_'.$pump.'_inc.php' );
