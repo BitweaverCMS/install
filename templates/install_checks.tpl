@@ -91,7 +91,7 @@
 	<div class="row">
 		<p>
 			The following are settings that aren't strictly required by bitweaver to run, but are recommendations.<br />
-			However, bitweaver will still operate if your settings do not quite match the recommended.
+			bitweaver might still operate if your settings do not quite match the recommended.
 		</p>
 	</div>
 
@@ -107,7 +107,7 @@
 				</tr>
 				{foreach from=`$recommended` item="check"}
 					<tr class="{if $check.passed eq 'y'}note{else}warning{/if}">
-						<td>{$check.0}</td>
+						<td><abbr title="{$check.1}">{$check.0}</abbr></td>
 						<td>{$check.shouldbe}</td>
 						<td>{$check.actual}</td>
 						<td>
@@ -129,7 +129,7 @@
 			{if $memory_warning}
 				<li class="warning">
 					{biticon ipackage=liberty iname=warning iexplain=warning}
-					Your memory limit settings are rather low. bitweaver requires at least 8MB memory to run, even having a limit of 8MB might cause undesired results. If you end up laoding blank pages, it might be the <strong>memory_limit</strong> setting in your <strong>php.ini</strong> file. if possible, please get your host to increase the limit to <strong>16MB</strong>.
+					Your memory limit settings are rather low. bitweaver requires at least 8MB memory to run, even having a limit of 8MB might cause undesired results. If you end up laoding blank pages, it might be the <strong>memory_limit</strong> setting in your <strong>php.ini</strong> file. if possible, please get your host to increase the limit to at least <strong>16MB</strong>.
 				</li>
 			{/if}
 			{if $rec_warning}
