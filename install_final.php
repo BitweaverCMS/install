@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_final.php,v 1.1.1.1.2.1 2005/06/27 12:49:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_final.php,v 1.1.1.1.2.2 2005/08/22 09:16:49 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -11,4 +11,7 @@
 
 // this is set to tell the progress meter to include this page --> 100% completed
 $app = '_done';
+if( !empty( $_SESSION['first_install'] ) ) {
+	$_SESSION = NULL;
+}
 ?>
