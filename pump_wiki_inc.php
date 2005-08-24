@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_wiki_inc.php,v 1.4 2005/08/01 18:40:30 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_wiki_inc.php,v 1.5 2005/08/24 20:51:21 squareing Exp $
  * @package install
  * @subpackage pumps
  */
@@ -8,7 +8,7 @@
 /**
  * required setup
  */
-include( WIKI_PKG_PATH.'BitPage.php' );
+require_once( WIKI_PKG_PATH.'BitPage.php' );
 
 $tutorial_intro = 'This tutorial does not contain any direct links to any particular pages. This is to help you understand how to navigate bitweaver. If you don\'t feel confident about finding your way back to this page, it might be useful to open a second browser window to carry out these instructions or print this page before continuing.
 
