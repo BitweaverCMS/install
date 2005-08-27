@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_blogs_inc.php,v 1.3 2005/08/01 18:40:30 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_blogs_inc.php,v 1.4 2005/08/27 11:07:00 moooooooo Exp $
  * @package install
  * @subpackage pumps
  */
@@ -44,7 +44,7 @@ Nulla blandit. Vestibulum tempor ullamcorper nulla. Pellentesque varius lectus n
 		'title' => 'Welcome',
 		'edit' => 'This is the blogs package of bitweaver. A blog is short for __web log__ and is basically a journal that is available on the web. The activity of updating a blog is "blogging" and someone who keeps a blog is a "blogger." Blogs are typically updated daily using software that allows people with little or no technical background to update and maintain the blog. Postings on a blog are almost always arranged in cronological order with the most recent additions featured most prominantly.
 
-If you have added the __Pacakge Wiki__ to your isntallation and added the wiki sample data, you will notice that it is possible to link to those pages using simple wiki words such as bitweaverGlossary.
+If you have added the __Package Wiki__ to your isntallation and added the wiki sample data, you will notice that it is possible to link to those pages using simple wiki words such as bitweaverGlossary.
 '),
 );
 
