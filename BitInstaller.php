@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.9 2005/08/11 13:03:45 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.10 2005/08/30 22:21:06 squareing Exp $
  * @package install
  */
 
@@ -103,7 +103,9 @@ class BitInstaller extends BitSystem {
 				}
 				break;
 			case "firebird":
-				$result = $this->mDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
+					if ( $_SESSION['first_install'] ) {
+						$result = $this->mDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
+					}
 				break;
 		}
 		return $ret;
