@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.3.2.2 2005/07/26 15:50:07 drewslater Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.3.2.3 2005/09/15 21:32:00 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -63,8 +63,6 @@ if( extension_loaded( 'imagick' ) && extension_loaded( 'gd' ) ) {
 	$formInstallValues[] = 'image_processor';
 }
 
-$gBitSmarty->assign( 'feature_server_name', $_SERVER['SERVER_NAME'] );
-
 // get list of available languages
 $languages = array();
 $languages = $gBitLanguage->listLanguages();
@@ -94,5 +92,5 @@ foreach( $gBitSystem->mPackages as $package ) {
 		$foreign_packages[] = $package;
 	}
 }
-$gBitSmarty->assign("foreign_packages",$foreign_packages );
+$gBitSmarty->assign( "foreign_packages", $foreign_packages );
 ?>

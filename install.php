@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.7 2005/08/02 07:59:27 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.8 2005/09/15 21:32:00 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -60,6 +60,8 @@ if( $onlyDuringFirstInstall ) {
 }
 $install_file[$i]['file'] = 'packages';
 $install_file[$i++]['name'] = 'Package Installation';
+$install_file[$i]['file'] = 'package_conflicts';
+$install_file[$i++]['name'] = 'Resolve Conflicts';
 // these settings should only be present when we are installing for the first time
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'bit_settings';
