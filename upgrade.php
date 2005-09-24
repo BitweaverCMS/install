@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.1.1.1.2.2 2005/07/26 15:50:07 drewslater Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.1.1.1.2.3 2005/09/24 09:40:38 squareing Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -54,13 +54,13 @@ for( $done = 0; $done < $step; $done++ ) {
 }
 
 // if the page is done, we can display the menu item as done and increase the progress bar
-if( $app == "_done" ) {
+if( $failedcommands || !empty( $error ) ) {
+	$install_file[$step]['state'] = 'error';
+} elseif( !empty( $warning ) ) {
+	$install_file[$step]['state'] = 'warning';
+} elseif( $app == "_done" ) {
 	$install_file[$step]['state'] = 'success';
 	$done++;
-} elseif( $failedcommands || isset( $warning ) ) {
-	$install_file[$step]['state'] = 'warning';
-} elseif( isset( $error ) ) {
-	$install_file[$step]['state'] = 'error';
 } else {
 	$install_file[$step]['state'] = 'current';
 }
