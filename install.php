@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.8 2005/09/15 21:32:00 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.9 2005/09/24 10:16:32 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -93,38 +93,7 @@ if( !strpos( $_SERVER['PHP_SELF'],'install/install.php' ) ) {
 // finally we are ready to include the actual php file
 include_once( 'install_'.$install_file[$step]['file'].'.php' );
 
-// here we set up the menu
-for( $done = 0; $done < $step; $done++ ) {
-	$install_file[$done]['state'] = 'success';
-}
-
-// if the page is done, we can display the menu item as done and increase the progress bar
-if( $failedcommands || !empty( $error ) ) {
-	$install_file[$step]['state'] = 'error';
-} elseif( !empty( $warning ) ) {
-	$install_file[$step]['state'] = 'warning';
-} elseif( $app == "_done" ) {
-	$install_file[$step]['state'] = 'success';
-	$done++;
-} else {
-	$install_file[$step]['state'] = 'current';
-}
-
-foreach( $install_file as $key => $menu_step ) {
-	if( !isset( $menu_step['state'] ) ) {
-		if( !empty( $gBitDbType ) && $gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
-			$install_file[$key]['state'] = 'success';
-		} else {
-			$install_file[$key]['state'] = 'spacer';
-		}
-	}
-}
-$gBitSmarty->assign( 'step', $step );
-$gBitSmarty->assign( 'menu_steps', $install_file );
-
-$steps = ( count( $install_file ) );
-$progress = ( ceil( 100 / $steps * $done ) );
-$gBitSmarty->assign( 'progress', $progress );
+$install_file = set_menu( $install_file, $step );
 
 $gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file[$step]['file'].$app.".tpl" );
 $gBitInstaller->display( INSTALL_PKG_PATH.'templates/install.tpl', $install_file[$step]['name'] );
