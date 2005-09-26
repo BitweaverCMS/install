@@ -251,13 +251,14 @@
 				<div class="row">
 					{formlabel label="Tables to be skipped" for="skip_tables"}
 					{forminput}
-						<select name="skip_tables[]" id="skip_tables" multiple="multiple" size="5">
+						<select name="skip_tables[]" id="skip_tables" multiple="multiple" size="10">
 						{foreach from=$skip_tables item=table}
 							<option value="{$table}"{foreach from=$skip_tables_select item=select}
 								{if $select eq $table} selected="selected"{/if}
 							{/foreach}>{$table}</option>
 						{/foreach}
 						</select>
+						<br />
 						<input type="submit" value="Update Tables List" name="fUpdateTables" />
 						{formhelp note="Please select all talbes that are not supposed to be migrated at all. You can pick some tables
 							here, if you prefer to migrate specific tables seperately at a later timepoint. Use Ctrl+click to select
@@ -301,6 +302,6 @@
 	{/jstabs}
 
 	<div class="row submit">
-		<input type="submit" value="Continue Migration" name="fSubmitDatabase" />
+		<input type="submit" value="Execute Migration" name="fSubmitDatabase" />
 	</div>
 {/form}
