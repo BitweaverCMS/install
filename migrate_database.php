@@ -1,13 +1,13 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.1.2.1 2005/09/26 09:42:09 wolff_borg Exp $
+* $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.1.2.2 2005/09/26 10:22:48 wolff_borg Exp $
 *
 * Copyright (c) 2004 Stephan Borg, tikipro.org
 * All Rights Reserved. See copyright.txt for details and a complete list of authors.
 
 * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
 *
-* $Id: migrate_database.php,v 1.1.2.1 2005/09/26 09:42:09 wolff_borg Exp $
+* $Id: migrate_database.php,v 1.1.2.2 2005/09/26 10:22:48 wolff_borg Exp $
 */
 $gBitSmarty->assign( 'next_step', $step );
 require_once( 'install_inc.php' );
@@ -99,6 +99,7 @@ if (isset($_REQUEST['db_src'])) {
 	$gBitSmarty->assign( 'debug', $debug );
 } else {
 	//defaults
+	$gBitSmarty->assign( 'convert_blobs', TRUE );
 	$gBitSmarty->assign( 'stop_on_errors', TRUE );
 }
 
