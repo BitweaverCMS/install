@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.7 2005/09/24 10:16:32 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.8 2005/09/26 09:42:09 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -127,7 +127,7 @@ if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE
 	( isset( $_SESSION['upgrade'] ) && $_SESSION['upgrade'] != TRUE ) ||
 	!isset( $_SERVER['HTTP_REFERER'] ) ||
 	isset( $_SERVER['HTTP_REFERER'] ) &&
-	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) )
+	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ) ) )
 ) {
 	if( !$gBitUser->isAdmin() ) {
 		$_SESSION = NULL;

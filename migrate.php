@@ -1,8 +1,8 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.1.1.1.2.5 2005/09/26 09:42:09 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/migrate.php,v 1.1.2.1 2005/09/26 09:42:09 wolff_borg Exp $
  * @package install
- * @subpackage upgrade
+ * @subpackage migrate
  */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
@@ -28,15 +28,13 @@ $i = 0;
 $install_file[$i]['file'] = 'welcome';
 $install_file[$i++]['name'] = 'Welcome';
 $install_file[$i]['file'] = 'database';
-$install_file[$i++]['name'] = 'Database Connection';
-$install_file[$i]['file'] = 'packages';
-$install_file[$i++]['name'] = 'Upgrade Selection';
+$install_file[$i++]['name'] = 'Migration Options';
 $install_file[$i]['file'] = 'final';
-$install_file[$i]['name'] = 'Upgrade Complete';
+$install_file[$i]['name'] = 'Migration Complete';
 
-// currently i can't think of a better way to secure the upgrade pages
-// redirect to the installer if we aren't sent here by the installer and the upgrade session variable hasn't been set
-if( !isset( $_SESSION['upgrade'] ) || $_SESSION['upgrade'] != TRUE ||
+// currently i can't think of a better way to secure the migrate pages
+// redirect to the installer if we aren't sent here by the installer and the migrate session variable hasn't been set
+if( !isset( $_SESSION['migrate'] ) || $_SESSION['migrate'] != TRUE ||
 	!isset( $_SERVER['HTTP_REFERER'] ) || 
 	isset( $_SERVER['HTTP_REFERER'] ) &&
 	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ) ) ) 
@@ -46,14 +44,14 @@ if( !isset( $_SESSION['upgrade'] ) || $_SESSION['upgrade'] != TRUE ||
 }
 
 // finally we are ready to include the actual php file
-include_once( 'upgrade_'.$install_file[$step]['file'].'.php' );
+include_once( 'migrate_'.$install_file[$step]['file'].'.php' );
 
 $install_file = set_menu( $install_file, $step );
 
-$gBitSmarty->assign( 'menu_file', 'upgrade.php' );
+$gBitSmarty->assign( 'menu_file', 'migrate.php' );
 $gBitSmarty->assign( 'section', 'Upgrade' );
 
-$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/upgrade_".$install_file[$step]['file'].$app.".tpl" );
+$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/migrate_".$install_file[$step]['file'].$app.".tpl" );
 $gBitInstaller->display( INSTALL_PKG_PATH.'templates/install.tpl', $install_file[$step]['name'] );
 
 ?>

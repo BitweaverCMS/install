@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.9 2005/09/24 10:16:32 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.1.1.1.2.10 2005/09/26 09:42:09 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -42,8 +42,14 @@ $install_file[$i]['file'] = 'checks';
 $install_file[$i++]['name'] = 'bitweaver Settings Check';
 // Upgrading of a database can only occur during a first install
 if( $onlyDuringFirstInstall ) {
-	$install_file[$i]['file'] = 'upgrade';
-	$install_file[$i++]['name'] = 'Database Upgrade';
+	$install_file[$i]['file'] = 'options';
+	$install_file[$i++]['name'] = 'Install Options';
+
+//	$install_file[$i]['file'] = 'upgrade';
+//	$install_file[$i++]['name'] = 'Database Upgrade';
+
+//	$install_file[$i]['file'] = 'migrate';
+//	$install_file[$i++]['name'] = 'Database Migration';
 }
 // make it possible to reset the config_inc.php file if it's already filled with data
 if( $onlyDuringFirstInstall ) {
