@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.8 2005/09/26 09:42:09 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.9 2005/09/28 11:07:59 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -106,6 +106,10 @@ global $failedcommands;
 $failedcommands = array();
 global $gBitLanguage;
 $gBitLanguage->mLanguage = 'en';
+
+// Empty PHP_SELF and incorrect SCRIPT_NAME due to php-cgiwrap - wolff_borg
+if (empty($_SERVER['PHP_SELF']))
+	$_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_URL'];
 
 if( empty( $_REQUEST['baseurl'] ) ) {
 	$root_url_bit = substr( $_SERVER['PHP_SELF'], 0, strpos( $_SERVER['PHP_SELF'], 'install/' ) );
