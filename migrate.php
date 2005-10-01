@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/migrate.php,v 1.1.2.1 2005/09/26 09:42:09 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/migrate.php,v 1.1.2.2 2005/10/01 01:40:34 jht001 Exp $
  * @package install
  * @subpackage migrate
  */
@@ -43,6 +43,7 @@ if( !isset( $_SESSION['migrate'] ) || $_SESSION['migrate'] != TRUE ||
 	die;
 }
 
+//echo 'migrate_'.$install_file[$step]['file'].'.php' . "\n";
 // finally we are ready to include the actual php file
 include_once( 'migrate_'.$install_file[$step]['file'].'.php' );
 
