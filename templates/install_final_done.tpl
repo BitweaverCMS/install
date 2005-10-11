@@ -10,7 +10,7 @@
 			{if $script eq 'no_kill'}
 				<li class="error">
 					{biticon ipackage=liberty iname=error iexplain=error}
-					We were unable to rename the install file to 'install.done.php'. Please rename the file yourself.
+					We were unable to rename the install file to 'install.php.done'. Please rename the file yourself.
 				</li>
 			{/if}
 			{if $renamed}
@@ -21,7 +21,7 @@
 			{else}
 				<li class="warning">
 					{biticon ipackage=liberty iname=warning iexplain=warning}
-					We have made sure that the installer cannot be accessed without being logged in as administrator. If you feel this is not secure enough, you can rename the file from <br />'<strong>install/install.php</strong>' to <a href="install.php?kill=yes">'<strong>install/install.done.php</strong>'</a>.
+					We have made sure that the installer cannot be accessed without being logged in as administrator. If you feel this is not secure enough, you can rename the file from <br />'<strong>install/install.php</strong>' to <a href="install.php?kill=yes">'<strong>install/install.php.done</strong>'</a>. Or change the directory permission with 'chmod -R 000 {$smarty.const.INSTALL_PKG_PATH}'. You will need to run the installer again, you will have to revert the permissions with ''chmod -R 755 {$smarty.const.INSTALL_PKG_PATH}'.
 				</li>
 			{/if}
 			<li>bitweaver features useful helpnotes throughout. However, should you require more help, you can always contact us by any of the means mentioned below.</li>

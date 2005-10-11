@@ -102,7 +102,7 @@
 	{/if}
 		{formlabel label="Database Prefix" for="prefix"}
 		{forminput}
-			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit}" />
+			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit|replace:'`':''}" />
 			{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple
 				independent install to share a single database. All bitweaver tables begin with 'bit_' or 'users_',
 				so you rarely need to enter a prefix. If you are NOT running MySQL (i.e. Postgres, Oracle, etc.)
