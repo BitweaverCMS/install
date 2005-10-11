@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.14 2005/09/26 09:42:09 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.15 2005/10/11 05:47:12 spiderr Exp $
  * @package install
  */
 
@@ -382,8 +382,8 @@ function process_sql_file( $file, $gBitDbType, $pBitDbPrefix ) {
 
 function kill_script() {
 	$installFile = 'install.php';
-	if( rename( $installFile, 'install.done.php' ) ) {
-		header ('location: install.done.php');
+	if( rename( $installFile, 'install.php.done' ) ) {
+		header( 'location: '.BIT_ROOT_URL );
 	} else {
 		return 'no_kill';
 	}
