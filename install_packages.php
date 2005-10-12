@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.10 2005/08/11 13:03:45 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.11 2005/10/12 15:13:51 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -15,10 +15,10 @@ if( !isset( $step ) ) {
 }
 
 // set the maximum execution time to very high
-ini_set("max_execution_time", "86400");
+ini_set( "max_execution_time", "86400" );
 
 // assign next step in installation process
-$gBitSmarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step', $step );
 
 // pass all package data to template
 $schema = $gBitInstaller->mPackages;

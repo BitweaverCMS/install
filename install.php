@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.5 2005/08/01 18:40:30 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.6 2005/10/12 15:13:51 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -42,8 +42,14 @@ $install_file[$i]['file'] = 'checks';
 $install_file[$i++]['name'] = 'bitweaver Settings Check';
 // Upgrading of a database can only occur during a first install
 if( $onlyDuringFirstInstall ) {
-	$install_file[$i]['file'] = 'upgrade';
-	$install_file[$i++]['name'] = 'Database Upgrade';
+	$install_file[$i]['file'] = 'options';
+	$install_file[$i++]['name'] = 'Install Options';
+
+//	$install_file[$i]['file'] = 'upgrade';
+//	$install_file[$i++]['name'] = 'Database Upgrade';
+
+//	$install_file[$i]['file'] = 'migrate';
+//	$install_file[$i++]['name'] = 'Database Migration';
 }
 // make it possible to reset the config_inc.php file if it's already filled with data
 if( $onlyDuringFirstInstall ) {
@@ -60,6 +66,8 @@ if( $onlyDuringFirstInstall ) {
 }
 $install_file[$i]['file'] = 'packages';
 $install_file[$i++]['name'] = 'Package Installation';
+$install_file[$i]['file'] = 'package_conflicts';
+$install_file[$i++]['name'] = 'Resolve Conflicts';
 // these settings should only be present when we are installing for the first time
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'bit_settings';
@@ -91,38 +99,7 @@ if( !strpos( $_SERVER['PHP_SELF'],'install/install.php' ) ) {
 // finally we are ready to include the actual php file
 include_once( 'install_'.$install_file[$step]['file'].'.php' );
 
-// here we set up the menu
-for( $done = 0; $done < $step; $done++ ) {
-	$install_file[$done]['state'] = 'success';
-}
-
-// if the page is done, we can display the menu item as done and increase the progress bar
-if( $failedcommands || !empty( $error ) ) {
-	$install_file[$step]['state'] = 'error';
-} elseif( !empty( $warning ) ) {
-	$install_file[$step]['state'] = 'warning';
-} elseif( $app == "_done" ) {
-	$install_file[$step]['state'] = 'success';
-	$done++;
-} else {
-	$install_file[$step]['state'] = 'current';
-}
-
-foreach( $install_file as $key => $menu_step ) {
-	if( !isset( $menu_step['state'] ) ) {
-		if( !empty( $gBitDbType ) && $gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
-			$install_file[$key]['state'] = 'success';
-		} else {
-			$install_file[$key]['state'] = 'spacer';
-		}
-	}
-}
-$gBitSmarty->assign( 'step', $step );
-$gBitSmarty->assign( 'menu_steps', $install_file );
-
-$steps = ( count( $install_file ) );
-$progress = ( ceil( 100 / $steps * $done ) );
-$gBitSmarty->assign( 'progress', $progress );
+$install_file = set_menu( $install_file, $step );
 
 $gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file[$step]['file'].$app.".tpl" );
 $gBitInstaller->display( INSTALL_PKG_PATH.'templates/install.tpl', $install_file[$step]['name'] );

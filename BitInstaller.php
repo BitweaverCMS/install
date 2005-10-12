@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.10 2005/08/30 22:21:06 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.11 2005/10/12 15:13:51 spiderr Exp $
  * @package install
  */
 
@@ -382,8 +382,8 @@ function process_sql_file( $file, $gBitDbType, $pBitDbPrefix ) {
 
 function kill_script() {
 	$installFile = 'install.php';
-	if( rename( $installFile, 'install.done.php' ) ) {
-		header ('location: install.done.php');
+	if( rename( $installFile, 'install.php.done' ) ) {
+		header( 'location: '.BIT_ROOT_URL );
 	} else {
 		return 'no_kill';
 	}
@@ -422,32 +422,6 @@ function makeConnection($gBitDbType, $gBitDbHost, $gBitDbUser, $gBitDbPassword, 
 	return $gDb;
 }
 
-function getTables($gDb, $skip_tables) {
-	$tables = array();
-	$result = $gDb->Execute( $gDb->metaTablesSQL );
-	while ($res = $result->FetchRow()) {
-		//print_r($res);
-		$column_name = array_keys($res);
-		//echo $column_name."\n";
-		$table = $res[$column_name[0]];
-
-		// used to skip/drop dbs of a certain prefix
-		//if (!strncmp('tst_', $table, 4)) {
-		//	$gDb->Execute("DROP TABLE $table");
-		//	continue;
-		//}
-
-		// migrate only one table
-		//if (strcmp('bit_link_cache', $table)) continue;
-
-		// ignore tables
-		if (array_search($table, $skip_tables) !== FALSE) continue;
-		//echo $table."\n";
-		$tables[] = $table;
-	}
-	return $tables;
-}
-
 function identifyBlobs($result) {
 	$blobs = array();
 	//echo "FieldCount: ".$result->FieldCount()."\n";
@@ -461,26 +435,10 @@ function identifyBlobs($result) {
 	return $blobs;
 }
 
-// insert data into destination
-function insertData($res, $table, $gDb, $stop_on_errors) {
-	$query = "INSERT INTO $table (\"";
-	$query .= join("\", \"", array_keys($res));
-	$query .= "\") VALUES (?";
-	for($i = 1; $i < count($res); $i++)
-		$query .= ",?";
-	$query .= ")";
-	//echo $query."\n";
-	if(!$gDb->Execute($query, $res)) {
-		echo $query."\n";
-		echo $gDb->ErrorMsg()."\n";
-		if ($stop_on_errors) die;
-	}
-}
-
 // enumerate blob fields and encoded
-function convertBlobs($db_type, &$res, $blobs) {
+function convertBlobs($gDb, &$res, $blobs) {
 	foreach($blobs as $blob) {
-		$res[$blob] = db_byte_encode($db_type, $res[$blob]);
+		$res[$blob] = $gDb->db_byte_encode($res[$blob]);
 	}
 }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.6 2005/08/07 17:37:53 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.7 2005/10/12 15:13:51 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -8,6 +8,44 @@
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+function set_menu( $pInstallFiles, $pStep ) {
+	global $gBitSmarty, $gBitUser, $gBitDbType, $done, $failedcommands, $app;
+
+	// here we set up the menu
+	for( $done = 0; $done < $pStep; $done++ ) {
+		$pInstallFiles[$done]['state'] = 'success';
+	}
+
+	// if the page is done, we can display the menu item as done and increase the progress bar
+	if( $failedcommands || !empty( $error ) ) {
+		$pInstallFiles[$pStep]['state'] = 'error';
+	} elseif( !empty( $warning ) ) {
+		$pInstallFiles[$pStep]['state'] = 'warning';
+	} elseif( $app == "_done" ) {
+		$pInstallFiles[$pStep]['state'] = 'success';
+		$done++;
+	} else {
+		$pInstallFiles[$pStep]['state'] = 'current';
+	}
+
+	foreach( $pInstallFiles as $key => $menu_step ) {
+		if( !isset( $menu_step['state'] ) ) {
+			if( !empty( $gBitDbType ) && $gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
+				$pInstallFiles[$key]['state'] = 'success';
+			} else {
+				$pInstallFiles[$key]['state'] = 'spacer';
+			}
+		}
+	}
+
+	// assign all this work to the template
+	$gBitSmarty->assign( 'step', $pStep );
+	$gBitSmarty->assign( 'menu_steps', $pInstallFiles );
+	$gBitSmarty->assign( 'progress', ( ceil( 100 / ( count( $pInstallFiles ) ) * $done ) ) );
+
+	return $pInstallFiles;
+}
 
 /**
  * Global flag to indicate we are installing
@@ -69,6 +107,10 @@ $failedcommands = array();
 global $gBitLanguage;
 $gBitLanguage->mLanguage = 'en';
 
+// Empty PHP_SELF and incorrect SCRIPT_NAME due to php-cgiwrap - wolff_borg
+if (empty($_SERVER['PHP_SELF']))
+	$_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_URL'];
+
 if( empty( $_REQUEST['baseurl'] ) ) {
 	$root_url_bit = substr( $_SERVER['PHP_SELF'], 0, strpos( $_SERVER['PHP_SELF'], 'install/' ) );
 } else {
@@ -89,7 +131,7 @@ if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE
 	( isset( $_SESSION['upgrade'] ) && $_SESSION['upgrade'] != TRUE ) ||
 	!isset( $_SERVER['HTTP_REFERER'] ) ||
 	isset( $_SERVER['HTTP_REFERER'] ) &&
-	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) )
+	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ) ) )
 ) {
 	if( !$gBitUser->isAdmin() ) {
 		$_SESSION = NULL;

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.3 2005/08/01 18:40:30 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.4 2005/10/12 15:13:51 spiderr Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -39,7 +39,7 @@ $install_file[$i]['name'] = 'Upgrade Complete';
 if( !isset( $_SESSION['upgrade'] ) || $_SESSION['upgrade'] != TRUE ||
 	!isset( $_SERVER['HTTP_REFERER'] ) || 
 	isset( $_SERVER['HTTP_REFERER'] ) &&
-	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) ) 
+	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ) ) ) 
 ) {
 	header( 'Location: '.INSTALL_PKG_URL.'install.php' );
 	die;
@@ -48,110 +48,12 @@ if( !isset( $_SESSION['upgrade'] ) || $_SESSION['upgrade'] != TRUE ||
 // finally we are ready to include the actual php file
 include_once( 'upgrade_'.$install_file[$step]['file'].'.php' );
 
-// here we set up the menu
-for( $done = 0; $done < $step; $done++ ) {
-	$install_file[$done]['state'] = 'success';
-}
+$install_file = set_menu( $install_file, $step );
 
-// if the page is done, we can display the menu item as done and increase the progress bar
-if( $app == "_done" ) {
-	$install_file[$step]['state'] = 'success';
-	$done++;
-} elseif( $failedcommands || isset( $warning ) ) {
-	$install_file[$step]['state'] = 'warning';
-} elseif( isset( $error ) ) {
-	$install_file[$step]['state'] = 'error';
-} else {
-	$install_file[$step]['state'] = 'current';
-}
-
-foreach( $install_file as $key => $menu_step ) {
-	if( !isset( $menu_step['state'] ) ) {
-		if( !empty( $gBitDbType ) && $gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
-			$install_file[$key]['state'] = 'success';
-		} else {
-			$install_file[$key]['state'] = 'spacer';
-		}
-	}
-}
-$gBitSmarty->assign( 'step', $step );
-$gBitSmarty->assign( 'menu_steps', $install_file );
 $gBitSmarty->assign( 'menu_file', 'upgrade.php' );
 $gBitSmarty->assign( 'section', 'Upgrade' );
 
-$steps = ( count( $install_file ) );
-$progress = ( ceil( 100 / $steps * $done ) );
-$gBitSmarty->assign( 'progress', $progress );
-
-
 $gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/upgrade_".$install_file[$step]['file'].$app.".tpl" );
 $gBitInstaller->display( INSTALL_PKG_PATH.'templates/install.tpl', $install_file[$step]['name'] );
-
-// -------------------------------------------------------------------------------------------------------- //
-/*
-global $gUpgradeFrom, $gUpgradeTo, $gBitSystem;
-
-$step=0; // not used but keeps warnings down
-require_once( 'install_inc.php' );
-
-$upgradePath = array (
-	'TikiWiki 1.8' => array( 'TIKIWIKI18' => 'BONNIE', 'BONNIE' => 'CLYDE' ),
-	'BONNIE' => array( 'BONNIE' => 'CLYDE' ),
-);
-
-
-if ( isset( $_REQUEST['fSubmitWelcome'] ) ) {
-	$install_file = 'install_database';
-} elseif ( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
-	create_config($_REQUEST['db'],$_REQUEST['host'], $_REQUEST['user'],$_REQUEST['pass'],$_REQUEST['name'],$_REQUEST['prefix'],$_REQUEST['baseurl']);
-	include_once( '../kernel/config_inc.php' ); // relative, but we know we are in the installer here...
-	$gBitInstaller->scanPackages( 'admin/upgrade_inc.php' );
-	$install_file = 'upgrade_ready';
-} elseif( !empty( $_REQUEST['upgrade'] ) ) {
-
-	if( isset( $upgradePath[$_REQUEST['upgrade_from']] ) ) {
-
-		if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
-			$gBitInstaller->debug();
-		}
-
-		foreach( $upgradePath[$_REQUEST['upgrade_from']] as $from=>$to ) {
-			global $gUpgradeFrom, $gUpgradeTo;
-			$gUpgradeFrom = $from;  
-			$gUpgradeTo = $to;
-
-			$gBitInstaller->scanPackages( 'admin/upgrade_inc.php', FALSE );
-			$firstPackages = array_flip( array( 'kernel', 'users', 'liberty', 'wiki', 'blogs' ) );
-			$secondPackages = array_flip( array_keys( $gBitSystem->mUpgrades ) );
-			
-			// upgrade the ones that are order critical first
-			foreach( array_keys( $firstPackages ) as $package ) {
-				$gBitInstaller->upgradePackage( $package );
-				unset( $secondPackages[$package] );
-			}
-			
-			// upgrade remaining packages
-			foreach( array_keys( $secondPackages ) as $package ) {
-				$gBitInstaller->upgradePackage( $package );
-			}
-			unset( $gBitInstaller->mUpgrades );
-		}
-	}
-
-	$install_file = 'upgrade_results';
-} else {
-	$install_file= 'upgrade_welcome';
-	$gBitSmarty->assign( 'upgradeFrom', $gUpgradeFrom );
-	$gBitSmarty->assign( 'upgradeTo', $gUpgradeTo );
-}
-
-$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/".$install_file.".tpl" );
-if( file_exists( $install_file.'.php' ) ) {
-	// finally we are ready to include the actual php file
-	include_once( $install_file.'.php' );
-}
-
-$gBitSmarty->display( INSTALL_PKG_PATH.'templates/install.tpl' );
-*/
 
 ?>

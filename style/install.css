@@ -1,79 +1,103 @@
-			/*layout */
-.install		{width:800px;padding:0px;margin-left:auto;margin-right:auto;}
-.body			{float:left;width:600px;text-align:justify;background:#fff;border:1px solid #2c4268;line-height:16px;}
-.nav			{float:right;width:180px;}
-			/*global stuff */
-body			{background:#e5e5e5;font-family:verdana, arial, helvetica, sans-serif;font-weight:normal;font-size:12px;margin:0px;padding:10px;vertical-align:middle;}
-table			{border-collapse:collapse;padding:0;margin:0;}
-th				{text-align:left;padding:3px 5px;background:#2c4268;border-bottom:2px solid #fff;color:#fff;}
-td				{padding:2px 3px;vertical-align:top;}
-hr				{border:1px solid #000;}
-			/*form related */
-form,input,textarea,select	{margin:0;padding:0; font-size:12px; font-family:verdana,arial,helvetica sans-serif;}
-textarea		{width:100%;}
-			/*titles */
-h1				{font-size:130%;color:#900;font-weight:900;}
-h2				{font-size:120%;}
-h3				{font-size:110%;}
-h1,h2,h3		{margin:2px 0;padding:15px 10px 0 10px;}
-			/*links */
-a				{color:#06f;text-decoration:none;}
-a.external		{background:transparent url('images/external.gif') no-repeat right; padding-right:12px;}
-a:hover			{text-decoration:underline;}
-.icon			{border:0;vertical-align:middle;}
-			/*styling */
-.bittop			{background:#fff url('images/bitweaver.gif') top left no-repeat;}
-.bittop h1		{font-size:10px;color:#666;text-align:right;padding:110px 10px 0 0;margin:0;}
-.header			{}
-.clear			{clear:both;}
-			/*forms */
-form			{clear:both;}
-form,input,textarea,select{margin:0;padding:0;}
-fieldset		{padding:10px;margin:10px;border:0;border-top:1px solid #2c4268;}
-legend			{padding:2px 7px;background:#fff;}
-textarea		{width:100%;}
-.row			{clear:both;padding:15px 0 0 0;}
-.formlabel		{float:left;width:24%;text-align:right;padding:2px 1% 2px 0;border:1px solid #e5e5e5;background:#f0f0f0;}
-.formfeedback	{text-align:justify;}
-.formfeedback div	{display:block;padding:4px;border-bottom:1px dotted #aaa;}
-.error		{background:#fcc;}
-.warning	{background:#fdc;}
-.success	{background:#cfc;}
-.current	{background:#ffc;}
-.help		{background:#eee;}
-.formfeedback ul {padding:0;margin:0;}
+/*  layout */
+.install	{width:800px; padding:0px; margin-left:auto; margin-right:auto;}
+.body		{float:left; width:600px; text-align:justify; background:#fff; border:1px solid #2c4268; line-height:16px;}
+.nav		{float:right; width:180px;}
+
+/* global stuff */
+body	{background:#e5e5e5; font-family:verdana, arial, helvetica, sans-serif; font-weight:normal; font-size:12px; margin:0px; padding:10px; vertical-align:middle;}
+table	{border-collapse:collapse; padding:0; margin:0;}
+th		{text-align:left; padding:3px 5px; background:#2c4268; border-bottom:2px solid #fff; color:#fff;}
+td		{padding:2px 3px; vertical-align:top;}
+hr		{border:1px solid #000;}
+p		{padding:10px;}
+
+/* titles */
+h1			{font-size:130%; color:#900; font-weight:900;}
+h2			{font-size:120%;}
+h3			{font-size:110%;}
+h1,h2,h3	{margin:2px 0; padding:15px 10px 0 10px;}
+
+/* links */
+a			{color:#06f; text-decoration:none;}
+a.external	{background:transparent url('images/external.gif') no-repeat right; padding-right:12px;}
+a:hover		{text-decoration:underline;}
+.icon		{border:0; vertical-align:middle;}
+
+/* styling */
+.bittop		{background:#fff url('images/bitweaver.gif') top left no-repeat;}
+.bittop h1	{font-size:10px; color:#666; text-align:right; padding:110px 10px 0 0; margin:0;}
+.header		{}
+.clear		{clear:both;}
+
+/* forms */
+form		{clear:both;}
+form,
+input,
+textarea,
+select		{margin:0; padding:0; font-size:12px; font-family:verdana,arial,helvetica sans-serif;}
+fieldset	{padding:10px; margin:10px; border:0; border-top:1px solid #2c4268;}
+legend		{padding:2px 7px; background:#fff;}
+textarea	{width:100%;}
+
+.row				{clear:both; padding:15px 0 0 0;}
+.formlabel			{float:left; width:24%; text-align:right; padding:2px 1% 2px 0; border:1px solid #ccc; background:#eee;}
+.formfeedback		{text-align:justify;}
+.formfeedback div	{display:block; padding:4px; border-bottom:1px dotted #aaa;}
+
+.error			{background:#fcc;}
+.warning		{background:#fdc;}
+.success		{background:#cfc;}
+.current		{background:#ffc;}
+.help			{background:#eee;}
+p.warning,
+p.success,
+p.error			{border:1px solid #999;}
+
+.formfeedback ul {padding:0; margin:0;}
 .formfeedback li {border-bottom:1px dotted #aaa;}
-li.error,li.warning,li.success {list-style:none;padding:4px;margin:0;}
-.forminput		{float:right;width:74%;text-align:left;padding:0;}
-.forminput tr	{padding:4px;border-bottom:1px dotted #aaa;}
-.formhelp		{text-align:justify;color:#666;font-size:10px;cursor:help;}
-.submit			{text-align:center;margin:10px 0 0 0;}
-input[type="submit"] {border:1px solid black;background:#2c4268;color:#fff;padding:5px 10px;}
-input[type="submit"]:hover, input[type="submit"]:focus {background:#fc0;color:#000;}
+
+li.error,
+li.warning,
+li.success		{list-style:none; padding:4px; margin:0;}
+
+.forminput					{float:right; width:74%; text-align:left; padding:0;}
+.forminput tr				{padding:4px; border-bottom:1px dotted #aaa;}
+.formhelp					{text-align:justify; color:#666; font-size:10px; cursor:help;}
+.submit						{text-align:center; margin:10px 0 2em 0;}
+input[type="submit"] 		{border:1px solid black; background:#2c4268; color:#fff; padding:5px 10px;}
+input[type="submit"]:hover,
+input[type="submit"]:focus {background:#fc0; color:#000;}
 
 dl	{padding:0; margin:0.5em 0; line-height:1.3em;}
 dt	{padding:0; margin:0; width:30%; text-align:right; font-weight:bold;}
 dd	{padding:0; margin:-1.3em 0 0.5em 32%;}
-			/*navigation and status */
-.nav			{background:#fff;font-size:10px;border:1px solid #2c4268;}
-.nav ul,.nav li,ul.result,.result li{padding:0;margin:0;}
-ul				{padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;}
-.nav li,.result li{list-style:none;border-bottom:1px dotted #bbb;padding:7px;}
-.nav .title		{letter-spacing:1px;color:#900;text-align:center;padding:110px 0 10px 0;background:#fff url('images/ometer.gif') top center no-repeat;}
-.progressbar	{background:#fff;font-size:10px;color:#666;padding:15px 5px;}
-.result li li {border:0;padding:1px;list-style:circle;}
-			/*tabs */
-.tabsystem .tabcontainer ul,.tabsystem .tabcontainer li
-	{margin:0;padding:0;border:0;list-style-type:none;display:inline;}
-.tabsystem .tabcontainer
-	{margin:0;padding:0;border:0;clear:both;}
-.tabsystem .tabcontainer .tab,.tabsystem .tabcontainer .tab-active
-	{position:relative;display:inline;float:left;z-index:1;white-space:nowrap;}
-.tabsystem .tabpage
-	{clear:both;}
-h4	{margin:0;padding:0;}
-			/*tabstyle */
-.tabsystem .tabcontainer .tab,.tabsystem .tabcontainer .tab-hover,.tabsystem .tabcontainer .tab-active {
+
+/* navigation and status */
+.nav			{background:#fff; font-size:10px; border:1px solid #2c4268;}
+.nav ul,
+.nav li,
+ul.result,
+.result li		{padding:0; margin:0;}
+ul				{padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:0;}
+.nav li,
+.result li		{list-style:none; border-bottom:1px dotted #bbb; padding:7px;}
+.nav .title		{letter-spacing:1px; color:#900; text-align:center; padding:110px 0 10px 0; background:#fff url('images/ometer.gif') top center no-repeat;}
+.progressbar	{background:#fff; font-size:10px; color:#666; padding:15px 5px;}
+.result li li	{border:0; padding:1px; list-style:circle;}
+
+/* tabs */
+.tabsystem .tabcontainer ul,
+.tabsystem .tabcontainer li				{margin:0; padding:0; border:0; list-style-type:none; display:inline;}
+.tabsystem .tabcontainer				{margin:0; padding:0; border:0; clear:both;}
+.tabsystem .tabcontainer .tab,
+.tabsystem .tabcontainer .tab-active	{position:relative; display:inline; float:left; z-index:1; white-space:nowrap;}
+.tabsystem .tabpage						{clear:both;}
+h4										{margin:0; padding:0;}
+
+/* tabstyle */
+.tabsystem .tabcontainer .tab,
+.tabsystem .tabcontainer .tab-hover,
+.tabsystem .tabcontainer .tab-active {
 	top:3px;
 	font:10px verdana,arial,sans-serif;
 	font-weight:normal;
