@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_package_conflicts.php,v 1.1.2.1 2005/09/15 21:32:00 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_package_conflicts.php,v 1.1.2.2 2005/10/19 19:44:49 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -14,9 +14,11 @@ $gBitSmarty->assign_by_ref( 'schema', $schema );
 
 // check if we have installed more than one service of any given type
 $serviceList = array();
-foreach( $gLibertySystem->mServices as $service_name => $service ) {
-	if( count( $service ) > 1 ) {
-		$serviceList[$service_name] = $service;
+if( !empty( $gLibertySystem->mServices ) ) {
+	foreach( $gLibertySystem->mServices as $service_name => $service ) {
+		if( count( $service ) > 1 ) {
+			$serviceList[$service_name] = $service;
+		}
 	}
 }
 
