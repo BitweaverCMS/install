@@ -1,6 +1,6 @@
 /*  layout */
 .install	{width:800px; padding:0px; margin-left:auto; margin-right:auto;}
-.body		{float:left; width:600px; text-align:justify; background:#fff; border:1px solid #2c4268; line-height:16px;}
+.body		{float:left; width:600px; background:#fff; border:1px solid #2c4268; line-height:16px;}
 .nav		{float:right; width:180px;}
 
 /* global stuff */
