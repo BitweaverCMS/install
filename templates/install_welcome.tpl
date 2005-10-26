@@ -3,7 +3,7 @@
 {form legend="Begin the installation process"}
     <input type="hidden" name="step" value="{$next_step}" />
 	<div class="row">
-		{if !$first_install}
+		{if $gBitUser->isAdmin()}
 			<p class="warning">Since this does not appear to be your first install, you can use the navigation on the right to access various pages of the installer.
 			To install new packages, please visit the <strong>Package Installation</strong> page.</p>
 		{/if}
