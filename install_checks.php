@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.6 2005/08/01 18:40:30 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.7 2005/10/29 17:53:39 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -32,7 +32,6 @@ if( !isset( $_SERVER['HTTP_REFERER'] ) ) {
 function check_settings() {
 	global $gBitSmarty,$error,$warning;
 	$config_file = clean_file_path( empty($_SERVER['CONFIG_INC']) ? (KERNEL_PKG_PATH.'config_inc.php') : $_SERVER['CONFIG_INC'] );
-
 
 	$i = 0;
 	// required settings - if not met, are passed into the array $reqd
@@ -114,12 +113,13 @@ function check_settings() {
 	// recommended php toggles - these don't need explicit explanations on how to rectify them
 	// start with special cases
 	$recommended[$i] = array( 'Memory Limit','memory_limit','shouldbe' => 'at least 8M','actual' => get_cfg_var( 'memory_limit' ) );
-	if( eregi_replace( 'M','',get_cfg_var( 'memory_limit' ) ) > 8 ) {
+	if( eregi_replace( 'M','',get_cfg_var( 'memory_limit' ) ) > 16 ) {
 		$recommended[$i]['passed'] = TRUE;
 	} else {
 		$recommended[$i]['passed'] = FALSE;
 		$gBitSmarty->assign( 'memory_warning', TRUE );
 	}
+
 	$i++;
 	// now continue with easy toggle checks
 	$php_rec_toggles = array(
@@ -133,9 +133,9 @@ function check_settings() {
 		array( 'Output Buffering','output_buffering','shouldbe' => 'OFF' ),
 		array( 'Session auto start','session.auto_start','shouldbe' => 'OFF' ),
 	);
-	foreach ($php_rec_toggles as $php_rec_toggle) {
+	foreach( $php_rec_toggles as $php_rec_toggle ) {
 		$php_rec_toggle['actual'] = get_php_setting( $php_rec_toggle[1] );
-		if ( get_php_setting( $php_rec_toggle[1] ) == $php_rec_toggle['shouldbe'] ) {
+		if( get_php_setting( $php_rec_toggle[1] ) == $php_rec_toggle['shouldbe'] ) {
 			$php_rec_toggle['passed'] = TRUE;
 		} else {
 			$php_rec_toggle['passed'] = FALSE;

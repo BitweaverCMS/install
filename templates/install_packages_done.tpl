@@ -24,7 +24,7 @@
 					{biticon ipackage=liberty iname=error iexplain=success}
 					The following database operations failed
 				</h2>
-				<textarea rows="20" cols="80">{section loop=$failedcommands name=ix}{$failedcommands[ix]}{/section}</textarea>
+				<textarea rows="20" cols="50">{section loop=$failedcommands name=ix}{$failedcommands[ix]}{/section}</textarea>
 				<h3>Some errors occured. Your site may not be ready to run. You can revisit the previous page to rerun the installation.</h3>
 			</div>
 		{/if}

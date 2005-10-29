@@ -6,7 +6,7 @@
 	{if $failedcommands}
 		<div class="row">
 			<h3>The following database operations failed</h3>
-			<textarea rows="20" cols="80">{section loop=$failedcommands name=ix}{$failedcommands[ix]}{/section}</textarea>
+			<textarea rows="20" cols="50">{section loop=$failedcommands name=ix}{$failedcommands[ix]}{/section}</textarea>
 			<h4>Some errors occured. Your site may not be ready to run. You can revisit the previous page to rerun the installation.</h4>
 		</div>
 	{else}
