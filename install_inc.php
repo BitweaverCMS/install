@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.9 2005/09/28 11:07:59 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.10 2005/10/30 21:03:49 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -9,6 +9,9 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+/**
+ * set_menu function
+ */
 function set_menu( $pInstallFiles, $pStep ) {
 	global $gBitSmarty, $gBitUser, $gBitDbType, $done, $failedcommands, $app;
 

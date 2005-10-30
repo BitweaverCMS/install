@@ -1,14 +1,20 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.1.2.2 2005/09/26 10:22:48 wolff_borg Exp $
-*
-* Copyright (c) 2004 Stephan Borg, tikipro.org
-* All Rights Reserved. See copyright.txt for details and a complete list of authors.
+ * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.1.2.3 2005/10/30 21:03:49 lsces Exp $
+ * @package install
+ * @subpackage upgrade
+ *
+ * Copyright (c) 2004 Stephan Borg, tikipro.org
+ * All Rights Reserved. See copyright.txt for details and a complete list of authors.
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
+ *
+ * $Id: migrate_database.php,v 1.1.2.3 2005/10/30 21:03:49 lsces Exp $
+ */
 
-* Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
-*
-* $Id: migrate_database.php,v 1.1.2.2 2005/09/26 10:22:48 wolff_borg Exp $
-*/
+/**
+ * Initialization
+ */
 $gBitSmarty->assign( 'next_step', $step );
 require_once( 'install_inc.php' );
 
