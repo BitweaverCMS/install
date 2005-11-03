@@ -41,7 +41,7 @@ textarea	{width:100%;}
 
 .row				{clear:both; padding:15px 0 0 0;}
 .formlabel			{float:left; width:24%; text-align:right; padding:2px 1% 2px 0; border:1px solid #ccc; background:#eee;}
-.formfeedback		{text-align:justify;}
+.formfeedback		{}
 .formfeedback div	{display:block; padding:4px; border-bottom:1px dotted #aaa;}
 
 .error			{background:#fcc;}
@@ -62,7 +62,7 @@ li.success		{list-style:none; padding:4px; margin:0;}
 
 .forminput					{float:right; width:74%; text-align:left; padding:0;}
 .forminput tr				{padding:4px; border-bottom:1px dotted #aaa;}
-.formhelp					{text-align:justify; color:#666; font-size:10px; cursor:help;}
+.formhelp					{color:#666; font-size:10px; cursor:help;}
 .submit						{text-align:center; margin:10px 0 2em 0;}
 input[type="submit"] 		{border:1px solid black; background:#2c4268; color:#fff; padding:5px 10px;}
 input[type="submit"]:hover,
