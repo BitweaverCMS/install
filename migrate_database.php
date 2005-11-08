@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.1.2.3 2005/10/30 21:03:49 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.1.2.4 2005/11/08 13:04:41 wolff_borg Exp $
  * @package install
  * @subpackage upgrade
  *
@@ -9,7 +9,7 @@
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: migrate_database.php,v 1.1.2.3 2005/10/30 21:03:49 lsces Exp $
+ * $Id: migrate_database.php,v 1.1.2.4 2005/11/08 13:04:41 wolff_borg Exp $
  */
 
 /**
@@ -168,11 +168,11 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 	foreach($tables_src as $table) {
 		if (array_search($table, $skip_tables) !== FALSE) {
 			if ($debug)
-				echo "Skipping $table\n";
+				echo "Skipping $table<br>\n";
 			continue;
 		}
 		if ($debug)
-			echo "Creating $table\n";
+			echo "Creating $table<br>\n";
 
 		if ($empty_tables && $gDb_dst->tableExists($table))
 			$gDb_dst->dropTables(array($table));
@@ -187,10 +187,13 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 			switch($x->type) {
 				case "int":
 					$i = abs(( ( (int)$x->max_length ^ 2) - 1 ));
+					$i = ($i == 5) ? 4 : $i;
+					$i = ($i == 0) ? 1 : $i;
 					$t .= "I" . $i;
 					break;
 
 				case "varchar":
+				case "char":
 					$t .= "C(" . $x->max_length . ")";
 					break;
 				
@@ -199,8 +202,11 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 					break;
 				
 				case "longblob":
+				case "text":
 					$t .= "X";
 					break;
+				default:
+					die($x->type);
 			}
 			$default = (!$x->binary) ? $x->has_default : false;
 			$t .= " " . ( ($x->unsigned) ? "UNSIGNED" : "" ) . " "
