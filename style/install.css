@@ -9,13 +9,13 @@ table	{border-collapse:collapse; padding:0; margin:0;}
 th		{text-align:left; padding:3px 5px; background:#2c4268; border-bottom:2px solid #fff; color:#fff;}
 td		{padding:2px 3px; vertical-align:top;}
 hr		{border:1px solid #000;}
-p		{padding:10px;}
+p		{margin:0; padding:0px 10px 10px 10px;}
 
 /* titles */
 h1			{font-size:130%; color:#900; font-weight:900;}
 h2			{font-size:120%;}
 h3			{font-size:110%;}
-h1,h2,h3	{margin:2px 0; padding:15px 10px 0 10px;}
+h1,h2,h3	{margin:2px 0; padding:25px 0 0 0;}
 
 /* links */
 a			{color:#06f; text-decoration:none;}
@@ -39,7 +39,7 @@ fieldset	{padding:10px; margin:10px; border:0; border-top:1px solid #2c4268;}
 legend		{padding:2px 7px; background:#fff;}
 textarea	{width:100%;}
 
-.row				{clear:both; padding:15px 0 0 0;}
+.row				{clear:both; padding:5px 0 0 0;}
 .formlabel			{float:left; width:24%; text-align:right; padding:2px 1% 2px 0; border:1px solid #ccc; background:#eee;}
 .formfeedback		{}
 .formfeedback div	{display:block; padding:4px; border-bottom:1px dotted #aaa;}
