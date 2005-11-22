@@ -14,7 +14,7 @@
 	<![endif]-->
 
 	<script type="text/javascript"><!--
-		var tikiRootUrl = "{$smarty.const.BIT_ROOT_URL}";
+		var bitRootUrl = "{$smarty.const.BIT_ROOT_URL}";
 	--></script>
 	<script type="text/javascript" src="{$smarty.const.THEMES_PKG_URL}js/tabs/tabpane.js"></script>
 </head>

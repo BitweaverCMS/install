@@ -107,7 +107,7 @@
 				</tr>
 				{foreach from=`$recommended` item="check"}
 					<tr class="{if $check.passed eq 'y'}note{else}warning{/if}">
-						<td><abbr title="{$check.1}">{$check.0}</abbr></td>
+						<td><abbr title="php.ini setting: {$check.1}">{$check.0}</abbr></td>
 						<td>{$check.shouldbe}</td>
 						<td>{$check.actual}</td>
 						<td>

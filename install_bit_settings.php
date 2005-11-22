@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.6 2005/10/12 15:13:51 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.7 2005/11/22 07:26:29 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -74,6 +74,12 @@ if( isset( $_REQUEST['fSubmitBitSettings'] ) ) {
 		simple_set_value( $item );
 	}
 
+	if (empty($_REQUEST['bitlanguage'])) {
+		$_REQUEST['bitlanguage'] = 'en';
+	}
+	if (!array_key_exists($_REQUEST['bitlanguage'], $languages)) {
+		$languages[$_REQUEST['bitlanguage']] = '';
+	}
 	$gBitLanguage->setLanguage( $_REQUEST['bitlanguage'] );
 	$gBitSmarty->assign( "siteLanguage",$languages[$_REQUEST['bitlanguage']] );
 	// advance a step in the installer

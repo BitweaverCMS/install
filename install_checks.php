@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.7 2005/10/29 17:53:39 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.8 2005/11/22 07:26:29 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -89,8 +89,9 @@ function check_settings() {
 				<dt>*nix</dt>
 				<dd>Prebuilt RPMs are available for Fedora and RedHat from <a class="external" href="http://phprpms.sourceforge.net/imagick">phpRPMs</a> or compile a <a class="external" href="http://sourceforge.net/project/showfiles.php?group_id=112092&amp;package_id=139307&amp;release_id=292417">source RPM</a>.</dd>
 				<dt>Windows</dt>
-				<dd>For information on how to install ImageMagick on Windows, please visit <a class="external" href="http://www.bitweaver.org/wiki/ImagemagickOnWindows">Install ImageMagick on Windows</a>.</dd>
+				<dd>For information on how to install ImageMagick on Windows, please visit <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">Install ImageMagick</a>.</dd>
 			</dl>',
+		'magickwand' => 'MagickWand is an alternative php extension for ImageMagick. please see the ImageMagic documentation for installation.',
 	);
 	foreach( $php_ext as $ext => $note ) {
 		$extensions[$i]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
@@ -113,7 +114,7 @@ function check_settings() {
 	// recommended php toggles - these don't need explicit explanations on how to rectify them
 	// start with special cases
 	$recommended[$i] = array( 'Memory Limit','memory_limit','shouldbe' => 'at least 8M','actual' => get_cfg_var( 'memory_limit' ) );
-	if( eregi_replace( 'M','',get_cfg_var( 'memory_limit' ) ) > 16 ) {
+	if( eregi_replace( 'M','',get_cfg_var( 'memory_limit' ) ) > 15 ) {
 		$recommended[$i]['passed'] = TRUE;
 	} else {
 		$recommended[$i]['passed'] = FALSE;

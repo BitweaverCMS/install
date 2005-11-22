@@ -1,14 +1,20 @@
 <?php
 /**
-* $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.2 2005/10/23 14:40:08 squareing Exp $
-*
-* Copyright (c) 2004 Stephan Borg, tikipro.org
-* All Rights Reserved. See copyright.txt for details and a complete list of authors.
+ * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.3 2005/11/22 07:26:29 squareing Exp $
+ * @package install
+ * @subpackage upgrade
+ *
+ * Copyright (c) 2004 Stephan Borg, tikipro.org
+ * All Rights Reserved. See copyright.txt for details and a complete list of authors.
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
+ *
+ * $Id: migrate_database.php,v 1.3 2005/11/22 07:26:29 squareing Exp $
+ */
 
-* Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
-*
-* $Id: migrate_database.php,v 1.2 2005/10/23 14:40:08 squareing Exp $
-*/
+/**
+ * Initialization
+ */
 $gBitSmarty->assign( 'next_step', $step );
 require_once( 'install_inc.php' );
 
@@ -162,11 +168,11 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 	foreach($tables_src as $table) {
 		if (array_search($table, $skip_tables) !== FALSE) {
 			if ($debug)
-				echo "Skipping $table\n";
+				echo "Skipping $table<br>\n";
 			continue;
 		}
 		if ($debug)
-			echo "Creating $table\n";
+			echo "Creating $table<br>\n";
 
 		if ($empty_tables && $gDb_dst->tableExists($table))
 			$gDb_dst->dropTables(array($table));
@@ -181,10 +187,13 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 			switch($x->type) {
 				case "int":
 					$i = abs(( ( (int)$x->max_length ^ 2) - 1 ));
+					$i = ($i == 5) ? 4 : $i;
+					$i = ($i == 0) ? 1 : $i;
 					$t .= "I" . $i;
 					break;
 
 				case "varchar":
+				case "char":
 					$t .= "C(" . $x->max_length . ")";
 					break;
 				
@@ -193,8 +202,11 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 					break;
 				
 				case "longblob":
+				case "text":
 					$t .= "X";
 					break;
+				default:
+					die($x->type);
 			}
 			$default = (!$x->binary) ? $x->has_default : false;
 			$t .= " " . ( ($x->unsigned) ? "UNSIGNED" : "" ) . " "
