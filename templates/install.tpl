@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
-{strip}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -13,12 +12,15 @@
 		<script type="text/javascript" src="{$smarty.const.THEMES_PKG_URL}js/pngfix.js"></script>
 	<![endif]-->
 
-	<script type="text/javascript"><!--
+	<script type="text/javascript">//<![CDATA[
+		var bitCookiePath = "{$smarty.const.BIT_ROOT_URL}";
+		var bitCookieDomain = "";
+		var bitIconDir = "{$smarty.const.LIBERTY_PKG_URL}icons/";
 		var bitRootUrl = "{$smarty.const.BIT_ROOT_URL}";
-	--></script>
+	//]]></script>
 	<script type="text/javascript" src="{$smarty.const.THEMES_PKG_URL}js/tabs/tabpane.js"></script>
 </head>
-
+{strip}
 <body>
 	<div class="display install">
 		<div class="nav">
