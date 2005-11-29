@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.15 2005/10/11 05:47:12 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.3.2.16 2005/11/29 16:54:24 mej Exp $
  * @package install
  */
 
@@ -35,6 +35,9 @@ class BitInstaller extends BitSystem {
 	{
 		header( 'Content-Type: text/html; charset=utf-8' );
 		// force the session to close *before* displaying. Why? Note this very important comment from http://us4.php.net/exec
+		if (ini_get('safe_mode') && ini_get('safe_mode_gid')) {
+			umask(0007);
+		}
 		session_write_close();
 
 		if( !empty( $pBrowserTitle ) ) {
