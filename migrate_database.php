@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.3 2005/11/22 07:26:29 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.4 2005/12/05 23:52:44 squareing Exp $
  * @package install
  * @subpackage upgrade
  *
@@ -9,7 +9,7 @@
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: migrate_database.php,v 1.3 2005/11/22 07:26:29 squareing Exp $
+ * $Id: migrate_database.php,v 1.4 2005/12/05 23:52:44 squareing Exp $
  */
 
 /**
@@ -185,6 +185,7 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 			$x = $schema[$col];
 			$t .= $x->name . " ";
 			switch($x->type) {
+				case "tinyint":
 				case "int":
 					$i = abs(( ( (int)$x->max_length ^ 2) - 1 ));
 					$i = ($i == 5) ? 4 : $i;
@@ -192,21 +193,38 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 					$t .= "I" . $i;
 					break;
 
+				case "double":
+					$t .= "N";
+					break;
+				
 				case "varchar":
 				case "char":
+				case "enum":
+				case "decimal":
 					$t .= "C(" . $x->max_length . ")";
 					break;
 				
+				case "time":
+				case "timestamp":
 				case "datetime":
 					$t .= "T";
 					break;
 				
+				case "date":
+					$t .= "D";
+					break;
+				
+				case "blob":
 				case "longblob":
+				case "tinyblob":
+					$t .= "B";
+					break;
+
 				case "text":
 					$t .= "X";
 					break;
 				default:
-					die($x->type);
+					die(tra("No support for type '".$x->type."' - please log a bug at http://sf.net/projects/bitweaver"));
 			}
 			$default = (!$x->binary) ? $x->has_default : false;
 			$t .= " " . ( ($x->unsigned) ? "UNSIGNED" : "" ) . " "
