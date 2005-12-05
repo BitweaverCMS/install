@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.14 2005/09/15 21:32:00 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.15 2005/12/05 21:08:39 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -177,7 +177,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 
 				// Create 'Anonymous' user has id= -1 just like phpBB
 				$anonUser = new BitPermUser();
-				$storeHash = array( 'real_name' => 'Guest', 'login' => 'guest', 'password' => $_SESSION['password'], 'email' =>'guest@localhost', 'pass_due' => FALSE, 'user_id' => ANONYMOUS_USER_ID );
+				$storeHash = array( 'real_name' => 'Guest', 'login' => 'guest', 'password' => $_SESSION['password'], 'email' =>'guest@localhost', 'pass_due' => FALSE, 'user_id' => ANONYMOUS_USER_ID,  'default_group_id' => ANONYMOUS_USER_ID );
 				if( $anonUser->store( $storeHash ) ) {
 
 					// Remove anonymous from registered group
