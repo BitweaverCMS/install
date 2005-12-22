@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.2.2.9 2005/12/22 13:27:46 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.2.2.10 2005/12/22 13:28:26 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -94,7 +94,6 @@ function check_settings() {
 		'magickwand' => 'MagickWand is an alternative php extension for ImageMagick. please see the ImageMagic documentation for installation.',
 		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of php by caching. Using this extension will greatly increase your servers performance and reduce the memory needed to run bitweaver.',
 	);
-	vd(get_loaded_extensions());
 	foreach( $php_ext as $ext => $note ) {
 		$extensions[$i]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
 		if( extension_loaded( $ext ) ) {
