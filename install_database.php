@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.3.2.4 2005/07/26 15:50:07 drewslater Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.3.2.5 2005/12/22 13:48:21 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -93,6 +93,7 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 		}
 	} else {
 		$gBitSmarty->assign( 'error', TRUE );
+		$gBitSmarty->assign( 'errorMsg', $gBitDb->_errorMsg );
 		$error = TRUE;
 	}
 }

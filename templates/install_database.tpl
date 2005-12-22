@@ -15,7 +15,16 @@
 				{elseif $error}
 					<li class="error">
 						{biticon ipackage=liberty iname=error iexplain=error}
-						Database connection could not be established.
+						<p>Database connection could not be established.</p>
+
+						{if $errorMsg}
+							<p>
+								The returned error message is:
+								<br />
+								<strong>{$errorMsg}</strong>
+							</p>
+						{/if}
+
 						<ul>
 							<li>Perhaps your database is not available</li>
 							<li>or the server cannot connect to it</li>
