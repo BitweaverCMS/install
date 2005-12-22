@@ -53,15 +53,10 @@
 					{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
 					<a href="{$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step=0">Start over</a>
 				</li>
-				<li>
-					{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
-				</li>
-				<li class="warning">
-					{biticon ipackage=liberty iname=warning iexplain=warning iforce=icon}&nbsp;
+				<li class="warning" style="text-align:center;">
+					{biticon ipackage=liberty iname=warning iexplain=warning iforce=icon}
+					<br />
 					Please don't use the browser back button.
-				</li>
-				<li>
-					{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
 				</li>
 			</ul>
 
