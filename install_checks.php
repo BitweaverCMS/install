@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.8 2005/11/22 07:26:29 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.9 2005/12/26 12:24:22 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -82,8 +82,8 @@ function check_settings() {
 	$i = 0;
 	// check extensions
 	$php_ext = array(
-		'zlib' => 'The zlib compression libraries are used to pack and unpack compressed files such as zip files.',
-		'gd' => 'GD Libraries are used to manipulate images. We use these libraries to create thumbnails and convert images from one format to another. The GD libaries are quite limited and <strong>don\'t support</strong> a number of image formats including <strong>bmp</strong>. If you are planning on uploading and using a lot of images, we recommend you use ImageMagic instead.<br />If you are running Red Hat or Fedora Core, you can try running: yum install php-gd.',
+		'zlib' => '<a href="http://www.zlib.net/">The zlib compression libraries</a> are used to pack and unpack compressed files such as zip files.',
+		'gd' => '<a href="http://www.boutell.com/gd/">GD Libraries</a> are used to manipulate images. We use these libraries to create thumbnails and convert images from one format to another. The GD libaries are quite limited and <strong>don\'t support</strong> a number of image formats including <strong>bmp</strong>. If you are planning on uploading and using a lot of images, we recommend you use ImageMagic instead.<br />If you are running Red Hat or Fedora Core, you can try running: yum install php-gd.',
 		'imagick' => 'ImageMagick supports a multitude of different image and video formats and <strong>can be used instead of the GD Libraries</strong>. Using these libraries will allow you to upload most image formats without any difficulties. It also requires less memory than the GD Libraries.<br />To find out more about <a class="external" href="http://www.imagemagick.org">ImageMagick</a>, please visit their homepage.
 			<dl>
 				<dt>*nix</dt>
@@ -92,6 +92,7 @@ function check_settings() {
 				<dd>For information on how to install ImageMagick on Windows, please visit <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">Install ImageMagick</a>.</dd>
 			</dl>',
 		'magickwand' => 'MagickWand is an alternative php extension for ImageMagick. please see the ImageMagic documentation for installation.',
+		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of php by caching. Using this extension will greatly increase your servers performance and reduce the memory needed to run bitweaver.',
 	);
 	foreach( $php_ext as $ext => $note ) {
 		$extensions[$i]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
