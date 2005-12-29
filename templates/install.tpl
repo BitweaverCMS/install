@@ -53,6 +53,12 @@
 					{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
 					<a href="{$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step=0">Start over</a>
 				</li>
+				{if $section}
+					<li class="help">
+						{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
+						<a href="{$smarty.const.INSTALL_PKG_URL}install.php?step=2">Return to Installer</a>
+					</li>
+				{/if}
 				<li class="warning" style="text-align:center;">
 					{biticon ipackage=liberty iname=warning iexplain=warning iforce=icon}
 					<br />
