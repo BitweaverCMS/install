@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.15 2005/12/05 21:08:39 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.16 2005/12/30 16:11:55 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -208,6 +208,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 
 		}
 		$gBitSmarty->assign( 'next_step', $step + 1 );
+		sort( $package_list );
 		$gBitSmarty->assign( 'package_list', $package_list );
 		$gBitSmarty->assign( 'failedcommands', !empty( $failedcommands ) ? $failedcommands : NULL );
 		// display the confirmation page
