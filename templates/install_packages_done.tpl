@@ -38,6 +38,17 @@
 			</ul>
 		</div>
 
+		{if !$first_install}
+			<div class="row">
+				<ul class="result">
+					<li class="warning">
+						{biticon ipackage=liberty iname=warning iexplain=warning}
+						You have just successfully installed new packages. During installation, new permissions were probably added to the database, but not assigned to any groups. You can use the <strong><a href="{$smarty.const.USERS_PKG_URL}admin/unassigned_perms.php">Unassigned Permissions</a></strong> page to assign these permissions quickly and easily.
+					</li>
+				</ul>
+			</div>
+		{/if}
+
 		<div class="row">
 			{formlabel label="Packages that were installed"}
 			{forminput}

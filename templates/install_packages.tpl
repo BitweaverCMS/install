@@ -27,7 +27,7 @@
 					<input type="hidden" name="step" value="{$next_step}" />
 
 					<div class="row">
-						{formfeedback note="This is a list with all available bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>ZenCart</strong> lined up for installation, you will have to do this sepeartely after completing the bitweaver installation process."}
+						{formfeedback note="This is a list with all available bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this sepeartely after completing the bitweaver installation process."}
 					</div>
 					{foreach from=$schema key=package item=item}
 						{if $item.tables || $item.defaults}
@@ -80,12 +80,7 @@
 				{legend legend="Packages that are required by bitweaver"}
 					{if !$first_install}
 						<div class="row">
-							<ul class="result">
-								<li class="warning">
-									{biticon ipackage=liberty iname=warning iexplain=warning} 
-									If you wish to reset the data in your entire system, you will first have to create a new database or empty it manually.
-								</li>
-							</ul>
+							{formfeedback warning="If you wish to reset the data in your entire system, you will first have to create a new database or empty it manually."}
 						</div>
 					{/if}
 
