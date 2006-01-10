@@ -6,10 +6,11 @@
 /* global stuff */
 body	{background:#e5e5e5; font-family:verdana, arial, helvetica, sans-serif; font-weight:normal; font-size:12px; margin:0px; padding:10px; vertical-align:middle;}
 table	{border-collapse:collapse; padding:0; margin:0;}
+caption	{font-weight:bold; padding:5px 0 0 0;}
 th		{text-align:left; padding:3px 5px; background:#2c4268; border-bottom:2px solid #fff; color:#fff;}
 td		{padding:2px 3px; vertical-align:top;}
 hr		{border:1px solid #000;}
-p		{margin:0; padding:0px 10px 10px 10px;}
+p		{margin:0; padding:1em;}
 
 /* titles */
 h1			{font-size:130%; color:#900; font-weight:900;}
@@ -35,8 +36,8 @@ form,
 input,
 textarea,
 select		{margin:0; padding:0; font-size:12px; font-family:verdana,arial,helvetica sans-serif;}
-fieldset	{padding:10px; margin:10px; border:0; border-top:1px solid #2c4268;}
-legend		{padding:2px 7px; background:#fff;}
+fieldset	{padding:10px; margin:10px; border:0; border-top:3px solid #f60;}
+legend		{padding:2px 7px; background:#fff; font-weight:bold;}
 textarea	{width:100%;}
 
 .row				{clear:both; padding:5px 0 0 0;}

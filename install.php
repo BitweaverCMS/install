@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.6 2005/10/12 15:13:51 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.7 2006/01/10 21:12:27 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -44,12 +44,6 @@ $install_file[$i++]['name'] = 'bitweaver Settings Check';
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'options';
 	$install_file[$i++]['name'] = 'Install Options';
-
-//	$install_file[$i]['file'] = 'upgrade';
-//	$install_file[$i++]['name'] = 'Database Upgrade';
-
-//	$install_file[$i]['file'] = 'migrate';
-//	$install_file[$i++]['name'] = 'Database Migration';
 }
 // make it possible to reset the config_inc.php file if it's already filled with data
 if( $onlyDuringFirstInstall ) {
@@ -66,7 +60,7 @@ if( $onlyDuringFirstInstall ) {
 }
 $install_file[$i]['file'] = 'packages';
 $install_file[$i++]['name'] = 'Package Installation';
-$install_file[$i]['file'] = 'package_conflicts';
+$install_file[$i]['file'] = 'cleanup';
 $install_file[$i++]['name'] = 'Resolve Conflicts';
 // these settings should only be present when we are installing for the first time
 if( $onlyDuringFirstInstall ) {

@@ -9,7 +9,7 @@
 	<link rel="shortcut icon" href="{$smarty.const.INSTALL_PKG_URL}favicon.ico" type="image/x-icon" />
 
 	<!--[if gte IE 5.5000]>
-		<script type="text/javascript" src="{$smarty.const.THEMES_PKG_URL}js/pngfix.js"></script>
+		<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/msiefixes/pngfix.js"></script>
 	<![endif]-->
 
 	<script type="text/javascript">//<![CDATA[
@@ -18,7 +18,7 @@
 		var bitIconDir = "{$smarty.const.LIBERTY_PKG_URL}icons/";
 		var bitRootUrl = "{$smarty.const.BIT_ROOT_URL}";
 	//]]></script>
-	<script type="text/javascript" src="{$smarty.const.THEMES_PKG_URL}js/tabs/tabpane.js"></script>
+	<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/libs/tabpane.js"></script>
 </head>
 {strip}
 <body>
@@ -53,6 +53,12 @@
 					{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
 					<a href="{$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step=0">Start over</a>
 				</li>
+				{if $section}
+					<li class="help">
+						{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
+						<a href="{$smarty.const.INSTALL_PKG_URL}install.php?step=2">Return to Installer</a>
+					</li>
+				{/if}
 				<li class="warning" style="text-align:center;">
 					{biticon ipackage=liberty iname=warning iexplain=warning iforce=icon}
 					<br />
