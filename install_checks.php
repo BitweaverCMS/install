@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.2.2.10 2005/12/22 13:28:26 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.2.2.11 2006/01/14 09:24:32 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -91,8 +91,8 @@ function check_settings() {
 				<dt>Windows</dt>
 				<dd>For information on how to install ImageMagick on Windows, please visit <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">Install ImageMagick</a>.</dd>
 			</dl>',
-		'magickwand' => 'MagickWand is an alternative php extension for ImageMagick. please see the ImageMagic documentation for installation.',
-		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of php by caching. Using this extension will greatly increase your servers performance and reduce the memory needed to run bitweaver.',
+		'magickwand' => 'MagickWand is an alternative php extension for ImageMagick. please see the ImageMagic documentation for installation instructions.',
+		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of php by caching and optimising queries. Using this extension will greatly increase your servers performance and reduce the memory needed to run bitweaver.',
 	);
 	foreach( $php_ext as $ext => $note ) {
 		$extensions[$i]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
