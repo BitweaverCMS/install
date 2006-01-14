@@ -1,5 +1,5 @@
 {form legend="Begin the upgrade process"}
-<h3>Upgrading {$upgradeFrom} to {$bitMajorVersion}{$bitMinorVersion} -{$bitBranch}-</h3>
+<h3>Upgrading {$upgradeFrom} to {$smarty.const.BIT_MAJOR_VERSION}.{$smarty.const.BIT_MINOR_VERSION}.{$smarty.const.BIT_SUB_VERSION} {$smarty.const.BIT_LEVEL}</h3>
 
 <p>The following packages will be updated:
 
