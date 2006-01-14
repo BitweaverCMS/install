@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.2 2006/01/10 21:12:27 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.3 2006/01/14 19:54:34 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -27,7 +27,7 @@ while( !$result->EOF ) {
 $insPerms = $delPerms = array();
 foreach( array_keys( $gBitInstaller->mPermHash ) as $perm ) {
 	if( !in_array( $perm, array_keys( $bitPrefs ) ) ) {
-		if( $schema[$gBitInstaller->mPermHash[$perm][3]]['installed'] ) {
+		if( @$schema[$gBitInstaller->mPermHash[$perm][3]]['installed'] ) {
 			$insPerms[$perm] = $gBitInstaller->mPermHash[$perm];
 		}
 	}
@@ -58,6 +58,7 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 		$gBitInstallDb->debug = 99;
 	}
 	$fix = array_merge( $delPerms, $insPerms );
+	$fixedPermissions = array();
 	if( !empty( $_REQUEST['perms'] ) ) {
 		foreach( $_REQUEST['perms'] as $perm ) {
 			$gBitInstaller->mDb->query( $fix[$perm]['sql'] );

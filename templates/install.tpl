@@ -76,7 +76,7 @@
 
 		<div class="body">
 			<div class="bittop">
-				<h1>bitweaver <strong>{$bitMajorVersion}.{$bitMinorVersion}.{$bitSubVersion} {$bitLevel}</strong></h1>
+				<h1>bitweaver <strong>{$smarty.const.BIT_MAJOR_VERSION}.{$smarty.const.BIT_MINOR_VERSION}.{$smarty.const.BIT_SUB_VERSION} {$smarty.const.BIT_LEVEL}</strong></h1>
 			</div>
 
 			{include file=$install_file}
