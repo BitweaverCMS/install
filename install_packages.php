@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.16 2005/12/30 16:11:55 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.17 2006/01/16 22:39:39 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -126,7 +126,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 				if( in_array( $package, $_REQUEST['PACKAGE'] ) || !empty( $gBitInstaller->mPackages[$package]['required'] ) ) {
 					$gBitInstaller->storePreference( 'package_'.strtolower( $package ), 'y', $package );
 					// we'll default wiki to the home page
-					if( $package == 'wiki' ) {
+					if( $package == WIKI_PKG_NAME ) {
 						$gBitSystem->storePreference( "bitIndex", WIKI_PKG_NAME );
 					}
 				}
@@ -145,6 +145,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 					$package_list[] = $package;
 					if( !empty( $gBitInstaller->mPackages[$package]['defaults'] ) ) {
 						foreach( $gBitInstaller->mPackages[$package]['defaults'] as $def ) {
+							if ($gBitInstaller->mDb->mType == 'firebird' ) $def = preg_replace("/\\\'/","''", $def );
 							$gBitInstaller->mDb->query( $def );
 						}
 					}
