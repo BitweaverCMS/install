@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.1.1.1.2.3 2006/01/18 14:56:40 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.1.1.1.2.4 2006/01/18 18:40:39 spiderr Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -23,7 +23,8 @@ $gBitInstaller->scanPackages( 'admin/upgrade_inc.php' );
 
 $upgradePath = array (
 	'TikiWiki 1.8' => array( 'TIKIWIKI18' => 'BONNIE', 'BONNIE' => 'BWR1' ),
-	'BONNIE' => array( 'BONNIE' => 'BWR1' ),
+	'TikiWiki 1.9' => array( 'TIKIWIKI19' => 'TIKIWIKI18', 'TIKIWIKI18' => 'BONNIE', 'BONNIE' => 'BWR1' ),
+	'BWR0' => array( 'BONNIE' => 'BWR1' ),
 );
 
 $gBitSmarty->assign( 'upgradeFrom', $gUpgradeFrom );
