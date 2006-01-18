@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.15 2006/01/18 14:50:36 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.16 2006/01/18 20:19:15 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -24,80 +24,98 @@ $gBitSmarty->assign( 'next_step', $step );
 $schema = $gBitInstaller->mPackages;
 ksort( $schema );
 $gBitSmarty->assign_by_ref( 'schema', $schema );
-// confirm that we have all the admin data in the session before proceeding
-if ( !empty( $_REQUEST['PACKAGE'] ) ) {
-	if ( !empty( $_REQUEST['UN_PACKAGE'] ) )
-		$package_select = array_merge($_REQUEST['PACKAGE'], $_REQUEST['UN_PACKAGE']);
-	else
-		$package_select = $_REQUEST['PACKAGE'];
-} else if ( !empty( $_REQUEST['UN_PACKAGE'] ) )
-	$package_select = $_REQUEST['UN_PACKAGE'];
 
-if( !empty( $package_select ) && in_array( 'users', $_REQUEST['PACKAGE'] ) && ( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) ) {
+// confirm that we have all the admin data in the session before proceeding
+if( !empty( $_REQUEST['packages'] ) && in_array( 'users', $_REQUEST['packages'] ) && ( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) ) {
 	// we have lost our session password and we are not installed
- 	header( 'Location: install.php?step=1' );
- 	die;
+	header( 'Location: install.php?step=1' );
+	die;
 }
- 
-if( isset( $_REQUEST['fCancel'] ) ) {
-	$app = '_done';
-} else if ( !empty( $package_select ) && isset( $_REQUEST['fSubmitDbCreate'] ) ) {
+
+if( !empty( $_REQUEST['cancel'] ) ) {
+	header( 'Location: install.php?step='.( $step + 1 ) );
+} elseif( !empty( $_REQUEST['packages'] ) && is_array( $_REQUEST['packages'] ) && !empty( $_REQUEST['method'] ) && !empty( $_REQUEST['submit_packages'] ) ) {
+	// make sure that required pkgs are only present when we are installing
+	if( ( $method = ( $_REQUEST['method'] ) ) == 'install' && !$_SESSION['first_install'] ) {
+		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
+			if( in_array( $package, $_REQUEST['packages'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) {
+				$gBitSmarty->assign( 'warning', "There was a problem with the package selection. we just cought it in time before your system got destroyed." );
+				$method = FALSE;
+			}
+		}
+	}
+
 	if( $gBitDbType == 'sybase' ) {
 		// avoid database change messages
 		ini_set('sybct.min_server_severity', '11');
 	}
 
-	$gBitInstallDb = &ADONewConnection($gBitDbType);
+	$gBitInstallDb = &ADONewConnection( $gBitDbType );
 
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
 		$gBitInstaller->debug();
 		$gBitInstallDb->debug = 99;
 	}
-	if( !empty( $_REQUEST['replace']) and $_REQUEST['replace'] == 'true' ) $replace = 1; else $replace = 0;
-	if( $gBitInstallDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
+
+	// by now $method should be populated with something
+	if( $gBitInstallDb->Connect( $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName ) && !empty( $method ) ) {
 		$tablePrefix = $gBitInstaller->getTablePrefix();
 
 		$dict = NewDataDictionary( $gBitInstallDb, $gBitDbType );
 		// SHOULD HANDLE INNODB so foreign keys are cool - XOXO spiderr
 		// $tableOptions = array('mysql' => 'TYPE=INNODB', 'REPLACE');
 		$sqlArray = array();
-		if (isset($package_select)) {
-			error_reporting( E_ALL );
-			// packages are sorted alphabetically. but we really need a /etc/rc.d/rc.3 style loading precidence!
-			// We perform several loops through mPackages due to foreign keys, and some packages may insert
-			// value into other packages tables - typically users_permissions, bit_preferences, etc...
-			sort( $package_select );
 
-			// 1. let's generate all the tables's
-			if ( $_SESSION['first_install'] ) {
-				$replace = 2;
-			} 
-			foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-				if( in_array( $package, $package_select ) || ( empty( $gBitInstaller->mPackages[$package]['installed'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) ) {
-					if ( $_SESSION['first_install'] ) {
-						$build = array( 'NEW' );
-					} else if ( $replace == 1 || $gBitInstaller->mPackages[$package]['installed'] == -1 ) {
-						$build = array( 'REPLACE' );
-					} else if ( $gBitInstaller->mPackages[$package]['installed'] == 1 ) {
-						$build = array( 'DROP' );
-					} else {
-						$build = array( 'NEW' );
+		//error_reporting( E_ALL );
+		// packages are sorted alphabetically. but we really need a /etc/rc.d/rc.3 style loading precidence!
+		// We perform several loops through mPackages due to foreign keys, and some packages may insert
+		// value into other packages tables - typically users_permissions, bit_preferences, etc...
+		sort( $_REQUEST['packages'] );
+
+		// 1. let's generate all the tables's
+		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
+			if( in_array( $package, $_REQUEST['packages'] ) ) {
+				// work out what we're going to do with this package
+				if ( $method == 'install' && $_SESSION['first_install'] ) {
+					$build = array( 'NEW' );
+				} elseif( $method == "install" && empty( $gBitInstaller->mPackages[$package]['installed'] ) ) {
+					$build = array( 'NEW' );
+				} elseif( $method == "reinstall" && !empty( $gBitInstaller->mPackages[$package]['installed'] ) ) {
+					$build = array( 'REPLACE' );
+				} elseif( $method == "uninstall" && $gBitInstaller->mPackages[$package]['installed'] == 1 ) {
+					$build = array( 'DROP' );
+				}
+
+				// Install tables
+				if( !empty( $gBitInstaller->mPackages[$package]['tables'] ) && is_array( $gBitInstaller->mPackages[$package]['tables'] ) ) {
+					foreach( array_keys( $gBitInstaller->mPackages[$package]['tables'] ) as $tableName ) {
+						$completeTableName = $tablePrefix.$tableName;
+						$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$tableName], $build );
+						// Uncomment this line to see the create sql
+						//vd( $sql );
+						if( $sql && ( $dict->ExecuteSQLArray( $sql ) > 0 ) ) {
+						} else {
+							print '<span class="error">Failed to create '.$completeTableName.'</span>';
+							array_push( $failedcommands, $sql );
+						}
 					}
-					// Install tables
-					if( !empty( $gBitInstaller->mPackages[$package]['tables'] ) && is_array( $gBitInstaller->mPackages[$package]['tables'] ) ) {
-						foreach( array_keys( $gBitInstaller->mPackages[$package]['tables'] ) as $tableName ) {
-							$completeTableName = $tablePrefix.$tableName;
-/*
-							if( ($sql = $dict->DropTableSQL( $completeTableName ))
-								&& @$dict->ExecuteSQLArray( $sql )
-							) {
-							} else {
-								print '<dd><font color="red">Failed to create '.$completeTableName.'</font>';
-							}
-*/
-							$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$tableName], $build );
-// Uncomment this line to see the create sql
-//vd( $sql );
+				}
+			}
+		}
+
+		// 2. let's generate all the indexes, and sequences
+		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
+			if( in_array( $package, $_REQUEST['packages'] ) ) {
+				if( $method == 'install' || $method == 'reinstall' ) {
+					$schemaQuote = strrpos( BIT_DB_PREFIX, '`' );
+					$sequencePrefix = ( $schemaQuote ? substr( BIT_DB_PREFIX,  $schemaQuote + 1 ) : BIT_DB_PREFIX );
+
+					// Install Indexes
+					if( isset( $gBitInstaller->mPackages[$package]['indexes'] ) && is_array( $gBitInstaller->mPackages[$package]['indexes'] ) ) {
+						foreach( array_keys( $gBitInstaller->mPackages[$package]['indexes'] ) as $tableIdx ) {
+							$completeTableName = $sequencePrefix.$gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['table'];
+
+							$sql = $dict->CreateIndexSQL( $tableIdx, $completeTableName, $gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['cols'], $gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['opts'] );
 							if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 							} else {
 								print '<span class="error">Failed to create '.$completeTableName.'</span>';
@@ -105,157 +123,133 @@ if( isset( $_REQUEST['fCancel'] ) ) {
 							}
 						}
 					}
-				}
-			}
-
-			// 2. let's generate all the indexes, and sequences
-			foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-				if ( $replace == 2 || in_array($package, $package_select ) ) {
-					if ( $replace > 0 || $gBitInstaller->mPackages[$package]['installed'] != 1 ) {
-						$schemaQuote = strrpos( BIT_DB_PREFIX, '`' );
-						$sequencePrefix = ( $schemaQuote ? substr( BIT_DB_PREFIX,  $schemaQuote + 1 ) : BIT_DB_PREFIX );
-						if( empty( $gBitInstaller->mPackages[$package]['installed'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) {
-							// Install Indexes
-							if( isset( $gBitInstaller->mPackages[$package]['indexes'] ) && is_array( $gBitInstaller->mPackages[$package]['indexes'] ) ) {
-								foreach( array_keys( $gBitInstaller->mPackages[$package]['indexes'] ) as $tableIdx ) {
-									$completeTableName = $sequencePrefix.$gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['table'];
-	
-									$sql = $dict->CreateIndexSQL( $tableIdx, $completeTableName, $gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['cols'], $gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['opts'] );
-									if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-									} else {
-										print '<span class="error">Failed to create '.$completeTableName.'</span>';
-										array_push( $failedcommands, $sql );
-									}
-								}
-							}
-							if( isset( $gBitInstaller->mPackages[$package]['sequences'] ) && is_array( $gBitInstaller->mPackages[$package]['sequences'] ) ) {
-								foreach( array_keys( $gBitInstaller->mPackages[$package]['sequences'] ) as $sequenceIdx ) {
-									$sql = $gBitInstallDb->CreateSequence( $sequencePrefix.$sequenceIdx, $gBitInstaller->mPackages[$package]['sequences'][$sequenceIdx]['start'] );
-								}
-							}
+					if( isset( $gBitInstaller->mPackages[$package]['sequences'] ) && is_array( $gBitInstaller->mPackages[$package]['sequences'] ) ) {
+						foreach( array_keys( $gBitInstaller->mPackages[$package]['sequences'] ) as $sequenceIdx ) {
+							$sql = $gBitInstallDb->CreateSequence( $sequencePrefix.$sequenceIdx, $gBitInstaller->mPackages[$package]['sequences'][$sequenceIdx]['start'] );
 						}
-					} else {
-						if( isset( $gBitInstaller->mPackages[$package]['sequences'] ) && is_array( $gBitInstaller->mPackages[$package]['sequences'] ) ) {
-							foreach( array_keys( $gBitInstaller->mPackages[$package]['sequences'] ) as $sequenceIdx ) {
-								$sql = $gBitInstallDb->DropSequence( $sequencePrefix.$sequenceIdx );
-							}
+					}
+				} elseif( $method == 'uninstall' ) {
+					if( isset( $gBitInstaller->mPackages[$package]['sequences'] ) && is_array( $gBitInstaller->mPackages[$package]['sequences'] ) ) {
+						foreach( array_keys( $gBitInstaller->mPackages[$package]['sequences'] ) as $sequenceIdx ) {
+							$sql = $gBitInstallDb->DropSequence( $sequencePrefix.$sequenceIdx );
 						}
 					}
 				}
 			}
-
-			// Force a reload of all our preferences
-			$gBitInstaller->mPrefs = '';
-			$gBitInstaller->loadPreferences();
-
-			// 3. activate all selected & required packages
-			foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-				if ( $replace == 2 || in_array($package, $package_select ) ) {
-					if ( $replace > 0 || !$gBitInstaller->mPackages[$package]['installed'] || $gBitInstaller->mPackages[$package]['installed'] != 1 ) {
-						if( $replace == 2 || !empty( $gBitInstaller->mPackages[$package]['required'] ) ) {
-							$gBitInstaller->storePreference( 'package_'.strtolower( $package ), 'y', $package );
-							// we'll default wiki to the home page
-							if( $package == WIKI_PKG_NAME ) {
-								$gBitSystem->storePreference( "bitIndex", WIKI_PKG_NAME );
-							}
-						}
-					} else {
-						// Cascade user_preferences if necessary
-						$delete = "DELETE FROM `".$tablePrefix."tiki_user_preferences` " .
-								"WHERE `pref_name` IN ( SELECT `name` FROM `tiki_preferences` WHERE `package` = '".$package."')";
-						$gBitInstaller->mDb->query( $delete );
-						// Delete user_permissions ( need to ensure package is set in table )
-						$delete = "DELETE FROM `".$tablePrefix."users_permissions` WHERE `package` = '".$package."'";
-						$gBitInstaller->mDb->query( $delete );
-						// Delete preferences ( need to ensure package is set in table )
-						$delete = "DELETE FROM `".$tablePrefix."tiki_preferences` WHERE `package` = '".$package."'";
-						$gBitInstaller->mDb->query( $delete );
-					}
-				}
-			}
-
-			// and let's turn on phpBB so people can find it easily.
-			if( defined( 'PHPBB_PKG_NAME' ) ) {
-				$gBitInstaller->storePreference( 'package_phpbb', 'y' );
-			}
-
-			// 4. run the defaults through afterwards so we can be sure all tables needed have been created
-			foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-				if ( in_array($package, $package_select ) || ( empty( $gBitInstaller->mPackages[$package]['installed'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) ) {
-					if ( $replace > 0 || $gBitInstaller->mPackages[$package]['installed'] != 1 ) {
-						// this list of installed packages is used to show newly installed packages
-						$package_list[] = $package;
-						if( !empty( $gBitInstaller->mPackages[$package]['defaults'] ) ) {
-							foreach( $gBitInstaller->mPackages[$package]['defaults'] as $def ) {
-								if ($gBitInstaller->mDb->mType == 'firebird' ) $def = preg_replace("/\\\'/","''", $def );
-								$gBitInstaller->mDb->query( $def );
-							}
-						}
-					} else {
-						$unisntall_list[] = $package;
-						// This is where any links to clear data not in the current package will be processed
-					}
-				}
-			}
-			// only install modules during the first install
-			if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
-				/**
-				 * Some packages have some special things to take care of here.
-				 */
-				require_once( KERNEL_PKG_PATH.'mod_lib.php' );
-				foreach( $gBitInstaller->mInstallModules as $mod ) {
-					$mod['user_id'] = ROOT_USER_ID;
-					if( !isset( $mod['layout'] ) ) {
-						$mod['layout'] = DEFAULT_PACKAGE;
-					}
-					$modlib->storeModule( $mod );
-					$modlib->storeLayout( $mod );
-				}
-			}
-
-			// Installing users has some special things to take care of here and needs a separate check.
-			if( in_array( 'users', $package_select ) || empty( $gBitInstaller->mPackages['users']['installed'] ) ) {
-				// now let's set up some default data. Group_id's are hardcoded in users/schema_inc defaults
-				$gBitUser->assign_level_permissions( ANONYMOUS_GROUP_ID, 'basic' );
-				$gBitUser->assign_level_permissions( 3, 'registered' );
-				$gBitUser->assign_level_permissions( 2, 'editors' );
-				$gBitUser->assign_level_permissions( 1, 'admin' );
-
-				// Create 'Anonymous' user has id= -1 just like phpBB
-				$anonUser = new BitPermUser();
-				$storeHash = array( 'real_name' => 'Guest', 'login' => 'guest', 'password' => $_SESSION['password'], 'email' =>'guest@localhost', 'pass_due' => FALSE, 'user_id' => ANONYMOUS_USER_ID,  'default_group_id' => ANONYMOUS_USER_ID );
-				if( $anonUser->store( $storeHash ) ) {
-
-					// Remove anonymous from registered group
-					$regGroupId = $anonUser->groupExists( 'Registered', ROOT_USER_ID );
-					$anonUser->removeUserFromGroup( ANONYMOUS_USER_ID, $regGroupId );
-					$anonUser->addUserToGroup( ANONYMOUS_USER_ID, ANONYMOUS_GROUP_ID);
-				}
-
-				// Creating 'root' user has id=1. phpBB starts with user_id=2, so this is a hack to keep things in sync
-				$rootUser = new BitPermUser();
-				$storeHash = array( 'real_name' => 'root', 'login' => 'root', 'password' => $_SESSION['password'], 'email' => 'root@localhost', 'pass_due' => FALSE, 'user_id' => ROOT_USER_ID );
-				if( $rootUser->store( $storeHash ) ) {
-					$rootUser->addUserToGroup( ROOT_USER_ID, 1 );
-				}
-
-				$adminUser = new BitPermUser();
-				$storeHash = array( 'real_name' => $_SESSION['real_name'], 'login' => $_SESSION['login'], 'password' => $_SESSION['password'], 'email' =>$_SESSION['email'], 'pass_due' => FALSE );
-				if( $adminUser->store( $storeHash ) ) {
-					$adminUser->addUserToGroup($adminUser->mUserId, 1 );
-				}
-
-				// kill admin info in $_SESSION
-				unset( $_SESSION['real_name'] );
-				unset( $_SESSION['login'] );
-				unset( $_SESSION['password'] );
-				unset( $_SESSION['email'] );
-			}
-
 		}
+		// Force a reload of all our preferences
+		$gBitInstaller->mPrefs = '';
+		$gBitInstaller->loadPreferences();
+
+		// 3. activate all selected & required packages
+		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
+			if( in_array( $package, $_REQUEST['packages'] ) ) {
+				if( $method == 'install' || $method == 'reinstall' ) {
+					$gBitInstaller->storePreference( 'package_'.strtolower( $package ), 'y', $package );
+					// we'll default wiki to the home page
+					if( $package == WIKI_PKG_NAME ) {
+						$gBitSystem->storePreference( "bitIndex", WIKI_PKG_NAME );
+					}
+				} elseif( $method == 'uninstall' ) {
+					// TODO: allow option to remove related content from tiki_content and tiki_structures
+					// should be possible using $gLibertySystem->mContentTypes and the appropriate GUIDs
+					// Cascade user_preferences if necessary
+					$delete = "DELETE FROM `".$tablePrefix."tiki_user_preferences` " .
+						"WHERE `pref_name` IN ( SELECT `name` FROM `tiki_preferences` WHERE `package` = '".$package."')";
+					$gBitInstaller->mDb->query( $delete );
+					// Delete user_permissions ( need to ensure package is set in table )
+					$delete = "DELETE FROM `".$tablePrefix."users_permissions`
+						WHERE `package` = '".$package."'";
+					$gBitInstaller->mDb->query( $delete );
+					// Delete preferences ( need to ensure package is set in table )
+					$delete = "DELETE FROM `".$tablePrefix."tiki_preferences`
+						WHERE `package` = '".$package."'";
+					$gBitInstaller->mDb->query( $delete );
+				}
+			}
+		}
+
+		// and let's turn on phpBB so people can find it easily.
+		if( defined( 'PHPBB_PKG_NAME' ) ) {
+			$gBitInstaller->storePreference( 'package_phpbb', 'y' );
+		}
+
+		// 4. run the defaults through afterwards so we can be sure all tables needed have been created
+		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
+			if( in_array( $package, $_REQUEST['packages'] ) || ( empty( $gBitInstaller->mPackages[$package]['installed'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) ) {
+				if( $method == 'install' || $method == 'reinstall' ) {
+					// this list of installed packages is used to show newly installed packages
+					if( !empty( $gBitInstaller->mPackages[$package]['defaults'] ) ) {
+						foreach( $gBitInstaller->mPackages[$package]['defaults'] as $def ) {
+							if ($gBitInstaller->mDb->mType == 'firebird' ) $def = preg_replace("/\\\'/","''", $def );
+							$gBitInstaller->mDb->query( $def );
+						}
+					}
+				} else {
+					// This is where any links to clear data not in the current package will be processed
+				}
+				// this is to list any processed packages
+				$packageList[$method][] = $package;
+			}
+		}
+		// only install modules during the first install
+		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
+			/**
+			* Some packages have some special things to take care of here.
+			*/
+			require_once( KERNEL_PKG_PATH.'mod_lib.php' );
+			foreach( $gBitInstaller->mInstallModules as $mod ) {
+				$mod['user_id'] = ROOT_USER_ID;
+				if( !isset( $mod['layout'] ) ) {
+					$mod['layout'] = DEFAULT_PACKAGE;
+				}
+				$modlib->storeModule( $mod );
+				$modlib->storeLayout( $mod );
+			}
+		}
+
+		// Installing users has some special things to take care of here and needs a separate check.
+		if( in_array( 'users', $_REQUEST['packages'] ) && empty( $gBitInstaller->mPackages['users']['installed'] ) ) {
+			// now let's set up some default data. Group_id's are hardcoded in users/schema_inc defaults
+			$gBitUser->assign_level_permissions( ANONYMOUS_GROUP_ID, 'basic' );
+			$gBitUser->assign_level_permissions( 3, 'registered' );
+			$gBitUser->assign_level_permissions( 2, 'editors' );
+			$gBitUser->assign_level_permissions( 1, 'admin' );
+
+			// Create 'Anonymous' user has id= -1 just like phpBB
+			$anonUser = new BitPermUser();
+			$storeHash = array( 'real_name' => 'Guest', 'login' => 'guest', 'password' => $_SESSION['password'], 'email' =>'guest@localhost', 'pass_due' => FALSE, 'user_id' => ANONYMOUS_USER_ID,  'default_group_id' => ANONYMOUS_USER_ID );
+			if( $anonUser->store( $storeHash ) ) {
+
+				// Remove anonymous from registered group
+				$regGroupId = $anonUser->groupExists( 'Registered', ROOT_USER_ID );
+				$anonUser->removeUserFromGroup( ANONYMOUS_USER_ID, $regGroupId );
+				$anonUser->addUserToGroup( ANONYMOUS_USER_ID, ANONYMOUS_GROUP_ID);
+			}
+
+			// Creating 'root' user has id=1. phpBB starts with user_id=2, so this is a hack to keep things in sync
+			$rootUser = new BitPermUser();
+			$storeHash = array( 'real_name' => 'root', 'login' => 'root', 'password' => $_SESSION['password'], 'email' => 'root@localhost', 'pass_due' => FALSE, 'user_id' => ROOT_USER_ID );
+			if( $rootUser->store( $storeHash ) ) {
+				$rootUser->addUserToGroup( ROOT_USER_ID, 1 );
+			}
+
+			$adminUser = new BitPermUser();
+			$storeHash = array( 'real_name' => $_SESSION['real_name'], 'login' => $_SESSION['login'], 'password' => $_SESSION['password'], 'email' =>$_SESSION['email'], 'pass_due' => FALSE );
+			if( $adminUser->store( $storeHash ) ) {
+				$adminUser->addUserToGroup($adminUser->mUserId, 1 );
+			}
+
+			// kill admin info in $_SESSION
+			unset( $_SESSION['real_name'] );
+			unset( $_SESSION['login'] );
+			unset( $_SESSION['password'] );
+			unset( $_SESSION['email'] );
+		}
+
 		$gBitSmarty->assign( 'next_step', $step + 1 );
-		sort( $package_list );
-		$gBitSmarty->assign( 'package_list', $package_list );
+		asort( $packageList );
+		$gBitSmarty->assign( 'packageList', $packageList );
 		$gBitSmarty->assign( 'failedcommands', !empty( $failedcommands ) ? $failedcommands : NULL );
 		// display the confirmation page
 		$app = '_done';
@@ -263,8 +257,7 @@ if( isset( $_REQUEST['fCancel'] ) ) {
 		// if we can't connect to the db, move back 2 steps
 		header( "Location: ".$_SERVER['PHP_SELF']."?step=".$step - 2 );
 	}
-} else {
-	 if ( isset( $_REQUEST['fSubmitDbCreate'] ) )
-		$gBitSmarty->assign( 'warning', "No package was selected to install or uninstall" );  	
+} elseif( !empty( $_REQUEST['submit_packages'] ) ) {
+	$gBitSmarty->assign( 'warning', "No package was selected to install or uninstall" );
 }
 ?>

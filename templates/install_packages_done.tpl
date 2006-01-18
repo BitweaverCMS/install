@@ -49,14 +49,50 @@
 			</div>
 		{/if}
 
-		<div class="row">
-			{formlabel label="Packages that were installed"}
-			{forminput}
-				{foreach from=$package_list item=package}
-					{formfeedback note=$package}
-				{/foreach}
-			{/forminput}
-		</div>
+		{if $packageList.install}
+			<div class="row">
+				{formlabel label="Packages that were installed"}
+				{forminput}
+					<ul>
+						{foreach from=$packageList.install item=package}
+							<li>{$package}</li>
+						{foreachelse}
+							<li>No packages were installed<li>
+						{/foreach}
+					</ul>
+				{/forminput}
+			</div>
+		{/if}
+
+		{if $packageList.uninstall}
+			<div class="row">
+				{formlabel label="Packages that were uninstalled"}
+				{forminput}
+					<ul>
+						{foreach from=$packageList.uninstall item=package}
+							<li>{$package}</li>
+						{foreachelse}
+							<li>No packages were uninstalled<li>
+						{/foreach}
+					</ul>
+				{/forminput}
+			</div>
+		{/if}
+
+		{if $packageList.reinstall}
+			<div class="row">
+				{formlabel label="Packages that were reinstalled"}
+				{forminput}
+					<ul>
+						{foreach from=$packageList.reinstall item=package}
+							<li>{$package}</li>
+						{foreachelse}
+							<li>No packages were reinstalled<li>
+						{/foreach}
+					</ul>
+				{/forminput}
+			</div>
+		{/if}
 	{/if}
 
 	<div class="row submit">
