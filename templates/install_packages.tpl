@@ -1,5 +1,9 @@
 {strip}
-<h1>Package Installation</h1>
+{if $first_install}
+	<h1>Package Installation</h1>
+{else}
+	<h1>Adding and Remove Packages</h1>
+{/if}
 <br />
 {if $error}
 	{legend legend="Administrator Data Missing"}
@@ -20,7 +24,12 @@
 		</p>
 	{/legend}
 {else}
-	{form}
+	{form id="package_select"}
+		{if $warning}
+			<div class="row">
+				{formfeedback warning=$warning}
+			</div>
+		{/if}
 		{jstabs}
 			{jstab title="Install Packages"}
 				{legend legend="Please select packages you wish to install"}
@@ -28,6 +37,15 @@
 
 					<div class="row">
 						{formfeedback note="This is a list with all available bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this sepeartely after completing the bitweaver installation process."}
+					</div>
+					<div class="row">
+						{formlabel label="Toggle all package selections" for="switcher"}
+						{forminput}
+							<script type="text/javascript">
+								document.write("<input name=\"switcher\" id=\"switcher\" type=\"checkbox\" checked onclick=\"switchCheckboxes(this.form.id,'PACKAGE[]','switcher')\" /><br />");
+							</script>
+							{formhelp note="Select or de-select all packages"}
+						{/forminput}
 					</div>
 					{foreach from=$schema key=package item=item}
 						{if $item.tables || $item.defaults}
@@ -55,6 +73,13 @@
 						<div class="row">
 							{formfeedback warning="These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it, will be erased."}
 						</div>
+						<div class="row">
+							{formlabel label="Reinstall package" for="replace"}
+							{forminput}
+								<input type="checkbox" name="replace" id="replace" value="true" />
+								{formhelp note="This will reinstall the selected packages rather than uninstalling them."}
+							{/forminput}
+						</div>
 						{foreach from=$schema key=package item=item}
 							{if $item.tables || $item.defaults}
 								{if $item.installed and !$item.required}
@@ -63,7 +88,7 @@
 											<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 										</div>
 										{forminput}
-											<label><input type="checkbox" name="PACKAGE[]" value="{$package}" id="{$package}" /> {$package|capitalize}</label>
+											<label><input type="checkbox" name="UN_PACKAGE[]" value="{$package}" id="{$package}" /> {$package|capitalize}</label>
 											{formhelp note=`$item.info`}
 											{formhelp note="<strong>Location</strong>: `$item.url`"}
 											{formhelp package=$package}
@@ -114,6 +139,9 @@
 			this process might take up to a few minutes.<br /><br />
 			<input type="hidden" name="resetdb" value="{$resetdb}" />
 			<input type="submit" name="fSubmitDbCreate" value="Install Packages" />
+			{if !$first_install}
+				&nbsp;&nbsp;<input type="submit" name="fCancel" value="Cancel Install" />
+			{/if}
 		</div>
 
 		<div class="row">
