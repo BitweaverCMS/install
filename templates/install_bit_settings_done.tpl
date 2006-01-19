@@ -15,28 +15,28 @@
 	<div class="row">
 		{formlabel label="Browser title"}
 		{forminput}
-			{formfeedback note=`$gBitSystemPrefs.siteTitle`}
+			{$gBitSystemPrefs.siteTitle}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Site Slogan"}
 		{forminput}
-			{formfeedback note=`$gBitSystemPrefs.site_slogan`}
+			{$gBitSystemPrefs.site_slogan}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Home page"}
 		{forminput}
-			{formfeedback note=`$gBitSystemPrefs.bitIndex`}
+			{$gBitSystemPrefs.bitIndex}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Language"}
 		{forminput}
-			{formfeedback note=`$siteLanguage.full_name`}
+			{$siteLanguage.full_name}
 		{/forminput}
 	</div>
 
@@ -44,7 +44,7 @@
 		<div class="row">
 			{formlabel label="Image Processor"}
 			{forminput}
-				{formfeedback note=`$gBitSystemPrefs.image_processor`}
+				{$gBitSystemPrefs.image_processor}
 			{/forminput}
 		</div>
 	{/if}
