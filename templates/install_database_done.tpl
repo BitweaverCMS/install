@@ -22,49 +22,49 @@
 	<div class="row">
 		{formlabel label="Database type"}
 		{forminput}
-			{formfeedback note=$gBitDbType}
+			{$gBitDbType}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Host"}
 		{forminput}
-			{formfeedback note=$gBitDbHost}
+			{$gBitDbHost}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="User"}
 		{forminput}
-			{formfeedback note=$gBitDbUser}
+			{$gBitDbUser}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Password"}
 		{forminput}
-			{formfeedback note=$gBitDbPassword_print}
+			{$gBitDbPassword_print}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Database name"}
 		{forminput}
-			{formfeedback note=$gBitDbName}
+			{$gBitDbName}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Database Prefix"}
 		{forminput}
-			{formfeedback note=$db_prefix_bit|replace:"`":""}
+			{$db_prefix_bit|replace:"`":""}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Site Base Url"}
 		{forminput}
-			{formfeedback note=$root_url_bit}
+			{$root_url_bit}
 		{/forminput}
 	</div>
 

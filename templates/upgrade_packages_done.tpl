@@ -22,9 +22,11 @@
 		<div class="row">
 			{formlabel label="Packages that were upgraded"}
 			{forminput}
-				{foreach from=$package_list item=package}
-					{formfeedback note=$package}
-				{/foreach}
+				<ul>
+					{foreach from=$package_list item=package}
+						<li>{$package}</li>
+					{/foreach}
+				</ul>
 			{/forminput}
 		</div>
 	{/if}

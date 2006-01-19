@@ -1,6 +1,7 @@
 <h1>Package Conflicts</h1>
 
-<p class="warning">
+<p>
+	{biticon ipackage=liberty iname=info iexplain=Information}
 	This page allows you to fix some basic setup problems.
 </p>
 
@@ -55,7 +56,10 @@
 				{/if}
 			</table>
 		{else}
-			<p class="success">The permissioning system in your installation is up to date and does not require any adjustments.</p>
+			<p class="success">
+				{biticon ipackage=liberty iname=success iexplain=success}
+				The permissioning system in your installation is up to date and does not require any adjustments.
+			</p>
 		{/if}
 	{/legend}
 	<br /> <br />
@@ -63,6 +67,7 @@
 	{legend legend="Resolve Service Conflicts"}
 		{if $serviceList}
 			<p class="warning">
+				{biticon ipackage=liberty iname=warning iexplain=warning}
 				We have noticed that you have activated multiple packages of the same service type.
 				A service package is a package that allows you to extend the way you display bitweaver content - such as <em>categorising your content</em>.
 				<br />
@@ -91,7 +96,10 @@
 				{/foreach}
 			{/foreach}
 		{else}
-			<p class="success">None of the packages you have installed are causing any problems.</p>
+			<p class="success">
+				{biticon ipackage=liberty iname=success iexplain=success}
+				None of the packages you have installed are causing any problems.
+			</p>
 		{/if}
 
 		{if $delPerms || $insPerms || $serviceList}

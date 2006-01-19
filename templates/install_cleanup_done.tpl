@@ -3,22 +3,20 @@
 {form legend="Installed Packages"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="row">
-		<ul class="result">
-			<li class="success">
-				{biticon ipackage=liberty iname=success iexplain=success}
-				bitweaver was successfully updated
-			</li>
-		</ul>
-	</div>
+	<p class="success">
+		{biticon ipackage=liberty iname=success iexplain=success}
+		bitweaver was successfully updated
+	</p>
 
 	{if $fixedPermissions}
 		<div class="row">
 			{formlabel label="Permissions that were updated"}
 			{forminput}
-				{foreach from=$fixedPermissions item=perm}
-					{formfeedback note="<strong>`$perm.0`</strong>:<br />`$perm.1`"}
-				{/foreach}
+				<ul>
+					{foreach from=$fixedPermissions item=perm}
+						<li><strong>{$perm.0}</strong>:<br />{$perm.1}<li>
+					{/foreach}
+				</ul>
 			{/forminput}
 		</div>
 	{/if}
@@ -27,9 +25,11 @@
 		<div class="row">
 			{formlabel label="Packages that were deactivated"}
 			{forminput}
-				{foreach from=$deActivated item=package}
-					{formfeedback note=$package}
-				{/foreach}
+				<ul>
+					{foreach from=$deActivated item=package}
+						<li>{$package}<li>
+					{/foreach}
+				</ul>
 			{/forminput}
 		</div>
 	{/if}

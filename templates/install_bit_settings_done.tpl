@@ -12,20 +12,6 @@
 		</ul>
 	</div>
 
-	{foreach from=$formInstallToggles key=feature item=output}
-		<div class="row">
-			{formlabel label=`$output.label`}
-			{forminput}
-				{if $gBitSystemPrefs.$feature eq 'n'}
-					{assign var=note value="No"}
-				{elseif $gBitSystemPrefs.$feature eq 'y'}
-					{assign var=note value="Yes"}
-				{/if}
-				{formfeedback note=$note}
-			{/forminput}
-		</div>
-	{/foreach}
-
 	<div class="row">
 		{formlabel label="Browser title"}
 		{forminput}

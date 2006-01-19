@@ -26,28 +26,28 @@
 	<div class="row">
 		{formlabel label="Admin name"}
 		{forminput}
-			{formfeedback note=$real_name}
+			{$real_name}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Admin login"}
 		{forminput}
-			{formfeedback note=$login}
+			{$login}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Password"}
 		{forminput}
-			{formfeedback note=$pass_disp}
+			{$pass_disp}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Email"}
 		{forminput}
-			{formfeedback note=$email}
+			{$email}
 		{/forminput}
 	</div>
 

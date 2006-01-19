@@ -7,14 +7,10 @@
 <br />
 {if $error}
 	{legend legend="Administrator Data Missing"}
-		<div class="row">
-			<ul class="result">
-				<li class="error">
-					{biticon ipackage=liberty iname=error iexplain=error}
-					Unfortunately there seems to be a problem with your installation. We can't find the administrator information you entered.
-				</li>
-			</ul>
-		</div>
+		<p class="error">
+			{biticon ipackage=liberty iname=error iexplain=error}
+			Unfortunately there seems to be a problem with your installation. We can't find the administrator information you entered.
+		</p>
 
 		<p>Please go back one step (using the link to your right, rather than the back button on your browser) and enter the administrator data again. If this is the second time you see this screen, please confirm that php can write sessions and that any firewall / anti-virus software is turned off during the installation process. </p>
 		<p>If you just can't figure out what the hell is going on, please contact the bitweaver team via <a href="http://www.bitweaver.org/wiki/index.php?page=ConnectingToIrc">IRC</a> if possible or post to the forums on <a href="http://www.bitweaver.org">bitweaver.org</a>.</p>
@@ -36,9 +32,8 @@
 					{/if}
 				{/foreach}
 
-				<div class="row">
-					{formfeedback note="This is a list with all available bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this sepeartely after completing the bitweaver installation process."}
-				</div>
+				<p class="row">This is a list with all available bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this sepeartely after completing the bitweaver installation process.</p>
+
 				<div class="row">
 					{formlabel label="De / Select all Packages" for="switcher"}
 					{forminput}

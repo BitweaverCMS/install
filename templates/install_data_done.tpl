@@ -38,9 +38,11 @@
 		<div class="row">
 			{formlabel label=$package}
 			{forminput}
-				{foreach from=$pumped item=page}
-					{formfeedback note=$page}
-				{/foreach}
+				<ul>
+					{foreach from=$pumped item=page}
+						<li>{$page}</li>
+					{/foreach}
+				</ul>
 			{/forminput}
 		</div>
 	{/foreach}

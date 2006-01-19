@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.7 2005/11/22 07:26:29 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.8 2006/01/19 09:41:46 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -12,32 +12,6 @@
 // assign next step in installation process
 $gBitSmarty->assign( 'next_step',$step );
 
-/**
- * simple_set_toggle
- */
-function simple_set_toggle($feature, $pPackageName=NULL) {
-	toggle_preference( $feature, (isset($_REQUEST[$feature][0]) ? $_REQUEST[$feature][0] : NULL), $pPackageName );
-}
-
-/**
- * toggle_preference
- */
-function toggle_preference( $pName, $pValue, $pPackageName=NULL ) {
-	global $_REQUEST, $gBitSystem, $gBitSmarty;
-
-	if (isset($pValue) && $pValue == "on") {
-		$prefValue='y';
-	} elseif( isset($pValue) && $pValue != "n" && strlen( $pValue ) == 1 ) {
-		$prefValue=$pValue;
-	} else {
-		$prefValue='n';
-	}
-	$gBitSystem->storePreference( $pName, $prefValue, $pPackageName );
-}
-
-/**
- * simple_set_value
- */
 function simple_set_value($feature) {
 	global $_REQUEST, $gBitSystem, $gBitSmarty;
 	if (isset($_REQUEST[$feature])) {
