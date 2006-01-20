@@ -2,7 +2,7 @@
 {if $first_install}
 	<h1>Package Installation</h1>
 {else}
-	<h1>Adding and Remove Packages</h1>
+	<h1>Adding and Removing Packages</h1>
 {/if}
 <br />
 {if $error}

@@ -37,7 +37,7 @@
 
 	<h3>Recommended Extensions</h3>
 
-	<p class="clear">
+	<p>
 		Virtually all settings below this point can be adjusted by changing appropriate values in your php.ini file.
 		If you should have problems setting these, please consult the documentation in the php.ini file itself
 		and the <a class="external" href="http://www.php.net">PHP HomePage</a>.
