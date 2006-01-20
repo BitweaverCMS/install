@@ -12,45 +12,31 @@
 		</ul>
 	</div>
 
-	{foreach from=$formInstallToggles key=feature item=output}
-		<div class="row">
-			{formlabel label=`$output.label`}
-			{forminput}
-				{if $gBitSystemPrefs.$feature eq 'n'}
-					{assign var=note value="No"}
-				{elseif $gBitSystemPrefs.$feature eq 'y'}
-					{assign var=note value="Yes"}
-				{/if}
-				{formfeedback note=$note}
-			{/forminput}
-		</div>
-	{/foreach}
-
 	<div class="row">
 		{formlabel label="Browser title"}
 		{forminput}
-			{formfeedback note=`$gBitSystemPrefs.siteTitle`}
+			{$gBitSystemPrefs.siteTitle}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Site Slogan"}
 		{forminput}
-			{formfeedback note=`$gBitSystemPrefs.site_slogan`}
+			{$gBitSystemPrefs.site_slogan}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Home page"}
 		{forminput}
-			{formfeedback note=`$gBitSystemPrefs.bitIndex`}
+			{$gBitSystemPrefs.bitIndex}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Language"}
 		{forminput}
-			{formfeedback note=`$siteLanguage.full_name`}
+			{$siteLanguage.full_name}
 		{/forminput}
 	</div>
 
@@ -58,7 +44,7 @@
 		<div class="row">
 			{formlabel label="Image Processor"}
 			{forminput}
-				{formfeedback note=`$gBitSystemPrefs.image_processor`}
+				{$gBitSystemPrefs.image_processor}
 			{/forminput}
 		</div>
 	{/if}

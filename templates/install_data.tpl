@@ -20,11 +20,13 @@
 		{formlabel label="Packages that can be populated"}
 		{forminput}
 			{if $pumpList}
-				{foreach from=$pumpList item=pump}
-					{formfeedback note=$pump}
-				{/foreach}
+				<ul>
+					{foreach from=$pumpList item=pump}
+						<li>{$pump}</li>
+					{/foreach}
+				</ul>
 			{else}
-				{formfeedback note="No packages with prepared data have been installed."}
+				No packages with prepared data have been installed.
 			{/if}
 		{/forminput}
 	</div>

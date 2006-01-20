@@ -19,6 +19,7 @@
 		var bitRootUrl = "{$smarty.const.BIT_ROOT_URL}";
 	//]]></script>
 	<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/libs/tabpane.js"></script>
+	<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/bitweaver.js"></script>
 </head>
 {strip}
 <body>

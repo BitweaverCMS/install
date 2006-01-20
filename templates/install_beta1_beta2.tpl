@@ -5,9 +5,8 @@
 	{legend legend="Upgrade from Beta 1 to Beta 2"}
 		<input type="hidden" name="step" value="{$next_step}" />
 
-		<div class="row">
-			{formfeedback note="To upgrade CLYDE Beta 1 to CLYDE Beta 2, you need to upgrade your languages package.<br />We know we said we wouldn't make any rash schema changes, but we thought that since languages weren't working anyway, nobody could possibly loose data. We hope that this does not cause too great of a problem and we appologise for messing with the schema."}
-		</div>
+		<p class="row">To upgrade CLYDE Beta 1 to CLYDE Beta 2, you need to upgrade your languages package.<br />We know we said we wouldn't make any rash schema changes, but we thought that since languages weren't working anyway, nobody could possibly loose data. We hope that this does not cause too great of a problem and we appologise for messing with the schema.<p>
+
 		{foreach from=$schema key=package item=item}
 			{if $item.tables || $item.defaults}
 				{if $package eq 'languages'}
