@@ -14,8 +14,10 @@
 					</li>
 				{elseif $error}
 					<li class="error">
-						{biticon ipackage=liberty iname=error iexplain=error}
-						<p>Database connection could not be established.</p>
+						<p>
+							{biticon ipackage=liberty iname=error iexplain=error}
+							Database connection could not be established.
+						</p>
 
 						{if $errorMsg}
 							<p>
