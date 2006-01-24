@@ -13,7 +13,7 @@
 	<hr />
 
 	<h2>Upgrade an Existing Database</h2>
-	<p>if you wish to upgrade or convert an existing database to a bitweaver database, please select this option. You will be brought back to the installer once the upgrade process has been completed.</p>
+	<p>Choosing this path will allow you to upgrade your database from an application like TikiWiki to a bitweaver database. You will be brought back to the installer once the upgrade process has been completed.</p>
 
 	<div class="row submit">
 		<input type="submit" name="upgrade" value="Upgrade an existing Database" />
@@ -22,7 +22,7 @@
 	<hr />
 
 	<h2>Migrate a Database</h2>
-	<p>if you wish to migrate a database from one database source to another, please select this option. You will be brought back to the installer once the upgrade process has been completed.</p>
+	<p>If you wish to migrate a database from one database source to another, such as from MySQL to PostgreSQL, please select this option. You will be brought back to the installer once the upgrade process has been completed.</p>
 
 	<div class="row submit">
 		<input type="submit" name="migrate" value="Migrate a Database" />
