@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.5 2005/08/01 18:40:30 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.6 2006/01/25 17:38:12 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -38,7 +38,13 @@ function create_config($gBitDbType,$gBitDbHost,$gBitDbUser,$gBitDbPassword,$gBit
 // | Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
 // +----------------------------------------------------------------------+
 // The following line is required and should not be altered
-global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName, \$smarty_force_compile, \$gDebug, \$gPreScan;
+global \$gBitDbSystem, \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName, \$smarty_force_compile, \$gDebug, \$gPreScan;
+
+
+// You can choose between different Database abstraction layers. Currently we support:
+//    adodb          ADODB      ( this is the default setting and is bundled with bitweaver )
+//    pear           PEAR::DB   ( when using this, you can even remove the util/adodb directory )
+\$gBitDbSystem = \"adodb\";
 
 
 // bitweaver can store its data in multiple different back ends. Currently we
@@ -57,7 +63,7 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 //    mysql          Standard MySQL
 //    sqlite         SQLLite
 //    mssql          MS-SQL (experimental)
-//    postgres          PostgreSQL 7.x
+//    postgres       PostgreSQL 7.x
 //    oci8po         Oracle (9i and newer)
 //    firebird       FireBird
 //    sybase         Sybase
