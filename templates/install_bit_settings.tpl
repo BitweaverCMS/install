@@ -25,7 +25,7 @@
 	<div class="row">
 		{formlabel label="Browser title" for="siteTitle"}
 		{forminput}
-			<input size="50" type="text" name="siteTitle" id="siteTitle" value="{$siteTitle|escape}" />
+			<input size="50" type="text" name="siteTitle" id="siteTitle" value="{$gBitSystemPrefs.siteTitle|escape}" />
 			{formhelp note="Enter the title that should appear in the title bar of the users browser when visiting your site."}
 		{/forminput}
 	</div>
