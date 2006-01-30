@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.16 2006/01/18 20:19:15 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.17 2006/01/30 13:03:57 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -154,9 +154,10 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					// TODO: allow option to remove related content from tiki_content and tiki_structures
 					// should be possible using $gLibertySystem->mContentTypes and the appropriate GUIDs
 					// Cascade user_preferences if necessary
-					$delete = "DELETE FROM `".$tablePrefix."tiki_user_preferences` " .
-						"WHERE `pref_name` IN ( SELECT `name` FROM `tiki_preferences` WHERE `package` = '".$package."')";
-					$gBitInstaller->mDb->query( $delete );
+// this has to be done using the individual content_ids from tiki_content
+//					$delete = "DELETE FROM `".$tablePrefix."tiki_user_preferences` " .
+//						"WHERE `pref_name` IN ( SELECT `name` FROM `tiki_preferences` WHERE `package` = '".$package."')";
+//					$gBitInstaller->mDb->query( $delete );
 					// Delete user_permissions ( need to ensure package is set in table )
 					$delete = "DELETE FROM `".$tablePrefix."users_permissions`
 						WHERE `package` = '".$package."'";
