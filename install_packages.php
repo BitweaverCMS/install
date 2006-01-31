@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.17 2006/01/16 22:39:39 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.3.2.18 2006/01/31 09:42:41 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -126,7 +126,7 @@ if( isset( $_REQUEST['fSubmitDbCreate'] ) ) {
 				if( in_array( $package, $_REQUEST['PACKAGE'] ) || !empty( $gBitInstaller->mPackages[$package]['required'] ) ) {
 					$gBitInstaller->storePreference( 'package_'.strtolower( $package ), 'y', $package );
 					// we'll default wiki to the home page
-					if( $package == WIKI_PKG_NAME ) {
+					if(defined("WIKI_PKG_NAME") && $package == WIKI_PKG_NAME ) {
 						$gBitSystem->storePreference( "bitIndex", WIKI_PKG_NAME );
 					}
 				}
