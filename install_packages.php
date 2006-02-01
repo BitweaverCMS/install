@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.21 2006/02/01 19:45:29 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.22 2006/02/01 20:18:50 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -155,7 +155,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					// should be possible using $gLibertySystem->mContentTypes and the appropriate GUIDs
 					// Cascade user_preferences if necessary
 // this has to be done using the individual content_ids from liberty_content
-//					$delete = "DELETE FROM `".$tablePrefix."tiki_user_preferences` " .
+//					$delete = "DELETE FROM `".$tablePrefix."liberty_content_prefs` " .
 //						"WHERE `pref_name` IN ( SELECT `name` FROM `kernel_prefs` WHERE `package` = '".$package."')";
 //					$gBitInstaller->mDb->query( $delete );
 					// Delete user_permissions ( need to ensure package is set in table )
