@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.17 2006/01/30 13:03:57 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.18 2006/02/01 09:20:12 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -39,7 +39,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 	if( ( $method = ( $_REQUEST['method'] ) ) == 'install' && !$_SESSION['first_install'] ) {
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) {
-				$gBitSmarty->assign( 'warning', "There was a problem with the package selection. we just cought it in time before your system got destroyed." );
+				$gBitSmarty->assign( 'warning', "There was a problem with the package selection. we just caught it in time before your system got destroyed." );
 				$method = FALSE;
 			}
 		}
