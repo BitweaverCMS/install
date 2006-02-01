@@ -6,42 +6,40 @@
 
 	<div class="row">
 		{if $warning or $error or $success}
-			<ul class="result">
-				{if $warning}
-					<li class="warning">
-						{biticon ipackage=liberty iname=warning iexplain=warning}
-						We have already set up a working connection with your db. Change these settings at your own peril.
-					</li>
-				{elseif $error}
-					<li class="error">
+			{if $warning}
+				<p class="warning">
+					{biticon ipackage=liberty iname=warning iexplain=warning}
+					We have already set up a working connection with your db. Change these settings at your own peril.
+				</p>
+			{elseif $error}
+				<div class="error">
+					<p>
+						{biticon ipackage=liberty iname=error iexplain=error}
+						Database connection could not be established.
+					</p>
+
+					{if $errorMsg}
 						<p>
-							{biticon ipackage=liberty iname=error iexplain=error}
-							Database connection could not be established.
+							The returned error message is:
+							<br />
+							<strong>{$errorMsg}</strong>
 						</p>
+					{/if}
 
-						{if $errorMsg}
-							<p>
-								The returned error message is:
-								<br />
-								<strong>{$errorMsg}</strong>
-							</p>
-						{/if}
-
-						<ul>
-							<li>Perhaps your database is not available</li>
-							<li>or the server cannot connect to it</li>
-							<li>or you have made a typo</li>
-							<li>Please double check the following settings:
-								<ul>
-									<li><strong>database name</strong></li>
-									<li><strong>database username</strong></li>
-									<li><strong>database password</strong></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-				{/if}
-			</ul>
+					<ul>
+						<li>Perhaps your database is not available</li>
+						<li>or the server cannot connect to it</li>
+						<li>or you have made a typo</li>
+						<li>Please double check the following settings:
+							<ul>
+								<li><strong>database name</strong></li>
+								<li><strong>database username</strong></li>
+								<li><strong>database password</strong></li>
+							</ul>
+						</li>
+					</ul>
+				</divi>
+			{/if}
 		{/if}
 	</div>
 
@@ -113,11 +111,12 @@
 	{/if}
 		{formlabel label="Database Prefix" for="prefix"}
 		{forminput}
-			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit|replace:'`':''}" />
+			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit|replace:'`':''|default:"bit_"}" />
 			{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple
-				independent install to share a single database. All bitweaver tables begin with 'bit_' or 'users_',
-				so you rarely need to enter a prefix. If you are NOT running MySQL (i.e. Postgres, Oracle, etc.)
-				you can end the prefix string with a '.' (period) to use a schema in systems that support it.
+				independent install to share a single database. To ensure problem free usage of bitweaver with other
+				applications in the same database, <strong>we highly recommend using a prefix</strong>.
+				If you are NOT running MySQL (i.e. Postgres, Oracle, etc.) you can end the prefix string with
+				a '.' (period) to use a schema in systems that support it.
 				<strong>MySQL does NOT support schemas.</strong>"}
 		{/forminput}
 	</div>
