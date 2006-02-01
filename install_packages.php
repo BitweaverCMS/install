@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.18 2006/02/01 09:20:12 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.19 2006/02/01 14:58:41 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -147,7 +147,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				if( $method == 'install' || $method == 'reinstall' ) {
 					$gBitInstaller->storePreference( 'package_'.strtolower( $package ), 'y', $package );
 					// we'll default wiki to the home page
-					if( $package == WIKI_PKG_NAME ) {
+					if( defined( 'WIKI_PKG_NAME' ) || $package == WIKI_PKG_NAME ) {
 						$gBitSystem->storePreference( "bitIndex", WIKI_PKG_NAME );
 					}
 				} elseif( $method == 'uninstall' ) {
