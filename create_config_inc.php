@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.6 2006/01/25 17:38:12 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.7 2006/02/03 16:02:30 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -38,7 +38,7 @@ function create_config($gBitDbType,$gBitDbHost,$gBitDbUser,$gBitDbPassword,$gBit
 // | Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
 // +----------------------------------------------------------------------+
 // The following line is required and should not be altered
-global \$gBitDbSystem, \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName, \$smarty_force_compile, \$gDebug, \$gPreScan;
+global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName, \$smarty_force_compile, \$gDebug, \$gPreScan;
 
 
 // You can choose between different Database abstraction layers. Currently we support:
