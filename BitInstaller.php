@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.13 2006/02/03 10:40:09 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.14 2006/02/03 18:32:34 squareing Exp $
  * @package install
  */
 
@@ -136,7 +136,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									$sql = $dict->CreateTableSQL( $completeTableName, $create[$tableName], 'REPLACE' );
 									if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 									} else {
-										print '<dd><font color="red">Failed to create '.$completeTableName.'</font>';
+										print '<dd><span class="error">Failed to create '.$completeTableName.'</span>';
 										array_push( $failedcommands, $sql );
 									}
 								}
@@ -149,7 +149,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									$sql = $dict->ChangeTableSQL( $completeTableName, $alter[$tableName] );
 									if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 									} else {
-										print '<dd><font color="red">Failed to alter '.$completeTableName.' -> '.$alter[$tableName].'</font>';
+										print '<dd><span class="error">Failed to alter '.$completeTableName.' -> '.$alter[$tableName].'</span>';
 										array_push( $failedcommands, $sql );
 									}
 								}
@@ -164,7 +164,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 											$this->mDb->query( $query );
 										}
 									} else {
-										print '<dd><font color="red">Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</font>';
+										print '<dd><span class="error">Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
 										array_push( $failedcommands, $sql );
 									}
 								}
@@ -183,7 +183,23 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 												$this->mDb->query( $query );
 											}
 										} else {
-											print '<dd><font color="red">Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</font>';
+											print '<dd><span class="error">Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
+											array_push( $failedcommands, $sql );
+										}
+									}
+								}
+							}
+							break;
+						case 'RENAMESEQUENCE':
+							foreach( $dd as $rename ) {
+								foreach( array_keys( $rename ) as $tableName ) {
+									$completeTableName = $tablePrefix.$tableName;
+									foreach( $rename[$tableName] as $from => $to ) {
+										if( $id = $this->mDb->GenID( $from ) ) {
+											$this->mDb->DropSequence( $from );
+											$this->mDb->CreateSequence( $to, $id );
+										} else {
+											print '<dd><span class="error">Failed to rename sequence '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
 											array_push( $failedcommands, $sql );
 										}
 									}
@@ -200,7 +216,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 												$this->mDb->query( $query );
 											}
 										} else {
-											print '<dd><font color="red">Failed to drop column '.$completeTableName.'</font>';
+											print '<dd><span class="error">Failed to drop column '.$completeTableName.'</span>';
 											array_push( $failedcommands, $sql );
 										}
 									}
@@ -214,7 +230,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 									$sql = $dict->DropTableSQL( $completeTableName );
 									if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 									} else {
-										print '<dd><font color="red">Failed to drop table '.$completeTableName.'</font>';
+										print '<dd><span class="error">Failed to drop table '.$completeTableName.'</span>';
 										array_push( $failedcommands, $sql );
 									}
 								}
@@ -229,7 +245,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 											$this->mDb->query( $query );
 										}
 									} else {
-										print '<dd><font color="red">Failed to create index '.$index.'</font>';
+										print '<dd><span class="error">Failed to create index '.$index.'</span>';
 										array_push( $failedcommands, $sql );
 									}
 								}
