@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_firebird_database.php,v 1.2 2005/06/28 07:45:45 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_firebird_database.php,v 1.3 2006/02/03 14:06:00 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -21,30 +21,30 @@
 	function FirebirdCreateDB($host, $user, $pass, $dbalias, $fbpath)
 	{
 		$sql = 'CREATE DATABASE "'.$host.':'.$dbalias.'"';
-    	if (strlen($user) > 0)
-        	$sql .= ' USER "'.$user.'"';
-        if (strlen($pass) > 0)
-            $sql .= ' PASSWORD "'.$pass.'"';
-        $sql .= ' PAGE_SIZE = 4096';
+		if (strlen($user) > 0)
+			$sql .= ' USER "'.$user.'"';
+		if (strlen($pass) > 0)
+			$sql .= ' PASSWORD "'.$pass.'"';
+		$sql .= ' PAGE_SIZE = 4096';
 
 //		if ($s_create_charset != 'NONE') {
 			// NONE is the default character set
 //			$sql .= ' DEFAULT CHARACTER SET '.$s_create_charset;
 //		}
 
-    	$sql .= ';';
+		$sql .= ';';
 
-    	$sql = str_replace("\r\n", "\n", $sql);
-	    $sql .= "\n";
-    	$tmp_name = $_ENV["TMP"].'/'.uniqid('').'.sql';
+		$sql = str_replace("\r\n", "\n", $sql);
+		$sql .= "\n";
+		$tmp_name = $_ENV["TMP"].'/'.uniqid('').'.sql';
 
-    	if ($fp = fopen ($tmp_name, 'a')) {
-        	fwrite($fp, $sql);
-        	fclose($fp); 
-    	}
+		if ($fp = fopen ($tmp_name, 'a')) {
+			fwrite($fp, $sql);
+			fclose($fp); 
+		}
 
-	    $command =  sprintf('"%s" -i %s', $fbpath, $tmp_name );
-    	$result = exec($command);
+		$command =  sprintf('"%s" -i %s', $fbpath, $tmp_name );
+		$result = exec($command);
 	}
 
 ?>
