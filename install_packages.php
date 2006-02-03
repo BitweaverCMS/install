@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.24 2006/02/03 10:41:53 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.25 2006/02/03 17:23:54 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -201,14 +201,13 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			/**
 			* Some packages have some special things to take care of here.
 			*/
-			require_once( KERNEL_PKG_PATH.'mod_lib.php' );
 			foreach( $gBitInstaller->mInstallModules as $mod ) {
 				$mod['user_id'] = ROOT_USER_ID;
 				if( !isset( $mod['layout'] ) ) {
 					$mod['layout'] = DEFAULT_PACKAGE;
 				}
-				$modlib->storeModule( $mod );
-				$modlib->storeLayout( $mod );
+				$gBitThemes->storeModule( $mod );
+				$gBitThemes->storeLayout( $mod );
 			}
 		}
 
