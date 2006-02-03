@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.23 2006/02/01 20:35:52 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.24 2006/02/03 10:41:53 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -59,6 +59,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 	// by now $method should be populated with something
 	if( $gBitInstallDb->Connect( $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName ) && !empty( $method ) ) {
+		if ( $_SESSION['first_install'] && $gBitDbType == 'firebird' ) {
+			$result = $gBitInstallDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
+		}
 		$tablePrefix = $gBitInstaller->getTablePrefix();
 
 		$dict = NewDataDictionary( $gBitInstallDb, $gBitDbType );
