@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.25 2006/02/03 17:23:54 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.26 2006/02/04 17:37:17 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -213,7 +213,21 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 		// Installing users has some special things to take care of here and needs a separate check.
 		if( in_array( 'users', $_REQUEST['packages'] ) && empty( $gBitInstaller->mPackages['users']['installed'] ) ) {
+			// These hardcoded queries need to go in here to avoid constraint violations
+			$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."liberty_plugins` (`plugin_guid`, `plugin_type`, `is_active`, `plugin_description`) VALUES ( 'tikiwiki', 'format', 'y', 'TikiWiki Syntax Format Parser' )" );
+			// Creating 'root' user has id=1. phpBB starts with user_id=2, so this is a hack to keep things in sync
+			$rootUser = new BitPermUser();
+			$storeHash = array( 'real_name' => 'root', 'login' => 'root', 'password' => $_SESSION['password'], 'email' => 'root@localhost', 'pass_due' => FALSE, 'user_id' => ROOT_USER_ID );
+			if( $rootUser->store( $storeHash ) ) {
+				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 1, 'Administrators','Site operators')" );
+				$rootUser->addUserToGroup( ROOT_USER_ID, 1 );
+			}
+
 			// now let's set up some default data. Group_id's are hardcoded in users/schema_inc defaults
+			$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", -1, 'Anonymous','Public users not logged')" );
+			$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 2, 'Editors','Site  Editors')" );
+			$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`,`is_default`) VALUES ( ".ROOT_USER_ID.", 3, 'Registered', 'Users logged into the system', 'y')" );
+
 			$gBitUser->assign_level_permissions( ANONYMOUS_GROUP_ID, 'basic' );
 			$gBitUser->assign_level_permissions( 3, 'registered' );
 			$gBitUser->assign_level_permissions( 2, 'editors' );
@@ -228,13 +242,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				$regGroupId = $anonUser->groupExists( 'Registered', ROOT_USER_ID );
 				$anonUser->removeUserFromGroup( ANONYMOUS_USER_ID, $regGroupId );
 				$anonUser->addUserToGroup( ANONYMOUS_USER_ID, ANONYMOUS_GROUP_ID);
-			}
-
-			// Creating 'root' user has id=1. phpBB starts with user_id=2, so this is a hack to keep things in sync
-			$rootUser = new BitPermUser();
-			$storeHash = array( 'real_name' => 'root', 'login' => 'root', 'password' => $_SESSION['password'], 'email' => 'root@localhost', 'pass_due' => FALSE, 'user_id' => ROOT_USER_ID );
-			if( $rootUser->store( $storeHash ) ) {
-				$rootUser->addUserToGroup( ROOT_USER_ID, 1 );
 			}
 
 			$adminUser = new BitPermUser();
