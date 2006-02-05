@@ -15,7 +15,7 @@
 	<div class="row">
 		{formlabel label="Browser title"}
 		{forminput}
-			{$gBitSystemPrefs.siteTitle}
+			{$gBitSystemPrefs.site_title}
 		{/forminput}
 	</div>
 
@@ -29,7 +29,7 @@
 	<div class="row">
 		{formlabel label="Home page"}
 		{forminput}
-			{$gBitSystemPrefs.bitIndex}
+			{$gBitSystemPrefs.bit_index}
 		{/forminput}
 	</div>
 

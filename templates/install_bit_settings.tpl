@@ -23,9 +23,9 @@
 	{/foreach}
 
 	<div class="row">
-		{formlabel label="Browser title" for="siteTitle"}
+		{formlabel label="Browser title" for="site_title"}
 		{forminput}
-			<input size="50" type="text" name="siteTitle" id="siteTitle" value="{$gBitSystemPrefs.siteTitle|escape}" />
+			<input size="50" type="text" name="site_title" id="site_title" value="{$gBitSystemPrefs.site_title|escape}" />
 			{formhelp note="Enter the title that should appear in the title bar of the users browser when visiting your site."}
 		{/forminput}
 	</div>
@@ -39,18 +39,18 @@
 	</div>
 
 	<div class="row">
-		{formlabel label="Home page" for="bitIndex"}
+		{formlabel label="Home page" for="bit_index"}
 		{forminput}
-			<select name="bitIndex" id="bitIndex">
-				<option value="my_home"{if $bitIndex eq 'my_home'} selected="selected"{/if}>{tr}My home{/tr}</option>
-				<option value="group_home"{if $bitIndex eq 'group_home'} selected="selected"{/if}>{tr}Group home{/tr}</option>
+			<select name="bit_index" id="bit_index">
+				<option value="my_home"{if $bit_index eq 'my_home'} selected="selected"{/if}>{tr}My home{/tr}</option>
+				<option value="group_home"{if $bit_index eq 'group_home'} selected="selected"{/if}>{tr}Group home{/tr}</option>
 				{foreach key=name item=package from=$schema }
 					{if $package.homeable && $package.installed}
 						<option {if $package.name=='wiki'}selected="selected"{/if} value="{$package.name}">{$package.name}</option>
 					{/if}
 				{/foreach}
 				{if $gBitSystem->isFeatureActive( 'feature_custom_home' )}
-					<option value="custom_home"{if $bitIndex eq $urlIndex} selected="selected"{/if}>{tr}Custom home{/tr}</option>
+					<option value="custom_home"{if $bit_index eq $url_index} selected="selected"{/if}>{tr}Custom home{/tr}</option>
 				{/if}
 			</select>
 			{formhelp note="Pick your site's homepage. This is where they will be redirected, when they access a link to your homepage.
