@@ -49,7 +49,7 @@
 						<option {if $package.name=='wiki'}selected="selected"{/if} value="{$package.name}">{$package.name}</option>
 					{/if}
 				{/foreach}
-				{if $gBitSystem->isFeatureActive( 'feature_custom_home' )}
+				{if $gBitSystem->isFeatureActive( 'custom_home' )}
 					<option value="custom_home"{if $bit_index eq $url_index} selected="selected"{/if}>{tr}Custom home{/tr}</option>
 				{/if}
 			</select>
