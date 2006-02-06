@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_data.php,v 1.4 2005/08/11 13:03:45 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_data.php,v 1.5 2006/02/06 00:07:18 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -32,7 +32,7 @@ if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
 	$gBitSmarty->assign( 'pumpedData',$pumpedData );
 	$app = '_done';
 	$gBitSmarty->assign( 'next_step',$step + 1 );
-	$gBitSystem->storePreference( 'wikiHomePage',$pumpedData['Wiki'][0] );
+	$gBitSystem->storePreference( 'wiki_home_page',$pumpedData['Wiki'][0] );
 } elseif( isset( $_REQUEST['skip'] ) ) {
 	$app = '_done';
 	$goto = $step + 1;

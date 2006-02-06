@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.8 2006/01/19 09:41:46 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.9 2006/02/06 00:07:18 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -25,9 +25,9 @@ $gBitSmarty->assign_by_ref( 'schema', $gBitInstaller->mPackages );
 
 // settings that aren't just toggles
 $formInstallValues = array(
-	'bitIndex',
+	'bit_index',
 	'feature_server_name',
-	'siteTitle',
+	'site_title',
 	'site_slogan',
 	'bitlanguage',
 );
