@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.3 2006/01/14 19:54:34 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.4 2006/02/08 21:51:13 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -71,7 +71,7 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 	foreach( $serviceList as $service ) {
 		foreach( array_keys( $service ) as $package ) {
 			if( !in_array( $package, $_REQUEST['packages'] ) ) {
-				$gBitSystem->storePreference( 'package_'.$package, 'n' );
+				$gBitSystem->storePreference( 'package_'.$package, 'n', KERNEL_PKG_NAME );
 				$deActivated[] = $package;
 			}
 		}

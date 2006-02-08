@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.27 2006/02/06 00:07:18 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.28 2006/02/08 21:51:13 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -151,7 +151,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					$gBitInstaller->storePreference( 'package_'.strtolower( $package ), 'y', $package );
 					// we'll default wiki to the home page
 					if( defined( 'WIKI_PKG_NAME' ) && $package == WIKI_PKG_NAME ) {
-						$gBitSystem->storePreference( "bit_index", WIKI_PKG_NAME );
+						$gBitSystem->storePreference( "bit_index", WIKI_PKG_NAME, WIKI_PKG_NAME );
 					}
 				} elseif( $method == 'uninstall' ) {
 					// TODO: allow option to remove related content from liberty_content and liberty_structures
@@ -175,7 +175,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 		// and let's turn on phpBB so people can find it easily.
 		if( defined( 'PHPBB_PKG_NAME' ) ) {
-			$gBitInstaller->storePreference( 'package_phpbb', 'y' );
+			$gBitInstaller->storePreference( 'package_phpbb', 'y', PHPBB_PKG_NAME );
 		}
 
 		// 4. run the defaults through afterwards so we can be sure all tables needed have been created

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.9 2006/02/06 00:07:18 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.10 2006/02/08 21:51:13 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -12,11 +12,11 @@
 // assign next step in installation process
 $gBitSmarty->assign( 'next_step',$step );
 
-function simple_set_value($feature) {
+function simple_set_value( $package, $feature ) {
 	global $_REQUEST, $gBitSystem, $gBitSmarty;
-	if (isset($_REQUEST[$feature])) {
-		$gBitSystem->storePreference($feature, $_REQUEST[$feature]);
-		$gBitSmarty->assign($feature, $_REQUEST[$feature]);
+	if( isset( $_REQUEST[$feature] ) ) {
+		$gBitSystem->storePreference( $feature, $_REQUEST[$feature], $package );
+		$gBitSmarty->assign( $feature, $_REQUEST[$feature] );
 	}
 }
 
@@ -25,11 +25,11 @@ $gBitSmarty->assign_by_ref( 'schema', $gBitInstaller->mPackages );
 
 // settings that aren't just toggles
 $formInstallValues = array(
-	'bit_index',
-	'feature_server_name',
-	'site_title',
-	'site_slogan',
-	'bitlanguage',
+	'bit_index'            => 'kernel',
+	'feature_server_name'  => 'kernel',
+	'site_title'           => 'kernel',
+	'site_slogan'          => 'kernel',
+	'bitlanguage'          => 'languages',
 );
 
 if( extension_loaded( 'imagick' ) && extension_loaded( 'gd' ) ) {
@@ -44,16 +44,18 @@ $gBitSmarty->assign_by_ref("languages",$languages );
 
 // process form
 if( isset( $_REQUEST['fSubmitBitSettings'] ) ) {
-	foreach( $formInstallValues as $item ) {
-		simple_set_value( $item );
+	foreach( $formInstallValues as $item => $package) {
+		simple_set_value( $package, $item );
 	}
 
 	if (empty($_REQUEST['bitlanguage'])) {
 		$_REQUEST['bitlanguage'] = 'en';
 	}
+
 	if (!array_key_exists($_REQUEST['bitlanguage'], $languages)) {
 		$languages[$_REQUEST['bitlanguage']] = '';
 	}
+
 	$gBitLanguage->setLanguage( $_REQUEST['bitlanguage'] );
 	$gBitSmarty->assign( "siteLanguage",$languages[$_REQUEST['bitlanguage']] );
 	// advance a step in the installer

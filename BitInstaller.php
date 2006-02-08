@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.14 2006/02/03 18:32:34 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.15 2006/02/08 21:51:13 squareing Exp $
  * @package install
  */
 
@@ -292,7 +292,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 			}
 			// turn on features that are turned on
 			if( $gBitSystem->isFeatureActive( 'feature_'.$package ) ) {
-				$gBitSystem->storePreference( 'package_'.$package, 'y', $package );
+				$gBitSystem->storePreference( 'package_'.$package, 'y', KERNEL_PKG_NAME );
 			}
 		}
 	}
@@ -306,8 +306,8 @@ function process_sql_file( $file, $gBitDbType, $pBitDbPrefix ) {
 	global $failedcommands;
 	global $gBitSmarty;
 	if(!isset($succcommands)) {
-	  $succcommands=array();
-	  $failedcommands=array();
+		$succcommands=array();
+		$failedcommands=array();
 	}
 
 	if( !file_exists( INSTALL_PKG_PATH.'db/'.$file ) ) {
