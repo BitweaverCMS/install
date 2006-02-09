@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.9 2006/02/06 22:56:45 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.10 2006/02/09 10:30:37 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -100,9 +100,9 @@ if (isset($_REQUEST['kill'])) {
 }
 
 // set prefs to display help during install
-$gBitSystem->mPrefs['help'] = 'y';
-$gBitSystem->mPrefs['help_notes'] = 'y';
-$gBitSystem->mPrefs['help_popup'] = 'n';
+$gBitSystem->setPreference( 'help', 'y' );
+$gBitSystem->setPreference( 'help_notes', 'y' );
+$gBitSystem->setPreference( 'help_popup', 'n' );
 
 $commands = array();
 global $failedcommands;
