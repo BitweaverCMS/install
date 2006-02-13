@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.10 2006/02/08 21:51:13 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.11 2006/02/13 10:06:14 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -25,11 +25,11 @@ $gBitSmarty->assign_by_ref( 'schema', $gBitInstaller->mPackages );
 
 // settings that aren't just toggles
 $formInstallValues = array(
-	'bit_index'            => 'kernel',
-	'feature_server_name'  => 'kernel',
-	'site_title'           => 'kernel',
-	'site_slogan'          => 'kernel',
-	'bitlanguage'          => 'languages',
+	'bit_index'          => 'kernel',
+	'kernel_server_name' => 'kernel',
+	'site_title'         => 'kernel',
+	'site_slogan'        => 'kernel',
+	'bitlanguage'        => 'languages',
 );
 
 if( extension_loaded( 'imagick' ) && extension_loaded( 'gd' ) ) {
