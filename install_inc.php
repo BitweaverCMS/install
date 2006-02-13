@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.10 2005/10/30 21:03:49 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.2.2.11 2006/02/13 23:10:55 seannerd Exp $
  * @package install
  * @subpackage functions
  */
@@ -71,8 +71,12 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 		}
 	}
 	if ( empty( $gBitDbType ) ) {
+		$tmpHost = $_REQUEST['host'];
+		if ($_REQUEST['db'] == 'mssql' && get_magic_quotes_gpc() == 1) { // pull doubled up slashes from config
+			$tmpHost = stripslashes($tmpHost);
+		}
 		require_once( 'create_config_inc.php' );
-		create_config($_REQUEST['db'], $_REQUEST['host'], $_REQUEST['user'], $_REQUEST['pass'], $_REQUEST['name'], $_REQUEST['prefix'], $_REQUEST['baseurl'], isset( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE' );
+		create_config($_REQUEST['db'], $tmpHost, $_REQUEST['user'], $_REQUEST['pass'], $_REQUEST['name'], $_REQUEST['prefix'], $_REQUEST['baseurl'], isset( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE' );
 		include( $config_file );
 	}
 }
