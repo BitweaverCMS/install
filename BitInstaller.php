@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.15 2006/02/08 21:51:13 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.16 2006/02/15 23:01:01 spiderr Exp $
  * @package install
  */
 
@@ -91,6 +91,7 @@ class BitInstaller extends BitSystem {
 				// avoid database change messages
 				ini_set('sybct.min_server_severity', '11');
 				break;
+			case "oci8":
 			case "postgres":
 				// Do a little prep work for postgres, no break, cause we want default case too
 				$ret = preg_replace( '/`/', '"', BIT_DB_PREFIX );
@@ -297,101 +298,6 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 		}
 	}
 
-}
-
-function process_sql_file( $file, $gBitDbType, $pBitDbPrefix ) {
-	global $gBitDb;
-
-	global $succcommands;
-	global $failedcommands;
-	global $gBitSmarty;
-	if(!isset($succcommands)) {
-		$succcommands=array();
-		$failedcommands=array();
-	}
-
-	if( !file_exists( INSTALL_PKG_PATH.'db/'.$file ) ) {
-		$failedcommands[] = "Could not open ".INSTALL_PKG_PATH.'db/'.$file;
-		return;
-	}
-	$command = '';
-	$fp = fopen( INSTALL_PKG_PATH."db/$file", "r");
-
-	while(!feof($fp)) {
-		$command.= fread($fp,4096);
-	}
-
-	switch ($gBitDbType) {
-	  case "sybase":
-	    $splitString = "(\r|\n)go(\r|\n)";
-	    break;
-	  case "oci8":
-	    $splitString = "#(;\n)|(\n/\n)#";
-	    break;
-	  case "postgres":
-	  	// Do a little prep work for postgres, no break, cause we want default case too
-	  	if( preg_match( '/\./', $pBitDbPrefix ) ) {
-			$schema = preg_replace( '/[`\.]/', '', $pBitDbPrefix );
-			// Assume we want to dump in a schema, so set the search path and nuke the prefix here.
-			$result = $gBitDb->Execute( "CREATE SCHEMA $schema" );
-			$result = $gBitDb->Execute( "SET search_path TO $schema" );
-			$pBitDbPrefix='';
-		}
-	  default:
-	  	$splitString = "#(;\n)|(;\r\n)#";
-	    break;
-	}
-	$command = str_replace( "##PREFIX##", $pBitDbPrefix, $command );
-	$statements = preg_split( "#(;\n)|(;\r\n)#", $command );
-
-	$prestmt="";
-	$do_exec=true;
-	$succcommands[]= "Prefix: <".$pBitDbPrefix.">";
-	foreach ($statements as $statement) {
-		//echo "executing $statement ";
-			if (trim($statement)) {
-				switch ($gBitDbType) {
-				case "oci8":
-					$statement = preg_replace("/`/", "\"", $statement);
-					// we have to preserve the ";" in sqlplus programs (triggers)
-					if (preg_match("/BEGIN/",$statement)) {
-						$prestmt=$statement.";";
-						$do_exec=false;
-					}
-					if (preg_match("/END/",$statement)) {
-						$statement=$prestmt."\n".$statement.";";
-						$do_exec=true;
-					}
-					if($do_exec) $result = $gBitDb->Execute($statement);
-					break;
-				case "sqlite":
-					$statement = preg_replace("/`/", "", $statement);
-				case "postgres":
-				case "sybase":
-				case "mssql":
-					$statement = preg_replace("/`/", "\"", $statement);
-				default:
-					$result = $gBitDb->Execute($statement);
-					break;
-			}
-
-			if (!$result) {
-				if( !preg_match( '/DROP TABLE/i', $statement ) ) {
-					$failedcommands[]= "Command: ".trim($statement)."\nMessage: ".$gBitDb->ErrorMsg()."\n";
-				//trigger_error("DB error:  " . $gBitDb->ErrorMsg(). " in query:<pre>" . $command . "<\/pre>", E_USER_WARNING);
-				// Do not die at the moment. We need some better error checking here
-				//die;
-				}
-			} else {
-				$succcommands[]=$statement;
-			}
-		}
-	}
-
-	$gBitSmarty->assign_by_ref('succcommands', $succcommands);
-	$gBitSmarty->assign_by_ref('failedcommands', $failedcommands);
-
-	return( empty( $failedcommands ) );
 }
 
 function kill_script() {

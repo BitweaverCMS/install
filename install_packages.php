@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.28 2006/02/08 21:51:13 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.29 2006/02/15 23:01:01 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -221,6 +221,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			if( $rootUser->store( $storeHash ) ) {
 				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 1, 'Administrators','Site operators')" );
 				$rootUser->addUserToGroup( ROOT_USER_ID, 1 );
+			} else {
+				vd( $rootUser->mErrors );
 			}
 
 			// now let's set up some default data. Group_id's are hardcoded in users/schema_inc defaults
