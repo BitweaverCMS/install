@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.9 2006/02/15 22:58:58 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.10 2006/02/17 23:04:35 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -29,7 +29,7 @@ if( function_exists( 'pg_connect' ) ) {
 	$dbtodsn['postgres'] = 'PostgreSQL 7.x';
 }
 if( function_exists( 'ocilogon' ) ) {
-	$dbtodsn['oci8po'] = 'Oracle 8.i';
+	$dbtodsn['oci8'] = 'Oracle 8.i';
 }
 if( function_exists( 'sybase_connect' ) ) {
 	$dbtodsn['sybase'] = 'Sybase';

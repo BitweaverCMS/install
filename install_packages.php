@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.29 2006/02/15 23:01:01 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.30 2006/02/17 23:04:35 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -65,6 +65,12 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		$tablePrefix = $gBitInstaller->getTablePrefix();
 
 		$dict = NewDataDictionary( $gBitInstallDb, $gBitDbType );
+
+		if( !$gBitInstaller->mDb->getCaseSensitivity() ) {
+			// set nameQuote to blank
+			$dict->connection->nameQuote = '';
+		}
+
 		// SHOULD HANDLE INNODB so foreign keys are cool - XOXO spiderr
 		// $tableOptions = array('mysql' => 'TYPE=INNODB', 'REPLACE');
 		$sqlArray = array();
