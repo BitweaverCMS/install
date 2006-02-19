@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.7 2006/02/03 16:02:30 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.8 2006/02/19 21:23:13 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -38,7 +38,7 @@ function create_config($gBitDbType,$gBitDbHost,$gBitDbUser,$gBitDbPassword,$gBit
 // | Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
 // +----------------------------------------------------------------------+
 // The following line is required and should not be altered
-global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName, \$smarty_force_compile, \$gDebug, \$gPreScan;
+global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName, \$gDbCaseSensitivity, \$smarty_force_compile, \$gDebug, \$gPreScan;
 
 
 // You can choose between different Database abstraction layers. Currently we support:
@@ -85,6 +85,8 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 // Database name
 \$gBitDbName   = \"$gBitDbName\";
 
+// Database field case default
+\$gDbCaseSensitivity = TRUE;
 
 // This prefix will be prepended to the begining of every table name to allow multiple
 // independent installs to share a single database. By ending the prefix with a '.' (period)
