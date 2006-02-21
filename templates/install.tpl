@@ -1,3 +1,4 @@
+{strip}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -12,16 +13,15 @@
 		<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/msiefixes/pngfix.js"></script>
 	<![endif]-->
 
-	<script type="text/javascript">//<![CDATA[
+	<script type="text/javascript">/* <![CDATA[ */
 		var bitCookiePath = "{$smarty.const.BIT_ROOT_URL}";
 		var bitCookieDomain = "";
 		var bitIconDir = "{$smarty.const.LIBERTY_PKG_URL}icons/";
 		var bitRootUrl = "{$smarty.const.BIT_ROOT_URL}";
-	//]]></script>
+	/* ]]> */</script>
 	<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/libs/tabpane.js"></script>
 	<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/bitweaver.js"></script>
 </head>
-{strip}
 <body>
 	<div class="display install">
 		<div class="nav">
