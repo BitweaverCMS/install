@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.31 2006/02/22 03:13:31 seannerd Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.32 2006/02/22 03:47:27 seannerd Exp $
  * @package install
  * @subpackage functions
  */
@@ -184,6 +184,27 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			$gBitInstaller->storePreference( 'package_phpbb', 'y', PHPBB_PKG_NAME );
 		}
 
+		// 4. run the defaults through afterwards so we can be sure all tables needed have been created
+		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
+			if (!empty($package)) {
+				if( in_array( $package, $_REQUEST['packages'] ) || ( empty( $gBitInstaller->mPackages[$package]['installed'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) ) {
+					if( $method == 'install' || $method == 'reinstall' ) {
+						// this list of installed packages is used to show newly installed packages
+						if( !empty( $gBitInstaller->mPackages[$package]['defaults'] ) ) {
+							foreach( $gBitInstaller->mPackages[$package]['defaults'] as $def ) {
+							if ($gBitInstaller->mDb->mType == 'firebird' ) $def = preg_replace("/\\\'/","''", $def );
+								$gBitInstaller->mDb->query( $def );
+							}
+						}
+					} else {
+						// This is where any links to clear data not in the current package will be processed
+					}
+					// this is to list any processed packages
+					$packageList[$method][] = $package;
+				}
+			}
+		}
+
 		// only install modules during the first install
 		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 			/**
@@ -247,26 +268,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			unset( $_SESSION['email'] );
 		}
 
-		// 4. run the defaults through afterwards so we can be sure all tables needed have been created
-		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-			if (!empty($package)) {
-				if( in_array( $package, $_REQUEST['packages'] ) || ( empty( $gBitInstaller->mPackages[$package]['installed'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) ) {
-					if( $method == 'install' || $method == 'reinstall' ) {
-						// this list of installed packages is used to show newly installed packages
-						if( !empty( $gBitInstaller->mPackages[$package]['defaults'] ) ) {
-							foreach( $gBitInstaller->mPackages[$package]['defaults'] as $def ) {
-							if ($gBitInstaller->mDb->mType == 'firebird' ) $def = preg_replace("/\\\'/","''", $def );
-								$gBitInstaller->mDb->query( $def );
-							}
-						}
-					} else {
-						// This is where any links to clear data not in the current package will be processed
-					}
-					// this is to list any processed packages
-					$packageList[$method][] = $package;
-				}
-			}
-		}
 
 		$gBitSmarty->assign( 'next_step', $step + 1 );
 		asort( $packageList );
