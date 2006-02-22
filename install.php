@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.7 2006/01/10 21:12:27 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.8 2006/02/22 23:53:16 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -13,6 +13,9 @@
 if( isset( $_REQUEST['step'] ) && $_REQUEST['step'] == '3' ) {
 	ini_set( 'display_errors', '0' );
 }
+
+$gForceAdodb = TRUE;
+
 /**
  * required setup
  */
