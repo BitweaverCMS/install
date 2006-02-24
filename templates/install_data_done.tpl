@@ -1,10 +1,9 @@
 <h1>Sample Data</h1>
 
-{if ($pumpedData[0][0] == '') }
+{if (count($pumpedData) == 0) }
 	{assign var="formlegend" value="Database Population has been skipped"}
 {else}
 	{assign var="formlegend" value="Your Database has been Populated"}	
-	$pumpedData[0][0]
 {/if}
 	
 	{form legend=$formlegend}
@@ -22,7 +21,7 @@
 				</li>
 			{else}
 				<li class="success">
-					{if $pumpedData[0][0]==''}
+					{if count($pumpedData) == 0}
 						{biticon ipackage=liberty iname=success iexplain=success}
 						The Sample data was not added to your database
 					{else}
