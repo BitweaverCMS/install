@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.32 2006/02/22 03:47:27 seannerd Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.33 2006/03/01 18:35:12 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -148,7 +148,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		}
 		// Force a reload of all our preferences
 		$gBitInstaller->mPrefs = '';
-		$gBitInstaller->loadPreferences();
+		$gBitInstaller->loadConfig();
 
 		// 3. activate all selected & required packages
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {

@@ -15,21 +15,21 @@
 	<div class="row">
 		{formlabel label="Browser title"}
 		{forminput}
-			{$gBitSystemPrefs.site_title}
+			{$gBitSystem->getConfig('site_title')}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Site Slogan"}
 		{forminput}
-			{$gBitSystemPrefs.site_slogan}
+			{$gBitSystem->getConfig('site_slogan')}
 		{/forminput}
 	</div>
 
 	<div class="row">
 		{formlabel label="Home page"}
 		{forminput}
-			{$gBitSystemPrefs.bit_index}
+			{$gBitSystem->getConfig('bit_index')}
 		{/forminput}
 	</div>
 
@@ -40,11 +40,11 @@
 		{/forminput}
 	</div>
 
-	{if $gBitSystemPrefs.image_processor}
+	{if $gBitSystem->getConfig('image_processor')}
 		<div class="row">
 			{formlabel label="Image Processor"}
 			{forminput}
-				{$gBitSystemPrefs.image_processor}
+				{$gBitSystem->getConfig('image_processor')}
 			{/forminput}
 		</div>
 	{/if}
