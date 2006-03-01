@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.33 2006/03/01 18:35:12 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.34 2006/03/01 20:16:12 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -154,10 +154,10 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] ) ) {
 				if( $method == 'install' || $method == 'reinstall' ) {
-					$gBitInstaller->storePreference( 'package_'.strtolower( $package ), 'y', $package );
+					$gBitSystem->storeConfig( 'package_'.strtolower( $package ), 'y', $package );
 					// we'll default wiki to the home page
 					if( defined( 'WIKI_PKG_NAME' ) && $package == WIKI_PKG_NAME ) {
-						$gBitSystem->storePreference( "bit_index", WIKI_PKG_NAME, WIKI_PKG_NAME );
+						$gBitSystem->storeConfig( "bit_index", WIKI_PKG_NAME, WIKI_PKG_NAME );
 					}
 				} elseif( $method == 'uninstall' ) {
 					// TODO: allow option to remove related content from liberty_content and liberty_structures
@@ -181,7 +181,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 		// and let's turn on phpBB so people can find it easily.
 		if( defined( 'PHPBB_PKG_NAME' ) ) {
-			$gBitInstaller->storePreference( 'package_phpbb', 'y', PHPBB_PKG_NAME );
+			$gBitSystem->storeConfig( 'package_phpbb', 'y', PHPBB_PKG_NAME );
 		}
 
 		// 4. run the defaults through afterwards so we can be sure all tables needed have been created

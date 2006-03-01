@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.17 2006/02/19 20:21:55 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.18 2006/03/01 20:16:12 spiderr Exp $
  * @package install
  */
 
@@ -293,7 +293,7 @@ if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
 			}
 			// turn on features that are turned on
 			if( $gBitSystem->isFeatureActive( 'feature_'.$package ) ) {
-				$gBitSystem->storePreference( 'package_'.$package, 'y', KERNEL_PKG_NAME );
+				$gBitSystem->storeConfig( 'package_'.$package, 'y', KERNEL_PKG_NAME );
 			}
 		}
 	}

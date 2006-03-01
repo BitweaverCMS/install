@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.11 2006/02/13 10:06:14 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.12 2006/03/01 20:16:12 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -15,7 +15,7 @@ $gBitSmarty->assign( 'next_step',$step );
 function simple_set_value( $package, $feature ) {
 	global $_REQUEST, $gBitSystem, $gBitSmarty;
 	if( isset( $_REQUEST[$feature] ) ) {
-		$gBitSystem->storePreference( $feature, $_REQUEST[$feature], $package );
+		$gBitSystem->storeConfig( $feature, $_REQUEST[$feature], $package );
 		$gBitSmarty->assign( $feature, $_REQUEST[$feature] );
 	}
 }
