@@ -22,13 +22,8 @@
 				</li>
 			{else}
 				<li class="success">
-					{if $pumpedData[0][0]==''}
-						{biticon ipackage=liberty iname=success iexplain=success}
-						The Sample data was not added to your database
-					{else}
-						{biticon ipackage=liberty iname=success iexplain=success}
-						The Sample data was successfully added to your database						
-					{/if}
+					{biticon ipackage=liberty iname=success iexplain=success}
+					The Sample data was successfully added to your database
 				</li>
 			{/if}
 		</ul>
