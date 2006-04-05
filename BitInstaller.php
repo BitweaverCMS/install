@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.18 2006/03/01 20:16:12 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.19 2006/04/05 13:30:28 squareing Exp $
  * @package install
  */
 
@@ -117,178 +117,179 @@ class BitInstaller extends BitSystem {
 			$dict = NewDataDictionary( $gBitDb->mDb );
 			for( $i=0; $i<count( $gBitSystem->mUpgrades[$package] ); $i++ ) {
 
-if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
-	vd( "[$package][$i] is NOT array" );
-	vd( $gBitSystem->mUpgrades[$package][$i] );
-	bt();
-	die;
-}
+				if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
+					vd( "[$package][$i] is NOT array" );
+					vd( $gBitSystem->mUpgrades[$package][$i] );
+					bt();
+					die;
+				}
+
 				$type = key( $gBitSystem->mUpgrades[$package][$i] );
 				$step = &$gBitSystem->mUpgrades[$package][$i][$type];
+				$failedcommands = array();
+
 				switch( $type ) {
-				case 'DATADICT':
-					for( $j=0; $j<count($step); $j++ ) {
-						$dd = &$step[$j];
-						switch( key( $dd ) ) {
-						case 'CREATE':
-							foreach( $dd as $create ) {
-								foreach( array_keys( $create ) as $tableName ) {
-									$completeTableName = $tablePrefix.$tableName;
-									$sql = $dict->CreateTableSQL( $completeTableName, $create[$tableName], 'REPLACE' );
-									if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-									} else {
-										print '<dd><span class="error">Failed to create '.$completeTableName.'</span>';
-										array_push( $failedcommands, $sql );
-									}
-								}
-							}
-							break;
-						case 'ALTER':
-							foreach( $dd as $alter ) {
-								foreach( array_keys( $alter ) as $tableName ) {
-									$completeTableName = $tablePrefix.$tableName;
-									$sql = $dict->ChangeTableSQL( $completeTableName, $alter[$tableName] );
-									if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-									} else {
-										print '<dd><span class="error">Failed to alter '.$completeTableName.' -> '.$alter[$tableName].'</span>';
-										array_push( $failedcommands, $sql );
-									}
-								}
-							}
-							break;
-						case 'RENAMETABLE':
-							foreach( $dd as $rename ) {
-								foreach( array_keys( $rename ) as $tableName ) {
-									$completeTableName = $tablePrefix.$tableName;
-									if( $sql = @$dict->RenameTableSQL( $completeTableName, $tablePrefix.$rename[$tableName] ) ) {
-										foreach( $sql AS $query ) {
-											$this->mDb->query( $query );
-										}
-									} else {
-										print '<dd><span class="error">Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
-										array_push( $failedcommands, $sql );
-									}
-								}
-							}
-							break;
-						case 'RENAMECOLUMN':
-							foreach( $dd as $rename ) {
-								foreach( array_keys( $rename ) as $tableName ) {
-									$completeTableName = $tablePrefix.$tableName;
-									foreach( $rename[$tableName] as $from=>$flds ) {
-										// MySQL needs the fields string, others do not.
-										// see http://phplens.com/lens/adodb/docs-datadict.htm
-										$to = substr( $flds, 0, strpos( $flds, ' ') );
-										if( $sql = @$dict->RenameColumnSQL( $completeTableName, $from, $to, $flds ) ) {
-											foreach( $sql AS $query ) {
-												$this->mDb->query( $query );
-											}
+					case 'DATADICT':
+						for( $j=0; $j<count($step); $j++ ) {
+							$dd = &$step[$j];
+							switch( key( $dd ) ) {
+							case 'CREATE':
+								foreach( $dd as $create ) {
+									foreach( array_keys( $create ) as $tableName ) {
+										$completeTableName = $tablePrefix.$tableName;
+										$sql = $dict->CreateTableSQL( $completeTableName, $create[$tableName], 'REPLACE' );
+										if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 										} else {
-											print '<dd><span class="error">Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
+											print '<dd><span class="error">Failed to create '.$completeTableName.'</span>';
 											array_push( $failedcommands, $sql );
 										}
 									}
 								}
-							}
-							break;
-						case 'RENAMESEQUENCE':
-							foreach( $dd as $rename ) {
-								foreach( array_keys( $rename ) as $tableName ) {
-									$completeTableName = $tablePrefix.$tableName;
-									foreach( $rename[$tableName] as $from => $to ) {
+								break;
+							case 'ALTER':
+								foreach( $dd as $alter ) {
+									foreach( array_keys( $alter ) as $tableName ) {
+										$completeTableName = $tablePrefix.$tableName;
+										$sql = $dict->ChangeTableSQL( $completeTableName, $alter[$tableName] );
+										if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
+										} else {
+											print '<dd><span class="error">Failed to alter '.$completeTableName.' -> '.$alter[$tableName].'</span>';
+											array_push( $failedcommands, $sql );
+										}
+									}
+								}
+								break;
+							case 'RENAMETABLE':
+								foreach( $dd as $rename ) {
+									foreach( array_keys( $rename ) as $tableName ) {
+										$completeTableName = $tablePrefix.$tableName;
+										if( $sql = @$dict->RenameTableSQL( $completeTableName, $tablePrefix.$rename[$tableName] ) ) {
+											foreach( $sql AS $query ) {
+												$this->mDb->query( $query );
+											}
+										} else {
+											print '<dd><span class="error">Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
+											array_push( $failedcommands, $sql );
+										}
+									}
+								}
+								break;
+							case 'RENAMECOLUMN':
+								foreach( $dd as $rename ) {
+									foreach( array_keys( $rename ) as $tableName ) {
+										$completeTableName = $tablePrefix.$tableName;
+										foreach( $rename[$tableName] as $from => $flds ) {
+											// MySQL needs the fields string, others do not.
+											// see http://phplens.com/lens/adodb/docs-datadict.htm
+											$to = substr( $flds, 0, strpos( $flds, ' ') );
+											if( $sql = @$dict->RenameColumnSQL( $completeTableName, $from, $to, $flds ) ) {
+												foreach( $sql AS $query ) {
+													$this->mDb->query( $query );
+												}
+											} else {
+												print '<dd><span class="error">Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
+												array_push( $failedcommands, $sql );
+											}
+										}
+									}
+								}
+								break;
+							case 'RENAMESEQUENCE':
+								foreach( $dd as $rename ) {
+									foreach( $rename as $from => $to ) {
 										if( $id = $this->mDb->GenID( $from ) ) {
-											$this->mDb->DropSequence( $from );
+											// this causes an error...
+											//$this->mDb->DropSequence( $from );
 											$this->mDb->CreateSequence( $to, $id );
 										} else {
-											print '<dd><span class="error">Failed to rename sequence '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
+											print '<dd><span class="error">Failed to rename sequence '.$from.' to '.$to.'</span>';
+											//array_push( $failedcommands, $sql );
+										}
+									}
+								}
+								break;
+							case 'DROPCOLUMN':
+								foreach( $dd as $drop ) {
+									foreach( array_keys( $drop ) as $tableName ) {
+										$completeTableName = $tablePrefix.$tableName;
+										foreach( $drop[$tableName] as $col ) {
+											if( $sql = $dict->DropColumnSQL( $completeTableName, $col ) ) {
+												foreach( $sql AS $query ) {
+													$this->mDb->query( $query );
+												}
+											} else {
+												print '<dd><span class="error">Failed to drop column '.$completeTableName.'</span>';
+												array_push( $failedcommands, $sql );
+											}
+										}
+									}
+								}
+								break;
+							case 'DROPTABLE':
+								foreach( $dd as $drop ) {
+									foreach( $drop as $tableName ) {
+										$completeTableName = $tablePrefix.$tableName;
+										$sql = $dict->DropTableSQL( $completeTableName );
+										if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
+										} else {
+											print '<dd><span class="error">Failed to drop table '.$completeTableName.'</span>';
 											array_push( $failedcommands, $sql );
 										}
 									}
 								}
-							}
-							break;
-						case 'DROPCOLUMN':
-							foreach( $dd as $drop ) {
-								foreach( array_keys( $drop ) as $tableName ) {
-									$completeTableName = $tablePrefix.$tableName;
-									foreach( $drop[$tableName] as $col ) {
-										if( $sql = $dict->DropColumnSQL( $completeTableName, $col ) ) {
+								break;
+							case 'CREATEINDEX':
+								foreach( $dd as $indices ) {
+									foreach( array_keys( $indices ) as $index ) {
+										$completeTableName = $tablePrefix.$indices[$index][0];
+										if( $sql = $dict->CreateIndexSQL( $index, $completeTableName, $indices[$index][1], $indices[$index][2] ) ) {
 											foreach( $sql AS $query ) {
 												$this->mDb->query( $query );
 											}
 										} else {
-											print '<dd><span class="error">Failed to drop column '.$completeTableName.'</span>';
+											print '<dd><span class="error">Failed to create index '.$index.'</span>';
 											array_push( $failedcommands, $sql );
 										}
 									}
 								}
-							}
-							break;
-						case 'DROPTABLE':
-							foreach( $dd as $drop ) {
-								foreach( $drop as $tableName ) {
-									$completeTableName = $tablePrefix.$tableName;
-									$sql = $dict->DropTableSQL( $completeTableName );
-									if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-									} else {
-										print '<dd><span class="error">Failed to drop table '.$completeTableName.'</span>';
-										array_push( $failedcommands, $sql );
-									}
-								}
-							}
-							break;
-						case 'CREATEINDEX':
-							foreach( $dd as $indices ) {
-								foreach( array_keys( $indices ) as $index ) {
-									$completeTableName = $tablePrefix.$indices[$index][0];
-									if( $sql = $dict->CreateIndexSQL( $index, $completeTableName, $indices[$index][1], $indices[$index][2] ) ) {
-										foreach( $sql AS $query ) {
-											$this->mDb->query( $query );
-										}
-									} else {
-										print '<dd><span class="error">Failed to create index '.$index.'</span>';
-										array_push( $failedcommands, $sql );
-									}
-								}
+
+								break;
 							}
 
-							break;
 						}
-
-					}
-					break;
-				case 'QUERY':
-					global $gBitDbType;
-					foreach( array_keys( $step ) as $dbType ) {
-						switch( $dbType ) {
-							case 'MYSQL' :
-								if( preg_match( '/mysql/', $gBitDbType ) ) {
+						break;
+					case 'QUERY':
+						global $gBitDbType;
+						foreach( array_keys( $step ) as $dbType ) {
+							switch( $dbType ) {
+								case 'MYSQL' :
+									if( preg_match( '/mysql/', $gBitDbType ) ) {
+										$sql = $step[$dbType];
+									}
+									break;
+								case 'PGSQL' :
+									if( preg_match( '/postgres/', $gBitDbType ) ) {
+										$sql = $step[$dbType];
+									}
+									break;
+								case 'SQL92' :
 									$sql = $step[$dbType];
-								}
-								break;
-							case 'PGSQL' :
-								if( preg_match( '/postgres/', $gBitDbType ) ) {
-									$sql = $step[$dbType];
-								}
-								break;
-							case 'SQL92' :
-								$sql = $step[$dbType];
-								break;
-						}
-						if( !empty( $sql ) ) {
-							foreach( $sql as $query ) {
-								$this->mDb->query( $query );
+									break;
 							}
-							$sql = NULL;
+							if( !empty( $sql ) ) {
+								foreach( $sql as $query ) {
+									$this->mDb->query( $query );
+								}
+								$sql = NULL;
+							}
 						}
-					}
-					break;
-				case 'PHP':
-					eval( $step );
-					break;
-				case 'POST':
-					$postSql[] = $step;
-					break;
+						break;
+					case 'PHP':
+						eval( $step );
+						break;
+					case 'POST':
+						$postSql[] = $step;
+						break;
 				}
 			}
 			// turn on features that are turned on
