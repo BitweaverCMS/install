@@ -70,7 +70,7 @@
 						<option value="{$langCode}" {if $langCode eq "en"}selected="selected"{/if}>{$lang.full_name|escape}</option>
 				{/foreach}
 			</select>
-			{formhelp note="Select the default language of your site."}
+			{formhelp note="Select the default language of your site. Choosing a language other than english will cause the language to be installed, which might take some time depending on your setup."}
 		{/forminput}
 	</div>
 
