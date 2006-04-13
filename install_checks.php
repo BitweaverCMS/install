@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.10 2006/01/14 19:54:34 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.11 2006/04/13 09:26:23 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -53,7 +53,7 @@ function check_settings() {
 		$required[$i]['note'] = 'The configuration file \'<strong>'.$config_file.'</strong>\' is available but the file is not writeable. Please execute something like:<br />chmod 777 '.$config_file;
 		$required[$i]['passed'] = FALSE;
 	} else {
-		$required[$i]['note'] = 'The configuration file \'<strong>'.$config_file.'</strong>\' is not available. Please execute something like:<br />touch '.KERNEL_PKG_PATH.'config_inc.php; chmod 777 '.$config_file;
+		$required[$i]['note'] = 'The configuration file \'<strong>'.$config_file.'</strong>\' is not available. Please execute something like:<br />touch '.$config_file.';<br />chmod 777 '.$config_file;
 		$required[$i]['passed'] = FALSE;
 	}
 	$i++;
