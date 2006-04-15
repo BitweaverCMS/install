@@ -94,6 +94,7 @@
 						{/forminput}
 					</div>
 				{/foreach}
+				<div class="clear"></div>
 			{/foreach}
 		{else}
 			<p class="success">
