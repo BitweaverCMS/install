@@ -7,14 +7,15 @@ then
 	echo "Usage: convert_r1_to_r2.sh [options]
 Options:
     -tables   De-tikify all bitweaver tables
-			  Bitweaver now uses <pkg>_ prefix instead of the old tiki_<pkg> we
-			  used to.  Here we deal with all renamed liberty tables.  You will
-			  still have to deal with the tablenames of your own package.
+              Bitweaver now uses <pkg>_ prefix instead of the old tiki_<pkg> we
+              used to.  Here we deal with all renamed liberty tables.  You will
+              still have to deal with the tablenames of your own package.
     -perms    Change the names of permissions
               R2 now uses p_<pkg>_<verb>_[<noun>] as standard
     -prefs    Change the names of preferences found in kernel_config (previously
               tiki_preferences) R2 now uses underscore preference names as
               standard
+    -recent   recent changes pref name changes
 
 Notes:
     Run this file from your package directory.
@@ -42,6 +43,9 @@ do
 	elif [ $p == "-prefs" ]
 	then
 		PREFS=1
+	elif [ $p == "-recent" ]
+	then
+		RECENT=1
 	elif [ $p == "-perms" ]
 	then
 		PERMS=1
@@ -131,7 +135,7 @@ then
 	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_search_fulltext\b/search_fulltext/g" {} \;
 	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_search_stats\b/search_stats/g" {} \;
 	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_theme_control\b/theme_control/g" {} \;
-	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_top_bar\b/top_bar/g" {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_top_bar\b/themes_top_bar/g" {} \;
 	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_top_bar_dropdown\b/top_bar_dropdown/g" {} \;
 	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_user_bookmarks\b/user_bookmarks/g" {} \;
 	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_userfiles\b/user_files/g" {} \;
@@ -241,7 +245,7 @@ then
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_search_fulltext\b/search_fulltext/g" {} \;
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_search_stats\b/search_stats/g" {} \;
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_theme_control\b/theme_control/g" {} \;
-	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_top_bar\b/top_bar/g" {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_top_bar\b/themes_top_bar/g" {} \;
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_top_bar_dropdown\b/top_bar_dropdown/g" {} \;
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_user_bookmarks\b/user_bookmarks/g" {} \;
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_userfiles\b/user_files/g" {} \;
@@ -293,6 +297,163 @@ then
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_list_pages\b/wiki_list_pages/g" {} \;
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_userVersions\b/wiki_user_versions/g" {} \;
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_wiki_url_import\b/wiki_url_import/g" {} \;
+
+	# Prefname changes 2006-04-14
+	echo articles php
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_author\b/articles_list_author/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_date\b/articles_list_date/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_img\b/articles_list_img/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_reads\b/articles_list_reads/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_size\b/articles_list_size/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_title\b/articles_list_title/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_topic\b/articles_list_topic/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_type\b/articles_list_type/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_expire\b/articles_list_expire/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmax_articles\b/articles_max_list/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bcms_rankings\b/articles_rankings/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\barticle_submissions\b/articles_submissions/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\barticle_description_length\b/articles_description_length/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\barticle_date_threshold\b/articles_date_threshold/g' {} \;
+
+	echo articles tpl
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_author\b/articles_list_author/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_date\b/articles_list_date/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_img\b/articles_list_img/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_reads\b/articles_list_reads/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_size\b/articles_list_size/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_title\b/articles_list_title/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_topic\b/articles_list_topic/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_type\b/articles_list_type/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_expire\b/articles_list_expire/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmax_articles\b/articles_max_list/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bcms_rankings\b/articles_rankings/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\barticle_submissions\b/articles_submissions/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\barticle_description_length\b/articles_description_length/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\barticle_date_threshold\b/articles_date_threshold/g' {} \;
+
+	echo wiki php
+	#find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bbacklinks\b/wiki_backlinks/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\ballow_dup_wiki_page_names\b/wiki_allow_dup_page_names/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bpage_title\b/wiki_page_title/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bsandbox\b/wiki_sandbox/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bw_use_db\b/wiki_attachments_use_db/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bw_use_dir\b/wiki_attachments_use_dir/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bwarn_on_edit_time\b/wiki_warn_on_edit_time/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bwikibook_show_path\b/wiki_book_show_path/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bwikibook_show_navigation\b/wiki_book_show_navigation/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bkeep_versions\b/wiki_min_versions/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmax_versions\b/wiki_max_versions/g' {} \;
+
+	echo wiki tpl
+	#find . -name "*.tpl" -exec perl -i -wpe 's/\bbacklinks\b/wiki_backlinks/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\ballow_dup_wiki_page_names\b/wiki_allow_dup_page_names/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bpage_title\b/wiki_page_title/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bsandbox\b/wiki_sandbox/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bw_use_db\b/wiki_attachments_use_db/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bw_use_dir\b/wiki_attachments_use_dir/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bwarn_on_edit_time\b/wiki_warn_on_edit_time/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bwikibook_show_path\b/wiki_book_show_path/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bwikibook_show_navigation\b/wiki_book_show_navigation/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bkeep_versions\b/wiki_min_versions/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bmax_versions\b/wiki_max_versions/g' {} \;
+
+	echo messages
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bsite_contact\b/messages_site_contact/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bcontact_user\b/messages_contact_user/g' {} \;
+
+	echo chatterbox
+	find chatterbox/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bprune_threshold\b/chatterbox_prune_threshold/g' {} \;
+
+	echo languages
+	find languages/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\brecord_untranslated\b/languages_record_untranslated/g' {} \;
+
+	echo hotwords
+	find hotwords/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhotwords_nw\b/hotwords_new_window/g' {} \;
+
+	echo blogs
+	find blogs/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bblogposts_comments\b/blog_posts_comments/g' {} \;
+
+	echo pigeonholes
+	find pigeonholes/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bdisplay_pigeonhole_members\b/pigeonholes_display_members/g' {} \;
+	find pigeonholes/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\blimit_member_number\b/pigeonholes_limit_member_number/g' {} \;
+
+	echo phpgedview
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bpgv_session_time\b/pgv_session_time/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bcalendar_format\b/pgv_calendar_format/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bdefault_pedigree_generations\b/pgv_default_pedigree_generations/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmax_pedigree_generations\b/pgv_max_pedigree_generations/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmax_descendancy_generations\b/pgv_max_descendancy_generations/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buse_RIN\b/pgv_use_RIN/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bpedigree_root_id\b/pgv_pedigree_root_id/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bgedcom_prefix_id\b/pgv_gedcom_prefix_id/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bsource_prefix_id\b/pgv_source_prefix_id/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\brepo_prefix_id\b/pgv_repo_prefix_id/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bfam_prefix_id\b/pgv_fam_prefix_id/g' {} \;
+	find phpgedview/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmedia_prefix_id\b/pgv_media_prefix_id/g' {} \;
+
+	echo stats
+	find stats/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\breferer_stats\b/stats_referers/g' {} \;
+
+	echo liberty
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bcacheimages\b/liberty_cache_images/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bcachepages\b/liberty_cache_pages/g' {} \;
+
+	echo tidbits
+	find tidbits/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bbanning\b/tidbits_banning/g' {} \;
+	find tidbits/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buser_files\b/tidbits_userfiles/g' {} \;
+	find tidbits/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buf_use_dir\b/tidbits_userfiles_use_dir/g' {} \;
+	find tidbits/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bfeature_tasks\b/tidbits_tasks/g' {} \;
+	find tidbits/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\busermenu\b/tidbits_usermenu/g' {} \;
+	find tidbits/ -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buser_bookmarks\b/tidbits_bookmarks/g' {} \;
+
+	echo messages
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bsite_contact\b/messages_site_contact/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bcontact_user\b/messages_contact_user/g' {} \;
+
+	echo chatterbox
+	find chatterbox/ -name "*.tpl" -exec perl -i -wpe 's/\bprune_threshold\b/chatterbox_prune_threshold/g' {} \;
+
+	echo languages
+	find languages/ -name "*.tpl" -exec perl -i -wpe 's/\brecord_untranslated\b/languages_record_untranslated/g' {} \;
+
+	echo hotwords
+	find hotwords/ -name "*.tpl" -exec perl -i -wpe 's/\bhotwords_nw\b/hotwords_new_window/g' {} \;
+
+	echo blogs
+	find blogs/ -name "*.tpl" -exec perl -i -wpe 's/\bblogposts_comments\b/blog_posts_comments/g' {} \;
+
+	echo pigeonholes
+	find pigeonholes/ -name "*.tpl" -exec perl -i -wpe 's/\bdisplay_pigeonhole_members\b/pigeonholes_display_members/g' {} \;
+	find pigeonholes/ -name "*.tpl" -exec perl -i -wpe 's/\blimit_member_number\b/pigeonholes_limit_member_number/g' {} \;
+
+	echo phpgedview
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bpgv_session_time\b/pgv_session_time/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bcalendar_format\b/pgv_calendar_format/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bdefault_pedigree_generations\b/pgv_default_pedigree_generations/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bmax_pedigree_generations\b/pgv_max_pedigree_generations/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bmax_descendancy_generations\b/pgv_max_descendancy_generations/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\buse_RIN\b/pgv_use_RIN/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bpedigree_root_id\b/pgv_pedigree_root_id/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bgedcom_prefix_id\b/pgv_gedcom_prefix_id/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bsource_prefix_id\b/pgv_source_prefix_id/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\brepo_prefix_id\b/pgv_repo_prefix_id/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bfam_prefix_id\b/pgv_fam_prefix_id/g' {} \;
+	find phpgedview/ -name "*.tpl" -exec perl -i -wpe 's/\bmedia_prefix_id\b/pgv_media_prefix_id/g' {} \;
+
+	echo stats
+	find stats/ -name "*.tpl" -exec perl -i -wpe 's/\breferer_stats\b/stats_referers/g' {} \;
+
+	echo liberty
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bcacheimages\b/liberty_cache_images/g' {} \;
+	find . -name "*.tpl" -exec perl -i -wpe 's/\bcachepages\b/liberty_cache_pages/g' {} \;
+
+	echo tidbits
+	find tidbits/ -name "*.tpl" -exec perl -i -wpe 's/\bbanning\b/tidbits_banning/g' {} \;
+	find tidbits/ -name "*.tpl" -exec perl -i -wpe 's/\buser_files\b/tidbits_userfiles/g' {} \;
+	find tidbits/ -name "*.tpl" -exec perl -i -wpe 's/\buf_use_dir\b/tidbits_userfiles_use_dir/g' {} \;
+	find tidbits/ -name "*.tpl" -exec perl -i -wpe 's/\bfeature_tasks\b/tidbits_tasks/g' {} \;
+	find tidbits/ -name "*.tpl" -exec perl -i -wpe 's/\busermenu\b/tidbits_usermenu/g' {} \;
+	find tidbits/ -name "*.tpl" -exec perl -i -wpe 's/\buser_bookmarks\b/tidbits_bookmarks/g' {} \;
 fi
 
 if [ $PERMS ]
