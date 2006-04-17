@@ -454,6 +454,26 @@ then
 	find tidbits/ -name "*.tpl" -exec perl -i -wpe 's/\bfeature_tasks\b/tidbits_tasks/g' {} \;
 	find tidbits/ -name "*.tpl" -exec perl -i -wpe 's/\busermenu\b/tidbits_usermenu/g' {} \;
 	find tidbits/ -name "*.tpl" -exec perl -i -wpe 's/\buser_bookmarks\b/tidbits_bookmarks/g' {} \;
+
+	echo themes
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bslide_style\b/site_slide_style/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\btop_bar_dropdown\b/site_top_bar_dropdown/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmodallgroups\b/site_show_all_modules_always/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bdisable_jstabs\b/site_disable_jstabs/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bbot_bar\b/site_bot_bar/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\btop_bar\b/site_top_bar/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bleft_column\b/site_left_column/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bright_column\b/site_right_column/g' {} \;
+
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bslide_style\b/site_slide_style/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\btop_bar_dropdown\b/site_top_bar_dropdown/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmodallgroups\b/site_show_all_modules_always/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bdisable_jstabs\b/site_disable_jstabs/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/isFeatureActive\(\s*'top_bar'/isFeatureActive( 'site_top_bar'/g" {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/isFeatureActive\(\s*'bot_bar'/isFeatureActive( 'site_bot_bar'/g" {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bleft_column\b/site_left_column/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bright_column\b/site_right_column/g' {} \;
+
 fi
 
 if [ $PERMS ]
