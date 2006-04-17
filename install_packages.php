@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.35 2006/04/17 22:27:25 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.36 2006/04/17 23:41:28 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -173,7 +173,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 						WHERE `package` = '".$package."'";
 					$gBitInstaller->mDb->query( $delete );
 					// Delete preferences ( need to ensure package is set in table )
-					$delete = "DELETE FROM `".$tablePrefix."kernel_prefs`
+					$delete = "DELETE FROM `".$tablePrefix."kernel_config`
 						WHERE `package` = '".$package."'";
 					$gBitInstaller->mDb->query( $delete );
 				}
