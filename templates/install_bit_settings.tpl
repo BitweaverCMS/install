@@ -49,8 +49,8 @@
 						<option {if $package.name=='wiki'}selected="selected"{/if} value="{$package.name}">{$package.name}</option>
 					{/if}
 				{/foreach}
-				{if $gBitSystem->isFeatureActive( 'custom_home' )}
-					<option value="custom_home"{if $bit_index eq $site_url_index} selected="selected"{/if}>{tr}Custom home{/tr}</option>
+				{if $gBitSystem->isFeatureActive( 'users_custom_home' )}
+					<option value="users_custom_home"{if $bit_index eq $site_url_index} selected="selected"{/if}>{tr}Custom home{/tr}</option>
 				{/if}
 			</select>
 			{formhelp note="Pick your site's homepage. This is where they will be redirected, when they access a link to your homepage.
