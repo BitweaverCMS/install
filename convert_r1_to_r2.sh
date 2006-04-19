@@ -543,6 +543,9 @@ then
 	#find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhelp\b/site_online_help/g' {} \;
 	#find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmax_records\b/site_max_records/g' {} \;
 	#find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\blanguage\b/site_language/g' {} \;
+
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\btop_bar_position\b/nexus_top_bar/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\btop_bar_position\b/nexus_top_bar/g' {} \;
 fi
 
 if [ $PERMS ]
