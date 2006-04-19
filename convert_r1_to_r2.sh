@@ -474,6 +474,75 @@ then
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bleft_column\b/site_left_column/g' {} \;
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bright_column\b/site_right_column/g' {} \;
 
+	echo kernel
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bsession_lifetime\b/site_session_lifetime/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buse_load_threshold\b/site_use_load_threshold/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bload_threshold\b/site_load_threshold/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\boutput_obzip\b/site_output_obzip/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhelp_popup\b/site_help_popup/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bsession_db\b/site_store_session_db/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buse_proxy\b/site_use_proxy/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bproxy_host\b/site_proxy_host/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bproxy_port\b/site_proxy_port/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buser_assigned_modules\b/site_user_assigned_modules/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttp_domain\b/site_http_domain/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_domain\b/site_https_domain/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_login\b/site_https_login/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_login_required\b/site_https_login_required/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bdirect_pagination\b/site_direct_pagination/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bwiki_help\b/site_edit_help/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhelp_notes\b/site_form_help/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\blong_date_format\b/site_long_date_format/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\blong_time_format\b/site_long_time_format/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bshort_date_format\b/site_short_date_format/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bshort_time_format\b/site_short_time_format/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bdisplay_timezone\b/site_display_timezone/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bcentralized_upload_dir\b/site_upload_dir/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\btemp_dir\b/site_temp_dir/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttp_port\b/site_http_port/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttp_prefix\b/site_http_prefix/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_port\b/site_https_port/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_prefix\b/site_https_prefix/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bsender_email\b/site_sender_email/g' {} \;
+	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\burl_index\b/site_url_index/g' {} \;
+	#find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhelp\b/site_online_help/g' {} \;
+	#find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmax_records\b/site_max_records/g' {} \;
+	#find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\blanguage\b/site_language/g' {} \;
+
+	echo kernel
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bsession_lifetime\b/site_session_lifetime/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bload_threshold\b/site_load_threshold/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\boutput_obzip\b/site_output_obzip/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhelp_popup\b/site_help_popup/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buse_load_threshold\b/site_load_threshold/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bsession_db\b/site_store_session_db/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buse_proxy\b/site_use_proxy/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bproxy_host\b/site_proxy_host/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bproxy_port\b/site_proxy_port/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\buser_assigned_modules\b/site_user_assigned_modules/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttp_domain\b/site_http_domain/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_domain\b/site_https_domain/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_login\b/site_https_login/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_login_required\b/site_https_login_required/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bdirect_pagination\b/site_direct_pagination/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bwiki_help\b/site_edit_help/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhelp_notes\b/site_form_help/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\blong_date_format\b/site_long_date_format/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\blong_time_format\b/site_long_time_format/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bshort_date_format\b/site_short_date_format/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bshort_time_format\b/site_short_time_format/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bdisplay_timezone\b/site_display_timezone/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bcentralized_upload_dir\b/site_upload_dir/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\btemp_dir\b/site_temp_dir/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttp_port\b/site_http_port/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttp_prefix\b/site_http_prefix/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_port\b/site_https_port/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhttps_prefix\b/site_https_prefix/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bsender_email\b/site_sender_email/g' {} \;
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\burl_index\b/site_url_index/g' {} \;
+	#find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhelp\b/site_online_help/g' {} \;
+	#find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bmax_records\b/site_max_records/g' {} \;
+	#find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\blanguage\b/site_language/g' {} \;
 fi
 
 if [ $PERMS ]
