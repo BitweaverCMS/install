@@ -15,7 +15,6 @@ Options:
     -prefs    Change the names of preferences found in kernel_config (previously
               tiki_preferences) R2 now uses underscore preference names as
               standard
-    -recent   recent changes pref name changes
 
 Notes:
     Run this file from your package directory.
@@ -43,9 +42,6 @@ do
 	elif [ $p == "-prefs" ]
 	then
 		PREFS=1
-	elif [ $p == "-recent" ]
-	then
-		RECENT=1
 	elif [ $p == "-perms" ]
 	then
 		PERMS=1
