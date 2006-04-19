@@ -298,6 +298,9 @@ then
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_userVersions\b/wiki_user_versions/g" {} \;
 	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe "s/\bfeature_wiki_url_import\b/wiki_url_import/g" {} \;
 
+	# this cannot be run on .php
+	find . -name "*.tpl" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bdisplay_name\b/users_display_name/g' {} \;
+
 	# Prefname changes 2006-04-14
 	echo articles php
 	find . -name "*.php" -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bart_list_author\b/articles_list_author/g' {} \;
