@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.8 2006/02/19 21:23:13 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.9 2006/04/21 13:07:43 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -105,6 +105,15 @@ define( 'BIT_ROOT_URL', '$root_url_bit' );
 // TRUE. this will, however, severly impact performance since every page that is
 // generated is generated afresh and the cache is recreated every time.
 \$smarty_force_compile = FALSE;
+
+
+// Setting TEMPLATE_DEBUG = TRUE will output <!-- <called templates> --> in your templates, which will
+// allow you to track all used templates in the HTML source of the page. This will also disable
+// stripping of whitespace making it easier to read the templates. You will only see the effect
+// of the strip changes by clearing out your cache or setting \$smarty_force_compile = TRUE;
+// Note: be sure to set this to FALSE and clear out the cache once done since it will increase the page
+//       size by at least 10%.
+//define( 'TEMPLATE_DEBUG', TRUE );
 
 
 // This statement will enable you to view all database queries made
