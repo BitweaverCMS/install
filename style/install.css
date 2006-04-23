@@ -40,7 +40,7 @@ fieldset	{padding:10px; margin:10px; border:0; border-top:3px solid #f60;}
 legend		{padding:2px 7px; background:#fff; font-weight:bold;}
 textarea	{width:100%;}
 
-.row				{erflow:auto; ovclear:both; padding:5px 0 0 0;}
+.row				{overflow:auto; clear:both; padding:5px 0 0 0;}
 .formlabel			{float:left; width:24%; text-align:right; padding:2px 1% 2px 0; border:1px solid #ccc; background:#eee;}
 .formfeedback		{}
 .formfeedback div	{display:block; padding:4px; border-bottom:1px dotted #aaa;}
