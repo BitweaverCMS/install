@@ -1,10 +1,10 @@
 /*  layout */
-.install	{width:800px; padding:0px; margin-left:auto; margin-right:auto;}
+.install	{width:800px; padding:0px; margin-left:auto; margin-right:auto; color:#000;}
 .body		{float:left; width:600px; background:#fff; border:1px solid #2c4268; line-height:16px;}
 .nav		{float:right; width:180px;}
 
 /* global stuff */
-body	{background:#124; font-family:verdana, arial, helvetica, sans-serif; font-weight:normal; font-size:12px; margin:0px; padding:10px; vertical-align:middle;}
+body	{background:#124; font-family:verdana, arial, helvetica, sans-serif; font-weight:normal; font-size:12px; margin:0px; padding:10px; vertical-align:middle; color:#fff;}
 table	{border-collapse:collapse; padding:0; margin:0;}
 caption	{font-weight:bold; padding:5px 0 0 0;}
 th		{text-align:left; padding:3px 5px; background:#2c4268; border-bottom:2px solid #fff; color:#fff;}
