@@ -5,7 +5,7 @@
 
 	<h3>Required Settings</h3>
 
-	<p>The settings below are required by bitweaver to run. If any of these settings are not met, you will have to change these before you can continue with the installation process.</p>
+	<p class="help">The settings below are required by bitweaver to run. If any of these settings are not met, you will have to change these before you can continue with the installation process.</p>
 
 	<div class="row">
 		{formlabel label="Required settings"}
@@ -37,12 +37,12 @@
 
 	<h3>Recommended Extensions</h3>
 
-	<p>
+	<p class="help">
 		Virtually all settings below this point can be adjusted by changing appropriate values in your php.ini file.
 		If you should have problems setting these, please consult the documentation in the php.ini file itself
 		and the <a class="external" href="http://www.php.net">PHP HomePage</a>.
 	</p>
-	<p>
+	<p class="help">
 		bitweaver takes advantage of particular PHP extensions for full functionality.
 		If any of these extensions are not available to bitweaver, particular features might not work and it might even render particular packages useless.
 	</p>
@@ -74,12 +74,10 @@
 
 	<h3>Recommended Settings</h3>
 
-	<div class="row">
-		<p>
-			The following are settings that aren't strictly required by bitweaver to run, but are recommendations.<br />
-			bitweaver might still operate if your settings do not quite match the recommended.
-		</p>
-	</div>
+	<p class="help">
+		The following are settings that aren't strictly required by bitweaver to run, but are recommendations.<br />
+		bitweaver might still operate if your settings do not quite match the recommended.
+	</p>
 
 	<div class="row">
 		{formlabel label="Recommended settings"}
@@ -129,7 +127,7 @@
 
 	<h3>Settings worth knowing about</h3>
 
-	<p>The settings below are merely for your information and are meant to help you work out problems that might occur.</p>
+	<p class="help">The settings below are merely for your information and are meant to help you work out problems that might occur.</p>
 
 	<div class="row">
 		{formlabel label="Settings worth knowing about"}

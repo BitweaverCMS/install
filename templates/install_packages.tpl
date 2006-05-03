@@ -51,7 +51,7 @@
 									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 								</div>
 								{forminput}
-									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> {$package|capitalize}</label>
+									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
 									{formhelp note=`$item.info`}
 									{formhelp note="<strong>Location</strong>: `$item.url`"}
 									{formhelp package=$package}
@@ -109,7 +109,7 @@
 										<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 									</div>
 									{forminput}
-										<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" /> {$package|capitalize}</label>
+										<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" /> <strong>{$package|capitalize}</strong></label>
 										{formhelp note=`$item.info`}
 										{formhelp note="<strong>Location</strong>: `$item.url`"}
 										{formhelp package=$package}
@@ -153,7 +153,7 @@
 									{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}
 								</div>
 								{forminput}
-									{$package|capitalize}
+									<strong>{$package|capitalize}</strong>
 									{formhelp note=`$item.info`}
 									{formhelp note="<strong>Location</strong>: `$item.url`"}
 									{formhelp package=$package}
