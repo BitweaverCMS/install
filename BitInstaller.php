@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.19 2006/04/05 13:30:28 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.20 2006/05/03 12:25:15 squareing Exp $
  * @package install
  */
 
@@ -299,15 +299,6 @@ class BitInstaller extends BitSystem {
 		}
 	}
 
-}
-
-function kill_script() {
-	$installFile = 'install.php';
-	if( rename( $installFile, 'install.php.done' ) ) {
-		header( 'location: '.BIT_ROOT_URL );
-	} else {
-		return 'no_kill';
-	}
 }
 
 function check_session_save_path() {

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.12 2006/04/19 13:48:37 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.13 2006/05/03 12:25:15 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -97,11 +97,6 @@ if( !empty( $gBitSystem->mPackages ) ) {
 }
 // we need this massive array available during install to work out if bitweaver has already been installed
 $gBitInstaller->verifyInstalledPackages();
-
-// After install. This should remove this script.
-if (isset($_REQUEST['kill'])) {
-	$gBitSmarty->assign( 'script',kill_script() );
-}
 
 // set prefs to display help during install
 $gBitSystem->setPreference( 'site_online_help', 'y' );
