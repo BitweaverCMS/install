@@ -69,11 +69,12 @@
 	</div>
 
 	<div class="row">
-		<p>
-			This information was stored in the file '<strong>{$smarty.const.KERNEL_PKG_PATH}config_inc.php</strong>'. if you should have to modify the settings at some point, you can use this installer, or modify that file directly.
+		<p class="success">
+			This information was stored in the file:<br />
+			<strong>{$smarty.const.KERNEL_PKG_PATH}config_inc.php</strong>
 		</p>
 		<p>
-			If you are interested in debugging bitweaver, please view this file, as there are some additional debugging options that can't be set elsewhere.
+			If you are interested in debugging or developing bitweaver, please view this file, as there are important additional options that can not be set elsewhere. Web designers can also find some settings that might help with theme creation.
 		</p>
 	</div>
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.4 2005/10/12 15:13:51 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.5 2006/05/06 22:01:53 squareing Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -26,18 +26,21 @@ $step = $_REQUEST['step'];
 // updating $install_file name
 $i = 0;
 $install_file[$i]['file'] = 'welcome';
-$install_file[$i++]['name'] = 'Welcome';
+$install_file[$i]['name'] = 'Welcome';
+$i++;
 $install_file[$i]['file'] = 'database';
-$install_file[$i++]['name'] = 'Database Connection';
+$install_file[$i]['name'] = 'Database Connection';
+$i++;
 $install_file[$i]['file'] = 'packages';
-$install_file[$i++]['name'] = 'Upgrade Selection';
+$install_file[$i]['name'] = 'Upgrade Selection';
+$i++;
 $install_file[$i]['file'] = 'final';
 $install_file[$i]['name'] = 'Upgrade Complete';
 
 // currently i can't think of a better way to secure the upgrade pages
 // redirect to the installer if we aren't sent here by the installer and the upgrade session variable hasn't been set
 if( !isset( $_SESSION['upgrade'] ) || $_SESSION['upgrade'] != TRUE ||
-	!isset( $_SERVER['HTTP_REFERER'] ) || 
+	!isset( $_SERVER['HTTP_REFERER'] ) ||
 	isset( $_SERVER['HTTP_REFERER'] ) &&
 	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ) ) ) 
 ) {

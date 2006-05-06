@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.6 2006/01/24 11:27:55 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.7 2006/05/06 22:01:53 squareing Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -20,6 +20,22 @@ ini_set( "max_execution_time", "86400" );
  */
 include_once( $config_file ); // relative, but we know we are in the installer here...
 $gBitInstaller->scanPackages( 'admin/upgrade_inc.php' );
+
+// get some nice R1 to R2 specific upgrade info on the screen - should keep users happy...
+if( !empty( $_SESSION['upgrade_r1'] ) ) {
+	if( $rs = $gBitSystem->mDb->query( "SELECT `name` ,`value` FROM `" . BIT_DB_PREFIX . "tiki_preferences`" ) ) {
+		while( $row = $rs->fetchRow() ) {
+			$oldPrefs[$row['name']] = $row['value'];
+		}
+	}
+	foreach( array_keys( $gBitSystem->mPackages ) as $package ) {
+		if( @$oldPrefs['package_'.$package] == 'y' ) {
+			$upgrading[] = $package;
+		}
+	}
+	asort( $upgrading );
+	$gBitSmarty->assign( 'upgrading', $upgrading );
+}
 
 $upgradePath = array (
 	'TikiWiki 1.8' => array(

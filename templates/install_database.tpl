@@ -47,15 +47,15 @@
 		{formlabel label="Database type" for="db"}
 		{forminput}
 			{if $section eq 'Upgrade'}
-				{formfeedback warning="If you intend to upgrade an existing MySQL database, the required server version is greater than 4.1."}
+				<p class="warning">If you intend to upgrade an existing MySQL database, the required server version is greater than 4.1.</p>
 			{/if}
 			{if $dbservers}
 				{html_options name='db' options=$dbservers id=db selected=$gBitDbType}
 			{else}
-				{formfeedback warning='You currently have no Database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">bitweaver Team</a>.'}
+				<p class="warning">You currently have no Database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">bitweaver Team</a>.</p>
 			{/if}
 			{formhelp note="The type of database you intend to use."}
-			{formfeedback warning="If the database you wish to use is not listed above, the version of PHP on this server does not have support for that database installed or compiled in."}
+			<p class="warning">If the database you wish to use is not listed above, the version of PHP on this server does not have support for that database installed or compiled in.</p>
 		{/forminput}
 	</div>
 
@@ -111,7 +111,7 @@
 	{/if}
 		{formlabel label="Database Prefix" for="prefix"}
 		{forminput}
-			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit|replace:'`':''|default:"bit_"}" />
+			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit|replace:'`':''}" />
 			{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple
 				independent install to share a single database. To ensure problem free usage of bitweaver with other
 				applications in the same database, <strong>we highly recommend using a prefix</strong>.

@@ -9,7 +9,7 @@
 	<br />
 	<p class="warning"><strong>Do a Trial Run first</strong><br />You should run a trial upgrade on an offline server, personal machine, etc. before you do this on your live site.</p>
 	<br />
-	<p class="warning">Upgrades can <strong>take a long time</strong><br />Make sure your max_execution_time in your php.ini is large enough for your site.</p>
+	<p class="warning"><strong>Upgrades can take a long time</strong><br />We try to override the setting in your php.ini to ensure enough time but on some systems this does not work. If you get a blank page with a non-functional site as a result, the execution time might be the reason. Please bear this in mind. The value we have set is: <strong>max_execution_time: {$max_execution_time} seconds</strong>. If you run into problems with the upgrade process and you think this might be problem, please consult the <a class="external" href="http://us2.php.net/manual/en/ref.info.php#ini.max-execution-time">php manual</a>.</p>
 	<strong>{formfeedback warning=$dbWarning}</strong>
 	<p>We have done our best to make sure all situations are handled. However, your install might have the one case we haven't run into yet.</p>
 
