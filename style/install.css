@@ -62,11 +62,11 @@ li.error,
 li.warning,
 li.success		{list-style:none; padding:4px; margin:0;}
 
-.forminput					{margin-left:26%;}
-.forminput tr				{padding:4px; border-bottom:1px dotted #aaa;}
-.formhelp					{color:#666; font-size:10px; cursor:help;}
-.submit						{text-align:center; margin:10px 0 2em 0;}
-input[type="submit"] 		{padding:5px 10px; font-weight:bold;}
+.forminput		{margin-left:26%;}
+.forminput tr	{padding:4px; border-bottom:1px dotted #aaa;}
+.formhelp		{color:#666; font-size:10px; cursor:help;}
+.submit			{text-align:center; margin:10px 0 2em 0;}
+input 			{padding:5px 10px; font-weight:bold;}
 
 dl	{padding:0; margin:0.5em 0; line-height:1.3em;}
 dt	{padding:0; margin:0; width:30%; text-align:right; font-weight:bold;}

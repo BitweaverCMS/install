@@ -12,24 +12,24 @@
 		{forminput}
 			{foreach from=`$required` item="check"}
 				{if $check.passed}
-					{formfeedback note=`$check.note`}
+					<p>{biticon ipackage=liberty iname=success iexplain=success} {$check.note}</p>
 				{else}
-					{formfeedback error=`$check.note`}
+					<p class="error">{biticon ipackage=liberty iname=error iexplain=error} {$check.note}</p>
 				{/if}
 			{/foreach}
 			{if $http_referer_error}
-				{formfeedback error="We have detected that we cannot access the _SERVER['HTTP_REFERER'] variable from your browser. This can be because you have bookmarked this page and accessed this page directly. If so, this will probably not cause any problems during installation.<br />However, if you came here from the welcome page, you are probably using some sort of firewall which is blocking this information (a common example is Norton Firewall). Please disable this feature or the firewall until the installation process is completed."}
+				<p class="error">{biticon ipackage=liberty iname=error iexplain=error} We have detected that we cannot access the _SERVER['HTTP_REFERER'] variable from your browser. This can be because you have bookmarked this page and accessed this page directly. If so, this will probably not cause any problems during installation.<br />However, if you came here from the welcome page, you are probably using some sort of firewall which is blocking this information (a common example is Norton Firewall). Please disable this feature or the firewall until the installation process is completed.</p>
 			{/if}
 		{/forminput}
 	</div>
 
 	{if $error}
-		<p class="clear error">
+		<p class="error">
 			{biticon ipackage=liberty iname=error iexplain=error}
 			Before you can continue with the installation, you must rectify the <strong style="color:red;">problems listed in red</strong>.
 		</p>
 	{else}
-		<p class="clear success">
+		<p class="success">
 			{biticon ipackage=liberty iname=success iexplain=success}
 			Your system meets all the requirements.
 		</p>
@@ -52,21 +52,21 @@
 		{forminput}
 			{foreach from=`$extensions` item="check"}
 				{if $check.passed}
-					{formfeedback note=`$check.note`}
+					<p>{biticon ipackage=liberty iname=success iexplain=success} {$check.note}</p>
 				{else}
-					{formfeedback warning=`$check.note`}
+					<p class="warning">{biticon ipackage=liberty iname=warning iexplain=warning} {$check.note}</p>
 				{/if}
 			{/foreach}
 		{/forminput}
 	</div>
 
 	{if $warning}
-		<p class="clear warning">
+		<p class="warning">
 			{biticon ipackage=liberty iname=warning iexplain=warning}
 			Before you continue, we suggest that you try and install the mentioned extensions. If you can not do so, please bear in mind that these extensions can be installed at any time and might enhance your bitweaver experience.
 		</p>
 	{else}
-		<p class="clear success">
+		<p class="success">
 			{biticon ipackage=liberty iname=success iexplain=success}
 			All recommended extensions are installed.
 		</p>
@@ -108,18 +108,18 @@
 	</div>
 
 	{if $memory_warning}
-		<p class="clear warning">
+		<p class="warning">
 			{biticon ipackage=liberty iname=warning iexplain=warning}
 			Your memory limit settings are rather low. bitweaver requires at least 8MB memory to run, even having a limit of 8MB might cause undesired results. If you end up laoding blank pages, it might be the <strong>memory_limit</strong> setting in your <strong>php.ini</strong> file. if possible, please get your host to increase the limit to at least <strong>16MB</strong>.
 		</p>
 	{/if}
 	{if $rec_warning}
-		<p class="clear warning">
+		<p class="warning">
 			{biticon ipackage=liberty iname=warning iexplain=warning}
 			Not all the recommended setting have been met. However,  your site might still work without problems. Please keep these settings in mind when you run into problems.
 		</p>
 	{else}
-		<p class="clear success">
+		<p class="success">
 			{biticon ipackage=liberty iname=success iexplain=success}
 			All recommended settings have been met.
 		</p>
@@ -133,7 +133,7 @@
 		{formlabel label="Settings worth knowing about"}
 		{forminput}
 			{foreach from=`$show` item="check"}
-				{formfeedback note=`$check`}
+				<p>{$check}</p>
 			{/foreach}
 		{/forminput}
 	</div>
