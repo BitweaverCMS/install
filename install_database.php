@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.11 2006/02/17 23:47:00 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.12 2006/05/31 19:00:43 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -47,6 +47,9 @@ if( function_exists( 'ibase_connect' ) ) {
 	}
 	$gBitSmarty->assign( 'fbpath', $fbpath );
 	if ( empty($gBitDbName) ) $gBitDbName = 'bitweaver';
+	$gDbCaseSensitivity = FALSE;
+} else {
+	$gDbCaseSensitivity = TRUE;
 }
 if( function_exists( 'sqlite_open' ) ) {
 	$dbtodsn['sqlite'] = 'SQLLite';
@@ -58,6 +61,7 @@ $gBitSmarty->assign( 'gBitDbHost', $gBitDbHost );
 $gBitSmarty->assign( 'gBitDbUser', $gBitDbUser );
 $gBitSmarty->assign( 'gBitDbPassword', $gBitDbPassword );
 $gBitSmarty->assign( 'gBitDbName', $gBitDbName );
+$gBitSmarty->assign( 'gBitDbCaseSensitivity', $gBitDbCaseSensitivity );
 $gBitSmarty->assign( 'db_prefix_bit', BIT_DB_PREFIX );
 $gBitSmarty->assign( 'root_url_bit', $root_url_bit );
 if( defined( 'AUTO_BUG_SUBMIT' ) ) {

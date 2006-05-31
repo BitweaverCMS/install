@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.9 2006/04/21 13:07:43 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.10 2006/05/31 19:00:43 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -86,7 +86,7 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 \$gBitDbName   = \"$gBitDbName\";
 
 // Database field case default
-\$gDbCaseSensitivity = TRUE;
+\$gDbCaseSensitivity = \"$gDbCaseSensitivity\";
 
 // This prefix will be prepended to the begining of every table name to allow multiple
 // independent installs to share a single database. By ending the prefix with a '.' (period)
