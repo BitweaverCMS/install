@@ -1,6 +1,6 @@
 <h1>bitweaver PHP Settings</h1>
 
-{form legend="Server Settings"}
+{form legend="Server Settings" class=checks}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<h3>Required Settings</h3>
@@ -10,7 +10,7 @@
 	<div class="row">
 		{formlabel label="Required settings"}
 		{forminput}
-			{foreach from=`$required` item="check"}
+			{foreach from=$required item="check"}
 				{if $check.passed}
 					<p>{biticon ipackage=liberty iname=success iexplain=success} {$check.note}</p>
 				{else}
@@ -50,7 +50,7 @@
 	<div class="row">
 		{formlabel label="Thoroughly recommended extensions"}
 		{forminput}
-			{foreach from=`$extensions` item="check"}
+			{foreach from=$extensions item="check"}
 				{if $check.passed}
 					<p>{biticon ipackage=liberty iname=success iexplain=success} {$check.note}</p>
 				{else}
@@ -83,12 +83,13 @@
 		{formlabel label="Recommended settings"}
 		{forminput}
 			<table width="100%" summary="This table lists recommended php settings for bitweaver to run smoothly">
+				<caption>Recommended php.ini Settings</caption>
 				<tr>
 					<th scope="col">Setting</th>
 					<th scope="col">Should be</th>
 					<th scope="col">Actual</th>
 				</tr>
-				{foreach from=`$recommended` item="check"}
+				{foreach from=$recommended item="check"}
 					<tr class="{if $check.passed eq 'y'}note{else}warning{/if}">
 						<td>
 							{if $check.passed}
@@ -132,7 +133,7 @@
 	<div class="row">
 		{formlabel label="Settings worth knowing about"}
 		{forminput}
-			{foreach from=`$show` item="check"}
+			{foreach from=$show item="check"}
 				<p>{$check}</p>
 			{/foreach}
 		{/forminput}

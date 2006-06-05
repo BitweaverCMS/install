@@ -1,11 +1,11 @@
 /*  layout */
-.install	{width:800px; padding:0px; margin-left:auto; margin-right:auto; color:#000;}
-.body		{float:left; width:600px; background:#fff; border:1px solid #2c4268; line-height:16px;}
-.nav		{float:right; width:180px;}
+.install	{width:900px; padding:0px; margin-left:auto; margin-right:auto; color:#000;}
+.body		{float:left; width:680px; background:#fff; border:1px solid #2c4268; line-height:16px;}
+.nav		{float:right; width:200px;}
 
 /* global stuff */
 body	{background:#124; font-family:verdana, arial, helvetica, sans-serif; font-weight:normal; font-size:12px; margin:0px; padding:10px; vertical-align:middle; color:#fff;}
-table	{border-collapse:collapse; padding:0; margin:0;}
+table	{border-collapse:collapse; padding:0; margin:0; width:100%;}
 caption	{font-weight:bold; padding:5px 0 0 0;}
 th		{text-align:left; padding:3px 5px; background:#2c4268; border-bottom:2px solid #fff; color:#fff;}
 td		{padding:2px 3px; vertical-align:top;}
@@ -13,9 +13,9 @@ hr		{border:1px solid #000;}
 p		{margin:0; padding:1em;}
 
 /* titles */
-h1			{font-size:130%;}
-h2			{font-size:120%;}
-h3			{font-size:110%;}
+h1			{font-size:160%; font-variant:small-caps;}
+h2			{font-size:140%;}
+h3			{font-size:120%;}
 h1,h2,h3	{font-weight:900; text-align:center; color:#900; margin:2px 0; padding:25px 0 0 0;}
 
 /* links */
@@ -64,9 +64,15 @@ li.success		{list-style:none; padding:4px; margin:0;}
 
 .forminput		{margin-left:26%;}
 .forminput tr	{padding:4px; border-bottom:1px dotted #aaa;}
+.forminput p	{margin:0.5em 0;}
 .formhelp		{color:#666; font-size:10px; cursor:help;}
 .submit			{text-align:center; margin:10px 0 2em 0;}
 input 			{padding:5px 10px; font-weight:bold;}
+table input		{padding:0 10px;}
+
+/* special style for checks page */
+.checks .formlabel	{float:none; width:auto; text-align:left; padding:0.5em; background:#68a; color:#fff; border:#000 1px solid;}
+.checks .forminput	{margin-left:10%;}
 
 dl	{padding:0; margin:0.5em 0; line-height:1.3em;}
 dt	{padding:0; margin:0; width:30%; text-align:right; font-weight:bold;}

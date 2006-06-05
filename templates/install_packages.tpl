@@ -19,7 +19,7 @@
 	{formfeedback warning=$warning}
 	{jstabs}
 		{jstab title="Install Packages"}
-			{form id="package_select" legend="Please select packages you wish to install" id="package_select"}
+			{form id="package_select" legend="Please select packages and services you wish to install" id="package_select"}
 				<input type="hidden" name="step" value="{$next_step}" />
 				<input type="hidden" name="method" value="install" />
 
@@ -32,20 +32,48 @@
 					{/if}
 				{/foreach}
 
-				<p class="row">This is a list with all available bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this sepeartely after completing the bitweaver installation process.</p>
+				<p>This is a list with all available bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this sepeartely after completing the bitweaver installation process.</p>
 
 				<div class="row">
-					{formlabel label="De / Select all Packages" for="switcher"}
 					{forminput}
 						<script type="text/javascript">
-							document.write("<input name=\"switcher\" id=\"switcher\" type=\"checkbox\" checked onclick=\"switchCheckboxes(this.form.id,'packages[]','switcher')\" /><br />");
+							document.write("<label><input name=\"switcher\" id=\"switcher\" type=\"checkbox\" checked onclick=\"switchCheckboxes(this.form.id,'packages[]','switcher')\" /> Batch (de)select all Packages and Services on this page</label>");
 						</script>
+						<noscript>
+							You don't have javascript enabled
+						</noscript>
 					{/forminput}
 				</div>
 
+				<h2>Packages</h2>
+
+				<p>Packages are the parts of bitweaver that deal with content such as wiki pages, blogs or news articles.</p>
+
 				{foreach from=$schema key=package item=item}
 					{if $item.tables || $item.defaults}
-						{if !$item.installed and !$item.required}
+						{if !$item.installed and !$item.required and !$item.service}
+							<div class="row">
+								<div class="formlabel">
+									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
+								</div>
+								{forminput}
+									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
+									{formhelp note=`$item.info`}
+									{formhelp note="<strong>Location</strong>: `$item.url`"}
+									{formhelp package=$package}
+								{/forminput}
+							</div>
+						{/if}
+					{/if}
+				{/foreach}
+
+				<h2>Services</h2>
+
+				<p>Services are special packages and can be considered extensions to the way content is handled. An extension might allow you to protect, categorise or rate your content.</p>
+
+				{foreach from=$schema key=package item=item}
+					{if $item.tables || $item.defaults}
+						{if !$item.installed and !$item.required and $item.service}
 							<div class="row">
 								<div class="formlabel">
 									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
@@ -76,7 +104,6 @@
 						{formhelp note="This will display SQL statements."}
 					{/forminput}
 				</div>
-
 			{/form}
 		{/jstab}
 
