@@ -70,7 +70,7 @@
 			<div class="progressbar">
 				{$section|default:"Install"} Progress
 				<div style="border:1px solid #ccc;background:#eee;margin:2px 0;">
-					<div style="width:{$progress}%;background:#f30;text-align:center;padding:5px 0;color:#fff;">{$progress}%</div>
+					<div style="width:{$progress|default:0}%;background:#f30;text-align:center;padding:5px 0;color:#fff;">{$progress}%</div>
 				</div>
 			</div>
 		</div> <!-- end .nav -->
