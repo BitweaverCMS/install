@@ -50,6 +50,9 @@ textarea	{width:100%;}
 .success		{background:#def;}
 .current		{background:#ffc;}
 .help			{background:#eee;}
+div.warning,
+div.success,
+div.error		{border:1px solid #999; padding:1em;}
 p.warning,
 p.success,
 p.error			{border:1px solid #999;}

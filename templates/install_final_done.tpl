@@ -5,12 +5,6 @@
 		{biticon ipackage=liberty iname=success iexplain=success}
 		Your system is ready for use now.
 	</p>
-	<p class="warning">
-		{biticon ipackage=liberty iname=warning iexplain=warning}
-		We have made sure that the installer cannot be accessed without being logged in as administrator. Despite this, we recommend that you apply the following precautions:
-		<br /><strong>Linux</strong>: change the directory permission with 'chmod -R 000 {$smarty.const.INSTALL_PKG_PATH}'. You will need to run the installer again, you will have to revert the permissions with 'chmod -R 755 {$smarty.const.INSTALL_PKG_PATH}'.
-		<br /><strong>Windows</strong>: rename '{$smarty.const.INSTALL_PKG_PATH}install_inc.php' to something like '{$smarty.const.INSTALL_PKG_PATH}install_inc.php.done'
-	</p>
 	<p>bitweaver features useful helpnotes throughout. However, should you require more help, you can always contact us by any of the means mentioned below.</p>
 	<p>Since we are still wroking hard on improving usability and stability of bitweaver, we haven't had time to translate bitweaver into various languages. If you are interested in helping us translate parts of bitweaver, please feel free to contact us.</p>
 	<p>If you want to find out more about existing packages and how to install them, you can find information at <a class="external" href="http://www.bitweaver.org/wiki/index.php?page=bitweaverFeatures">bitweaverFeatures</a>.</p>
@@ -23,8 +17,36 @@
 		<li><a class="external" href="http://www.bitweaver.org/">bitweaver</a> currently contains all the documentation we have.</li>
 	</ul>
 	<p>If you think you could contribute to bitweaver in any way, please feel free to contact us. we appreciate all the help we can get.</p>
+
+	<hr />
+	<h2>Some final notes</h2>
+	<ul>
+		<li>
+			<strong>Security Notes</strong>
+			<br />We have made sure that the installer cannot be accessed without being logged in as administrator. Despite this, we recommend that you apply the following precautions
+			<ul>
+				<li>
+					<strong>Linux</strong>:
+					<br />change the directory permission with 'chmod -R 000 {$smarty.const.INSTALL_PKG_PATH}'. You will need to run the installer again, you will have to revert the permissions with 'chmod -R 755 {$smarty.const.INSTALL_PKG_PATH}'.
+				</li>
+				<li>
+					<strong>Windows</strong>:
+					<br />rename '{$smarty.const.INSTALL_PKG_PATH}install_inc.php' to something like '{$smarty.const.INSTALL_PKG_PATH}install_inc.php.done'
+				</li>
+			</ul>
+		</li>
+		<li>
+			<strong>Performance Notes</strong>
+			<ul>
+				<li>For production sites, we recommond you visit our <a href="http://www.bitweaver.org/wiki/bitweaverPerformance">bitweaverPerformance</a> page on how to optimise your bitweaver install.</li>
+				<li>Please also have a look at your <em>{$smarty.const.KERNEL_PKG_PATH}config_inc.php</em> file. It contains various settings that cannot be set elsewhere and which might be of interest to you.</li>
+			</ul>
+		</li>
+	</ul>
+
 	<br />
 	<p class="help" style="text-align:center;">Finally, we thank you again for trying bitweaver.</p>
+	<br />
 
 	<div class="row submit">
 		<input type="submit" size="20" value="Enter Your bitweaver Site" />
