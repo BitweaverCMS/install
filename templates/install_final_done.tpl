@@ -22,24 +22,24 @@
 	<h2>Some final notes</h2>
 	<ul>
 		<li>
-			<strong>Security Notes</strong>
+			<strong>Security</strong>
 			<br />We have made sure that the installer cannot be accessed without being logged in as administrator. Despite this, we recommend that you apply the following precautions
 			<ul>
 				<li>
-					<strong>Linux</strong>:
-					<br />change the directory permission with 'chmod -R 000 {$smarty.const.INSTALL_PKG_PATH}'. You will need to run the installer again, you will have to revert the permissions with 'chmod -R 755 {$smarty.const.INSTALL_PKG_PATH}'.
+					<strong>Linux</strong>
+					<br />change the directory permission with '<span class="highlight">chmod 000 install/</span>'. You will need to run the installer again, you will have to revert the permissions with '<span class="highlight">chmod 755 install/</span>'.
 				</li>
 				<li>
-					<strong>Windows</strong>:
-					<br />rename '{$smarty.const.INSTALL_PKG_PATH}install_inc.php' to something like '{$smarty.const.INSTALL_PKG_PATH}install_inc.php.done'
+					<strong>Windows</strong>
+					<br />rename '<span class="highlight">install/install_inc.php</span>' to something like '<span class="highlight">install/install_inc.php.done</span>'
 				</li>
 			</ul>
 		</li>
 		<li>
-			<strong>Performance Notes</strong>
+			<strong>Performance</strong>
 			<ul>
-				<li>For production sites, we recommond you visit our <a href="http://www.bitweaver.org/wiki/bitweaverPerformance">bitweaverPerformance</a> page on how to optimise your bitweaver install.</li>
-				<li>Please also have a look at your <em>{$smarty.const.KERNEL_PKG_PATH}config_inc.php</em> file. It contains various settings that cannot be set elsewhere and which might be of interest to you.</li>
+				<li>For production sites, we recommond you visit our <a class="external" href="http://www.bitweaver.org/wiki/bitweaverPerformance">bitweaverPerformance</a> page on how to optimise your bitweaver install.</li>
+				<li>Please also have a look at your <span class="highlight">kernel/config_inc.php</span> file. It contains various settings that cannot be set elsewhere and which might be of interest to you.</li>
 			</ul>
 		</li>
 	</ul>
