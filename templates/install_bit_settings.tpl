@@ -25,7 +25,7 @@
 	<div class="row">
 		{formlabel label="Browser title" for="site_title"}
 		{forminput}
-			<input size="50" type="text" name="site_title" id="site_title" value="{$gBitSystem->getConfig('site_title')|escape}" />
+			<input size="40" type="text" name="site_title" id="site_title" value="{$gBitSystem->getConfig('site_title')|escape}" />
 			{formhelp note="Enter the title that should appear in the title bar of the users browser when visiting your site."}
 		{/forminput}
 	</div>
@@ -33,7 +33,7 @@
 	<div class="row">
 		{formlabel label="Site slogan" for="site_slogan"}
 		{forminput}
-			<input size="50" type="text" name="site_slogan" id="site_slogan" value="{$gBitSystem->getConfig('site_slogan')|escape}" />
+			<input size="40" type="text" name="site_slogan" id="site_slogan" value="{$gBitSystem->getConfig('site_slogan')|escape}" />
 			{formhelp note="This slogan is (usually) shown below the site title."}
 		{/forminput}
 	</div>
