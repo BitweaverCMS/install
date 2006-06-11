@@ -291,9 +291,8 @@
 				</div>
 
 				<div class="row">
-					{formlabel label="Debug mode" for="debug"}
 					{forminput}
-						<input type="checkbox" name="debug" id="debug"{if $debug} checked="checked"{/if} />
+						<label><input type="checkbox" name="debug" id="debug"{if $debug} checked="checked"{/if} /> Debug mode</label>
 						{formhelp note="This will display SQL statements."}
 					{/forminput}
 				</div>

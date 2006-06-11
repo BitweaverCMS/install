@@ -22,9 +22,8 @@
 	</div>
 
 	<div class="row">
-		{formlabel label="Debug mode" for="debug"}
 		{forminput}
-			<input type="checkbox" name="debug" id="debug" value="true" />
+			<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 		{/forminput}
 		{formhelp note="This will display SQL statements."}
 	</div>
