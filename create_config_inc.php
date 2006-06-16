@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.3.2.2 2005/07/27 13:21:06 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.3.2.3 2006/06/16 09:12:29 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -120,10 +120,18 @@ define( 'BIT_ROOT_URL', '$root_url_bit' );
 //\$gPreScan = array( 'kernel', 'users', 'liberty' );
 
 
-// if you set AUTO_BUG_SUBMIT to TRUE, the application will know that this site is running live and is not used for testing purposes.
-// This will prevent any horrible error pages from appearing and will redirect the user to a 'nicer' error page and
-// will automatically email the team with details regarding the error.
-// Bugs added to http://www.sourceforge.net will get processed faster since more people have access to these.
+// Setting IS_LIVE to TRUE will let the application know that this site is a live
+// production site and is not used for testing purposes.  This will prevent any
+// nasty error pages from appearing and will redirect the user to a 'nicer' error
+// page. Errors should still show up in your error logs. Please use these when
+// submitting bugs to http://sourceforge.net/tracker/?group_id=141358&atid=749176
+define( 'IS_LIVE', FALSE );
+
+
+// if you set AUTO_BUG_SUBMIT to TRUE bitweaver will automatically email the team
+// with details regarding the error.  Alternatively you can submit bugs to
+// http://sourceforge.net/tracker/?group_id=141358&atid=749176 which will probably
+// get processed faster since more people have access to these.
 define( 'AUTO_BUG_SUBMIT', $auto_bug_submit );
 
 ?>";
