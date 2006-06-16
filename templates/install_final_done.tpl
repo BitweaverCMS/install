@@ -23,15 +23,18 @@
 	<ul>
 		<li>
 			<strong>Security</strong>
-			<br />We have made sure that the installer cannot be accessed without being logged in as administrator. Despite this, we recommend that you apply the following precautions
 			<ul>
 				<li>
 					<strong>Linux</strong>
-					<br />change the directory permission with '<span class="highlight">chmod 000 install/</span>'. You will need to run the installer again, you will have to revert the permissions with '<span class="highlight">chmod 755 install/</span>'.
+					<br />Change the directory permission with '<span class="highlight">chmod 000 install/</span>'. If need to run the installer again, you will have to revert the permissions with '<span class="highlight">chmod 755 install/</span>'.
 				</li>
 				<li>
 					<strong>Windows</strong>
-					<br />rename '<span class="highlight">install/install_inc.php</span>' to something like '<span class="highlight">install/install_inc.php.done</span>'
+					<br />Rename '<span class="highlight">install/install_inc.php</span>' to something like '<span class="highlight">install/install_inc.php.done</span>'
+				</li>
+				<li>
+					<strong>bitweaver Configuration</strong>
+					<br />We urge you to look at your <span class="highlight">kernel/config_inc.php</span> file. It has various useful settings for sites in production. One of these is the <strong>IS_LIVE</strong> parameter. Setting this to <strong>TRUE</strong> will prevent any visible bug reports and will therefore not display sensitive information to the user.
 				</li>
 			</ul>
 		</li>
