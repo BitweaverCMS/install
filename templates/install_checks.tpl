@@ -3,7 +3,7 @@
 {form legend="Server Settings" class=checks}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<h3>Required Settings</h3>
+	<h2>Required Settings</h2>
 
 	<p class="help">The settings below are required by bitweaver to run. If any of these settings are not met, you will have to change these before you can continue with the installation process.</p>
 
@@ -27,7 +27,13 @@
 		<p class="error">
 			{biticon ipackage=liberty iname=error iexplain=error}
 			Before you can continue with the installation, you must rectify the <strong style="color:red;">problems listed in red</strong>.
+			<br />
+			After you have made the changes, you can reload the page.
 		</p>
+
+		<div class="row submit">
+			<input type="submit" name="reload" value="Reload Page" />
+		</div>
 	{else}
 		<p class="success">
 			{biticon ipackage=liberty iname=success iexplain=success}
@@ -35,7 +41,8 @@
 		</p>
 	{/if}
 
-	<h3>Recommended Extensions</h3>
+	<br />
+	<h2>Recommended Extensions</h2>
 
 	<p class="help">
 		Virtually all settings below this point can be adjusted by changing appropriate values in your php.ini file.
@@ -72,7 +79,8 @@
 		</p>
 	{/if}
 
-	<h3>Recommended Settings</h3>
+	<br />
+	<h2>Recommended Settings</h2>
 
 	<p class="help">
 		The following are settings that aren't strictly required by bitweaver to run, but are recommendations.<br />
@@ -126,7 +134,8 @@
 		</p>
 	{/if}
 
-	<h3>Settings worth knowing about</h3>
+	<br />
+	<h2>Settings worth knowing about</h2>
 
 	<p class="help">The settings below are merely for your information and are meant to help you work out problems that might occur.</p>
 
@@ -141,6 +150,7 @@
 
 	{if !$error}
 		<div class="row submit">
+			<input type="submit" name="reload" value="Reload Page" />
 			<input type="submit" name="" value="Continue the Install process" />
 		</div>
 	{/if}

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.8 2006/02/22 23:53:16 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.9 2006/06/18 10:00:48 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -29,6 +29,10 @@ if( !isset( $_REQUEST['step'] ) ) {
 	$_REQUEST['step'] = 0;
 }
 $step = $_REQUEST['step'];
+
+if( !empty( $_REQUEST['reload'] ) ) {
+	header( "Location: ".$_SERVER['HTTP_REFERER'] );
+}
 
 // for pages that should only be shown during a first install
 if( ( empty( $gBitDbType ) || !$gBitUser->isAdmin() ) || ( $_SESSION['first_install'] ) ) {
