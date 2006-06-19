@@ -1,12 +1,12 @@
 #!/bin/bash
 #	echo "Usage: $0 [module [BRANCH [sfuser]]]"
-#	echo "(Note: If sfuser is not supplied, 'bitweaver@cvs.sf.net' will be assumed )"
+#	echo "(Note: If sfuser is not supplied, 'bitweaver@bitweaver.cvs.sourceforge.net' will be assumed )"
 #	exit 1
 export CVS_RSH=ssh
 
 if [ $1 = '--help' ] ; then
 	echo "Usage: $0 [module [BRANCHNAME [sfuser [builddir]]]]"
-	echo "(Note: If sfuser is not supplied, 'bitweaver@cvs.sf.net' will be assumed )"
+	echo "(Note: If sfuser is not supplied, 'bitweaver@bitweaver.cvs.sourceforge.net' will be assumed )"
 	exit 1
 elif [ -z $1 ] ; then
 	MODULE="bitweaver"
@@ -38,7 +38,7 @@ fname=bitweaver_$1\_wb_`date +"%Gweek%V"`
 
 mkdir -p "/tmp/$fname/"
 cd "/tmp/$fname/"
-cvs -qz5 -d :ext:$SFUSER@cvs.sf.net:/cvsroot/bitweaver/ export -d $BUILDDIR $BRANCH $MODULE
+cvs -qz5 -d :ext:$SFUSER@bitweaver.cvs.sourceforge.net:/cvsroot/bitweaver/ export -d $BUILDDIR $BRANCH $MODULE
 cd "/tmp/$fname/"
 
 if [ $MODULE = 'bitweaver' ] ; then
@@ -60,6 +60,7 @@ if [ $MODULE = 'bitweaver' ] ; then
 	fi
 fi
 
+echo Create archive of downloaded files
 tar -czf $fname.tar.gz $BUILDDIR
 mv $fname.tar.gz $HOME/$fname.tar.gz
 rm -Rf "/tmp/$fname/"
