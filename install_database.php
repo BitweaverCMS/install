@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.12 2006/05/31 19:00:43 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.13 2006/07/04 09:11:54 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -19,14 +19,14 @@ if( function_exists( 'mysql_connect' ) ) {
 	if( @mysql_get_server_info() ) {
 		$dbtodsn['mysql'] = 'MySQL '.mysql_get_server_info();
 	} else {
-		$dbtodsn['mysql'] = 'MySQL 3.x';
+		$dbtodsn['mysql'] = 'MySQL';
 	}
 }
 if( function_exists( 'mysqli_connect' ) ) {
-	$dbtodsn['mysql'] = 'MySQLi 4.x';
+	$dbtodsn['mysql'] = 'MySQLi';
 }
 if( function_exists( 'pg_connect' ) ) {
-	$dbtodsn['postgres'] = 'PostgreSQL 7.x';
+	$dbtodsn['postgres'] = 'PostgreSQL';
 }
 if( function_exists( 'ocilogon' ) ) {
 	$dbtodsn['oci8po'] = 'Oracle 8.i';
@@ -35,10 +35,10 @@ if( function_exists( 'sybase_connect' ) ) {
 	$dbtodsn['sybase'] = 'Sybase';
 }
 if( function_exists( 'mssql_connect' ) ) {
-	$dbtodsn['mssql'] = 'MS-SQL 8.0+';
+	$dbtodsn['mssql'] = 'MS-SQL';
 }
 if( function_exists( 'ibase_connect' ) ) {
-	$dbtodsn['firebird'] = 'Firebird 1.5+';
+	$dbtodsn['firebird'] = 'Firebird';
 	if ( empty($fbpath) ) {
 		if ( isWindows() )
 			$fbpath = 'c:\Program Files\Firebird\Firebird_1_5\bin\isql';
