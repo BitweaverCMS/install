@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.20 2006/05/03 12:25:15 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.21 2006/07/04 15:30:45 squareing Exp $
  * @package install
  */
 
@@ -330,8 +330,8 @@ function makeConnection($gBitDbType, $gBitDbHost, $gBitDbUser, $gBitDbPassword, 
 		echo $gDb->ErrorMsg()."\n";
 		die;
 	}
-	global $gDbCaseSensitivity;
-	$gDb->mCaseSensitive = $gDbCaseSensitivity;
+	global $gBitDbCaseSensitivity;
+	$gDb->mCaseSensitive = $gBitDbCaseSensitivity;
 	$gDb->SetFetchMode(ADODB_FETCH_ASSOC);
 	return $gDb;
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.11 2006/06/16 09:18:36 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.12 2006/07/04 15:30:45 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -35,7 +35,7 @@ function create_config($gBitDbType,$gBitDbHost,$gBitDbUser,$gBitDbPassword,$gBit
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE.
 
 // The following line is required and should not be altered
-global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName, \$gDbCaseSensitivity, \$smarty_force_compile, \$gDebug, \$gPreScan;
+global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName, \$gBitDbCaseSensitivity, \$smarty_force_compile, \$gDebug, \$gPreScan;
 
 
              /******************************************************\
@@ -89,7 +89,7 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 \$gBitDbName   = \"$gBitDbName\";
 
 // Database field case default
-\$gDbCaseSensitivity = \"$gDbCaseSensitivity\";
+\$gBitDbCaseSensitivity = \"$gBitDbCaseSensitivity\";
 
 // This prefix will be prepended to the begining of every table name to allow
 // multiple independent installs to share a single database. By ending the prefix
