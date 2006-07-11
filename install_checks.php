@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.11 2006/04/13 09:26:23 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.12 2006/07/11 22:51:42 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -84,29 +84,36 @@ function check_settings() {
 	$php_ext = array(
 		'zlib' => '<a href="http://www.zlib.net/">The zlib compression libraries</a> are used to pack and unpack compressed files such as zip files.',
 		'gd' => '<a href="http://www.boutell.com/gd/">GD Libraries</a> are used to manipulate images. We use these libraries to create thumbnails and convert images from one format to another. The GD libaries are quite limited and <strong>don\'t support</strong> a number of image formats including <strong>bmp</strong>. If you are planning on uploading and using a lot of images, we recommend you use ImageMagic instead.<br />If you are running Red Hat or Fedora Core, you can try running: yum install php-gd.',
-		'imagick' => 'ImageMagick supports a multitude of different image and video formats and <strong>can be used instead of the GD Libraries</strong>. Using these libraries will allow you to upload most image formats without any difficulties. It also requires less memory than the GD Libraries.<br />To find out more about <a class="external" href="http://www.imagemagick.org">ImageMagick</a>, please visit their homepage.
-			<dl>
-				<dt>*nix</dt>
-				<dd>Prebuilt RPMs are available for Fedora and RedHat from <a class="external" href="http://phprpms.sourceforge.net/imagick">phpRPMs</a> or compile a <a class="external" href="http://sourceforge.net/project/showfiles.php?group_id=112092&amp;package_id=139307&amp;release_id=292417">source RPM</a>.</dd>
-				<dt>Windows</dt>
-				<dd>For information on how to install ImageMagick on Windows, please visit <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">Install ImageMagick</a>.</dd>
-			</dl>',
-		'magickwand' => 'MagickWand is an alternative php extension for ImageMagick. please see the ImageMagic documentation for installation instructions.',
+		'imagick' => 'ImageMagick supports a multitude of different image and video formats and <strong>can be used instead of the GD Libraries</strong>. Using these libraries will allow you to upload most image formats without any difficulties. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
+		'magickwand' => 'MagickWand the newer php extension for ImageMagick. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
 		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of php by caching and optimising queries. Using this extension will greatly increase your servers performance and reduce the memory needed to run bitweaver.',
 	);
 	foreach( $php_ext as $ext => $note ) {
-		$extensions[$i]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
+		$extensions[$ext]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
 		if( extension_loaded( $ext ) ) {
-			$extensions[$i]['passed'] = TRUE;
+			$extensions[$ext]['passed'] = TRUE;
 		} else {
-			$extensions[$i]['note'] .= 'not ';
-			$extensions[$i]['passed'] = FALSE;
+			$extensions[$ext]['note'] .= 'not ';
+			$extensions[$ext]['passed'] = FALSE;
 		}
-		$extensions[$i]['note'] .= 'available.<br />'.$note;
+		$extensions[$ext]['note'] .= 'available.<br />'.$note;
 		$i++;
 	}
-	foreach( $extensions as $e ) {
-		if( !$e['passed'] ) {
+	// if imagick or magickwand are installed, we remove the warning about the 
+	// other extension
+	foreach( $extensions as $extension => $info ) {
+		if( $extension == 'magickwand' && $info['passed'] ) {
+			unset( $extensions['imagick'] );
+		}
+
+		if( $extension == 'imagick' && $info['passed'] ) {
+			unset( $extensions['magickwand'] );
+		}
+	}
+
+	// make sure we show the worning flag if there is a need for it
+	foreach( $extensions as $info ) {
+		if( !$info['passed'] ) {
 			$warning = TRUE;
 		}
 	}
