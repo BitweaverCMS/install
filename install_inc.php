@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.13 2006/05/03 12:25:15 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.14 2006/07/23 00:56:01 jht001 Exp $
  * @package install
  * @subpackage functions
  */
@@ -80,7 +80,6 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 		include( $config_file );
 	}
 }
-
 require_once("../bit_setup_inc.php");
 require_once( 'BitInstaller.php' );
 require_once( USERS_PKG_PATH.'BitUser.php' );
@@ -89,14 +88,31 @@ require_once( USERS_PKG_PATH.'BitUser.php' );
 global $gBitInstaller, $gBitSystem;
 $gBitInstaller = new BitInstaller();
 $gBitInstaller->setStyle( DEFAULT_THEME );
+
+// IF DB has not been created yet, then packages will not have been scanned yet.
+// and even if they have been scanned, then they will only include active packages,
+// not all packages.
+// So we scan again here including all packages
+
 // this is important! since bit_setup_inc's are only included_once, and $gBitSystem has already scanned them, we need to make a copy - spiderr
-if( !empty( $gBitSystem->mPackages ) ) {
-	$gBitInstaller->mPackages = $gBitSystem->mPackages;
-} else {
-	$gBitInstaller->scanPackages();
-}
+#if( !empty( $gBitSystem->mPackages ) ) {
+#	$gBitInstaller->mPackages = $gBitSystem->mPackages;
+#	}
+//} else {
+//	$gBitInstaller->scanPackages();
+//}
+
+#function scanPackages( $pScanFile = 'bit_setup_inc.php',
+#        $pOnce=TRUE, $pSelect='', $autoRegister=TRUE, $fileSystemScan=TRUE ) {
+#bad things happen if you do $gBitInstaller->scanPackages...
+$gBitSystem->scanPackages(    
+		'bit_setup_inc.php', TRUE, 'all', TRUE, TRUE
+        );
+
+$gBitInstaller->mPackages = $gBitSystem->mPackages;
+
 // we need this massive array available during install to work out if bitweaver has already been installed
-$gBitInstaller->verifyInstalledPackages();
+$gBitInstaller->verifyInstalledPackages('all',TRUE);
 
 // set prefs to display help during install
 $gBitSystem->setPreference( 'site_online_help', 'y' );

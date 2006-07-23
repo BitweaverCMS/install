@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.37 2006/05/18 16:24:16 sylvieg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.38 2006/07/23 00:56:01 jht001 Exp $
  * @package install
  * @subpackage functions
  */
@@ -156,6 +156,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			if( in_array( $package, $_REQUEST['packages'] ) ) {
 				if( $method == 'install' || $method == 'reinstall' ) {
 					$gBitSystem->storeConfig( 'package_'.strtolower( $package ), 'y', $package );
+					$gBitInstaller->mPackages[strtolower( $package )]['installed'] = TRUE;
+					$gBitInstaller->mPackages[strtolower( $package )]['active_switch'] = TRUE;
 					// we'll default wiki to the home page
 					if( defined( 'WIKI_PKG_NAME' ) && $package == WIKI_PKG_NAME ) {
 						$gBitSystem->storeConfig( "bit_index", WIKI_PKG_NAME, WIKI_PKG_NAME );
@@ -180,10 +182,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			}
 		}
 
-		// and let's turn on phpBB so people can find it easily.
-		if( defined( 'PHPBB_PKG_NAME' ) ) {
-			$gBitSystem->storeConfig( 'package_phpbb', 'y', PHPBB_PKG_NAME );
-		}
+# this is bad if phpBB isn't being used...
+#		// and let's turn on phpBB so people can find it easily.
+#		if( defined( 'PHPBB_PKG_NAME' ) ) {
+#			$gBitSystem->storeConfig( 'package_phpbb', 'y', PHPBB_PKG_NAME );
+#		}
 
 		// 4. run the defaults through afterwards so we can be sure all tables needed have been created
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
@@ -206,7 +209,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			}
 		}
 
-		// only install modules during the first install
+		// Do first install stuff only
 		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 			/**
 			* Some packages have some special things to take care of here.
@@ -219,56 +222,55 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				$gBitThemes->storeModule( $mod );
 				$gBitThemes->storeLayout( $mod );
 			}
+
+			// Installing users has some special things to take care of here and needs a separate check.
+			if( in_array( 'users', $_REQUEST['packages'] ) ) {
+				// These hardcoded queries need to go in here to avoid constraint violations
+				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."liberty_plugins` (`plugin_guid`, `plugin_type`, `is_active`, `plugin_description`) VALUES ( 'tikiwiki', 'format', 'y', 'TikiWiki Syntax Format Parser' )" );
+				// Creating 'root' user has id=1. phpBB starts with user_id=2, so this is a hack to keep things in sync
+				$rootUser = new BitPermUser();
+				$storeHash = array( 'real_name' => 'root', 'login' => 'root', 'password' => $_SESSION['password'], 'email' => 'root@localhost', 'pass_due' => FALSE, 'user_id' => ROOT_USER_ID );
+				if( $rootUser->store( $storeHash ) ) {
+					$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 1, 'Administrators','Site operators')" );
+					$rootUser->addUserToGroup( ROOT_USER_ID, 1 );
+				} else {
+					vd( $rootUser->mErrors );
+				}
+
+				// now let's set up some default data. Group_id's are hardcoded in users/schema_inc defaults
+				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", -1, 'Anonymous','Public users not logged')" );
+				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 2, 'Editors','Site  Editors')" );
+				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`,`is_default`) VALUES ( ".ROOT_USER_ID.", 3, 'Registered', 'Users logged into the system', 'y')" );
+
+				$gBitUser->assign_level_permissions( ANONYMOUS_GROUP_ID, 'basic' );
+				$gBitUser->assign_level_permissions( 3, 'registered' );
+				$gBitUser->assign_level_permissions( 2, 'editors' );
+				$gBitUser->assign_level_permissions( 1, 'admin' );
+
+				// Create 'Anonymous' user has id= -1 just like phpBB
+				$anonUser = new BitPermUser();
+				$storeHash = array( 'real_name' => 'Guest', 'login' => 'guest', 'password' => $_SESSION['password'], 'email' =>'guest@localhost', 'pass_due' => FALSE, 'user_id' => ANONYMOUS_USER_ID,  'default_group_id' => ANONYMOUS_GROUP_ID );
+				if( $anonUser->store( $storeHash ) ) {
+
+					// Remove anonymous from registered group
+					$regGroupId = $anonUser->groupExists( 'Registered', ROOT_USER_ID );
+					$anonUser->removeUserFromGroup( ANONYMOUS_USER_ID, $regGroupId );
+					$anonUser->addUserToGroup( ANONYMOUS_USER_ID, ANONYMOUS_GROUP_ID);
+				}
+
+				$adminUser = new BitPermUser();
+				$storeHash = array( 'real_name' => $_SESSION['real_name'], 'login' => $_SESSION['login'], 'password' => $_SESSION['password'], 'email' =>$_SESSION['email'], 'pass_due' => FALSE );
+				if( $adminUser->store( $storeHash ) ) {
+					$adminUser->addUserToGroup($adminUser->mUserId, 1 );
+				}
+
+				// kill admin info in $_SESSION
+				unset( $_SESSION['real_name'] );
+				unset( $_SESSION['login'] );
+				unset( $_SESSION['password'] );
+				unset( $_SESSION['email'] );
+			}
 		}
-
-		// Installing users has some special things to take care of here and needs a separate check.
-		if( in_array( 'users', $_REQUEST['packages'] ) && empty( $gBitInstaller->mPackages['users']['installed'] ) ) {
-			// These hardcoded queries need to go in here to avoid constraint violations
-			$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."liberty_plugins` (`plugin_guid`, `plugin_type`, `is_active`, `plugin_description`) VALUES ( 'tikiwiki', 'format', 'y', 'TikiWiki Syntax Format Parser' )" );
-			// Creating 'root' user has id=1. phpBB starts with user_id=2, so this is a hack to keep things in sync
-			$rootUser = new BitPermUser();
-			$storeHash = array( 'real_name' => 'root', 'login' => 'root', 'password' => $_SESSION['password'], 'email' => 'root@localhost', 'pass_due' => FALSE, 'user_id' => ROOT_USER_ID );
-			if( $rootUser->store( $storeHash ) ) {
-				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 1, 'Administrators','Site operators')" );
-				$rootUser->addUserToGroup( ROOT_USER_ID, 1 );
-			} else {
-				vd( $rootUser->mErrors );
-			}
-
-			// now let's set up some default data. Group_id's are hardcoded in users/schema_inc defaults
-			$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", -1, 'Anonymous','Public users not logged')" );
-			$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 2, 'Editors','Site  Editors')" );
-			$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`,`is_default`) VALUES ( ".ROOT_USER_ID.", 3, 'Registered', 'Users logged into the system', 'y')" );
-
-			$gBitUser->assign_level_permissions( ANONYMOUS_GROUP_ID, 'basic' );
-			$gBitUser->assign_level_permissions( 3, 'registered' );
-			$gBitUser->assign_level_permissions( 2, 'editors' );
-			$gBitUser->assign_level_permissions( 1, 'admin' );
-
-			// Create 'Anonymous' user has id= -1 just like phpBB
-			$anonUser = new BitPermUser();
-			$storeHash = array( 'real_name' => 'Guest', 'login' => 'guest', 'password' => $_SESSION['password'], 'email' =>'guest@localhost', 'pass_due' => FALSE, 'user_id' => ANONYMOUS_USER_ID,  'default_group_id' => ANONYMOUS_GROUP_ID );
-			if( $anonUser->store( $storeHash ) ) {
-
-				// Remove anonymous from registered group
-				$regGroupId = $anonUser->groupExists( 'Registered', ROOT_USER_ID );
-				$anonUser->removeUserFromGroup( ANONYMOUS_USER_ID, $regGroupId );
-				$anonUser->addUserToGroup( ANONYMOUS_USER_ID, ANONYMOUS_GROUP_ID);
-			}
-
-			$adminUser = new BitPermUser();
-			$storeHash = array( 'real_name' => $_SESSION['real_name'], 'login' => $_SESSION['login'], 'password' => $_SESSION['password'], 'email' =>$_SESSION['email'], 'pass_due' => FALSE );
-			if( $adminUser->store( $storeHash ) ) {
-				$adminUser->addUserToGroup($adminUser->mUserId, 1 );
-			}
-
-			// kill admin info in $_SESSION
-			unset( $_SESSION['real_name'] );
-			unset( $_SESSION['login'] );
-			unset( $_SESSION['password'] );
-			unset( $_SESSION['email'] );
-		}
-
 
 		$gBitSmarty->assign( 'next_step', $step + 1 );
 		asort( $packageList );
