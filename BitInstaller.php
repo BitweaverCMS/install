@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.21 2006/07/04 15:30:45 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.22 2006/08/05 16:25:49 squareing Exp $
  * @package install
  */
 
@@ -304,23 +304,23 @@ class BitInstaller extends BitSystem {
 function check_session_save_path() {
 	global $errors;
 	if (ini_get('session.save_handler') == 'files') {
-        	$save_path = ini_get('session.save_path');
+		$save_path = ini_get('session.save_path');
 
-        	if (!is_dir($save_path)) {
-                	$errors .= "The directory '$save_path' does not exist or PHP is not allowed to access it (check session.save_path or open_basedir entries in php.ini).\n";
-        	} else if (!bw_is_writeable($save_path)) {
-                	$errors .= "The directory '$save_path' is not writeable.\n";
-        	}
+		if (!is_dir($save_path)) {
+			$errors .= "The directory '$save_path' does not exist or PHP is not allowed to access it (check session.save_path or open_basedir entries in php.ini).\n";
+		} else if (!bw_is_writeable($save_path)) {
+			$errors .= "The directory '$save_path' is not writeable.\n";
+		}
 
-        	if ($errors) {
-                	$save_path = BitSystem::tempdir();
+		if ($errors) {
+			$save_path = BitSystem::tempdir();
 
-                	if (is_dir($save_path) && bw_is_writeable($save_path)) {
-                        	ini_set('session.save_path', $save_path);
+			if (is_dir($save_path) && bw_is_writeable($save_path)) {
+				ini_set('session.save_path', $save_path);
 
-                        	$errors = '';
-                	}
-        	}
+				$errors = '';
+			}
+		}
 	}
 }
 
