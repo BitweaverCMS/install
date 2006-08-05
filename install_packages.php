@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.38 2006/07/23 00:56:01 jht001 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.39 2006/08/05 15:41:38 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -226,7 +226,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			// Installing users has some special things to take care of here and needs a separate check.
 			if( in_array( 'users', $_REQUEST['packages'] ) ) {
 				// These hardcoded queries need to go in here to avoid constraint violations
-				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."liberty_plugins` (`plugin_guid`, `plugin_type`, `is_active`, `plugin_description`) VALUES ( 'tikiwiki', 'format', 'y', 'TikiWiki Syntax Format Parser' )" );
+				//$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."liberty_plugins` (`plugin_guid`, `plugin_type`, `is_active`, `plugin_description`) VALUES ( 'tikiwiki', 'format', 'y', 'TikiWiki Syntax Format Parser' )" );
 				// Creating 'root' user has id=1. phpBB starts with user_id=2, so this is a hack to keep things in sync
 				$rootUser = new BitPermUser();
 				$storeHash = array( 'real_name' => 'root', 'login' => 'root', 'password' => $_SESSION['password'], 'email' => 'root@localhost', 'pass_due' => FALSE, 'user_id' => ROOT_USER_ID );
