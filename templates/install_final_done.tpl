@@ -6,7 +6,7 @@
 		Your system is ready for use now.
 	</p>
 	<p>bitweaver features useful helpnotes throughout. However, should you require more help, you can always contact us by any of the means mentioned below.</p>
-	<p>Since we are still wroking hard on improving usability and stability of bitweaver, we haven't had time to translate bitweaver into various languages. If you are interested in helping us translate parts of bitweaver, please feel free to contact us.</p>
+	<p>Since we are still working hard on improving usability and stability of bitweaver, we haven't had time to translate bitweaver into various languages. If you are interested in helping us translate parts of bitweaver, please feel free to contact us.</p>
 	<p>If you want to find out more about existing packages and how to install them, you can find information at <a class="external" href="http://www.bitweaver.org/wiki/index.php?page=bitweaverFeatures">bitweaverFeatures</a>.</p>
 	<p>Best methods to get in contact with us:</p>
 	<ul>
