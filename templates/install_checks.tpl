@@ -119,7 +119,7 @@
 	{if $memory_warning}
 		<p class="warning">
 			{biticon ipackage=liberty iname=warning iexplain=warning}
-			Your memory limit settings are rather low. bitweaver requires at least 8MB memory to run, even having a limit of 8MB might cause undesired results. If you end up laoding blank pages, it might be the <strong>memory_limit</strong> setting in your <strong>php.ini</strong> file. if possible, please get your host to increase the limit to at least <strong>16MB</strong>.
+			Your memory limit settings are rather low. bitweaver requires at least 8MB memory to run, even having a limit of 8MB might cause undesired results. If you end up loading blank pages, it might be the <strong>memory_limit</strong> setting in your <strong>php.ini</strong> file. If possible, please get your host to increase the limit to at least <strong>16MB</strong>.
 		</p>
 	{/if}
 	{if $rec_warning}
