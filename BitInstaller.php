@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.22 2006/08/05 16:25:49 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.23 2006/08/23 08:29:29 jht001 Exp $
  * @package install
  */
 
@@ -150,11 +150,18 @@ class BitInstaller extends BitSystem {
 								foreach( $dd as $alter ) {
 									foreach( array_keys( $alter ) as $tableName ) {
 										$completeTableName = $tablePrefix.$tableName;
-										$sql = $dict->ChangeTableSQL( $completeTableName, $alter[$tableName] );
-										if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-										} else {
-											print '<dd><span class="error">Failed to alter '.$completeTableName.' -> '.$alter[$tableName].'</span>';
-											array_push( $failedcommands, $sql );
+										foreach( $alter[$tableName] as $from => $flds ) {
+											if (is_string($flds)) {
+												$sql = $dict->ChangeTableSQL( $completeTableName, $flds );
+											}
+											else {	
+												$sql = $dict->ChangeTableSQL( $completeTableName, array($flds) );
+											}
+											if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
+											} else {
+												print '<dd><span class="error">Failed to alter '.$completeTableName.' -> '.$alter[$tableName].'</span>';
+												array_push( $failedcommands, $sql );
+											}
 										}
 									}
 								}

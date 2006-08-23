@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.12 2006/07/04 15:30:45 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.13 2006/08/23 08:29:29 jht001 Exp $
  * @package install
  * @subpackage functions
  */
@@ -8,7 +8,7 @@
 /**
  * create_config
  */
-function create_config($gBitDbType,$gBitDbHost,$gBitDbUser,$gBitDbPassword,$gBitDbName,$bit_db_prefix="",$root_url_bit,$auto_bug_submit='FALSE') {
+function create_config($gBitDbType,$gBitDbHost,$gBitDbUser,$gBitDbPassword,$gBitDbName,$bit_db_prefix="",$root_url_bit,$auto_bug_submit='FALSE',$gBitDbCaseSensitivity) {
 	$config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
 	// We can't call clean_file_path here even though we would like to.
 	$config_file = (strpos($_SERVER["SERVER_SOFTWARE"],"IIS") ? str_replace( "/", "\\", $config_file) : $config_file);

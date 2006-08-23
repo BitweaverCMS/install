@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.14 2006/07/23 00:56:01 jht001 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.15 2006/08/23 08:29:29 jht001 Exp $
  * @package install
  * @subpackage functions
  */
@@ -76,7 +76,7 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 			$tmpHost = stripslashes($tmpHost);
 		}
 		require_once( 'create_config_inc.php' );
-		create_config($_REQUEST['db'], $tmpHost, $_REQUEST['user'], $_REQUEST['pass'], $_REQUEST['name'], $_REQUEST['prefix'], $_REQUEST['baseurl'], isset( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE' );
+		create_config($_REQUEST['db'], $tmpHost, $_REQUEST['user'], $_REQUEST['pass'], $_REQUEST['name'], $_REQUEST['prefix'], $_REQUEST['baseurl'], isset( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE', $_REQUEST['dbcase'] );
 		include( $config_file );
 	}
 }
