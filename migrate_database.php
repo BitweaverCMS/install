@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.4 2005/12/05 23:52:44 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.5 2006/08/25 18:16:54 squareing Exp $
  * @package install
  * @subpackage upgrade
  *
@@ -9,7 +9,7 @@
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: migrate_database.php,v 1.4 2005/12/05 23:52:44 squareing Exp $
+ * $Id: migrate_database.php,v 1.5 2006/08/25 18:16:54 squareing Exp $
  */
 
 /**
@@ -17,66 +17,12 @@
  */
 $gBitSmarty->assign( 'next_step', $step );
 require_once( 'install_inc.php' );
+require_once( "get_databases_inc.php" );
 
 // set the maximum execution time to very high
 ini_set( "max_execution_time", "86400" );
 
-// check what db servers are available and display them accordingly - only seems to work with *nix
-$dbtodsn = array();
-if( function_exists( 'mysql_connect' ) ) {
-	// check version of mysql server - only server that allows check without actually connecting to it... (who knows how that works)
-	if( @mysql_get_server_info() ) {
-		$dbtodsn['mysql'] = 'MySQL '.mysql_get_server_info();
-	} else {
-		$dbtodsn['mysql'] = 'MySQL 3.x';
-	}
-}
-if( function_exists( 'mysqli_connect' ) ) {
-	$dbtodsn['mysql'] = 'MySQLi 4.x';
-}
-if( function_exists( 'pg_connect' ) ) {
-	$dbtodsn['postgres'] = 'PostgreSQL 7.x';
-}
-if( function_exists( 'ocilogon' ) ) {
-	$dbtodsn['oci8'] = 'Oracle 8.i';
-}
-if( function_exists( 'sybase_connect' ) ) {
-	$dbtodsn['sybase'] = 'Sybase';
-}
-if( function_exists( 'mssql_connect' ) ) {
-	$dbtodsn['mssql'] = 'MS-SQL 8.0+';
-}
-if( function_exists( 'ibase_connect' ) ) {
-	$dbtodsn['firebird'] = 'Firebird 1.5+';
-	if ( empty($fbpath) ) {
-		if ( isWindows() )
-			$fbpath = 'c:\Program Files\Firebird\Firebird_1_5\bin\isql';
-		else
-			$fbpath = '/opt/firebird/bin/isql';
-	}
-	$gBitSmarty->assign( 'fbpath', $fbpath );
-	if ( empty($gBitDbName) ) $gBitDbName = 'bitweaver';
-}
-if( function_exists( 'sqlite_open' ) ) {
-	$dbtodsn['sqlite'] = 'SQLLite';
-}
-$gBitSmarty->assign_by_ref('dbservers', $dbtodsn);
-
-$gBitSmarty->assign( 'db_dst', $gBitDbType );
-$gBitSmarty->assign( 'host_dst', $gBitDbHost );
-$gBitSmarty->assign( 'user_dst', $gBitDbUser );
-$gBitSmarty->assign( 'pass_dst', $gBitDbPassword );
-$gBitSmarty->assign( 'name_dst', $gBitDbName );
-$gBitSmarty->assign( 'prefix_dst', BIT_DB_PREFIX );
-$gBitSmarty->assign( 'root_url_bit', $root_url_bit );
-if( defined( 'AUTO_BUG_SUBMIT' ) ) {
-	$gBitSmarty->assign( 'auto_bug_submit', AUTO_BUG_SUBMIT );
-}
-
-$gBitSmarty->assign( 'gBitDbPassword_input', $gBitDbPassword );
-$gBitSmarty->assign( 'gBitDbPassword_print', preg_replace( '/./','&bull;',$gBitDbPassword ) );
-
-if (isset($_REQUEST['db_src'])) {
+if( isset( $_REQUEST['db_src'] ) ) {
 	// source database settings
 	$gBitSmarty->assign( 'db_src', $_REQUEST['db_src'] );
 	$gBitSmarty->assign( 'host_src', $_REQUEST['host_src'] );
@@ -159,9 +105,9 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 	}
 
 	// list source tables list
-	//$tables_src = array($tables_src[2]);
-	//$tables_dst = getTables($gDb_dst);
-	//print_r($tables_src);die;
+	$tables_src = array($tables_src[2]);
+	$tables_dst = getTables($gDb_dst);
+	print_r($tables_src);die;
 
 	$table_schema = array();
 	// iterate through source tables
