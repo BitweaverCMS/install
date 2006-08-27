@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.12 2006/07/11 22:51:42 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.13 2006/08/27 07:59:37 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -155,12 +155,20 @@ function check_settings() {
 
 	// settings that are useful to know about
 	$php_ini_gets = array(
-		array( '<strong>Maximum post size</strong> will restrict the size of files when you upload a file using a form - recommended <strong>8M</strong>.','post_max_size' ),
-		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads - recommended <strong>8M</strong>.','upload_max_filesize' ),
-		array( '<strong>Maximum execution time</strong> is related to time outs in PHP - affects database upgrades and backups - recommended <strong>60</strong>.','max_execution_time' ),
+		array( '<strong>File Uploads</strong> specifies whether you are allowed to upload files<br />recommended <strong>On</strong>.','file_uploads' ),
+		array( '<strong>Maximum post size</strong> will restrict the size of files when you upload a file using a form<br />recommended <strong>8M</strong>.','post_max_size' ),
+		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads<br />recommended <strong>8M</strong>.','upload_max_filesize' ),
+		array( '<strong>Maximum execution time</strong> is related to time outs in PHP - affects database upgrades and backups<br />recommended <strong>60</strong>.','max_execution_time' ),
 	);
 	foreach( $php_ini_gets as $php_ini_get ) {
-		$show[] = $php_ini_get[0].'<br />This value is set to <strong>'.ini_get( $php_ini_get[1] ).'</strong>';
+		$value = ini_get( $php_ini_get[1] );
+		if( $value == 1 ) {
+			$value = "On";
+		} elseif( $value == 0 ) {
+			$value = "Off";
+		}
+
+		$show[$php_ini_get[1]] = $php_ini_get[0]."<br /><strong>{$php_ini_get[1]}</strong> is set to <strong>$value</strong>";
 	}
 
 	$res['required'] = $required;
