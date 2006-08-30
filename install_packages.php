@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.40 2006/08/05 17:59:20 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.41 2006/08/30 07:01:19 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -223,22 +223,23 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				$gBitThemes->storeLayout( $mod );
 			}
 
+			// Set the default format to get quicktags and content storing working
+			$plugin_file = LIBERTY_PKG_PATH.'plugins/format.tikiwiki.php';
+			if( is_readable( $plugin_file ) ) {
+				require_once( $plugin_file );
+				// manually set the config settings to avoid problems
+				$gBitSystem->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."kernel_config` ( `config_name`, `package`, `config_value` ) VALUES ( 'liberty_plugin_file_".PLUGIN_GUID_TIKIWIKI."', '$plugin_file', '".LIBERTY_PKG_NAME."' )" );
+				$gBitSystem->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."kernel_config` ( `config_name`, `package`, `config_value` ) VALUES ( 'liberty_plugin_status_".PLUGIN_GUID_TIKIWIKI."', 'y', '".LIBERTY_PKG_NAME."' )" );
+				// it appear default_format is already set.
+				$gBitSystem->storeConfig( 'default_format', PLUGIN_GUID_TIKIWIKI, LIBERTY_PKG_NAME );
+				// for some kerfunked reason this won't work. no idea why - xing
+				//$gBitSystem->storeConfig( 'liberty_plugin_file_'.PLUGIN_GUID_TIKIWIKI, $plugin_file, LIBERTY_PKG_NAME );
+				//$gBitSystem->storeConfig( 'liberty_plugin_status_'.PLUGIN_GUID_TIKIWIKI, 'y', LIBERTY_PKG_NAME );
+				//$gBitSystem->storeConfig( 'default_format', PLUGIN_GUID_TIKIWIKI, LIBERTY_PKG_NAME );
+			}
+
 			// Installing users has some special things to take care of here and needs a separate check.
 			if( in_array( 'users', $_REQUEST['packages'] ) ) {
-				// These hardcoded queries need to go in here to avoid constraint violations
-				//$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."liberty_plugins` (`plugin_guid`, `plugin_type`, `is_active`, `plugin_description`) VALUES ( 'tikiwiki', 'format', 'y', 'TikiWiki Syntax Format Parser' )" );
-
-				// Set the default format to get quicktags and content storing working
-				$plugin_file = LIBERTY_PKG_PATH.'plugins/format.tikiwiki.php';
-				if( is_file( $plugin_file ) ) {
-					require_once( $plugin_file );
-					//$gLibertySystem->setActivePlugins( array( PLUGIN_GUID_TIKIWIKI => 'y' ) );
-					// manually set the config settings to avoid problems
-					$gBitSystem->storeConfig( 'liberty_plugin_file_'.PLUGIN_GUID_TIKIWIKI, $plugin_file, LIBERTY_PKG_NAME );
-					$gBitSystem->storeConfig( 'liberty_plugin_status_'.PLUGIN_GUID_TIKIWIKI, 'y', LIBERTY_PKG_NAME );
-					$gBitSystem->storeConfig( 'default_format', PLUGIN_GUID_TIKIWIKI, LIBERTY_PKG_NAME );
-				}
-
 				// Creating 'root' user has id=1. phpBB starts with user_id=2, so this is a hack to keep things in sync
 				$rootUser = new BitPermUser();
 				$storeHash = array( 'real_name' => 'root', 'login' => 'root', 'password' => $_SESSION['password'], 'email' => 'root@localhost', 'pass_due' => FALSE, 'user_id' => ROOT_USER_ID );
