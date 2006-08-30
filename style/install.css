@@ -8,14 +8,14 @@ div#footer					{clear:both;width:100%}
 #container					{color:#000;}
 #content					{float:left; background:#fff; border:1px solid #2c4268; line-height:16px;}
 #navigation					{background:#fff; font-size:10px; border:1px solid #2c4268;}
-#extra						{background:#346; font-size:10px; border:1px solid #999; color:#ccc; margin:16px 0 0 0;}
+#extra						{background:#235; font-size:10px; border:1px solid #999; color:#ccc; margin:16px 0 0 0; opacity:0.8;}
 #footer						{background:#eee;}
 .progressbar				{padding:15px 5px; font-weight:bold;}
 .progressbar .bar			{border:1px solid #888; background:#457; margin:2px 0;}
 .progressbar .progress		{background:#c30; text-align: center;padding:5px 0; color:#fff;}
 
 /* global stuff */
-body						{background:#124; font-family:verdana, arial, helvetica, sans-serif; font-weight:normal; font-size:12px; margin:0px; padding:10px; vertical-align:middle; color:#fff;}
+body						{background:#124 url( images/bg.gif ) repeat; font-family:verdana, arial, helvetica, sans-serif; font-weight:normal; font-size:12px; margin:0px; padding:10px; vertical-align:middle; color:#fff;}
 table						{border-collapse:collapse; padding:0; margin:0; width:100%;}
 caption						{font-weight:bold; padding:5px 0 0 0;}
 th							{text-align:left; padding:3px 5px; background:#2c4268; border-bottom:2px solid #fff; color:#fff;}
