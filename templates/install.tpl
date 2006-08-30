@@ -23,8 +23,20 @@
 	<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/bitweaver.js"></script>
 </head>
 <body>
-	<div class="display install">
-		<div class="nav">
+	<div id="container">
+		<div id="header"> </div>
+
+		<div id="wrapper">
+			<div id="content">
+			<div class="bittop">
+				<h1>bitweaver <strong>{$smarty.const.BIT_MAJOR_VERSION}.{$smarty.const.BIT_MINOR_VERSION}.{$smarty.const.BIT_SUB_VERSION} {$smarty.const.BIT_LEVEL}</strong></h1>
+			</div>
+
+			{include file=$install_file}
+			</div>
+		</div>
+
+		<div id="navigation">
 			<ul>
 				<li class="title">
 					{$section|default:"Install"}ometer
@@ -66,25 +78,19 @@
 					Please don't use the browser back button.
 				</li>
 			</ul>
+		</div>
 
+		<div id="extra">
 			<div class="progressbar">
 				{$section|default:"Install"} Progress
-				<div style="border:1px solid #ccc;background:#eee;margin:2px 0;">
-					<div style="width:{$progress|default:0}%;background:#f30;text-align:center;padding:5px 0;color:#fff;">{$progress}%</div>
+				<div class="bar">
+					<div class="progress" style="width:{$progress|default:0}%;">{$progress}%</div>
 				</div>
 			</div>
-		</div> <!-- end .nav -->
+		</div>
 
-		<div class="body">
-			<div class="bittop">
-				<h1>bitweaver <strong>{$smarty.const.BIT_MAJOR_VERSION}.{$smarty.const.BIT_MINOR_VERSION}.{$smarty.const.BIT_SUB_VERSION} {$smarty.const.BIT_LEVEL}</strong></h1>
-			</div>
-
-			{include file=$install_file}
-		</div> <!-- end .body -->
-
-		<div class="clear"></div>
-	</div> <!-- end .install -->
+		<div id="footer"> </div>
+	</div>
 </body>
 </html>
 {/strip}
