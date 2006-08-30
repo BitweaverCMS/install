@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.9 2006/06/18 10:00:48 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.10 2006/08/30 11:14:16 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -75,7 +75,7 @@ if( $onlyDuringFirstInstall ) {
 	$install_file[$i++]['name'] = 'bitweaver Settings';
 	// only show db population page when we haven't just done an upgrade
 	if( !isset( $_SESSION['upgrade'] ) ) {
-		$install_file[$i]['file'] = 'data';
+		$install_file[$i]['file'] = 'datapump';
 		$install_file[$i++]['name'] = 'Database Population';
 	}
 }

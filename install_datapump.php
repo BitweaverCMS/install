@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/install_data.php,v 1.7 2006/03/01 20:16:12 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.1 2006/08/30 11:14:16 squareing Exp $
  * @package install
  * @subpackage functions
  */
