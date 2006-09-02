@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.41 2006/08/30 07:01:19 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.42 2006/09/02 15:33:15 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -28,12 +28,12 @@ $gBitSmarty->assign_by_ref( 'schema', $schema );
 // confirm that we have all the admin data in the session before proceeding
 if( !empty( $_REQUEST['packages'] ) && in_array( 'users', $_REQUEST['packages'] ) && ( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) ) {
 	// we have lost our session password and we are not installed
-	header( 'Location: install.php?step=1' );
+	header( 'Location: '.INSTALL_PKG_URL.'install.php?step=1' );
 	die;
 }
 
 if( !empty( $_REQUEST['cancel'] ) ) {
-	header( 'Location: install.php?step='.( $step + 1 ) );
+	header( 'Location: '.INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );
 } elseif( !empty( $_REQUEST['packages'] ) && is_array( $_REQUEST['packages'] ) && !empty( $_REQUEST['method'] ) && !empty( $_REQUEST['submit_packages'] ) ) {
 	// make sure that required pkgs are only present when we are installing
 	if( ( $method = ( $_REQUEST['method'] ) ) == 'install' && !$_SESSION['first_install'] ) {

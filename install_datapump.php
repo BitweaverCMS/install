@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.1 2006/08/30 11:14:16 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.2 2006/09/02 15:33:15 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -37,6 +37,6 @@ if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
 	$app = '_done';
 	$goto = $step + 1;
 	$gBitSmarty->assign( 'next_step',$goto );
-	header( "Location: install.php?step=$goto" );
+	header( "Location: ".INSTALL_PKG_URL."install.php?step=$goto" );
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.12 2006/03/01 20:16:12 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.13 2006/09/02 15:33:15 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -63,7 +63,7 @@ if( isset( $_REQUEST['fSubmitBitSettings'] ) ) {
 	$gBitSmarty->assign( 'next_step',$step + 1 );
 } elseif( isset( $_REQUEST['skip'] ) ) {
 	$goto = $step + 1;
-	header( "Location: install.php?step=$goto" );
+	header( "Location: ".INSTALL_PKG_URL."install.php?step=$goto" );
 }
 
 // get list of foreign packages that are ready to be installed
