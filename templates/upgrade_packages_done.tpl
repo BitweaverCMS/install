@@ -13,7 +13,7 @@
 		<div class="row">
 			<ul class="result">
 				<li class="success">
-					{biticon ipackage=liberty iname=success iexplain=success}
+					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 					All Database operations completed succesfully
 				</li>
 			</ul>

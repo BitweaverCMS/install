@@ -8,7 +8,7 @@
 {if $error}
 	{legend legend="Administrator Data Missing"}
 		<p class="error">
-			{biticon ipackage=liberty iname=error iexplain=error}
+			{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 			Unfortunately there seems to be a problem with your installation. We can't find the administrator information you entered.
 		</p>
 

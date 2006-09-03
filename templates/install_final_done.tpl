@@ -2,7 +2,7 @@
 
 {form action="`$smarty.const.BIT_ROOT_URL`index.php" legend="Installation has been completed sucessfully"}
 	<p class="success">
-		{biticon ipackage=liberty iname=success iexplain=success}
+		{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 		Your system is ready for use now.
 	</p>
 	<p>bitweaver features useful helpnotes throughout. However, should you require more help, you can always contact us by any of the means mentioned below.</p>

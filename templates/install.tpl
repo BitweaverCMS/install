@@ -59,21 +59,21 @@
 					{biticon ipackage=liberty iname=spacer iexplain=spacer iforce=icon}
 				</li>
 				<li class="help">
-					{biticon ipackage=liberty iname=help iexplain=help iforce=icon}&nbsp;
+					{biticon ipackage="icons" iname="help-contents" iexplain=help iforce=icon}&nbsp;
 					<a class="external" href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc">{$section|default:"Install"} Help</a>
 				</li>
 				<li class="help">
-					{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
+					{biticon ipackage="icons" iname="view-refresh" iexplain=restart iforce=icon}&nbsp;
 					<a href="{$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step=0">Start over</a>
 				</li>
 				{if $section}
 					<li class="help">
-						{biticon ipackage=liberty iname=refresh iexplain=restart iforce=icon}&nbsp;
+						{biticon ipackage="icons" iname="view-refresh" iexplain=restart iforce=icon}&nbsp;
 						<a href="{$smarty.const.INSTALL_PKG_URL}install.php?step=2">Return to Installer</a>
 					</li>
 				{/if}
 				<li class="warning" style="text-align:center;">
-					{biticon ipackage=liberty iname=warning iexplain=warning iforce=icon}
+					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning iforce=icon}
 					<br />
 					Please don't use the browser back button.
 				</li>

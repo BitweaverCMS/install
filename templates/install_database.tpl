@@ -8,13 +8,13 @@
 		{if $warning or $error or $success}
 			{if $warning}
 				<p class="warning">
-					{biticon ipackage=liberty iname=warning iexplain=warning}
+					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
 					We have already set up a working connection with your db. Change these settings at your own peril.
 				</p>
 			{elseif $error}
 				<div class="error">
 					<p>
-						{biticon ipackage=liberty iname=error iexplain=error}
+						{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 						Database connection could not be established.
 					</p>
 

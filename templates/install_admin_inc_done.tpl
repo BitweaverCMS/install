@@ -10,13 +10,13 @@
 			{if $warning}
 				{foreach from=$warning item=warn}
 					<li class="warning">
-						{biticon ipackage=liberty iname=warning iexplain=warning}
+						{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
 						{$warn}
 					</li>
 				{/foreach}
 			{else}
 				<li class="success">
-					{biticon ipackage=liberty iname=success iexplain=success}
+					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 					Administrator configured successfully
 				</li>
 			{/if}

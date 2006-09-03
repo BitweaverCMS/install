@@ -6,7 +6,7 @@
 	<div class="row">
 		<ul class="result">
 			<li class="success">
-				{biticon ipackage=liberty iname=success iexplain=success}
+				{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 				All setting have been stored successfully
 			</li>
 		</ul>

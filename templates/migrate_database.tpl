@@ -10,7 +10,7 @@
 					{if $error_src}
 						<ul class="result">
 							<li class="error">
-								{biticon ipackage=liberty iname=error iexplain=error}
+								{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 								Database connection could not be established.
 								<ul>
 									<li>Perhaps your database is not available</li>
@@ -122,7 +122,7 @@
 				<div class="row">
 					{if $error_dst}
 						<li class="error">
-							{biticon ipackage=liberty iname=error iexplain=error}
+							{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 							Database connection could not be established.
 							<ul>
 								<li>Perhaps your database is not available</li>

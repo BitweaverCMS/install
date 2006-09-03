@@ -4,7 +4,7 @@
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p class="success">
-		{biticon ipackage=liberty iname=success iexplain=success}
+		{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 		bitweaver was successfully updated
 	</p>
 

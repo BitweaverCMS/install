@@ -12,7 +12,7 @@
 		<ul class="result">
 			{if $error}
 				<li class="error">
-					{biticon ipackage=liberty iname=error iexplain=error}
+					{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 					{$error}
 				</li>
 			{/if}

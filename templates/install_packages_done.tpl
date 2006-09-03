@@ -8,7 +8,7 @@
 			<div class="row">
 				<ul class="result">
 					<li class="error">
-						{biticon ipackage=liberty iname=error iexplain=success}
+						{biticon ipackage="icons" iname="dialog-error" iexplain=success}
 						There was a problem during the installation
 					</li>
 					<li>
@@ -21,7 +21,7 @@
 		{if $failedcommands}
 			<div class="row">
 				<h2 class="warning">
-					{biticon ipackage=liberty iname=error iexplain=success}
+					{biticon ipackage="icons" iname="dialog-error" iexplain=success}
 					The following database operations failed
 				</h2>
 				<textarea rows="20" cols="50">{section loop=$failedcommands name=ix}{$failedcommands[ix]}{/section}</textarea>
@@ -32,7 +32,7 @@
 		<div class="row">
 			<ul class="result">
 				<li class="success">
-					{biticon ipackage=liberty iname=success iexplain=success}
+					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 					All Database operations completed succesfully
 				</li>
 			</ul>
@@ -42,7 +42,7 @@
 			<div class="row">
 				<ul class="result">
 					<li class="warning">
-						{biticon ipackage=liberty iname=warning iexplain=warning}
+						{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
 						You have just successfully installed new packages. During installation, new permissions were probably added to the database, but not assigned to any groups. You can use the <strong><a href="{$smarty.const.USERS_PKG_URL}admin/unassigned_perms.php">Unassigned Permissions</a></strong> page to assign these permissions quickly and easily.
 					</li>
 				</ul>
