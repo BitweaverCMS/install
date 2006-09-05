@@ -57,9 +57,13 @@ textarea					{width:100%;}
 .formfeedback				{}
 .formfeedback div			{padding:4px; border-bottom:1px dotted #aaa;}
 
+.dialog-error,
 .error						{background:#fdd;}
+.dialog-warning,
 .warning					{background:#fed;}
+.dialog-ok,
 .success					{background:#def;}
+.media-playback-start,
 .current					{background:#ffc;}
 .help						{background:#eee;}
 div.warning,

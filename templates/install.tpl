@@ -44,12 +44,12 @@
 
 				{foreach from=$menu_steps item=step key=key}
 					<li class="{$step.state}">
-						{biticon ipackage=liberty iname=`$step.state` iexplain=`$step.state` iforce=icon}&nbsp;
-						{if $step.state ne 'spacer'}
+						{biticon ipackage=icons iname=`$step.icon` iexplain=`$step.state` iforce=icon}&nbsp;
+						{if $step.state ne 'uncompleted'}
 							<a href="{$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step={$key}">
 						{/if}
-							{$step.name}
-						{if $step.state ne 'spacer'}
+						{$step.name}
+						{if $step.state ne 'uncompleted'}
 							</a>
 						{/if}
 					</li>

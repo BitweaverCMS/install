@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.15 2006/08/23 08:29:29 jht001 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.16 2006/09/05 08:13:11 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -18,26 +18,33 @@ function set_menu( $pInstallFiles, $pStep ) {
 	// here we set up the menu
 	for( $done = 0; $done < $pStep; $done++ ) {
 		$pInstallFiles[$done]['state'] = 'success';
+		$pInstallFiles[$done]['icon'] = 'dialog-ok';
 	}
 
 	// if the page is done, we can display the menu item as done and increase the progress bar
 	if( $failedcommands || !empty( $error ) ) {
 		$pInstallFiles[$pStep]['state'] = 'error';
+		$pInstallFiles[$pStep]['icon'] = 'dialog-error';
 	} elseif( !empty( $warning ) ) {
 		$pInstallFiles[$pStep]['state'] = 'warning';
+		$pInstallFiles[$pStep]['icon'] = 'dialog-warning';
 	} elseif( $app == "_done" ) {
 		$pInstallFiles[$pStep]['state'] = 'success';
+		$pInstallFiles[$pStep]['icon'] = 'dialog-ok';
 		$done++;
 	} else {
 		$pInstallFiles[$pStep]['state'] = 'current';
+		$pInstallFiles[$pStep]['icon'] = 'media-playback-start';
 	}
 
 	foreach( $pInstallFiles as $key => $menu_step ) {
 		if( !isset( $menu_step['state'] ) ) {
 			if( !empty( $gBitDbType ) && $gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
 				$pInstallFiles[$key]['state'] = 'success';
+				$pInstallFiles[$key]['icon'] = 'dialog-ok';
 			} else {
-				$pInstallFiles[$key]['state'] = 'spacer';
+				$pInstallFiles[$key]['state'] = 'uncompleted';
+				$pInstallFiles[$key]['icon'] = 'spacer';
 			}
 		}
 	}
