@@ -25,10 +25,8 @@
 
 				{* include required packages during first install *}
 				{foreach from=$schema key=package item=item}
-					{if $item.tables || $item.defaults}
-						{if $item.required && !$item.installed}
-							<input type="hidden" name="packages[]" value="{$package}" />
-						{/if}
+					{if $item.required && !$item.installed}
+						<input type="hidden" name="packages[]" value="{$package}" />
 					{/if}
 				{/foreach}
 
@@ -50,20 +48,18 @@
 				<p>Packages are the parts of bitweaver that deal with content such as wiki pages, blogs or news articles.</p>
 
 				{foreach from=$schema key=package item=item}
-					{if $item.tables || $item.defaults}
-						{if !$item.installed and !$item.required and !$item.service}
-							<div class="row">
-								<div class="formlabel">
-									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
-								</div>
-								{forminput}
-									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
-									{formhelp note=`$item.info`}
-									{formhelp note="<strong>Location</strong>: `$item.url`"}
-									{formhelp package=$package}
-								{/forminput}
+					{if !$item.installed and !$item.required and !$item.service}
+						<div class="row">
+							<div class="formlabel">
+								<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 							</div>
-						{/if}
+							{forminput}
+								<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
+								{formhelp note=`$item.info`}
+								{formhelp note="<strong>Location</strong>: `$item.url`"}
+								{formhelp package=$package}
+							{/forminput}
+						</div>
 					{/if}
 				{/foreach}
 
@@ -72,20 +68,18 @@
 				<p>Services are special packages and can be considered extensions to the way content is handled. An extension might allow you to protect, categorise or rate your content.</p>
 
 				{foreach from=$schema key=package item=item}
-					{if $item.tables || $item.defaults}
-						{if !$item.installed and !$item.required and $item.service}
-							<div class="row">
-								<div class="formlabel">
-									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
-								</div>
-								{forminput}
-									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
-									{formhelp note=`$item.info`}
-									{formhelp note="<strong>Location</strong>: `$item.url`"}
-									{formhelp package=$package}
-								{/forminput}
+					{if !$item.installed and !$item.required and $item.service}
+						<div class="row">
+							<div class="formlabel">
+								<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 							</div>
-						{/if}
+							{forminput}
+								<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
+								{formhelp note=`$item.info`}
+								{formhelp note="<strong>Location</strong>: `$item.url`"}
+								{formhelp package=$package}
+							{/forminput}
+						</div>
 					{/if}
 				{/foreach}
 
@@ -171,20 +165,18 @@
 				{/if}
 
 				{foreach from=$schema key=package item=item}
-					{if $item.tables || $item.defaults}
-						{if $item.required}
-							<div class="row">
-								<div class="formlabel">
-									{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}
-								</div>
-								{forminput}
-									<strong>{$package|capitalize}</strong>
-									{formhelp note=`$item.info`}
-									{formhelp note="<strong>Location</strong>: `$item.url`"}
-									{formhelp package=$package}
-								{/forminput}
+					{if $item.required}
+						<div class="row">
+							<div class="formlabel">
+								{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}
 							</div>
-						{/if}
+							{forminput}
+								<strong>{$package|capitalize}</strong>
+								{formhelp note=`$item.info`}
+								{formhelp note="<strong>Location</strong>: `$item.url`"}
+								{formhelp package=$package}
+							{/forminput}
+						</div>
 					{/if}
 				{/foreach}
 			{/legend}
