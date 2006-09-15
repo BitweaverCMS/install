@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.42 2006/09/02 15:33:15 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.43 2006/09/15 21:43:14 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -286,9 +286,36 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		}
 
 		$gBitSmarty->assign( 'next_step', $step + 1 );
+
+		// display list of installed packages
 		asort( $packageList );
 		$gBitSmarty->assign( 'packageList', $packageList );
-		$gBitSmarty->assign( 'failedcommands', !empty( $failedcommands ) ? $failedcommands : NULL );
+
+		// enter some log information to say we've initialised the system
+		if( empty( $failedcommands ) ) {
+			$logHash['action_log'] = array(
+				'user_id' => ROOT_USER_ID,
+				'title' => 'System Installation',
+				'log_message' => 'Packages were installed and bitweaver is ready for use.',
+				// error message can't be blank if called statically
+				// if called statically, $this->mErrors is checked when this is empty
+				'error_message' => ' ',
+			);
+
+			if( empty( $_SESSION['first_install'] ) ) {
+				$list = '';
+				foreach( $packageList as $method ) {
+					$list .= implode( ", ", $method );
+				}
+				$logHash['action_log']['title'] = "Package installation";
+				$logHash['action_log']['log_message'] = "The following package(s) were installed: $list";
+			}
+
+			LibertyContent::storeActionLog( $logHash );
+		} else {
+			$gBitSmarty->assign( 'failedcommands', !empty( $failedcommands ) ? $failedcommands : NULL );
+		}
+
 		// display the confirmation page
 		$app = '_done';
 	} else {
