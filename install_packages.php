@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.43 2006/09/15 21:43:14 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.44 2006/09/20 11:52:11 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -297,9 +297,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				'user_id' => ROOT_USER_ID,
 				'title' => 'System Installation',
 				'log_message' => 'Packages were installed and bitweaver is ready for use.',
-				// error message can't be blank if called statically
-				// if called statically, $this->mErrors is checked when this is empty
-				'error_message' => ' ',
 			);
 
 			if( empty( $_SESSION['first_install'] ) ) {
@@ -309,6 +306,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 				$logHash['action_log']['title'] = "Package installation";
 				$logHash['action_log']['log_message'] = "The following package(s) were installed: $list";
+			} else {
+				$gBitSystem->setConfig( 'liberty_action_log', 'y' );
 			}
 
 			LibertyContent::storeActionLog( $logHash );
