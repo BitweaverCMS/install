@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.13 2006/08/23 08:29:29 jht001 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.14 2006/09/21 07:59:39 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -8,27 +8,53 @@
 /**
  * create_config
  */
-function create_config($gBitDbType,$gBitDbHost,$gBitDbUser,$gBitDbPassword,$gBitDbName,$bit_db_prefix="",$root_url_bit,$auto_bug_submit='FALSE',$gBitDbCaseSensitivity) {
-	$config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
-	// We can't call clean_file_path here even though we would like to.
-	$config_file = (strpos($_SERVER["SERVER_SOFTWARE"],"IIS") ? str_replace( "/", "\\", $config_file) : $config_file);
 
-	$gBitDbType=addslashes($gBitDbType);
-	$gBitDbHost=addslashes($gBitDbHost);
-	$gBitDbUser=addslashes($gBitDbUser);
-	$gBitDbPassword=addslashes($gBitDbPassword);
-	$gBitDbName=addslashes($gBitDbName);
-	$bit_db_prefix=addslashes($bit_db_prefix);
+/**
+ * create configuration file
+ * 
+ * @param string  $pParamHash['gBitDbType'] 
+ * @param string  $pParamHash['gBitDbHost'] 
+ * @param string  $pParamHash['gBitDbUser'] 
+ * @param string  $pParamHash['gBitDbPassword'] 
+ * @param string  $pParamHash['gBitDbName'] 
+ * @param numeric $pParamHash['gBitDbCaseSensitivity'] 
+ * @param string  $pParamHash['bit_db_prefix'] 
+ * @param string  $pParamHash['bit_root_url'] 
+ * @param boolean $pParamHash['auto_bug_submit'] 
+ * @param boolean $pParamHash['is_live'] 
+ * @access public
+ * @return void
+ */
+function create_config( $pParamHash ) {
+	// assign values to their keys
+	extract( $pParamHash );
 
-  	if( preg_match( '/\./', $bit_db_prefix ) ) {
+	// defaults
+	$bit_db_prefix   = empty( $bit_db_prefix )   ? "" : $bit_db_prefix;
+	$auto_bug_submit = empty( $auto_bug_submit ) ? 'FALSE' : 'TRUE';
+	$is_live         = empty( $is_live )         ? 'FALSE' : 'TRUE';
+
+	$gBitDbType     = addslashes( $gBitDbType );
+	$gBitDbHost     = addslashes( $gBitDbHost );
+	$gBitDbUser     = addslashes( $gBitDbUser );
+	$gBitDbPassword = addslashes( $gBitDbPassword );
+	$gBitDbName     = addslashes( $gBitDbName );
+	$bit_db_prefix  = addslashes( $bit_db_prefix );
+
+	if( preg_match( '/\./', $bit_db_prefix ) ) {
 		if( $gBitDbType == 'mysql' ) {
-			$bit_db_prefix=preg_replace( '/[`.]/', '', $bit_db_prefix );
+			$bit_db_prefix = preg_replace( '/[`.]/', '', $bit_db_prefix );
 		} elseif( !preg_match( '/`\.`/', $bit_db_prefix ) ) {
-			$bit_db_prefix=preg_replace( '/\./', '`.`', $bit_db_prefix );
+			$bit_db_prefix = preg_replace( '/\./', '`.`', $bit_db_prefix );
 		}
 	}
 
-	$fw = fopen($config_file, 'w' );
+	$config_file = empty( $_SERVER['CONFIG_INC'] ) ? '../kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
+
+	// We can't call clean_file_path here even though we would like to.
+	$config_file = ( strpos( $_SERVER["SERVER_SOFTWARE"],"IIS" ) ? str_replace( "/", "\\", $config_file ) : $config_file );
+
+	$fw = fopen( $config_file, 'w' );
 	if( isset( $fw ) ) {
 		$filetowrite="<?php
 // Copyright (c) 2006, bitweaver.org
@@ -50,7 +76,7 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 \$gBitDbSystem = \"adodb\";
 
 
-// bitweaver can store its data in multiple different back ends. Currently we
+// bitweaver can store its data in multiple different back-ends. Currently we
 // support MySQL, MSSQL, Firebird, Sybase, PostgreSQL and Oracle.  Enter the
 // hostname where your database lives, and the username and password you use to
 // connect to it.
@@ -107,7 +133,7 @@ define( 'BIT_DB_PREFIX', '$bit_db_prefix' );
 // nasty error pages from appearing and will redirect the user to a 'nicer' error
 // page. Errors should still show up in your error logs. Please use these when
 // submitting bugs to http://sourceforge.net/tracker/?group_id=141358&atid=749176
-define( 'IS_LIVE', FALSE );
+define( 'IS_LIVE', $is_live );
 
 
 // if you set AUTO_BUG_SUBMIT to TRUE bitweaver will automatically email the team
@@ -120,7 +146,7 @@ define( 'AUTO_BUG_SUBMIT', $auto_bug_submit );
 // This is the path from the server root to your bitweaver location.  i.e. if you
 // access bitweaver as 'http://MyServer.com/applications/new/wiki/index.php' you
 // should enter '/applications/new/'
-define( 'BIT_ROOT_URL', '$root_url_bit' );
+define( 'BIT_ROOT_URL', '$bit_root_url' );
 
 
 // This allows you to set a custom path to your PHP tmp directory - used for ADODB
@@ -166,10 +192,10 @@ define( 'BIT_ROOT_URL', '$root_url_bit' );
 //define( 'DB_PERFORMANCE_STATS', TRUE );
 
 ?>";
-        fwrite( $fw, $filetowrite );
+		fwrite( $fw, $filetowrite );
 		fclose( $fw );
 	} else {
-		print "UNABLE TO WRITE TO ".realpath($config_file);
+		print "UNABLE TO WRITE TO ".realpath( $config_file );
 	}
 }
 

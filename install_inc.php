@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.16 2006/09/05 08:13:11 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.17 2006/09/21 07:59:39 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -69,7 +69,7 @@ $config_file = empty($_SERVER['CONFIG_INC']) ? '../kernel/config_inc.php' : $_SE
 $config_file = (strpos($_SERVER["SERVER_SOFTWARE"],"IIS") ? str_replace( "/", "\\", $config_file) : $config_file);
 
 // DO THIS FIRST! Before we include any kernel stuff to avoid duplicate defines
-if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
+if( isset( $_REQUEST['submit_db_info'] ) ) {
 	if ( $_REQUEST['db'] == "firebird" && empty( $gBitDbName ) ) {
 		{
 			//	Should only be called when creating the datatabse
@@ -83,7 +83,19 @@ if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
 			$tmpHost = stripslashes($tmpHost);
 		}
 		require_once( 'create_config_inc.php' );
-		create_config($_REQUEST['db'], $tmpHost, $_REQUEST['user'], $_REQUEST['pass'], $_REQUEST['name'], $_REQUEST['prefix'], $_REQUEST['baseurl'], isset( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE', $_REQUEST['dbcase'] );
+		$createHash = array(
+			"gBitDbType"            => $_REQUEST['db'],
+			"gBitDbHost"            => $tmpHost,
+			"gBitDbUser"            => $_REQUEST['user'],
+			"gBitDbPassword"        => $_REQUEST['pass'],
+			"gBitDbName"            => $_REQUEST['name'],
+			"gBitDbCaseSensitivity" => $_REQUEST['dbcase'],
+			"bit_db_prefix"         => $_REQUEST['prefix'],
+			"bit_root_url"          => $_REQUEST['baseurl'],
+			"auto_bug_submit"       => isset( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE',
+			"is_live"               => isset( $_REQUEST['is_live'] ) ? 'TRUE' : 'FALSE',
+		);
+		create_config( $createHash );
 		include( $config_file );
 	}
 }
@@ -137,9 +149,9 @@ if (empty($_SERVER['PHP_SELF']))
 	$_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_URL'];
 
 if( empty( $_REQUEST['baseurl'] ) ) {
-	$root_url_bit = substr( $_SERVER['PHP_SELF'], 0, strpos( $_SERVER['PHP_SELF'], 'install/' ) );
+	$bit_root_url = substr( $_SERVER['PHP_SELF'], 0, strpos( $_SERVER['PHP_SELF'], 'install/' ) );
 } else {
-	$root_url_bit = BIT_ROOT_URL;
+	$bit_root_url = BIT_ROOT_URL;
 }
 
 $errors = '';

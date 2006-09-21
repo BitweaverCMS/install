@@ -50,7 +50,7 @@ $gBitSmarty->assign( 'gBitDbPassword', $gBitDbPassword );
 $gBitSmarty->assign( 'gBitDbName', $gBitDbName );
 $gBitSmarty->assign( 'gBitDbCaseSensitivity', $gBitDbCaseSensitivity );
 $gBitSmarty->assign( 'db_prefix_bit', BIT_DB_PREFIX );
-$gBitSmarty->assign( 'root_url_bit', $root_url_bit );
+$gBitSmarty->assign( 'bit_root_url', $bit_root_url );
 if( defined( 'AUTO_BUG_SUBMIT' ) ) {
 	$gBitSmarty->assign( 'auto_bug_submit', AUTO_BUG_SUBMIT );
 }

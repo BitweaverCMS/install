@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.15 2006/08/25 18:16:54 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.16 2006/09/21 07:59:39 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -15,7 +15,7 @@ $gBitSmarty->assign( 'next_step',$step );
 require_once( "get_databases_inc.php" );
 
 // next block checks if there is a config_inc.php and if we can connect through this.
-if( isset( $_REQUEST['fSubmitDbInfo'] ) ) {
+if( isset( $_REQUEST['submit_db_info'] ) ) {
 	if( $gBitDbType == 'sybase' ) {
 		// avoid database change messages
 		ini_set('sybct.min_server_severity', '11');

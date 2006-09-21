@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.5 2006/08/25 18:16:54 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.6 2006/09/21 07:59:39 squareing Exp $
  * @package install
  * @subpackage upgrade
  *
@@ -9,7 +9,7 @@
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: migrate_database.php,v 1.5 2006/08/25 18:16:54 squareing Exp $
+ * $Id: migrate_database.php,v 1.6 2006/09/21 07:59:39 squareing Exp $
  */
 
 /**
@@ -94,7 +94,19 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 	}
 
 	require_once( 'create_config_inc.php' );
-	create_config($_REQUEST['db_dst'], $_REQUEST['host_dst'], $_REQUEST['user_dst'], $_REQUEST['pass_dst'], $_REQUEST['name_dst'], $_REQUEST['prefix_dst'], $_REQUEST['baseurl'], isset( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE' );
+	$createHash = array(
+		"gBitDbType"            => $_REQUEST['db_dst'],
+		"gBitDbHost"            => $tmpHost,
+		"gBitDbUser"            => $_REQUEST['user_dst'],
+		"gBitDbPassword"        => $_REQUEST['pass_dst'],
+		"gBitDbName"            => $_REQUEST['name_dst'],
+		//"gBitDbCaseSensitivity" => $_REQUEST['dbcase'],
+		"bit_db_prefix"         => $_REQUEST['prefix_dst'],
+		"bit_root_url"          => $_REQUEST['baseurl'],
+		"auto_bug_submit"       => isset( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE',
+		"is_live"               => isset( $_REQUEST['is_live'] ) ? 'TRUE' : 'FALSE',
+	);
+	create_config( $createHash );
 
 	// init db connections
 	//vd($gDb_src);

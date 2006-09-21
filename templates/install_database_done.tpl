@@ -64,7 +64,7 @@
 	<div class="row">
 		{formlabel label="Site Base Url"}
 		{forminput}
-			{$root_url_bit}
+			{$bit_root_url}
 		{/forminput}
 	</div>
 

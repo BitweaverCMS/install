@@ -230,7 +230,7 @@
 				<div class="row">
 					{formlabel label="Site Base Url" for="baseurl"}
 					{forminput}
-						<input type="text" size="25" name="baseurl" id="baseurl" value="{$root_url_bit}" />
+						<input type="text" size="25" name="baseurl" id="baseurl" value="{$bit_root_url}" />
 						{formhelp note="This is the path from the server root to your bitweaver location.<br />
 							i.e. if you access bitweaver as 'http://MyServer.com/applications/new/wiki/index.php' you should enter '/applications/new/'"}
 					{/forminput}

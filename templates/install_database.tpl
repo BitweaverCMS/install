@@ -136,7 +136,7 @@
 	<div class="row">
 		{formlabel label="Site Base Url" for="baseurl"}
 		{forminput}
-			<input type="text" size="25" name="baseurl" id="baseurl" value="{$root_url_bit}" />
+			<input type="text" size="25" name="baseurl" id="baseurl" value="{$bit_root_url}" />
 			{formhelp note="This is the path from the server root to your bitweaver location.<br />
 				i.e. if you access bitweaver as 'http://MyServer.com/applications/new/wiki/index.php' you should enter '/applications/new/'"}
 		{/forminput}
@@ -150,9 +150,17 @@
 		{/forminput}
 	</div>
 
+	<div class="row">
+		{formlabel label="Site is Live" for="is_live"}
+		{forminput}
+			<input type="checkbox" name="is_live" id="is_live" />
+			{formhelp note="Checking this will make debugging quite difficult as it will hide errors. Please only check this if your site is being used in a live environment right after installation."}
+		{/forminput}
+	</div>
+
 	<div class="row submit">
 		<input type="hidden" name="dbcase" value="{$gBitDbCaseSensitivity}" />
 		<input type="hidden" name="resetdb" value="{$resetdb}" />
-		<input type="submit" value="Confirm Settings" name="fSubmitDbInfo" />
+		<input type="submit" value="Confirm Settings" name="submit_db_info" />
 	</div>
 {/form}
