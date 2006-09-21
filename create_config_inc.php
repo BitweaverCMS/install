@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.14 2006/09/21 07:59:39 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.15 2006/09/21 22:13:53 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -29,10 +29,7 @@ function create_config( $pParamHash ) {
 	// assign values to their keys
 	extract( $pParamHash );
 
-	// defaults
-	$bit_db_prefix   = empty( $bit_db_prefix )   ? "" : $bit_db_prefix;
-	$auto_bug_submit = empty( $auto_bug_submit ) ? 'FALSE' : 'TRUE';
-	$is_live         = empty( $is_live )         ? 'FALSE' : 'TRUE';
+	$bit_db_prefix  = empty( $bit_db_prefix ) ? "" : $bit_db_prefix;
 
 	$gBitDbType     = addslashes( $gBitDbType );
 	$gBitDbHost     = addslashes( $gBitDbHost );

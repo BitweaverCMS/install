@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.17 2006/09/21 07:59:39 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.18 2006/09/21 22:13:53 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -83,6 +83,7 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 			$tmpHost = stripslashes($tmpHost);
 		}
 		require_once( 'create_config_inc.php' );
+		var_dump($_REQUEST);
 		$createHash = array(
 			"gBitDbType"            => $_REQUEST['db'],
 			"gBitDbHost"            => $tmpHost,
@@ -92,8 +93,8 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 			"gBitDbCaseSensitivity" => $_REQUEST['dbcase'],
 			"bit_db_prefix"         => $_REQUEST['prefix'],
 			"bit_root_url"          => $_REQUEST['baseurl'],
-			"auto_bug_submit"       => isset( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE',
-			"is_live"               => isset( $_REQUEST['is_live'] ) ? 'TRUE' : 'FALSE',
+			"auto_bug_submit"       => !empty( $_REQUEST['auto_bug_submit'] ) ? 'TRUE' : 'FALSE',
+			"is_live"               => !empty( $_REQUEST['is_live'] ) ? 'TRUE' : 'FALSE',
 		);
 		create_config( $createHash );
 		include( $config_file );
