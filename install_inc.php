@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.18 2006/09/21 22:13:53 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.19 2006/09/21 22:15:40 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -83,7 +83,6 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 			$tmpHost = stripslashes($tmpHost);
 		}
 		require_once( 'create_config_inc.php' );
-		var_dump($_REQUEST);
 		$createHash = array(
 			"gBitDbType"            => $_REQUEST['db'],
 			"gBitDbHost"            => $tmpHost,
