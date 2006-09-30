@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.44 2006/09/20 11:52:11 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.45 2006/09/30 11:45:50 jht001 Exp $
  * @package install
  * @subpackage functions
  */
@@ -155,9 +155,10 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] ) ) {
 				if( $method == 'install' || $method == 'reinstall' ) {
-					$gBitSystem->storeConfig( 'package_'.strtolower( $package ), 'y', $package );
-					$gBitInstaller->mPackages[strtolower( $package )]['installed'] = TRUE;
-					$gBitInstaller->mPackages[strtolower( $package )]['active_switch'] = TRUE;
+					$gBitSystem->storeConfig( 'package_'. $package , 'y', $package );
+					$gBitSystem->storeConfig( 'packagedir_'. $package , $gBitInstaller->mPackages[ $package ][ 'dir' ], $package );
+					$gBitInstaller->mPackages[ $package ]['installed'] = TRUE;
+					$gBitInstaller->mPackages[ $package ]['active_switch'] = TRUE;
 					// we'll default wiki to the home page
 					if( defined( 'WIKI_PKG_NAME' ) && $package == WIKI_PKG_NAME ) {
 						$gBitSystem->storeConfig( "bit_index", WIKI_PKG_NAME, WIKI_PKG_NAME );
