@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.10 2006/08/30 11:14:16 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.11 2006/10/11 03:41:04 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -84,7 +84,7 @@ $install_file[$i]['name'] = 'Installation Complete';
 //don't increment last $i since it's used later on
 
 // if we have to log in, call login template and die
-if( !empty( $gBitDbType ) && $gBitInstaller->isPackageActive( 'users' ) && !$gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
+if( !empty( $gBitDbType ) && !empty( $gBitInstaller->mPackages['users']['installed'] ) && !$gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
 	$install_file = 'login';
 	$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file.".tpl" );
 	$gBitSmarty->display( INSTALL_PKG_PATH.'templates/install.tpl' );
