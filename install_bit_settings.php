@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.13 2006/09/02 15:33:15 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.14 2006/10/13 12:43:39 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -9,9 +9,14 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-// assign next step in installation process
+/**
+ * assign next step in installation process
+ */ 
 $gBitSmarty->assign( 'next_step',$step );
 
+/**
+ * simple_set_value
+ */
 function simple_set_value( $package, $feature ) {
 	global $_REQUEST, $gBitSystem, $gBitSmarty;
 	if( isset( $_REQUEST[$feature] ) ) {

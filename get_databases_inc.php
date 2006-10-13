@@ -1,5 +1,11 @@
 <?php
-// check what db servers are available and display them accordingly - only seems to work with *nix
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.3 2006/10/13 12:43:39 lsces Exp $
+ * @package install
+ * @subpackage functions
+ *
+ * check what db servers are available and display them accordingly - only seems to work with *nix
+ */
 $dbtodsn = array();
 if( function_exists( 'mysql_connect' ) ) {
 	// check version of mysql server - only server that allows check without actually connecting to it... (who knows how that works)

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.16 2006/09/21 07:59:39 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.17 2006/10/13 12:43:39 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -9,7 +9,9 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-// assign next step in installation process
+/**
+ * assign next step in installation process
+ */ 
 $gBitSmarty->assign( 'next_step',$step );
 
 require_once( "get_databases_inc.php" );
