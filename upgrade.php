@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.5 2006/05/06 22:01:53 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.6 2006/11/10 20:55:29 spiderr Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -20,6 +20,8 @@ $app = '';
 // work out where in the installation process we are
 if( !isset( $_REQUEST['step'] ) ) {
 	$_REQUEST['step'] = 0;
+} elseif( $_REQUEST['step'] == '0' ) {
+	$_SESSION['upgrade_r1'] = NULL;
 }
 $step = $_REQUEST['step'];
 
