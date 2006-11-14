@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.4 2006/11/09 17:51:48 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.5 2006/11/14 16:44:53 squareing Exp $
  * @package install
  * @subpackage functions
  *
@@ -16,7 +16,7 @@ if( function_exists( 'mysql_connect' ) ) {
 	}
 }
 if( function_exists( 'mysqli_connect' ) ) {
-	$dbtodsn['mysql'] = 'MySQLi';
+	$dbtodsn['mysqli'] = 'MySQLi';
 }
 if( function_exists( 'pg_connect' ) ) {
 	$dbtodsn['postgres'] = 'PostgreSQL';
