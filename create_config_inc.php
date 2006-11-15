@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.15 2006/09/21 22:13:53 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.16 2006/11/15 12:24:35 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -11,17 +11,17 @@
 
 /**
  * create configuration file
- * 
- * @param string  $pParamHash['gBitDbType'] 
- * @param string  $pParamHash['gBitDbHost'] 
- * @param string  $pParamHash['gBitDbUser'] 
- * @param string  $pParamHash['gBitDbPassword'] 
- * @param string  $pParamHash['gBitDbName'] 
- * @param numeric $pParamHash['gBitDbCaseSensitivity'] 
- * @param string  $pParamHash['bit_db_prefix'] 
- * @param string  $pParamHash['bit_root_url'] 
- * @param boolean $pParamHash['auto_bug_submit'] 
- * @param boolean $pParamHash['is_live'] 
+ *
+ * @param string  $pParamHash['gBitDbType']
+ * @param string  $pParamHash['gBitDbHost']
+ * @param string  $pParamHash['gBitDbUser']
+ * @param string  $pParamHash['gBitDbPassword']
+ * @param string  $pParamHash['gBitDbName']
+ * @param numeric $pParamHash['gBitDbCaseSensitivity']
+ * @param string  $pParamHash['bit_db_prefix']
+ * @param string  $pParamHash['bit_root_url']
+ * @param boolean $pParamHash['auto_bug_submit']
+ * @param boolean $pParamHash['is_live']
  * @access public
  * @return void
  */
@@ -77,7 +77,7 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 // support MySQL, MSSQL, Firebird, Sybase, PostgreSQL and Oracle.  Enter the
 // hostname where your database lives, and the username and password you use to
 // connect to it.
-// 
+//
 // You must specify the name of a database that already exists. bitweaver will not
 // create the database for you, because it's very difficult to do that in a
 // reliable, database-neutral fashion. The user that you use should have the
@@ -87,6 +87,7 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 //
 // The possible database types that we support are:
 //    mysql          Standard MySQL
+//    mysqli         New MySQL driver
 //    sqlite         SQLLite
 //    mssql          MS-SQL (experimental)
 //    postgres       PostgreSQL 7.x
