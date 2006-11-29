@@ -19,8 +19,8 @@
 		var bitIconDir = "{$smarty.const.LIBERTY_PKG_URL}icons/";
 		var bitRootUrl = "{$smarty.const.BIT_ROOT_URL}";
 	/* ]]> */</script>
-	<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/libs/tabpane.js"></script>
-	<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/bitweaver.js"></script>
+	<script type="text/javascript" src="{$smarty.const.BIT_ROOT_URL}util/javascript/libs/tabpane.js"></script>
+	<script type="text/javascript" src="{$smarty.const.BIT_ROOT_URL}util/javascript/bitweaver.js"></script>
 </head>
 <body>
 	<div id="container">
