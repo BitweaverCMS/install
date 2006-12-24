@@ -74,18 +74,18 @@
 		{/forminput}
 	</div>
 
-	{if $choose_image_processor}
+	{if $processors}
 		<div class="row">
 			{formlabel label="Image Processor"}
 			{forminput}
-				<label><input type="radio" name="image_processor" value="gd" /> gdLibrary</label>
-				<br />
-				<label><input type="radio" name="image_processor" value="imagick" checked="checked" /> ImageMagick</label>
+				{foreach name=iprocs from=$processors key=val item=print}
+					<label><input type="radio" name="image_processor" value="{$val}" {if $smarty.foreach.iprocs.last}checked="checked"{/if} /> {$print}</label><br />
+				{/foreach}
 			{/forminput}
 		</div>
 	{/if}
 
 	<div class="row submit">
-		<input type="submit" name="fSubmitBitSettings" value="{tr}Set Preferences{/tr}" />
+		<input type="submit" name="bit_settings" value="{tr}Set Preferences{/tr}" />
 	</div>
 {/form}

@@ -40,7 +40,7 @@
 		{/forminput}
 	</div>
 
-	{if $gBitSystem->getConfig('image_processor')}
+	{if $gBitSystem->isFeatureActive('image_processor')}
 		<div class="row">
 			{formlabel label="Image Processor"}
 			{forminput}

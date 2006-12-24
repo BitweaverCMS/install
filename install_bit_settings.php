@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.14 2006/10/13 12:43:39 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.15 2006/12/24 11:12:04 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -37,9 +37,19 @@ $formInstallValues = array(
 	'bitlanguage'        => 'languages',
 );
 
-if( extension_loaded( 'imagick' ) && extension_loaded( 'gd' ) ) {
-	$gBitSmarty->assign( 'choose_image_processor', TRUE );
-	$formInstallValues[] = 'image_processor';
+$processors = array();
+if( extension_loaded( 'gd' ) ) {
+	$processors['gd'] = '<strong>GD Library</strong> [php-gd]';
+}
+if( extension_loaded( 'imagick' ) ) {
+	$processors['imagick'] = '<strong>Image Magick</strong> [php-imagick] - recommended';
+}
+if( extension_loaded( 'magickwand' ) ) {
+	$processors['magickwand'] = '<strong>MagickWand</strong> [php-magickwand] - highly recommended';
+}
+if( count( $processors ) > 0 ) {
+	$gBitSmarty->assign( 'processors', $processors );
+	$formInstallValues['image_processor'] = 'liberty';
 }
 
 // get list of available languages
@@ -48,16 +58,16 @@ $languages = $gBitLanguage->listLanguages();
 $gBitSmarty->assign_by_ref("languages",$languages );
 
 // process form
-if( isset( $_REQUEST['fSubmitBitSettings'] ) ) {
+if( isset( $_REQUEST['bit_settings'] ) ) {
 	foreach( $formInstallValues as $item => $package) {
 		simple_set_value( $package, $item );
 	}
 
-	if (empty($_REQUEST['bitlanguage'])) {
+	if( empty( $_REQUEST['bitlanguage'] ) ) {
 		$_REQUEST['bitlanguage'] = 'en';
 	}
 
-	if (!array_key_exists($_REQUEST['bitlanguage'], $languages)) {
+	if( !array_key_exists( $_REQUEST['bitlanguage'], $languages ) ) {
 		$languages[$_REQUEST['bitlanguage']] = '';
 	}
 
