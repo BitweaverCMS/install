@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.13 2006/08/27 07:59:37 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.14 2006/12/27 15:17:52 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -135,7 +135,7 @@ function check_settings() {
 		array( 'Safe Mode','safe_mode','shouldbe' => 'OFF', ),
 		array( 'Display Errors','display_errors','shouldbe' => 'ON' ),
 		array( 'File Uploads','file_uploads','shouldbe' => 'ON' ),
-		array( 'Magic Quotes GPC','magic_quotes_gpc','shouldbe' => 'ON' ),
+		array( 'Magic Quotes GPC','magic_quotes_gpc','shouldbe' => 'OFF' ),
 		array( 'Magic Quotes Runtime','magic_quotes_runtime','shouldbe' => 'OFF' ),
 		array( 'Magic Quotes Sybase','magic_quotes_sybase','shouldbe' => 'OFF' ),
 		array( 'Register Globals','register_globals','shouldbe' => 'OFF' ),
