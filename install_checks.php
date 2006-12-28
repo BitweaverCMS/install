@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.14 2006/12/27 15:17:52 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.15 2006/12/28 22:38:04 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -121,7 +121,7 @@ function check_settings() {
 	$i = 0;
 	// recommended php toggles - these don't need explicit explanations on how to rectify them
 	// start with special cases
-	$recommended[$i] = array( 'Memory Limit','memory_limit','shouldbe' => 'at least 8M','actual' => get_cfg_var( 'memory_limit' ) );
+	$recommended[$i] = array( 'Memory Limit','memory_limit','shouldbe' => 'at least 16M', 'actual' => get_cfg_var( 'memory_limit' ) );
 	if( eregi_replace( 'M','',get_cfg_var( 'memory_limit' ) ) > 15 ) {
 		$recommended[$i]['passed'] = TRUE;
 	} else {
