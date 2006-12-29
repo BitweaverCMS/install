@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.45 2006/09/30 11:45:50 jht001 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.46 2006/12/29 05:17:50 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -156,7 +156,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			if( in_array( $package, $_REQUEST['packages'] ) ) {
 				if( $method == 'install' || $method == 'reinstall' ) {
 					$gBitSystem->storeConfig( 'package_'. $package , 'y', $package );
-					$gBitSystem->storeConfig( 'packagedir_'. $package , $gBitInstaller->mPackages[ $package ][ 'dir' ], $package );
 					$gBitInstaller->mPackages[ $package ]['installed'] = TRUE;
 					$gBitInstaller->mPackages[ $package ]['active_switch'] = TRUE;
 					// we'll default wiki to the home page
