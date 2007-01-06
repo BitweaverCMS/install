@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.47 2007/01/06 18:06:35 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.48 2007/01/06 22:11:00 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -46,7 +46,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				$method = FALSE;
 			}
 		}
-	} elseif( empty( $removeActions ) ) {
+	} elseif( $method != 'install' && empty( $removeActions ) ) {
 		// we are un / reinstalling stuff but no actions have been selected
 		$gBitSmarty->assign( 'warning', "You have selected to un / reinstall packages but have not selected any options. Please select at least one." );
 		return FALSE;
