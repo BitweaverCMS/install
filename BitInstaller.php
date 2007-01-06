@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.23 2006/08/23 08:29:29 jht001 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.24 2007/01/06 09:46:16 squareing Exp $
  * @package install
  */
 
@@ -359,7 +359,7 @@ function identifyBlobs($result) {
 // enumerate blob fields and encoded
 function convertBlobs($gDb, &$res, $blobs) {
 	foreach($blobs as $blob) {
-		$res[$blob] = $gDb->db_byte_encode($res[$blob]);
+		$res[$blob] = $gDb->dbByteEncode($res[$blob]);
 	}
 }
 
