@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.19 2006/09/21 22:15:40 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.20 2007/01/06 18:06:35 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -175,7 +175,13 @@ if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE
 	}
 	unset( $_SESSION['upgrade'] );
 	$_SESSION['first_install'] = FALSE;
+} else {
+	// hide error ouptut on database connection settings page
+	if( isset( $_REQUEST['step'] ) && $_REQUEST['step'] == '3' ) {
+		ini_set( 'display_errors', '0' );
+	}
 }
+
 // this is needed because some pages display some additional information during a first install
 $gBitSmarty->assign( 'first_install',$_SESSION['first_install'] );
 ?>

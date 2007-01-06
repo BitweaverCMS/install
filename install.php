@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.11 2006/10/11 03:41:04 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.12 2007/01/06 18:06:35 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -11,7 +11,7 @@
 
 // hide error ouptut on database connection settings page
 if( isset( $_REQUEST['step'] ) && $_REQUEST['step'] == '3' ) {
-	ini_set( 'display_errors', '0' );
+//	ini_set( 'display_errors', '0' );
 }
 
 $gForceAdodb = TRUE;

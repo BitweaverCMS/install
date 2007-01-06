@@ -119,6 +119,18 @@
 						{/forminput}
 					</div>
 
+					<div class="row">
+						{formlabel label="Un / Reinstall options"}
+						{forminput}
+							<label><input type="checkbox" name="remove_actions[]" value="tables" checked="checked" /> Delete package tables.</label>
+							{formhelp note="This will leave all package specific settings in tact and will also leave content in the liberty tables, which might lead to undesired results."}
+							<label><input type="checkbox" name="remove_actions[]" value="settings" checked="checked" /> Delete package settings.</label>
+							{formhelp note="This will remove all package specific settings. Select only this checkbox if you want to reset a package to it's default values including permissions."}
+							<label><input type="checkbox" name="remove_actions[]" value="content" checked="checked" /> Delete package content.</label>
+							{formhelp note="This will remove all content that has been stored in the common content storage area."}
+						{/forminput}
+					</div>
+
 					<div class="clear"><hr /></div>
 
 					{foreach from=$schema key=package item=item}
@@ -143,7 +155,7 @@
 						Please press this button only once<br />
 						Depending on the number of packages and the hardware,<br />
 						this process might take up to a few minutes.<br /><br />
-						<input type="submit" name="submit_packages" value="Un / Reinstall Packages" />
+						<input type="submit" name="submit_packages" value="Un / Reinstall Packages" onclick="return confirm( 'Are you sure you want to Un / Reinstall the selected packages?' );" />
 					</div>
 
 					<div class="row">
