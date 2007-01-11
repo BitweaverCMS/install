@@ -1,19 +1,17 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.12 2007/01/06 18:06:35 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.13 2007/01/11 08:41:37 squareing Exp $
  * @package install
  * @subpackage functions
  */
 
-// Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-
-// hide error ouptut on database connection settings page
-if( isset( $_REQUEST['step'] ) && $_REQUEST['step'] == '3' ) {
-//	ini_set( 'display_errors', '0' );
+// hide errors when trying to connect to the database. very unsettling when you 
+// have pages of errors to scroll through
+if( !empty( $_REQUEST['submit_db_info'] ) && !empty( $_REQUEST['step'] ) && $_REQUEST['step'] == 3 ) {
+	ini_set( 'display_errors', '0' );
 }
 
+// here we force the use of adodb during installation
 $gForceAdodb = TRUE;
 
 /**

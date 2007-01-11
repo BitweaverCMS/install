@@ -1,13 +1,9 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.17 2006/10/13 12:43:39 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.18 2007/01/11 08:41:37 squareing Exp $
  * @package install
  * @subpackage functions
  */
-
-// Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 /**
  * assign next step in installation process
@@ -17,15 +13,15 @@ $gBitSmarty->assign( 'next_step',$step );
 require_once( "get_databases_inc.php" );
 
 // next block checks if there is a config_inc.php and if we can connect through this.
-if( isset( $_REQUEST['submit_db_info'] ) ) {
+if( isset( $_REQUEST['submit_db_info'] )) {
 	if( $gBitDbType == 'sybase' ) {
 		// avoid database change messages
-		ini_set('sybct.min_server_severity', '11');
+		ini_set( 'sybct.min_server_severity', '11' );
 	}
 
-	$gBitDb = &ADONewConnection($gBitDbType);
+	$gBitDb = &ADONewConnection( $gBitDbType );
 
-	if( $gBitDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
+	if( $gBitDb->Connect( $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName )) {
 		// display success page when done
 		$app = '_done';
 		$gBitSmarty->assign( 'next_step',$step + 1 );
