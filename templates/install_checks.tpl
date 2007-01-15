@@ -80,6 +80,38 @@
 	{/if}
 
 	<br />
+	<h2>Recommended Executables</h2>
+
+	<p class="help">
+		Here we test for a set of executable files on your server. These files are not mandatory but will enable you to perform certain tasks. We generally try to avoid using external applications, but sometimes it's the easiest and quickest way to achieve a certain goal.
+	</p>
+
+	<div class="row">
+		{formlabel label="Recommended executables"}
+		{forminput}
+			{foreach from=$executables item="check"}
+				{if $check.passed}
+					<p>{biticon ipackage="icons" iname="dialog-ok" iexplain=success} {$check.note}</p>
+				{else}
+					<p class="warning">{biticon ipackage="icons" iname="dialog-warning" iexplain=warning} {$check.note}</p>
+				{/if}
+			{/foreach}
+		{/forminput}
+	</div>
+
+	{if $warning}
+		<p class="warning">
+			{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
+			Please bear in mind that certain options will not be available to you due to the fact that some of the applications bitweaver uses are not available. e.g.: if unzip is not available, .zip files cannot be processed after uploading them.
+		</p>
+	{else}
+		<p class="success">
+			{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
+			All recommended executables are installed.
+		</p>
+	{/if}
+
+	<br />
 	<h2>Recommended Settings</h2>
 
 	<p class="help">

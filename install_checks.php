@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.15 2006/12/28 22:38:04 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.16 2007/01/15 17:08:26 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -18,6 +18,7 @@ $gBitSmarty->assign( "error",$error );
 $gBitSmarty->assign( "warning",$warning );
 $gBitSmarty->assign( "required",$check_settings['required'] );
 $gBitSmarty->assign( "extensions",$check_settings['extensions'] );
+$gBitSmarty->assign( "executables",$check_settings['executables'] );
 $gBitSmarty->assign( "recommended",$check_settings['recommended'] );
 $gBitSmarty->assign( "show",$check_settings['show'] );
 
@@ -79,13 +80,12 @@ function check_settings() {
 		}
 	}
 
-	$i = 0;
 	// check extensions
 	$php_ext = array(
-		'zlib' => '<a href="http://www.zlib.net/">The zlib compression libraries</a> are used to pack and unpack compressed files such as zip files.',
-		'gd' => '<a href="http://www.boutell.com/gd/">GD Libraries</a> are used to manipulate images. We use these libraries to create thumbnails and convert images from one format to another. The GD libaries are quite limited and <strong>don\'t support</strong> a number of image formats including <strong>bmp</strong>. If you are planning on uploading and using a lot of images, we recommend you use ImageMagic instead.<br />If you are running Red Hat or Fedora Core, you can try running: yum install php-gd.',
-		'imagick' => 'ImageMagick supports a multitude of different image and video formats and <strong>can be used instead of the GD Libraries</strong>. Using these libraries will allow you to upload most image formats without any difficulties. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
-		'magickwand' => 'MagickWand the newer php extension for ImageMagick. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
+		'zlib'         => '<a href="http://www.zlib.net/">The zlib compression libraries</a> are used to pack and unpack compressed files such as zip files.',
+		'gd'           => '<a href="http://www.boutell.com/gd/">GD Libraries</a> are used to manipulate images. We use these libraries to create thumbnails and convert images from one format to another. The GD libaries are quite limited and <strong>don\'t support</strong> a number of image formats including <strong>bmp</strong>. If you are planning on uploading and using a lot of images, we recommend you use ImageMagic instead.<br />If you are running Red Hat or Fedora Core, you can try running: yum install php-gd.',
+		'imagick'      => 'ImageMagick supports a multitude of different image and video formats and <strong>can be used instead of the GD Libraries</strong>. Using these libraries will allow you to upload most image formats without any difficulties. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
+		'magickwand'   => 'MagickWand the newer php extension for ImageMagick. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
 		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of php by caching and optimising queries. Using this extension will greatly increase your servers performance and reduce the memory needed to run bitweaver.',
 	);
 	foreach( $php_ext as $ext => $note ) {
@@ -97,7 +97,6 @@ function check_settings() {
 			$extensions[$ext]['passed'] = FALSE;
 		}
 		$extensions[$ext]['note'] .= 'available.<br />'.$note;
-		$i++;
 	}
 	// if imagick or magickwand are installed, we remove the warning about the 
 	// other extension
@@ -115,6 +114,71 @@ function check_settings() {
 	foreach( $extensions as $info ) {
 		if( !$info['passed'] ) {
 			$warning = TRUE;
+		}
+	}
+
+	// output has to be verbose that we can catch the output of the shell_exec
+	// using --help, -h or --version should make applications output something to stdout - this is no guarantee though, bunzip2 doesn't...
+	$execs = array(
+		'tar' => array(
+			'command'      => 'tar -xvf',
+			'dest_params'  => '-C',
+			'testfile'     => 'test.tar',
+			'note'         => '<strong>Tarball</strong> is a common archiving format on Linux and <a href="http://www.gnu.org/software/tar/">tar</a> is used to extract .tar files.',
+		),
+		'bzip2' => array(
+			'command'      => 'tar -jvxf',
+			'dest_params'  => '-C',
+			'testfile'     => 'test.tar.bz2',
+			'note'         => '<strong>Bzip</strong> is a common compression format on Linux and <a href="http://www.bzip.org/">bzip2</a> is used to extract .bz2 and in combination with tar .tar.bz2 file.',
+		),
+		'gzip' => array(
+			'command'      => 'tar -zvxf',
+			'dest_params'  => '-C',
+			'testfile'     => 'test.tar.gz',
+			'note'         => '<strong>Gzip</strong> is a common compression format on Linux and <a href="http://www.gnu.org/software/gzip/gzip.html">gzip</a> is used to extract .gz and in combination with tar .tar.gz file.',
+		),
+		'unzip' => array(
+			'command'      => 'unzip -v',
+			'dest_params'  => '-d',
+			'testfile'     => 'test.zip',
+			'note'         => '<strong>Zip</strong> is a common compression format on all operating systems and <a href="http://www.info-zip.org/">unzip</a> is used to extract .zip files.',
+		),
+		'unrar' => array(
+			'command'      => 'unrar x',
+			'dest_params'  => '',
+			'testfile'     => 'test.rar',
+			'note'         => '<strong>Rar</strong> is a common compression format on all operating systems and <a href="http://www.rarlab.com/rar_add.htm">unrar</a> is used to extract .rar files.',
+		),
+		'gs' => array(
+			'command'      => 'gs --version',
+			'note'         => '<a href="http://www.cs.wisc.edu/~ghost/">GhostScript</a> is an interpreter for the PostScript language and for PDF and is used to create PDF previews when uploading PDFs to fisheye. If you do not have this installed, previews of PDF files will not be generated on upload.<br />If you have difficulties with GhostScript, please try installing a different version. We have successfully tested versions: <strong>7.5, 8.5, 8.54</strong> and we have had difficulties with version <strong>8.1</strong>',
+			'result'       => 'Your version of GhostScript: ',
+		),
+//		'unstuff' => array(
+//			'params'       => '-xf',
+//			'testfile'     => 'test.tar',
+//			'note'         => 'Unstuff is a common compression format on Mac and <strong>unstuff</strong> is used to extract .sit files.',
+//		),
+	);
+	foreach( $execs as $exe => $app ) {
+		$executables[$exe]['note'] = 'The application <strong>'.$exe.'</strong> is ';
+		if( !empty( $app['testfile'] ) && is_readable( $file = INSTALL_PKG_PATH.'testfiles/'.$app['testfile'] )) {
+			$command = $app['command'].' "'.$file.'" '.$app['dest_params'].' "'.str_replace( "//", "/", TEMP_PKG_PATH ).'"';
+		} else {
+			$command = $app['command'];
+		}
+
+		if( $shellResults[$exe] = shell_exec( $command )) {
+			@unlink( TEMP_PKG_PATH.'test.txt' );
+			$executables[$exe]['passed'] = TRUE;
+		} else {
+			$executables[$exe]['note'] .= 'not ';
+			$executables[$exe]['passed'] = FALSE;
+		}
+		$executables[$exe]['note'] .= 'available.<br />'.$app['note'];
+		if( !empty( $app['result'] ) && !empty( $shellResults[$exe] )) {
+			$executables[$exe]['note'] .= '<br />'.$app['result'].'<strong>'.$shellResults[$exe].'</strong>';
 		}
 	}
 
@@ -173,6 +237,7 @@ function check_settings() {
 
 	$res['required'] = $required;
 	$res['extensions'] = $extensions;
+	$res['executables'] = $executables;
 	$res['recommended'] = $recommended;
 	$res['show'] = $show;
 	return $res;
