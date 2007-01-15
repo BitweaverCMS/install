@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.16 2007/01/15 17:08:26 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.17 2007/01/15 17:53:40 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -58,18 +58,22 @@ function check_settings() {
 		$required[$i]['passed'] = FALSE;
 	}
 	$i++;
-	$dir_check = array( 'storage','temp' );
+
+	$dir_check = array(
+        defined( 'STORAGE_PKG_PATH' ) ? STORAGE_PKG_PATH : BIT_ROOT_PATH.'storage',
+        defined( 'TEMP_PKG_PATH' ) ? TEMP_PKG_PATH : BIT_ROOT_PATH.'temp',
+    );
 	foreach( $dir_check as $d ) {
 		// final attempt to create the required directories
-		@mkdir( BIT_ROOT_PATH.$d,0644 );
-		if( @is_dir( BIT_ROOT_PATH.$d ) && bw_is_writeable( BIT_ROOT_PATH.$d ) ) {
-			$required[$i]['note'] = 'The directory \'<strong>'.BIT_ROOT_PATH.$d.'</strong>\' is available and it is writeable.';
+		@mkdir( $d,0644 );
+		if( @is_dir( $d ) && bw_is_writeable( $d ) ) {
+			$required[$i]['note'] = 'The directory \'<strong>'.$d.'</strong>\' is available and it is writeable.';
 			$required[$i]['passed'] = TRUE;
-		} elseif( @is_dir( BIT_ROOT_PATH.$d ) && !bw_is_writeable( BIT_ROOT_PATH.$d ) ) {
-			$required[$i]['note'] = 'The directory \'<strong>'.BIT_ROOT_PATH.$d.'</strong>\' is available but it is not writeable.<br />Please execute something like:<br />chmod -R 777 '.BIT_ROOT_PATH.$d;
+		} elseif( @is_dir( $d ) && !bw_is_writeable( $d ) ) {
+			$required[$i]['note'] = 'The directory \'<strong>'.$d.'</strong>\' is available but it is not writeable.<br />Please execute something like:<br />chmod -R 777 '.$d;
 			$required[$i]['passed'] = FALSE;
 		} else {
-			$required[$i]['note'] = 'The directory \'<strong>'.BIT_ROOT_PATH.$d.'</strong>\' is not available and we cannot create it automaticalliy.<br />Please execute something like:<br />mkdir -m 777 '.BIT_ROOT_PATH.$d;
+			$required[$i]['note'] = 'The directory \'<strong>'.$d.'</strong>\' is not available and we cannot create it automaticalliy.<br />Please execute something like:<br />mkdir -m 777 '.$d;
 			$required[$i]['passed'] = FALSE;
 		}
 		$i++;
@@ -164,7 +168,7 @@ function check_settings() {
 	foreach( $execs as $exe => $app ) {
 		$executables[$exe]['note'] = 'The application <strong>'.$exe.'</strong> is ';
 		if( !empty( $app['testfile'] ) && is_readable( $file = INSTALL_PKG_PATH.'testfiles/'.$app['testfile'] )) {
-			$command = $app['command'].' "'.$file.'" '.$app['dest_params'].' "'.str_replace( "//", "/", TEMP_PKG_PATH ).'"';
+			$command = $app['command'].' "'.$file.'" '.$app['dest_params'].' "'.TEMP_PKG_PATH.'"';
 		} else {
 			$command = $app['command'];
 		}
