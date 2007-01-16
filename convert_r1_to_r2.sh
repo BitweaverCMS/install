@@ -266,7 +266,7 @@ then
 	find chatterbox/ \( -name "*.php" -o -name "*.tpl" \) -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bprune_threshold\b/chatterbox_prune_threshold/g' {} \;
 
 	echo languages
-	find languages/ \( -name "*.php" -o -name "*.tpl" \) -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\brecord_untranslated\b/languages_record_untranslated/g' {} \;
+	find languages/ \( -name "*.php" -o -name "*.tpl" \) -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\brecord_untranslated\b/i18n_record_untranslated/g' {} \;
 
 	echo hotwords
 	find hotwords/ \( -name "*.php" -o -name "*.tpl" \) -not -name "upgrade_inc.php" -exec perl -i -wpe 's/\bhotwords_nw\b/hotwords_new_window/g' {} \;
