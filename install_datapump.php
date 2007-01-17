@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.2 2006/09/02 15:33:15 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.3 2007/01/17 00:41:11 hiranchaudhuri Exp $
  * @package install
  * @subpackage functions
  */
@@ -32,7 +32,10 @@ if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
 	$gBitSmarty->assign( 'pumpedData',$pumpedData );
 	$app = '_done';
 	$gBitSmarty->assign( 'next_step',$step + 1 );
-	$gBitSystem->storeConfig( 'wiki_home_page', $pumpedData['Wiki'][0], WIKI_PKG_NAME );
+
+	if( $gBitSystem->isPackageActive( 'wiki' ) ) {
+		$gBitSystem->storeConfig( 'wiki_home_page', $pumpedData['Wiki'][0], WIKI_PKG_NAME );
+	}
 } elseif( isset( $_REQUEST['skip'] ) ) {
 	$app = '_done';
 	$goto = $step + 1;
