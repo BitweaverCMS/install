@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_wiki_inc.php,v 1.5 2005/08/24 20:51:21 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_wiki_inc.php,v 1.6 2007/01/17 19:53:12 spiderr Exp $
  * @package install
  * @subpackage pumps
  */
@@ -34,7 +34,7 @@ bitweaver was built with extensibility in mind and thus we have made it \'\'easy
 * GettingHelp
 ** Tutorial_WikiBook
 ** Tutorial_SetYourWikiHome
-** Tutorial_ZenCart
+** Tutorial_Bitcommerce
 ** bitweaverGlossary
 '),
 	array(
@@ -136,20 +136,18 @@ Clicking this link will take you to a page with a massive number of options. The
 	array(
 		'fSavePage' => TRUE,
 		'format_guid' => 'tikiwiki',
-		'title' => 'Tutorial_ZenCart',
-		'description' => 'Setting up Zen Cart to work with bitweaver',
-		'edit' => '[http://www.zen-cart.com|Zen Cart] is an open source ecommerce solution that is widely used all over the world.
+		'title' => 'Tutorial_Bitcommerce',
+		'description' => 'Setting up Bitcommerce to work with bitweaver',
+		'edit' => '[http://www.bitcommerce.org|Bitcommerce] is an open source ecommerce solution derived from Zen Cart and OSCommnercethat is widely used all over the world.
 
 From their homepage:
-^Zen Cart truly is the art of e-commerce; a free, user-friendly, open source shopping cart system. The software is being developed by group of like-minded shop owners, programmers, designers, and consultants that think e-commerce could be and should be done differently. Some "solutions" seem to be complicated programming exercises instead of responding to users\' needs, Zen Cart puts the merchant\'s and shopper\'s requirements first. Similarly, other programs are nearly impossible to install and use without an IT degree, Zen Cart can be installed and set-up by anyone with the most basic computer skills. Others are so expensive ... not Zen Cart, it\'s FREE!^
+^Bitcommerce truly is the art of e-commerce; a free, user-friendly, open source shopping cart system. The software is being developed by group of like-minded shop owners, programmers, designers, and consultants that think e-commerce could be and should be done differently. Some "solutions" seem to be complicated programming exercises instead of responding to users\' needs, Bitcommerce puts the merchant\'s and shopper\'s requirements first. Similarly, other programs are nearly impossible to install and use without an IT degree, Bitcommerce can be installed and set-up by anyone with the most basic computer skills. Others are so expensive ... not Bitcommerce, it\'s FREE!^
 
 '.$tutorial_intro.'
 
 We have made an effort to leave as much of the original code as it is to allow for easy upgrades to future version providing you with the best. For this reason there are some simple setup steps that have to be carried out for a seamless integration into bitweaver.
-# if you haven\'t done so already, you should install Zen Cart. You can do this by accessing the __Administration__ --> __Kernel__ --> __Packages__ area. There you should activate Zen Cart and you will also find a link to the Zen Cart installer page.
-# after installation, your site might end up looking somewhat messed up when accessing the Zen Cart pages. To change this, you should enter the Zen Cart administration area (can be accessed from the bitweaver administration screen) where you do the following: go to __Tools__ --> __Template Selection__ where you can set the theme you wish to use. Here you should select the bitweaver theme. The way Zen Cart works you now have to access the __Tools__ --> __Layout Boxes Controller__ and hit __Reset__ at the bottom of the screen.
-# Finally you should allow the Zen Cart modules to be shown. You can do this by returnig back to bitweaver and access the __Administration__ --> __Layout and Design__ --> __Layout__. Select __Zencart__ as the section you want to modify and click on __Customize__. What remains to be done is assign the __zencart -> sidebox left__ and __zencart -> sidebox right__ to the appropriate columns. When you access the Zen Cart area, the shop should look as expected.
-# After you have set up Zen Cart in this way, you should be able to customise Zen Cart in any way you want to from the Zen Cart administration area.
+# if you haven\'t done so already, you should install Bitcommerce. You can do this by accessing the __Administration__ --> __Kernel__ --> __Packages__ area. There you should activate Bitcommerce and you will also find a link to the Bitcommerce installer page.
+# After you have set up Bitcommerce, you should be able to customise Bitcommerce in any way you want to from the Bitcommerce administration area.
 '),
 );
 
