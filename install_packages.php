@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.48 2007/01/06 22:11:00 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.49 2007/02/05 11:14:32 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -319,7 +319,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				$gBitThemes->storeLayout( $mod );
 			}
 
-			// Set the default format to get quicktags and content storing working
+			/**
+			 * Set the default format to get quicktags and content storing working
+			 */
 			$plugin_file = LIBERTY_PKG_PATH.'plugins/format.tikiwiki.php';
 			if( is_readable( $plugin_file ) ) {
 				require_once( $plugin_file );
