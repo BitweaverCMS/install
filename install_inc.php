@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.21 2007/01/11 08:41:37 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.22 2007/02/07 03:26:43 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -134,9 +134,9 @@ $gBitInstaller->mPackages = $gBitSystem->mPackages;
 $gBitInstaller->verifyInstalledPackages('all',TRUE);
 
 // set prefs to display help during install
-$gBitSystem->setPreference( 'site_online_help', 'y' );
-$gBitSystem->setPreference( 'site_form_help', 'y' );
-$gBitSystem->setPreference( 'site_help_popup', 'n' );
+$gBitSystem->setConfig( 'site_online_help', 'y' );
+$gBitSystem->setConfig( 'site_form_help', 'y' );
+$gBitSystem->setConfig( 'site_help_popup', 'n' );
 
 $commands = array();
 global $failedcommands;
