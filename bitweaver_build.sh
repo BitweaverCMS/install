@@ -63,4 +63,6 @@ fi
 echo Create archive of downloaded files
 tar -czf $fname.tar.gz $BUILDDIR
 mv $fname.tar.gz $HOME/$fname.tar.gz
+zip -r $fname.zip $BUILDDIR
+mv $fname.zip $HOME/$fname.zip
 rm -Rf "/tmp/$fname/"
