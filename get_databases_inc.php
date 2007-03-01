@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.5 2006/11/14 16:44:53 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.6 2007/03/01 15:11:44 squareing Exp $
  * @package install
  * @subpackage functions
  *
@@ -36,7 +36,7 @@ if( function_exists( 'fbsql_connect' ) ) {
 if( function_exists( 'ibase_connect' ) ) {
 	$dbtodsn['firebird'] = 'Firebird';
 	if ( empty($fbpath) ) {
-		if ( isWindows() )
+		if ( is_windows() )
 			$fbpath = 'c:\Program Files\Firebird\Firebird_1_5\bin\isql';
 		else
 			$fbpath = '/opt/firebird/bin/isql';

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.24 2007/01/06 09:46:16 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.25 2007/03/01 15:11:44 squareing Exp $
  * @package install
  */
 
@@ -58,7 +58,7 @@ class BitInstaller extends BitSystem {
 		$wwwuser = '';
 		$wwwgroup = '';
 
-		if (isWindows()) {
+		if (is_windows()) {
 				$wwwuser = 'SYSTEM';
 
 				$wwwgroup = 'SYSTEM';
