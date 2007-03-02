@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.49 2007/02/05 11:14:32 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.50 2007/03/02 08:50:51 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -398,16 +398,16 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			$logHash['action_log'] = array(
 				'user_id' => ROOT_USER_ID,
 				'title' => 'System Installation',
-				'log_message' => 'Packages were installed and bitweaver is ready for use.',
+				'log_message' => 'Packages were successfully installed and bitweaver is ready for use.',
 			);
 
 			if( empty( $_SESSION['first_install'] ) ) {
 				$list = '';
-				foreach( $packageList as $method ) {
-					$list .= implode( ", ", $method );
+				foreach( $packageList as $pkg ) {
+					$list .= implode( ", ", $pkg );
 				}
-				$logHash['action_log']['title'] = "Package installation";
-				$logHash['action_log']['log_message'] = "The following package(s) were installed: $list";
+				$logHash['action_log']['title'] = "Package {$method}";
+				$logHash['action_log']['log_message'] = "The following package(s) were {$method}ed: $list";
 			} else {
 				$gBitSystem->setConfig( 'liberty_action_log', 'y' );
 			}
