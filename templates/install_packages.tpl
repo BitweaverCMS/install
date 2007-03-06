@@ -34,12 +34,9 @@
 
 				<div class="row">
 					{forminput}
-						<script type="text/javascript">
+						<script type="text/javascript">/* <![CDATA[ */
 							document.write("<label><input name=\"switcher\" id=\"switcher\" type=\"checkbox\" checked onclick=\"switchCheckboxes(this.form.id,'packages[]','switcher')\" /> Batch (de)select all Packages and Services on this page</label>");
-						</script>
-						<noscript>
-							You don't have javascript enabled
-						</noscript>
+						/* ]]> */</script>
 					{/forminput}
 				</div>
 
@@ -93,7 +90,7 @@
 
 				<div class="row">
 					{forminput}
-						<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+						<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
 						{formhelp note="This will display SQL statements."}
 					{/forminput}
 				</div>
@@ -160,7 +157,7 @@
 
 					<div class="row">
 						{forminput}
-							<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+							<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
 							{formhelp note="This will display SQL statements."}
 						{/forminput}
 					</div>
