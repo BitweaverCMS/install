@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.51 2007/03/06 20:20:11 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.52 2007/03/06 21:22:37 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -261,6 +261,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 				// set installed packages active
 				if( $method == 'install' || $method == 'reinstall' ) {
+					// apparently we need to first remove the vaue from the database to make sure it's set
+					$gBitSystem->storeConfig( 'package_'.$package , NULL );
 					$gBitSystem->storeConfig( 'package_'.$package , 'y', $package );
 					$gBitInstaller->mPackages[ $package ]['installed'] = TRUE;
 					$gBitInstaller->mPackages[ $package ]['active_switch'] = TRUE;
