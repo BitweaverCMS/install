@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.50 2007/03/02 08:50:51 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.51 2007/03/06 20:20:11 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -39,10 +39,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 	$removeActions = !empty( $_REQUEST['remove_actions'] ) ? $_REQUEST['remove_actions'] : array();
 
 	// make sure that required pkgs are only present when we are installing
-	if( ( $method = ( $_REQUEST['method'] ) ) == 'install' && !$_SESSION['first_install'] ) {
+	if(( $method = ( $_REQUEST['method'] )) == 'install' && !$_SESSION['first_install'] ) {
+		// make sure no required packages are included in this list
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-			if( in_array( $package, $_REQUEST['packages'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] ) ) {
-				$gBitSmarty->assign( 'warning', "There was a problem with the package selection. we just caught it in time before your system got destroyed." );
+			if( in_array( $package, $_REQUEST['packages'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] )) {
+				$gBitSmarty->assign( 'warning', "Something unexpected has happened: One of the required packaes has appeared in the list of selected packages. This generally only happens if the installation is missing a core database table. Please contact the bitweaver developers team on how to procede." );
 				$method = FALSE;
 			}
 		}
@@ -258,9 +259,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					}
 				}
 
-				// set active packages
+				// set installed packages active
 				if( $method == 'install' || $method == 'reinstall' ) {
-					$gBitSystem->storeConfig( 'package_'. $package , 'y', $package );
+					$gBitSystem->storeConfig( 'package_'.$package , 'y', $package );
 					$gBitInstaller->mPackages[ $package ]['installed'] = TRUE;
 					$gBitInstaller->mPackages[ $package ]['active_switch'] = TRUE;
 					// we'll default wiki to the home page
@@ -319,9 +320,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				$gBitThemes->storeLayout( $mod );
 			}
 
-			/**
-			 * Set the default format to get quicktags and content storing working
-			 */
+			// Set the default format to get quicktags and content storing working
 			$plugin_file = LIBERTY_PKG_PATH.'plugins/format.tikiwiki.php';
 			if( is_readable( $plugin_file ) ) {
 				require_once( $plugin_file );
@@ -330,10 +329,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				$gBitSystem->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."kernel_config` ( `config_name`, `package`, `config_value` ) VALUES ( 'liberty_plugin_status_".PLUGIN_GUID_TIKIWIKI."', 'y', '".LIBERTY_PKG_NAME."' )" );
 				// it appear default_format is already set.
 				$gBitSystem->storeConfig( 'default_format', PLUGIN_GUID_TIKIWIKI, LIBERTY_PKG_NAME );
-				// for some kerfunked reason this won't work. no idea why - xing
-				//$gBitSystem->storeConfig( 'liberty_plugin_file_'.PLUGIN_GUID_TIKIWIKI, $plugin_file, LIBERTY_PKG_NAME );
-				//$gBitSystem->storeConfig( 'liberty_plugin_status_'.PLUGIN_GUID_TIKIWIKI, 'y', LIBERTY_PKG_NAME );
-				//$gBitSystem->storeConfig( 'default_format', PLUGIN_GUID_TIKIWIKI, LIBERTY_PKG_NAME );
 			}
 
 			// Installing users has some special things to take care of here and needs a separate check.
