@@ -8,7 +8,7 @@
 			<div class="row">
 				<ul class="result">
 					<li class="error">
-						{biticon ipackage="icons" iname="dialog-error" iexplain=success}
+						{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 						There was a problem during the installation
 					</li>
 					<li>
@@ -21,7 +21,7 @@
 		{if $failedcommands}
 			<div class="row">
 				<h2 class="warning">
-					{biticon ipackage="icons" iname="dialog-error" iexplain=success}
+					{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 					The following database operations failed
 				</h2>
 				<textarea rows="20" cols="50">{section loop=$failedcommands name=ix}{$failedcommands[ix]}{/section}</textarea>
