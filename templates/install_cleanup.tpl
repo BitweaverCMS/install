@@ -7,6 +7,69 @@
 
 {form}
 	<input type="hidden" name="step" value="{$next_step}" />
+	{legend legend="Database Integrity Check"}
+		{if $dbIntegrity}
+			<p class="warning">
+				{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
+				We have scanned the database for missing tables and have found that the following tables have not been installed:
+			</p>
+			<ul>
+				{foreach from=$dbIntegrity item=package}
+					<li>
+						<strong>{$package.name}</strong>
+						<small>
+							{if $package.required}
+								[<strong>required package</strong>]
+								{assign var=required value=1}
+							{else}
+								[optional package]
+								{assign var=optional value=1}
+							{/if}
+						</small>
+						<ul>
+							{foreach from=$package.tables item=table}
+								<li>
+									<a style="float:right" href="javascript:flip('{$table.name}');">show table details</a> {$table.name}<br />
+									<div id="{$table.name}" style="display:none;">
+										<code>{$table.sql|nl2br}</code>
+									</div>
+								</li>
+							{/foreach}
+						</ul>
+					</li>
+				{/foreach}
+			</ul>
+			<p>If you know SQL, you can display the table details and try to create such a table in your database and reload this page. This check merely checks the existence of a given table, not the table columns.</p>
+			{if $required}
+				<p class="error">
+					{biticon ipackage="icons" iname="dialog-error" iexplain=error}
+					A required package is missing at least one table. This will have unpredictable results. Please make a note of the table and contact the bitweaver team on how to procede.
+					If this is your first install, we recommend that you give it another shot, perhaps with fewer packages selected. You can return to the installer at any time and install more packages later.
+					<br />If this problem persists, we recommend that you turn on the <strong>debugging</strong> option and look for error messages regarding the above table(s). This will help the bitweaver team identify the problem more quickly when you contact them.
+				</p>
+			{/if}
+			{if $optional}
+				<p class="warning">
+					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
+					One of the optional packages you have selected for installation has not installed one of its tables. This will probably render the package useless.
+					You can try installing this package again by revisiting the <a href="{$smarty.const.INSTALL_PKG_URL}install.php?step={$smarty.request.step-1}">Package installation</a> page.
+					<br />If this problem persists, we recommend that you turn on the <strong>debugging</strong> option and look for error messages regarding the above table(s). This will help the bitweaver team identify the problem more quickly when you contact them.
+				</p>
+			{/if}
+
+			<div class="row submit">
+				<input type="submit" name="create_tables" value="Try to create missing table(s)" />
+				<br />This will automatically turn on debugging. If this fails again, please copy the debug output and contact the bitweaver team.
+			</div>
+		{else}
+			<p class="success">
+				{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
+				Database integrity has been confirmed by scanning all available tables in your database and comparing them to the ones that should be present.
+			</p>
+		{/if}
+	{/legend}
+	<br /> <br />
+
 	{legend legend="Fix Permissioning"}
 		{if $delPerms || $insPerms}
 			<p class="warning">

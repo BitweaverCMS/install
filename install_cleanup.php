@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.5 2006/03/01 20:16:12 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.6 2007/03/07 10:27:58 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -12,6 +12,17 @@ $schema = $gBitInstaller->mPackages;
 ksort( $schema );
 $gBitSmarty->assign_by_ref( 'schema', $schema );
 
+
+
+// ===================== Post install table check =====================
+// $dbTables is the output of BitSystem::verifyInstalledPackages() in 
+// install_inc.php and contains all tables that are not present in the database 
+// - even tables of packages that are not installed
+$dbIntegrity = install_check_database_integrity( $dbTables );
+
+
+
+// ===================== Permissions =====================
 // check all permissions, compare them to each other and see if there are old permissions and ones that need to be inserted
 $query = "SELECT * FROM `".BIT_DB_PREFIX."users_permissions` ORDER BY `package` ASC";
 $result = $gBitInstaller->mDb->query( $query );
@@ -41,6 +52,9 @@ foreach( array_keys( $bitPrefs ) as $perm ) {
 $gBitSmarty->assign( 'delPerms', $delPerms );
 $gBitSmarty->assign( 'insPerms', $insPerms );
 
+
+
+// ===================== Services =====================
 // check if we have installed more than one service of any given type
 $serviceList = array();
 if( !empty( $gLibertySystem->mServices ) ) {
@@ -51,12 +65,49 @@ if( !empty( $gLibertySystem->mServices ) ) {
 	}
 }
 
+
+
+// ===================== Process Form =====================
+// create missing tables if possible
+if( !empty(  $_REQUEST['create_tables'] ) && !empty( $dbIntegrity )) {
+	$gBitInstallDb = &ADONewConnection( $gBitDbType );
+
+	if( $gBitInstallDb->Connect( $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName )) {
+		$dict = NewDataDictionary( $gBitInstallDb, $gBitDbType );
+
+		if( !$gBitInstaller->mDb->getCaseSensitivity() ) {
+			$dict->connection->nameQuote = '';
+		}
+
+		//$gBitInstaller->debug();
+		//$gBitInstallDb->debug = 99;
+
+		foreach( $dbIntegrity as $package => $info ) {
+			foreach( $info['tables'] as $table ) {
+				$tablePrefix = $gBitInstaller->getTablePrefix();
+				$completeTableName = $tablePrefix.$table['name'];
+				$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$table['name']], 'NEW' );
+				// Uncomment this line to see the create sql
+				//vd( $sql );
+				if( $sql ) {
+					$dict->ExecuteSQLArray( $sql );
+				}
+			}
+		}
+
+		//$gBitInstallDb->debug = FALSE;
+		$dbTables = $gBitInstaller->verifyInstalledPackages( 'all' );
+		$dbIntegrity = install_check_database_integrity( $dbTables );
+	}
+}
+
 // if any of the serviceList items have been unchecked, disable the appropriate packages
 if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
 		$gBitInstaller->debug();
 		$gBitInstallDb->debug = 99;
 	}
+	// === Permissions
 	$fix = array_merge( $delPerms, $insPerms );
 	$fixedPermissions = array();
 	if( !empty( $_REQUEST['perms'] ) ) {
@@ -67,6 +118,7 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 	}
 	$gBitSmarty->assign( 'fixedPermissions', $fixedPermissions );
 
+	// === Services
 	$deActivated = array();
 	foreach( $serviceList as $service ) {
 		foreach( array_keys( $service ) as $package ) {
@@ -87,4 +139,30 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 }
 
 $gBitSmarty->assign( 'serviceList', $serviceList );
+$gBitSmarty->assign( 'dbIntegrity', $dbIntegrity );
+
+
+
+// === functions
+function install_check_database_integrity( $pDbTables ) {
+	global $gBitInstaller;
+	$ret = array();
+	foreach( array_keys( $pDbTables['missing'] ) as $package ) {
+		// we can't use the 'installed' flag in $gBitInstaller->mPackages[$package] because that is set to 'not installed' as soon as a table is missing
+		if( count( $gBitInstaller->mPackages[$package]['tables'] ) > count( $pDbTables['missing'][$package] )) {
+			// at least one table is missing
+			$ret[$package] = array(
+				'name'     => ucfirst( $gBitInstaller->mPackages[$package]['name'] ),
+				'required' => $gBitInstaller->mPackages[$package]['required'],
+			);
+			foreach( $pDbTables['missing'][$package] as $table ) {
+				$ret[$package]['tables'][$table] = array(
+					'name' => $table,
+					'sql'  => $gBitInstaller->mPackages[$package]['tables'][$table],
+				);
+			}
+		}
+	}
+	return $ret;
+}
 ?>

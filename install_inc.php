@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.22 2007/02/07 03:26:43 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.23 2007/03/07 10:27:58 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -106,32 +106,20 @@ require_once( USERS_PKG_PATH.'BitUser.php' );
 // set some preferences during installation
 global $gBitInstaller, $gBitSystem;
 $gBitInstaller = new BitInstaller();
+
+// default style is set in kernel/config_defaults.php
 $gBitInstaller->setStyle( DEFAULT_THEME );
 
 // IF DB has not been created yet, then packages will not have been scanned yet.
 // and even if they have been scanned, then they will only include active packages,
-// not all packages.
-// So we scan again here including all packages
-
-// this is important! since bit_setup_inc's are only included_once, and $gBitSystem has already scanned them, we need to make a copy - spiderr
-#if( !empty( $gBitSystem->mPackages ) ) {
-#	$gBitInstaller->mPackages = $gBitSystem->mPackages;
-#	}
-//} else {
-//	$gBitInstaller->scanPackages();
-//}
-
-#function scanPackages( $pScanFile = 'bit_setup_inc.php',
-#        $pOnce=TRUE, $pSelect='', $autoRegister=TRUE, $fileSystemScan=TRUE ) {
-#bad things happen if you do $gBitInstaller->scanPackages...
-$gBitSystem->scanPackages(    
-		'bit_setup_inc.php', TRUE, 'all', TRUE, TRUE
-        );
+// not all packages. So we scan again here including all packages.
+$gBitSystem->scanPackages( 'bit_setup_inc.php', TRUE, 'all', TRUE, TRUE );
 
 $gBitInstaller->mPackages = $gBitSystem->mPackages;
 
 // we need this massive array available during install to work out if bitweaver has already been installed
-$gBitInstaller->verifyInstalledPackages('all',TRUE);
+// this array is so massive that it will kill system with too little memory allocated to php
+$dbTables = $gBitInstaller->verifyInstalledPackages( 'all' );
 
 // set prefs to display help during install
 $gBitSystem->setConfig( 'site_online_help', 'y' );
@@ -145,11 +133,12 @@ global $gBitLanguage;
 $gBitLanguage->mLanguage = 'en';
 
 // Empty PHP_SELF and incorrect SCRIPT_NAME due to php-cgiwrap - wolff_borg
-if (empty($_SERVER['PHP_SELF']))
+if( empty( $_SERVER['PHP_SELF'] )) {
 	$_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_URL'];
+}
 
-if( empty( $_REQUEST['baseurl'] ) ) {
-	$bit_root_url = substr( $_SERVER['PHP_SELF'], 0, strpos( $_SERVER['PHP_SELF'], 'install/' ) );
+if( empty( $_REQUEST['baseurl'] )) {
+	$bit_root_url = substr( $_SERVER['PHP_SELF'], 0, strpos( $_SERVER['PHP_SELF'], 'install/' ));
 } else {
 	$bit_root_url = BIT_ROOT_URL;
 }
@@ -164,11 +153,15 @@ if( !isset( $_SESSION )) {
 }
 
 // if we came from anywhere appart from some installer page, nuke all settings in the _SESSION and set first_install FALSE
-if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE ) ||
+if(
+	( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE ) ||
 	( isset( $_SESSION['upgrade'] ) && $_SESSION['upgrade'] != TRUE ) ||
 	!isset( $_SERVER['HTTP_REFERER'] ) ||
-	isset( $_SERVER['HTTP_REFERER'] ) &&
-	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ) ) )
+	isset( $_SERVER['HTTP_REFERER'] ) && (
+		( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' )) &&
+		( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' )) &&
+		( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ))
+	)
 ) {
 	if( !$gBitUser->isAdmin() ) {
 		$_SESSION = NULL;
@@ -178,5 +171,5 @@ if( ( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE
 }
 
 // this is needed because some pages display some additional information during a first install
-$gBitSmarty->assign( 'first_install',$_SESSION['first_install'] );
+$gBitSmarty->assign( 'first_install', $_SESSION['first_install'] );
 ?>
