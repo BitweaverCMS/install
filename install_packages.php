@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.52 2007/03/06 21:22:37 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.53 2007/03/19 00:35:33 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -180,7 +180,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					// get a list of permissions used by this package
 					$query = "SELECT `perm_name` FROM `".$tablePrefix."users_permissions` WHERE `package`=?";
 					$perms = $gBitInstaller->mDb->getCol( $query, array( $package ));
-					// we deal with users_object_permissions below
+					// we deal with liberty_content_permissions below
 					$tables = array( 'users_group_permissions', 'users_permissions' );
 					foreach( $tables as $table ) {
 						foreach( $perms as $perm ) {
@@ -236,11 +236,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 									$gBitInstaller->mDb->query( $delete, array( $contentId ));
 								}
 
-								// special case: users_object_permissions
+								// special case: liberty_content_permissions
 								$delete = "
-									DELETE FROM `".$tablePrefix."users_object_permissions`
-									WHERE `object_id`=? AND `object_type`=?";
-								$gBitInstaller->mDb->query( $delete, array( $contentId, $contentType['content_type_guid'] ));
+									DELETE FROM `".$tablePrefix."liberty_content_permissions`
+									WHERE `content_id`=?";
+								$gBitInstaller->mDb->query( $delete, array( $contentId ));
 							}
 
 							// TODO: we need to physically remove files from the server when we uninstall stuff like fisheye and treasury
