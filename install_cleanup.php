@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.6 2007/03/07 10:27:58 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.7 2007/04/01 10:56:50 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -147,19 +147,21 @@ $gBitSmarty->assign( 'dbIntegrity', $dbIntegrity );
 function install_check_database_integrity( $pDbTables ) {
 	global $gBitInstaller;
 	$ret = array();
-	foreach( array_keys( $pDbTables['missing'] ) as $package ) {
-		// we can't use the 'installed' flag in $gBitInstaller->mPackages[$package] because that is set to 'not installed' as soon as a table is missing
-		if( count( $gBitInstaller->mPackages[$package]['tables'] ) > count( $pDbTables['missing'][$package] )) {
-			// at least one table is missing
-			$ret[$package] = array(
-				'name'     => ucfirst( $gBitInstaller->mPackages[$package]['name'] ),
-				'required' => $gBitInstaller->mPackages[$package]['required'],
-			);
-			foreach( $pDbTables['missing'][$package] as $table ) {
-				$ret[$package]['tables'][$table] = array(
-					'name' => $table,
-					'sql'  => $gBitInstaller->mPackages[$package]['tables'][$table],
+	if( !empty( $pDbTables['missing'] ) && is_array( $pDbTables['missing'] )) {
+		foreach( array_keys( $pDbTables['missing'] ) as $package ) {
+			// we can't use the 'installed' flag in $gBitInstaller->mPackages[$package] because that is set to 'not installed' as soon as a table is missing
+			if( count( $gBitInstaller->mPackages[$package]['tables'] ) > count( $pDbTables['missing'][$package] )) {
+				// at least one table is missing
+				$ret[$package] = array(
+					'name'     => ucfirst( $gBitInstaller->mPackages[$package]['name'] ),
+					'required' => $gBitInstaller->mPackages[$package]['required'],
 				);
+				foreach( $pDbTables['missing'][$package] as $table ) {
+					$ret[$package]['tables'][$table] = array(
+						'name' => $table,
+						'sql'  => $gBitInstaller->mPackages[$package]['tables'][$table],
+					);
+				}
 			}
 		}
 	}
