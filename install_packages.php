@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.53 2007/03/19 00:35:33 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.54 2007/04/02 18:54:59 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -314,12 +314,10 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 			// Some packages have some special things to take care of here.
 			foreach( $gBitInstaller->mInstallModules as $mod ) {
-				$mod['user_id'] = ROOT_USER_ID;
 				if( !isset( $mod['layout'] ) ) {
 					$mod['layout'] = DEFAULT_PACKAGE;
 				}
 				$gBitThemes->storeModule( $mod );
-				$gBitThemes->storeLayout( $mod );
 			}
 
 			// Set the default format to get quicktags and content storing working

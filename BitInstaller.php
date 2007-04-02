@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.25 2007/03/01 15:11:44 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.26 2007/04/02 18:54:59 squareing Exp $
  * @package install
  */
 
@@ -153,8 +153,7 @@ class BitInstaller extends BitSystem {
 										foreach( $alter[$tableName] as $from => $flds ) {
 											if (is_string($flds)) {
 												$sql = $dict->ChangeTableSQL( $completeTableName, $flds );
-											}
-											else {	
+											} else {
 												$sql = $dict->ChangeTableSQL( $completeTableName, array($flds) );
 											}
 											if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
