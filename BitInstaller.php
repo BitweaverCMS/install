@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.26 2007/04/02 18:54:59 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.27 2007/04/04 13:09:37 squareing Exp $
  * @package install
  */
 
@@ -197,6 +197,13 @@ class BitInstaller extends BitSystem {
 												array_push( $failedcommands, $sql );
 											}
 										}
+									}
+								}
+								break;
+							case 'CREATESEQUENCE':
+								foreach( $dd as $create ) {
+									foreach( $create as $sequence ) {
+										$this->mDb->CreateSequence( $sequence );
 									}
 								}
 								break;
