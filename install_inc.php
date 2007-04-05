@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.23 2007/03/07 10:27:58 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.24 2007/04/05 15:21:51 jetskijoe Exp $
  * @package install
  * @subpackage functions
  */
@@ -104,11 +104,11 @@ require_once( 'BitInstaller.php' );
 require_once( USERS_PKG_PATH.'BitUser.php' );
 
 // set some preferences during installation
-global $gBitInstaller, $gBitSystem;
+global $gBitInstaller, $gBitSystem, $gBitThemes;
 $gBitInstaller = new BitInstaller();
 
 // default style is set in kernel/config_defaults.php
-$gBitInstaller->setStyle( DEFAULT_THEME );
+$gBitThemes->setStyle( DEFAULT_THEME );
 
 // IF DB has not been created yet, then packages will not have been scanned yet.
 // and even if they have been scanned, then they will only include active packages,
