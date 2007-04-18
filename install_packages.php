@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.54 2007/04/02 18:54:59 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.55 2007/04/18 18:15:19 nickpalmer Exp $
  * @package install
  * @subpackage functions
  */
@@ -115,10 +115,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 						$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$tableName], $build );
 						// Uncomment this line to see the create sql
 						//vd( $sql );
-						if( $sql && ( $dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-						} else {
-							print '<span class="error">Failed to create '.$completeTableName.'</span>';
-							array_push( $failedcommands, $sql );
+						if( $sql && $dict->ExecuteSQLArray( $sql ) <= 1) {
+							$errors[] = 'Failed to create table '.$completeTableName;
+							$failedcommands[] = implode(" ", $sql);
 						}
 					}
 				}
@@ -142,10 +141,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 							$completeTableName = $sequencePrefix.$gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['table'];
 
 							$sql = $dict->CreateIndexSQL( $tableIdx, $completeTableName, $gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['cols'], $gBitInstaller->mPackages[$package]['indexes'][$tableIdx]['opts'] );
-							if( $sql && ( $dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-							} else {
-								print '<span class="error">Failed to create '.$completeTableName.'</span>';
-								array_push( $failedcommands, $sql );
+							if( $sql && $dict->ExecuteSQLArray( $sql ) <= 1) {
+								$errors[] = 'Failed to create index '.$tableIdx." on ".$completeTableName;
+								$failedcommands[] = implode(" ", $sql);
 							}
 						}
 					}
@@ -153,12 +151,20 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					if( isset( $gBitInstaller->mPackages[$package]['sequences'] ) && is_array( $gBitInstaller->mPackages[$package]['sequences'] ) ) {
 						foreach( array_keys( $gBitInstaller->mPackages[$package]['sequences'] ) as $sequenceIdx ) {
 							$sql = $gBitInstallDb->CreateSequence( $sequencePrefix.$sequenceIdx, $gBitInstaller->mPackages[$package]['sequences'][$sequenceIdx]['start'] );
+							if (!$sql) {
+								$errors[] = 'Failed to create sequence '.$sequencePrefix.$sequenceIdx;
+								$failedcommands[] = "CREATE SEQUENCE ".$sequencePrefix.$sequenceIdx." START ".$gBitInstaller->mPackages[$package]['sequences'][$sequenceIdx]['start'];
+							}
 						}
 					}
 				} elseif( $method == 'uninstall' && in_array( 'tables', $removeActions )) {
 					if( isset( $gBitInstaller->mPackages[$package]['sequences'] ) && is_array( $gBitInstaller->mPackages[$package]['sequences'] ) ) {
 						foreach( array_keys( $gBitInstaller->mPackages[$package]['sequences'] ) as $sequenceIdx ) {
 							$sql = $gBitInstallDb->DropSequence( $sequencePrefix.$sequenceIdx );
+							if (!$sql) {
+								$errors[] = 'Failed to drop sequence '.$sequencePrefix.$sequenceIdx;
+								$failedcommands[] = "DROP SEQUENCE ".$sequencePrefix.$sequenceIdx;
+							}
 						}
 					}
 				}
@@ -187,7 +193,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 							$delete = "
 								DELETE FROM `".$tablePrefix.$table."`
 								WHERE `perm_name`=?";
-							$gBitInstaller->mDb->query( $delete, array( $perm ) );
+							$ret = $gBitInstaller->mDb->query( $delete, array( $perm ) );
+							if (!$ret) {
+								$errors[] = "Error deleting permission ". $perm;
+								$failedcommands[] = $delete." ".$perm;
+							}
 						}
 					}
 
@@ -197,7 +207,13 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 						$delete = "
 							DELETE FROM `".$tablePrefix.$table."`
 							WHERE `package`=?";
-						$gBitInstaller->mDb->query( $delete, array( $package ) );
+						$ret = $gBitInstaller->mDb->query( $delete, array( $package ) );
+						if (!$ret) {
+							$errors[] = "Error deleting confgis for package ". $package;
+							$failedcommands[] = $delete." ".$package;
+						}
+
+
 					}
 				}
 
@@ -233,14 +249,23 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 									$delete = "
 										DELETE FROM `".$tablePrefix.$table."`
 										WHERE `$column`=?";
-									$gBitInstaller->mDb->query( $delete, array( $contentId ));
+									$ret = $gBitInstaller->mDb->query( $delete, array( $contentId ));
+									if (!$ret) {
+										$errors[] = "Error deleting from ". $tablePrefxi.$table;
+										$failedcommands[] = $delete." ".$contentId;
+									}
 								}
 
 								// special case: liberty_content_permissions
 								$delete = "
 									DELETE FROM `".$tablePrefix."liberty_content_permissions`
 									WHERE `content_id`=?";
-								$gBitInstaller->mDb->query( $delete, array( $contentId ));
+								$ret = $gBitInstaller->mDb->query( $delete, array( $contentId ));
+								if (!$ret) {
+									$errors[] = "Error deleting content permissions.";
+									$failedcommands[] = $delete." ".$contentId;
+							}
+
 							}
 
 							// TODO: we need to physically remove files from the server when we uninstall stuff like fisheye and treasury
@@ -253,7 +278,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 								$delete = "
 									DELETE FROM `".$tablePrefix.$table."`
 									WHERE `content_type_guid`=?";
-								$gBitInstaller->mDb->query( $delete, array( $contentType['content_type_guid'] ));
+								$ret = $gBitInstaller->mDb->query( $delete, array( $contentType['content_type_guid'] ));
+								if (!$ret) {
+									$errors[] = "Error deleting content type";
+									$failedcommands[] = $delete." ".$contentType['content_type_guid'];
+								}
 							}
 						}
 					}
@@ -299,7 +328,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 								if( $gBitInstaller->mDb->mType == 'firebird' ) {
 									$def = preg_replace( "/\\\'/", "''", $def );
 								}
-								$gBitInstaller->mDb->query( $def );
+								$ret = $gBitInstaller->mDb->query( $def );
+								if (!$ret) {
+									$errors[] = "Error setting defaults";
+									$failedcommands[] = $def;
+								}
 							}
 						}
 					}
@@ -409,7 +442,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 			LibertyContent::storeActionLog( $logHash );
 		} else {
-			$gBitSmarty->assign( 'failedcommands', !empty( $failedcommands ) ? $failedcommands : NULL );
+			$gBitSmarty->assign( 'errors', $errors);
+			$gBitSmarty->assign( 'failedcommands', $failedcommands);
 		}
 
 		// display the confirmation page

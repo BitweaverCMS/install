@@ -24,7 +24,7 @@
 					{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 					The following database operations failed
 				</h2>
-				<textarea rows="20" cols="50">{section loop=$failedcommands name=ix}{$failedcommands[ix]}{/section}</textarea>
+				{section loop=$failedcommands name=idx}<p class="error">{$errors[idx]|escape}:<br/>&nbsp;&nbsp;&nbsp;&nbsp;{$failedcommands[idx]|escape}</p>{/section}
 				<h3>Some errors occured. Your site may not be ready to run. You can revisit the previous page to rerun the installation.</h3>
 			</div>
 		{/if}
