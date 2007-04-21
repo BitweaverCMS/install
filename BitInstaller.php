@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.27 2007/04/04 13:09:37 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.28 2007/04/21 14:10:41 squareing Exp $
  * @package install
  */
 
@@ -112,7 +112,9 @@ class BitInstaller extends BitSystem {
 
 	function upgradePackage( $package ) {
 		global $gBitSystem, $gBitDb;
-		if( !empty( $gBitSystem->mUpgrades[$package] ) ) {
+		$ret = array();
+
+		if( !empty( $gBitSystem->mUpgrades[$package] )) {
 			$tablePrefix = $this->getTablePrefix();
 			$dict = NewDataDictionary( $gBitDb->mDb );
 			for( $i=0; $i<count( $gBitSystem->mUpgrades[$package] ); $i++ ) {
@@ -138,10 +140,10 @@ class BitInstaller extends BitSystem {
 									foreach( array_keys( $create ) as $tableName ) {
 										$completeTableName = $tablePrefix.$tableName;
 										$sql = $dict->CreateTableSQL( $completeTableName, $create[$tableName], 'REPLACE' );
-										if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
+										if( $sql && ( $dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 										} else {
-											print '<dd><span class="error">Failed to create '.$completeTableName.'</span>';
-											array_push( $failedcommands, $sql );
+											$errors[] = 'Failed to create '.$completeTableName;
+											$failedcommands[] = implode( " ", $sql );
 										}
 									}
 								}
@@ -158,8 +160,8 @@ class BitInstaller extends BitSystem {
 											}
 											if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 											} else {
-												print '<dd><span class="error">Failed to alter '.$completeTableName.' -> '.$alter[$tableName].'</span>';
-												array_push( $failedcommands, $sql );
+												$errors[] = 'Failed to alter '.$completeTableName.' -> '.$alter[$tableName];
+												$failedcommands[] = implode( " ", $sql );
 											}
 										}
 									}
@@ -174,8 +176,8 @@ class BitInstaller extends BitSystem {
 												$this->mDb->query( $query );
 											}
 										} else {
-											print '<dd><span class="error">Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
-											array_push( $failedcommands, $sql );
+											$errors[] = 'Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1];
+											$failedcommands[] = implode( " ", $sql );
 										}
 									}
 								}
@@ -193,8 +195,8 @@ class BitInstaller extends BitSystem {
 													$this->mDb->query( $query );
 												}
 											} else {
-												print '<dd><span class="error">Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1].'</span>';
-												array_push( $failedcommands, $sql );
+												$errors[] = 'Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1];
+												$failedcommands[] = implode( " ", $sql );
 											}
 										}
 									}
@@ -215,8 +217,8 @@ class BitInstaller extends BitSystem {
 											//$this->mDb->DropSequence( $from );
 											$this->mDb->CreateSequence( $to, $id );
 										} else {
-											print '<dd><span class="error">Failed to rename sequence '.$from.' to '.$to.'</span>';
-											//array_push( $failedcommands, $sql );
+											$errors[] = 'Failed to rename sequence '.$from.' to '.$to;
+											$failedcommands[] = implode( " ", $sql );
 										}
 									}
 								}
@@ -231,8 +233,8 @@ class BitInstaller extends BitSystem {
 													$this->mDb->query( $query );
 												}
 											} else {
-												print '<dd><span class="error">Failed to drop column '.$completeTableName.'</span>';
-												array_push( $failedcommands, $sql );
+												$errors[] = 'Failed to drop column '.$completeTableName;
+												$failedcommands[] = implode( " ", $sql );
 											}
 										}
 									}
@@ -245,8 +247,8 @@ class BitInstaller extends BitSystem {
 										$sql = $dict->DropTableSQL( $completeTableName );
 										if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
 										} else {
-											print '<dd><span class="error">Failed to drop table '.$completeTableName.'</span>';
-											array_push( $failedcommands, $sql );
+											$errors[] = 'Failed to drop table '.$completeTableName;
+											$failedcommands[] = implode( " ", $sql );
 										}
 									}
 								}
@@ -260,8 +262,8 @@ class BitInstaller extends BitSystem {
 												$this->mDb->query( $query );
 											}
 										} else {
-											print '<dd><span class="error">Failed to create index '.$index.'</span>';
-											array_push( $failedcommands, $sql );
+											$errors[] = 'Failed to create index '.$index;
+											$failedcommands[] = implode( " ", $sql );
 										}
 									}
 								}
@@ -291,7 +293,10 @@ class BitInstaller extends BitSystem {
 							}
 							if( !empty( $sql ) ) {
 								foreach( $sql as $query ) {
-									$this->mDb->query( $query );
+									if( !$result = $this->mDb->query( $query )) {
+										$errors[] = 'Failed to execute SQL query';
+										$failedcommands[] = implode( " ", $sql );
+									}
 								}
 								$sql = NULL;
 							}
@@ -305,13 +310,20 @@ class BitInstaller extends BitSystem {
 						break;
 				}
 			}
+
 			// turn on features that are turned on
 			if( $gBitSystem->isFeatureActive( 'feature_'.$package ) ) {
 				$gBitSystem->storeConfig( 'package_'.$package, 'y', KERNEL_PKG_NAME );
 			}
-		}
-	}
 
+			if( !empty( $failedcommands )) {
+				$ret['errors'] = $errors;
+				$ret['failedcommands'] = $failedcommands;
+			}
+		}
+
+		return $ret;
+	}
 }
 
 function check_session_save_path() {

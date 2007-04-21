@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.55 2007/04/18 18:15:19 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.56 2007/04/21 14:10:41 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -43,7 +43,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// make sure no required packages are included in this list
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] )) {
-				$gBitSmarty->assign( 'warning', "Something unexpected has happened: One of the required packaes has appeared in the list of selected packages. This generally only happens if the installation is missing a core database table. Please contact the bitweaver developers team on how to procede." );
+				$gBitSmarty->assign( 'warning', "Something unexpected has happened: One of the required packaes has appeared in the list of selected packages. This generally only happens if the installation is missing a core database table. Please contact the bitweaver developers team on how to proceed." );
 				$method = FALSE;
 			}
 		}
@@ -293,6 +293,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					// apparently we need to first remove the vaue from the database to make sure it's set
 					$gBitSystem->storeConfig( 'package_'.$package , NULL );
 					$gBitSystem->storeConfig( 'package_'.$package , 'y', $package );
+					if( !empty( $gBitSystem->mPackages[$package]['version'] )) {
+						$gBitSystem->storeVersion( $package, $gBitSystem->mPackages[$package]['version'] );
+					}
 					$gBitInstaller->mPackages[ $package ]['installed'] = TRUE;
 					$gBitInstaller->mPackages[ $package ]['active_switch'] = TRUE;
 					// we'll default wiki to the home page

@@ -1,4 +1,4 @@
-<h1>Package Conflicts</h1>
+<h1>Bitweaver integrity check</h1>
 
 <p>
 	{biticon ipackage="icons" iname="dialog-information" iexplain=Information}
@@ -43,7 +43,7 @@
 			{if $required}
 				<p class="error">
 					{biticon ipackage="icons" iname="dialog-error" iexplain=error}
-					A required package is missing at least one table. This will have unpredictable results. Please make a note of the table and contact the bitweaver team on how to procede.
+					A required package is missing at least one table. This will have unpredictable results. Please make a note of the table and contact the bitweaver team on how to proceed.
 					If this is your first install, we recommend that you give it another shot, perhaps with fewer packages selected. You can return to the installer at any time and install more packages later.
 					<br />If this problem persists, we recommend that you turn on the <strong>debugging</strong> option and look for error messages regarding the above table(s). This will help the bitweaver team identify the problem more quickly when you contact them.
 				</p>
@@ -121,7 +121,7 @@
 		{else}
 			<p class="success">
 				{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
-				The permissioning system in your installation is up to date and does not require any adjustments.
+				The permissioning system in your installation is up to date and does not require any adjustments. Even though this is true, we recommend you visit the <a href="{$smarty.const.USERS_PKG_URL}admin/unassigned_perms.php">Unassigned Permissions</a> page at some point to ensure that all permissions are active.
 			</p>
 		{/if}
 	{/legend}

@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<style type="text/css">
-		<!-- @import url(style/install.css); -->
+		<!-- @import url({$smarty.const.INSTALL_PKG_URL}style/install.css); -->
 	</style>
 	<title>Install bitweaver - {$browserTitle}</title>
 	<link rel="shortcut icon" href="{$smarty.const.INSTALL_PKG_URL}favicon.ico" type="image/x-icon" />
@@ -46,7 +46,7 @@
 					<li class="{$step.state}">
 						{biticon ipackage=icons iname=`$step.icon` iexplain=`$step.state` iforce=icon}&nbsp;
 						{if $step.state ne 'uncompleted'}
-							<a href="{$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step={$key}">
+							<a href="{$menu_path|default:$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step={$key}">
 						{/if}
 						{$step.name}
 						{if $step.state ne 'uncompleted'}

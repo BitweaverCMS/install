@@ -19,9 +19,10 @@ body						{background:#124 url( images/bg.gif ) repeat; font-family:verdana, ari
 table						{border-collapse:collapse; padding:0; margin:0; width:100%;}
 caption						{font-weight:bold; padding:5px 0 0 0;}
 th							{text-align:left; padding:3px 5px; background:#2c4268; border-bottom:2px solid #fff; color:#fff;}
+th a						{color:#ff0;}
 td							{padding:2px 3px; vertical-align:top;}
 hr							{border:1px solid #000;}
-p							{margin:0; padding:1em;}
+p							{margin:0.5em; padding:0.5em;}
 
 /* titles */
 h1							{font-size:160%; font-variant:small-caps;}
@@ -56,6 +57,8 @@ textarea					{width:100%;}
 .formlabel					{float:left; width:24%; text-align:center; padding:0em 1% 1em 0; font-weight:bold;}
 .formfeedback				{}
 .formfeedback div			{padding:4px; border-bottom:1px dotted #aaa;}
+
+.odd						{background:#eee;}
 
 .dialog-error,
 .error						{background:#fdd;}
