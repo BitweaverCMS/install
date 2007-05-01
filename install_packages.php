@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.56 2007/04/21 14:10:41 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.57 2007/05/01 07:07:54 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -144,6 +144,18 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 							if( $sql && $dict->ExecuteSQLArray( $sql ) <= 1) {
 								$errors[] = 'Failed to create index '.$tableIdx." on ".$completeTableName;
 								$failedcommands[] = implode(" ", $sql);
+							}
+						}
+					}
+
+					if( $method == 'reinstall' && in_array( 'tables', $removeActions )) {
+						if( isset( $gBitInstaller->mPackages[$package]['sequences'] ) && is_array( $gBitInstaller->mPackages[$package]['sequences'] ) ) {
+							foreach( array_keys( $gBitInstaller->mPackages[$package]['sequences'] ) as $sequenceIdx ) {
+								$sql = $gBitInstallDb->DropSequence( $sequencePrefix.$sequenceIdx );
+								if (!$sql) {
+									$errors[] = 'Failed to drop sequence '.$sequencePrefix.$sequenceIdx;
+									$failedcommands[] = "DROP SEQUENCE ".$sequencePrefix.$sequenceIdx;
+								}
 							}
 						}
 					}
