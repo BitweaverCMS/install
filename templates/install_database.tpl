@@ -50,7 +50,7 @@
 				<p class="warning">If you intend to upgrade an existing MySQL database, the required server version is greater than 4.1.</p>
 			{/if}
 			{if $dbservers}
-				{html_options name='db' options=$dbservers id=db selected=$gBitDbType}
+				{html_options name='db' options=$dbservers id=db selected=$gBitDbType style="width:50%"}
 			{else}
 				<p class="warning">You currently have no Database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">bitweaver Team</a>.</p>
 			{/if}
