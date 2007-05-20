@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_blogs_inc.php,v 1.8 2006/10/19 16:41:16 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_blogs_inc.php,v 1.9 2007/05/20 10:54:31 lsces Exp $
  * @package install
  * @subpackage pumps
  */
@@ -21,6 +21,7 @@ $pageHash = array(
 		'allow_comments' => 'y'
 );
 
+$gBlog = new BitBlog();
 if( $gBlog->store( $blogHash ) ) {
 	$blogPostHash = array(
 		array(
