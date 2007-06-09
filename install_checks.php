@@ -1,26 +1,22 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.17 2007/01/15 17:53:40 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.18 2007/06/09 19:48:59 squareing Exp $
  * @package install
  * @subpackage functions
+ * @author xing
  */
-
-// Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 // assign next step in installation process
 $gBitSmarty->assign( 'next_step',$step + 1 );
 
 $check_settings = check_settings();
 
-$gBitSmarty->assign( "error",$error );
-$gBitSmarty->assign( "warning",$warning );
-$gBitSmarty->assign( "required",$check_settings['required'] );
-$gBitSmarty->assign( "extensions",$check_settings['extensions'] );
-$gBitSmarty->assign( "executables",$check_settings['executables'] );
-$gBitSmarty->assign( "recommended",$check_settings['recommended'] );
-$gBitSmarty->assign( "show",$check_settings['show'] );
+$gBitSmarty->assign( "error", $error );
+$gBitSmarty->assign( "warning", $warning );
+
+foreach( $check_settings as $type => $checks ) {
+	$gBitSmarty->assign( $type, $checks );
+}
 
 if( !isset( $_SERVER['HTTP_REFERER'] ) ) {
 	$gBitSmarty->assign( "http_referer_error", TRUE );
@@ -45,6 +41,7 @@ function check_settings() {
 		$required[$i]['note'] = '<strong>PHP version</strong> is greater than <strong>'.$phpvers.'</strong>.<br />Your installed version of PHP is <strong>'.phpversion().'</strong>.';
 		$required[$i]['passed'] = TRUE;
 	}
+
 	// check file and directory permissisions
 	$i++;
 	if( @file_exists( $config_file ) && @bw_is_writeable( $config_file ) ) {
@@ -156,7 +153,7 @@ function check_settings() {
 		),
 		'gs' => array(
 			'command'      => 'gs --version',
-			'note'         => '<a href="http://www.cs.wisc.edu/~ghost/">GhostScript</a> is an interpreter for the PostScript language and for PDF and is used to create PDF previews when uploading PDFs to fisheye. If you do not have this installed, previews of PDF files will not be generated on upload.<br />If you have difficulties with GhostScript, please try installing a different version. We have successfully tested versions: <strong>7.5, 8.5, 8.54</strong> and we have had difficulties with version <strong>8.1</strong>',
+			'note'         => '<a href="http://www.cs.wisc.edu/~ghost/">GhostScript</a> is an interpreter for the PostScript language and for PDF and is used to create PDF previews when uploading PDFs to fisheye. If you do not have this installed, previews of PDF files will not be generated on upload.<br />If you have difficulties with GhostScript, please try installing a different version. We have successfully tested versions: <strong>7.5, 8.15.4, 8.5, 8.54</strong> and we have had difficulties with version <strong>8.1</strong>',
 			'result'       => 'Your version of GhostScript: ',
 		),
 //		'unstuff' => array(
@@ -184,6 +181,33 @@ function check_settings() {
 		if( !empty( $app['result'] ) && !empty( $shellResults[$exe] )) {
 			$executables[$exe]['note'] .= '<br />'.$app['result'].'<strong>'.$shellResults[$exe].'</strong>';
 		}
+	}
+
+
+	// PEAR checks
+	$pears = array(
+		'Auth' => array(
+			'path' => 'Auth/Auth.php',
+			'note' => 'This will allow you to use the Pear::Auth package to authenticate users on your website.',
+		),
+		'Text_Wiki' => array(
+			'path' => 'Text/Wiki.php',
+			'note' => 'Having Pear::Text_Wiki installed will make more wiki format parsers available. The following parsers will be recognised and used: Text_Wiki_BBCode, Text_Wiki_Cowiki, Text_Wiki_Creole, Text_Wiki_Doku, Text_Wiki_Mediawiki, Text_Wiki_Tiki',
+		),
+		'Text_Diff' => array(
+			'path' => 'Text/Diff.php',
+			'note' => 'Pear::Text_Diff makes inline diffing of content available.',
+		),
+	);
+	foreach( $pears as $pear => $info ) {
+		$pearexts[$pear]['note'] = 'The pear extension <strong>'.$pear.'</strong> is ';
+		if( @include_once( $info['path'] )) {
+			$pearexts[$pear]['passed'] = TRUE;
+		} else {
+			$pearexts[$pear]['note'] .= 'not ';
+			$pearexts[$pear]['passed'] = FALSE;
+		}
+		$pearexts[$pear]['note'] .= 'available.<br />'.$info['note'];
 	}
 
 	$i = 0;
@@ -239,11 +263,12 @@ function check_settings() {
 		$show[$php_ini_get[1]] = $php_ini_get[0]."<br /><strong>{$php_ini_get[1]}</strong> is set to <strong>$value</strong>";
 	}
 
-	$res['required'] = $required;
-	$res['extensions'] = $extensions;
+	$res['required']    = $required;
+	$res['extensions']  = $extensions;
 	$res['executables'] = $executables;
+	$res['pearexts']    = $pearexts;
 	$res['recommended'] = $recommended;
-	$res['show'] = $show;
+	$res['show']        = $show;
 	return $res;
 }
 
