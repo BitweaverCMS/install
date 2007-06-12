@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.57 2007/05/01 07:07:54 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.58 2007/06/12 20:52:50 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -73,7 +73,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		}
 		$tablePrefix = $gBitInstaller->getTablePrefix();
 
-		$dict = NewDataDictionary( $gBitInstallDb, $gBitDbType );
+		$dict = NewDataDictionary( $gBitInstallDb );
 
 		if( !$gBitInstaller->mDb->getCaseSensitivity() ) {
 			// set nameQuote to blank

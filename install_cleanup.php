@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.7 2007/04/01 10:56:50 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.8 2007/06/12 20:52:50 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -73,7 +73,7 @@ if( !empty(  $_REQUEST['create_tables'] ) && !empty( $dbIntegrity )) {
 	$gBitInstallDb = &ADONewConnection( $gBitDbType );
 
 	if( $gBitInstallDb->Connect( $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName )) {
-		$dict = NewDataDictionary( $gBitInstallDb, $gBitDbType );
+		$dict = NewDataDictionary( $gBitInstallDb );
 
 		if( !$gBitInstaller->mDb->getCaseSensitivity() ) {
 			$dict->connection->nameQuote = '';
