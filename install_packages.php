@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.61 2007/06/13 15:03:55 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.62 2007/06/13 16:24:49 nickpalmer Exp $
  * @package install
  * @subpackage functions
  */
@@ -59,6 +59,10 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 	}
 
 	$gBitInstallDb = &ADONewConnection( $gBitDbType );
+	// Need to unquote constraints.
+	require_once('../kernel/BitDbBase.php');
+	$gBitKernelDb = new BitDb();
+	$gBitKernelDb->mType = $gBitDbType;
 
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
 		$gBitInstaller->debug();
@@ -128,11 +132,15 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// ---------------------- 2. ----------------------
 		// install additional constraints
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-			if( in_array( $package, $_REQUEST['packages'] ) && !empty( $gBitInstaller->mPackages[$package]['constraints'] ) && is_array( $gBitInstaller->mPackages[$package]['constraints'] ) ) {
+			if( in_array( $package, $_REQUEST['packages'] ) && ($method == 'install' || $method == 'reinstall' ) 
+				&& !empty( $gBitInstaller->mPackages[$package]['constraints'] ) && is_array( $gBitInstaller->mPackages[$package]['constraints'] ) ) {
 				foreach( array_keys($gBitInstaller->mPackages[$package]['constraints']) as $tableName ) {
 					$completeTableName = $tablePrefix.$tableName;
 					foreach( array_keys($gBitInstaller->mPackages[$package]['constraints'][$tableName]) as $constraintName ) {
 						$sql = 'ALTER TABLE `'.$completeTableName.'` ADD CONSTRAINT `'.$constraintName.'` '.$gBitInstaller->mPackages[$package]['constraints'][$tableName][$constraintName];
+						//vd($sql);
+						$gBitKernelDb->convertQuery($sql);
+						vd($sql);
 						$ret = $gBitInstallDb->Execute( $sql );
 						if ( $ret === false ) {
 							$errors[] = 'Failed to add constraint '.$constraintName.' to table '.$completeTableName;
