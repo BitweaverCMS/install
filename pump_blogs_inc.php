@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_blogs_inc.php,v 1.9 2007/05/20 10:54:31 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/Attic/pump_blogs_inc.php,v 1.10 2007/06/13 17:04:23 nickpalmer Exp $
  * @package install
  * @subpackage pumps
  */
@@ -13,21 +13,23 @@ include_once( BLOGS_PKG_PATH.'BitBlog.php' );
 
 $pageHash = array(
 		'fSavePage' => TRUE,
-		'user_id' => ROOT_USER_ID,
 		'format_guid' => 'tikiwiki',
 		'title' => 'bitweaver Blog',
 		'edit' => 'Sample Blog added during the installation process',
 		'use_title' => 'y',
-		'allow_comments' => 'y'
+		'max_posts' => '10',
+		'use_title' => 'on',
+		'ust_find' => 'on',		
+		'allow_comments' => 'on',
 );
 
 $gBlog = new BitBlog();
-if( $gBlog->store( $blogHash ) ) {
+if( $gBlog->store( $pageHash ) ) {
 	$blogPostHash = array(
 		array(
 			'fSavePage' => TRUE,
 			'format_guid' => 'tikiwiki',
-			'blog_id' => $gBlog->mBlogId,
+			'blog_content_id' => array($gBlog->mContentId),
 			'trackback' => NULL,
 			'title' => 'Lorem Ipsum',
 			'edit' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vestibulum molestie lectus quis elit. Suspendisse scelerisque augue vitae ipsum. Maecenas quis enim. Suspendisse at turpis sed sem ullamcorper aliquam. Aliquam pede ligula, auctor vitae, interdum eget, aliquam vitae, magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam varius feugiat neque. Pellentesque varius. Fusce a mi in nulla porta aliquam. Morbi scelerisque, turpis quis sodales blandit, libero lorem faucibus dui, sit amet lacinia sem pede in quam. Pellentesque tempor suscipit sem. Nam sed augue. 
@@ -39,7 +41,7 @@ if( $gBlog->store( $blogHash ) ) {
 		array(
 			'fSavePage' => TRUE,
 			'format_guid' => 'tikiwiki',
-			'blog_id' => $gBlog->mBlogId,
+			'blog_content_id' => array($gBlog->mContentId),
 			'trackback' => NULL,
 			'title' => 'Another Blog',
 			'edit' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vestibulum molestie lectus quis elit. Suspendisse scelerisque augue vitae ipsum. Maecenas quis enim. Suspendisse at turpis sed sem ullamcorper aliquam. Aliquam pede ligula, auctor vitae, interdum eget, aliquam vitae, magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam varius feugiat neque. Pellentesque varius. Fusce a mi in nulla porta aliquam. Morbi scelerisque, turpis quis sodales blandit, libero lorem faucibus dui, sit amet lacinia sem pede in quam. Pellentesque tempor suscipit sem. Nam sed augue. 
@@ -49,7 +51,7 @@ if( $gBlog->store( $blogHash ) ) {
 		array(
 			'fSavePage' => TRUE,
 			'format_guid' => 'tikiwiki',
-			'blog_id' => $gBlog->mBlogId,
+			'blog_content_id' => array($gBlog->mContentId),
 			'trackback' => NULL,
 			'title' => 'Welcome',
 			'edit' => 'This is the blogs package of bitweaver. A blog is short for __web log__ and is basically a journal that is available on the web. The activity of updating a blog is "blogging" and someone who keeps a blog is a "blogger." Blogs are typically updated daily using software that allows people with little or no technical background to update and maintain the blog. Postings on a blog are almost always arranged in cronological order with the most recent additions featured most prominantly.

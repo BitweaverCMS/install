@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.3 2007/01/17 00:41:11 hiranchaudhuri Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.4 2007/06/13 17:04:23 nickpalmer Exp $
  * @package install
  * @subpackage functions
  */
@@ -11,6 +11,8 @@
 
 // assign next step in installation process
 $gBitSmarty->assign( 'next_step',$step );
+
+$gBitUser->mUserId = ROOT_USER_ID;
 
 $pumpList = false;
 foreach( array_keys( $gBitSystem->mPackages ) as $package ) {
@@ -33,7 +35,7 @@ if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
 	$app = '_done';
 	$gBitSmarty->assign( 'next_step',$step + 1 );
 
-	if( $gBitSystem->isPackageActive( 'wiki' ) ) {
+	if( $gBitSystem->isPackageActive( 'wiki' ) && !empty($pumpedData['Wiki'])) {
 		$gBitSystem->storeConfig( 'wiki_home_page', $pumpedData['Wiki'][0], WIKI_PKG_NAME );
 	}
 } elseif( isset( $_REQUEST['skip'] ) ) {
