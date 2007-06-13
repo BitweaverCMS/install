@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.58 2007/06/12 20:52:50 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.59 2007/06/13 11:34:00 nickpalmer Exp $
  * @package install
  * @subpackage functions
  */
@@ -125,8 +125,26 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		}
 
 
-
 		// ---------------------- 2. ----------------------
+		// install additional constraints
+		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
+			if( !empty( $gBitInstaller->mPackages[$package]['constraints'] ) && is_array( $gBitInstaller->mPackages[$package]['constraints'] ) ) {
+				foreach( array_keys($gBitInstaller->mPackages[$package]['constraints']) as $tableName ) {
+					$completeTableName = $tablePrefix.$tableName;
+					foreach( array_keys($gBitInstaller->mPackages[$package]['constraints'][$tableName]) as $constraintName ) {
+						$sql = 'ALTER TABLE `'.$completeTableName.'` ADD CONSTRAINT `'.$constraintName.'` '.$gBitInstaller->mPackages[$package]['constraints'][$tableName][$constraintName];
+						if ( $gBitInstallDb->Execute( $sql )) {
+							$errors[] = 'Failed to add constraint '.$constraintName.' to table '.$completeTableName;
+							$failedcommands[] = $sql;
+						}
+					}
+				}
+			}
+		}
+
+
+
+		// ---------------------- 3. ----------------------
 		// let's generate all the indexes, and sequences
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] ) ) {
@@ -188,7 +206,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 
 
-		// ---------------------- 3. ----------------------
+		// ---------------------- 4. ----------------------
 		// manipulate the data in kernel_config
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] ) ) {
@@ -331,7 +349,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 
 
-		// ---------------------- 4. ----------------------
+		// ---------------------- 5. ----------------------
 		// run the defaults through afterwards so we can be sure all tables needed have been created
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( !empty( $package )) {
@@ -357,7 +375,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			}
 		}
 
-		// ---------------------- 5. ----------------------
+		// ---------------------- 6. ----------------------
 		// Do stuff that only applies during the first install
 		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 			// Some packages have some special things to take care of here.
@@ -428,7 +446,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 
 
-		// ---------------------- 6. ----------------------
+		// ---------------------- 7. ----------------------
 		// woo! we're done with the installation bit - below here is some generic installer stuff
 		$gBitSmarty->assign( 'next_step', $step + 1 );
 
