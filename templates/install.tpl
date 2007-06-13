@@ -9,10 +9,6 @@
 	<title>Install bitweaver - {$browserTitle}</title>
 	<link rel="shortcut icon" href="{$smarty.const.INSTALL_PKG_URL}favicon.ico" type="image/x-icon" />
 
-	<!--[if gte IE 5.5000]>
-		<script type="text/javascript" src="{$smarty.const.UTIL_PKG_URL}javascript/msiefixes/pngfix.js"></script>
-	<![endif]-->
-
 	<script type="text/javascript">/* <![CDATA[ */
 		var bitCookiePath = "{$smarty.const.BIT_ROOT_URL}";
 		var bitCookieDomain = "";
