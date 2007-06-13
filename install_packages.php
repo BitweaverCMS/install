@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.59 2007/06/13 11:34:00 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.60 2007/06/13 13:07:39 nickpalmer Exp $
  * @package install
  * @subpackage functions
  */
@@ -133,7 +133,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					$completeTableName = $tablePrefix.$tableName;
 					foreach( array_keys($gBitInstaller->mPackages[$package]['constraints'][$tableName]) as $constraintName ) {
 						$sql = 'ALTER TABLE `'.$completeTableName.'` ADD CONSTRAINT `'.$constraintName.'` '.$gBitInstaller->mPackages[$package]['constraints'][$tableName][$constraintName];
-						if ( $gBitInstallDb->Execute( $sql )) {
+						$ret = $gBitInstallDb->Execute( $sql );
+						if ( $ret === false ) {
 							$errors[] = 'Failed to add constraint '.$constraintName.' to table '.$completeTableName;
 							$failedcommands[] = $sql;
 						}
