@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.60 2007/06/13 13:07:39 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.61 2007/06/13 15:03:55 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -128,7 +128,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// ---------------------- 2. ----------------------
 		// install additional constraints
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-			if( !empty( $gBitInstaller->mPackages[$package]['constraints'] ) && is_array( $gBitInstaller->mPackages[$package]['constraints'] ) ) {
+			if( in_array( $package, $_REQUEST['packages'] ) && !empty( $gBitInstaller->mPackages[$package]['constraints'] ) && is_array( $gBitInstaller->mPackages[$package]['constraints'] ) ) {
 				foreach( array_keys($gBitInstaller->mPackages[$package]['constraints']) as $tableName ) {
 					$completeTableName = $tablePrefix.$tableName;
 					foreach( array_keys($gBitInstaller->mPackages[$package]['constraints'][$tableName]) as $constraintName ) {
