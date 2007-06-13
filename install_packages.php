@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.62 2007/06/13 16:24:49 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.63 2007/06/13 16:32:21 nickpalmer Exp $
  * @package install
  * @subpackage functions
  */
@@ -140,7 +140,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 						$sql = 'ALTER TABLE `'.$completeTableName.'` ADD CONSTRAINT `'.$constraintName.'` '.$gBitInstaller->mPackages[$package]['constraints'][$tableName][$constraintName];
 						//vd($sql);
 						$gBitKernelDb->convertQuery($sql);
-						vd($sql);
+						//vd($sql);
 						$ret = $gBitInstallDb->Execute( $sql );
 						if ( $ret === false ) {
 							$errors[] = 'Failed to add constraint '.$constraintName.' to table '.$completeTableName;
