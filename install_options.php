@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_options.php,v 1.2 2005/10/23 14:40:08 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_options.php,v 1.3 2007/06/14 06:55:13 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -14,6 +14,12 @@ if( isset( $_REQUEST['upgrade'] ) ) {
 	$_SESSION['upgrade'] = TRUE;
 	$_SESSION['first_install'] = TRUE;
 	header( 'Location: '.INSTALL_PKG_URL.'upgrade.php' );
+	die;
+} elseif( !empty( $_REQUEST['upgrade_r1'] ) ) {
+	$_SESSION['upgrade'] = TRUE;
+	$_SESSION['upgrade_r1'] = TRUE;
+	$_SESSION['first_install'] = TRUE;
+	header( 'Location: http://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'upgrade.php' );
 	die;
 } elseif( isset( $_REQUEST['migrate'] ) ) {
 	$_SESSION['migrate'] = TRUE;

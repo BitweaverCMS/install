@@ -32,18 +32,4 @@
 			<input type="submit" name="install" value="Begin the Install process" />
 		</div>
 	{/legend}
-
-	{legend legend="Upgrade bitweaver"}
-		<p> If you have an existing version 1 of bitweaver installed and would
-		like to upgrade to version 2, please use the upgrader.</p>
-
-		<p class="warning">This path will only work for upgrading bitweaver
-		release one to release two. if you want to upgrade from previous
-		versions or from other applications such as tikiwiki, please follow
-		the installer, you will have options to do this later on.</p>
-
-		<div class="row submit">
-			<input type="submit" name="upgrade" value="Upgrade bitweaver R1 to R2" />
-		</div>
-	{/legend}
 {/form}
