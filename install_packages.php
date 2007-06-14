@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.63 2007/06/13 16:32:21 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.64 2007/06/14 18:01:25 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -59,10 +59,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 	}
 
 	$gBitInstallDb = &ADONewConnection( $gBitDbType );
-	// Need to unquote constraints.
-	require_once('../kernel/BitDbBase.php');
-	$gBitKernelDb = new BitDb();
-	$gBitKernelDb->mType = $gBitDbType;
 
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
 		$gBitInstaller->debug();
@@ -118,7 +114,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 						$completeTableName = $tablePrefix.$tableName;
 						$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$tableName], $build );
 						// Uncomment this line to see the create sql
-						//vd( $sql );
 						if( $sql && $dict->ExecuteSQLArray( $sql ) <= 1) {
 							$errors[] = 'Failed to create table '.$completeTableName;
 							$failedcommands[] = implode(" ", $sql);
@@ -138,9 +133,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					$completeTableName = $tablePrefix.$tableName;
 					foreach( array_keys($gBitInstaller->mPackages[$package]['constraints'][$tableName]) as $constraintName ) {
 						$sql = 'ALTER TABLE `'.$completeTableName.'` ADD CONSTRAINT `'.$constraintName.'` '.$gBitInstaller->mPackages[$package]['constraints'][$tableName][$constraintName];
-						//vd($sql);
+						// Need to unquote constraints. but this need replacing with a datadict function
+						require_once('../kernel/BitDbBase.php');
+						$gBitKernelDb = new BitDb();
+						$gBitKernelDb->mType = $gBitDbType;
 						$gBitKernelDb->convertQuery($sql);
-						//vd($sql);
 						$ret = $gBitInstallDb->Execute( $sql );
 						if ( $ret === false ) {
 							$errors[] = 'Failed to add constraint '.$constraintName.' to table '.$completeTableName;
