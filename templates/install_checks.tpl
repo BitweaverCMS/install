@@ -162,10 +162,10 @@
 	{/if}
 
 	<br />
-	<h2>Recommended Pear Extensions</h2>
+	<h2>Recommended PEAR Extensions</h2>
 
 	<p class="help">
-		Pear provides extensions to php, which can easily be installed and
+		PEAR provides extensions to php, which can easily be installed and
 		updated using the pear interface on linux. None of the extenstions
 		below are required, they always provide an alternative to the existing
 		methods available. Often these alternatives are superior to the default
@@ -173,25 +173,45 @@
 	</p>
 
 	<div class="row">
-		{formlabel label="Recommended Pear Extensions"}
+		{formlabel label="Recommended PEAR Extensions"}
 		{forminput}
-			{foreach from=$pearexts item="check"}
-				{if $check.passed}
-					<p>{biticon ipackage="icons" iname="dialog-ok" iexplain=success} {$check.note}</p>
-				{else}
-					{assign var=pearextswarning value=1}
-					<p class="warning">{biticon ipackage="icons" iname="dialog-warning" iexplain=warning} {$check.note}</p>
-				{/if}
-			{/foreach}
+			{if !$pearexts.PEAR.passed}
+				{assign var=pearinstall value=1}
+				<p class="warning">{biticon ipackage="icons" iname="dialog-warning" iexplain=warning} {$pearexts.PEAR.note}</p>
+				<p>Extensions we can make use of:</p>
+				<ul>
+					{foreach from=$pearexts key=ext item="check"}
+						{if $ext != 'PEAR'}
+							<li><strong>PEAR::{$ext}</strong><br />{$check.original_note}</li>
+						{/if}
+					{/foreach}
+				</ul>
+			{else}
+				{foreach from=$pearexts item="check"}
+					{if $check.passed}
+						<p>{biticon ipackage="icons" iname="dialog-ok" iexplain=success} {$check.note}</p>
+					{else}
+						{assign var=pearextswarning value=1}
+						<p class="warning">{biticon ipackage="icons" iname="dialog-warning" iexplain=warning} {$check.note}</p>
+					{/if}
+				{/foreach}
+			{/if}
 		{/forminput}
 	</div>
 
-	{if $pearextswarning}
+	{if $pearinstall}
 		<p class="warning">
 			{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
-			To install a specific pear extension, please type something like:
-			pear install &lt;extension&gt;. If that does not work, try to do so
-			as root or contact the host administrator.
+			Here you can find <a class="external"
+				href="http://pear.php.net/manual/en/installation.getting.php">instructions
+				on how to install PEAR</a>.
+		</p>
+	{elseif $pearextswarning}
+		<p class="warning">
+			{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
+			Here you can find <a class="exteral"
+				href="http://pear.php.net/manual/en/installation.cli.php">
+				instructions on how to install PEAR extensions</a>.
 		</p>
 	{else}
 		<p class="success">

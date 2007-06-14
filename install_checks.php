@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.18 2007/06/09 19:48:59 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.19 2007/06/14 07:57:47 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -186,27 +186,39 @@ function check_settings() {
 
 	// PEAR checks
 	$pears = array(
+		'PEAR' => array(
+			'path' => 'PEAR.php',
+			'note' => 'This check indicates if PEAR is installed and available. To make use of PEAR extensions, you need to make sure that PEAR is installed and the include_path is set in your php.ini file.',
+		),
 		'Auth' => array(
 			'path' => 'Auth/Auth.php',
-			'note' => 'This will allow you to use the Pear::Auth package to authenticate users on your website.',
+			'note' => 'This will allow you to use the PEAR::Auth package to authenticate users on your website.',
 		),
 		'Text_Wiki' => array(
 			'path' => 'Text/Wiki.php',
-			'note' => 'Having Pear::Text_Wiki installed will make more wiki format parsers available. The following parsers will be recognised and used: Text_Wiki_BBCode, Text_Wiki_Cowiki, Text_Wiki_Creole, Text_Wiki_Doku, Text_Wiki_Mediawiki, Text_Wiki_Tiki',
+			'note' => 'Having PEAR::Text_Wiki installed will make more wiki format parsers available. The following parsers will be recognised and used: Text_Wiki_BBCode, Text_Wiki_Cowiki, Text_Wiki_Creole, Text_Wiki_Doku, Text_Wiki_Mediawiki, Text_Wiki_Tiki',
 		),
 		'Text_Diff' => array(
 			'path' => 'Text/Diff.php',
-			'note' => 'Pear::Text_Diff makes inline diffing of content available.',
+			'note' => 'PEAR::Text_Diff makes inline diffing of content available.',
 		),
 	);
+
 	foreach( $pears as $pear => $info ) {
-		$pearexts[$pear]['note'] = 'The pear extension <strong>'.$pear.'</strong> is ';
+		if( $pear == 'PEAR' ) {
+			$pearexts[$pear]['note'] = '<strong>'.$pear.'</strong> is ';
+		} else {
+			$pearexts[$pear]['note'] = 'The PEAR extension <strong>'.$pear.'</strong> is ';
+		}
+
 		if( @include_once( $info['path'] )) {
 			$pearexts[$pear]['passed'] = TRUE;
 		} else {
 			$pearexts[$pear]['note'] .= 'not ';
 			$pearexts[$pear]['passed'] = FALSE;
 		}
+
+		$pearexts[$pear]['original_note'] = $info['note'];
 		$pearexts[$pear]['note'] .= 'available.<br />'.$info['note'];
 	}
 
