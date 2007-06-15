@@ -45,6 +45,11 @@
 		be brought back to the installer once the upgrade process has been
 		completed.</p>
 
+	<p class="warning">This feature is currently not working. It was working
+		once and needs some attention since it hasn't been updated in a while.
+		If you know some PHP, please help us out if you are interested in this
+		feature.<p>
+
 	<div class="row submit">
 		<input type="submit" name="migrate" value="Migrate a Database" />
 	</div>
