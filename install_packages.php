@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.64 2007/06/14 18:01:25 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.65 2007/06/15 18:39:15 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -242,8 +242,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					foreach( $tables as $table ) {
 						$delete = "
 							DELETE FROM `".$tablePrefix.$table."`
-							WHERE `package`=?";
-						$ret = $gBitInstaller->mDb->query( $delete, array( $package ) );
+							WHERE `package`=? OR `config_name` STARTING ?";
+						$ret = $gBitInstaller->mDb->query( $delete, array( $package, $package ) );
 						if (!$ret) {
 							$errors[] = "Error deleting confgis for package ". $package;
 							$failedcommands[] = $delete." ".$package;
