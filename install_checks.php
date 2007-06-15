@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.20 2007/06/15 11:23:46 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.21 2007/06/15 15:55:40 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -158,7 +158,7 @@ function check_settings() {
 		),
 		'graphviz' => array(
 			'command'      => 'dot -V 2>&1',
-			'note'         => '<a href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} liberty plugin and you only need to install it if you intend to enable that plugin. The Pear::Image_Graphviz plugin is required as well.',
+			'note'         => '<a href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} liberty plugin and you only need to install it if you intend to enable that plugin.<br /><em>The Pear::Image_Graphviz plugin is required as well.</em>',
 			'result'       => 'Your version of Graphviz: ',
 		),
 //		'unstuff' => array(
@@ -209,7 +209,7 @@ function check_settings() {
 		),
 		'Image_Graphviz' => array(
 			'path' => 'Image/GraphViz.php',
-			'note' => 'Pear::Image_Graphviz makes the {graphviz} plugin available to liberty available. It requires graphviz to be installed as well.',
+			'note' => 'Pear::Image_Graphviz makes the {graphviz} plugin available. With it you can draw maps of how your wiki pages are linked to each other. This can be used for informational purposes or a site-map.<br /><em>It also requires the application graphviz to be installed as well.</em>',
 		),
 	);
 
