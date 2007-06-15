@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.19 2007/06/14 07:57:47 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.20 2007/06/15 11:23:46 nickpalmer Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -156,6 +156,11 @@ function check_settings() {
 			'note'         => '<a href="http://www.cs.wisc.edu/~ghost/">GhostScript</a> is an interpreter for the PostScript language and for PDF and is used to create PDF previews when uploading PDFs to fisheye. If you do not have this installed, previews of PDF files will not be generated on upload.<br />If you have difficulties with GhostScript, please try installing a different version. We have successfully tested versions: <strong>7.5, 8.15.4, 8.5, 8.54</strong> and we have had difficulties with version <strong>8.1</strong>',
 			'result'       => 'Your version of GhostScript: ',
 		),
+		'graphviz' => array(
+			'command'      => 'dot -V 2>&1',
+			'note'         => '<a href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} liberty plugin and you only need to install it if you intend to enable that plugin. The Pear::Image_Graphviz plugin is required as well.',
+			'result'       => 'Your version of Graphviz: ',
+		),
 //		'unstuff' => array(
 //			'params'       => '-xf',
 //			'testfile'     => 'test.tar',
@@ -201,6 +206,10 @@ function check_settings() {
 		'Text_Diff' => array(
 			'path' => 'Text/Diff.php',
 			'note' => 'PEAR::Text_Diff makes inline diffing of content available.',
+		),
+		'Image_Graphviz' => array(
+			'path' => 'Image/GraphViz.php',
+			'note' => 'Pear::Image_Graphviz makes the {graphviz} plugin available to liberty available. It requires graphviz to be installed as well.',
 		),
 	);
 
