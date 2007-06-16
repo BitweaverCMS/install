@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.65 2007/06/15 18:39:15 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.66 2007/06/16 14:25:42 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -420,10 +420,10 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 2, 'Editors','Site  Editors')" );
 				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`,`is_default`) VALUES ( ".ROOT_USER_ID.", 3, 'Registered', 'Users logged into the system', 'y')" );
 
-				$gBitUser->assign_level_permissions( ANONYMOUS_GROUP_ID, 'basic' );
-				$gBitUser->assign_level_permissions( 3, 'registered' );
-				$gBitUser->assign_level_permissions( 2, 'editors' );
-				$gBitUser->assign_level_permissions( 1, 'admin' );
+				$gBitUser->assignLevelPermissions( ANONYMOUS_GROUP_ID, 'basic' );
+				$gBitUser->assignLevelPermissions( 3, 'registered' );
+				$gBitUser->assignLevelPermissions( 2, 'editors' );
+				$gBitUser->assignLevelPermissions( 1, 'admin' );
 
 				// Create 'Anonymous' user has id= -1 just like phpBB
 				$anonUser = new BitPermUser();
