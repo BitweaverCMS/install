@@ -51,9 +51,16 @@
 			{if $optional}
 				<p class="warning">
 					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
-					One of the optional packages you have selected for installation has not installed one of its tables. This will probably render the package useless.
-					You can try installing this package again by revisiting the <a href="{$smarty.const.INSTALL_PKG_URL}install.php?step={$smarty.request.step-1}">Package installation</a> page.
-					<br />If this problem persists, we recommend that you turn on the <strong>debugging</strong> option and look for error messages regarding the above table(s). This will help the bitweaver team identify the problem more quickly when you contact them.
+					One of the optional packages you have selected for
+					installation has not installed one of its tables. This will
+					probably render the package useless.  You can try
+					installing this package again by revisiting the
+					<a href="{$smarty.const.INSTALL_PKG_URL}install.php?step={$smarty.request.step-1}">Package installation</a>
+					page.  <br />If this problem persists, we recommend that
+					you turn on the <strong>debugging</strong> option and look
+					for error messages regarding the above table(s). This will
+					help the bitweaver team identify the problem more quickly
+					when you contact them.
 				</p>
 			{/if}
 
@@ -121,7 +128,11 @@
 		{else}
 			<p class="success">
 				{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
-				The permissioning system in your installation is up to date and does not require any adjustments. Even though this is true, we recommend you visit the <a href="{$smarty.const.USERS_PKG_URL}admin/unassigned_perms.php">Unassigned Permissions</a> page at some point to ensure that all permissions are active.
+				The permissioning system in your installation is up to date and
+				does not require any adjustments. Even though this is true, we
+				recommend you visit the {smartlink ititle="Permission
+				Maintenance" ipackage=users ifile=admin/permissions.php} page
+				at some point to ensure that all permissions are active.
 			</p>
 		{/if}
 	{/legend}
@@ -131,15 +142,19 @@
 		{if $serviceList}
 			<p class="warning">
 				{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
-				We have noticed that you have activated multiple packages of the same service type.
-				A service package is a package that allows you to extend the way you display bitweaver content - such as <em>categorising your content</em>.
-				<br />
-				The site should still be fully functional, however, there might be some minor problems such as display of the wrong menus and overlapping functionality.
-				We therefore recommend that you enable only one of each service type.
+				We have noticed that you have activated multiple packages of
+				the same service type.  A service package is a package that
+				allows you to extend the way you display bitweaver content -
+				such as <em>categorising your content</em>.  <br /> The site
+				should still be fully functional, however, there might be some
+				minor problems such as display of the wrong menus and
+				overlapping functionality.  We therefore recommend that you
+				enable only one of each service type.
 			</p>
 
 			<p>
-				You can change your selection at a later time point by modifying the settings in the packages administration screen.
+				You can change your selection at a later time point by
+				modifying the settings in the packages administration screen.
 			</p>
 
 			{foreach from=$serviceList key=service_name item=packages}

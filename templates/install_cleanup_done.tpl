@@ -20,7 +20,10 @@
 			{/forminput}
 		</div>
 
-		<p>Since permissions have been modified, you should probably visit the <a href="{$smarty.const.USERS_PKG_URL}admin/unassigned_perms.php">Unassigned Permissions</a> page to make sure that all permissions are assigned to the correct groups.</p>
+		<p>Since permissions have been modified, you should probably visit the
+			{smartlink ititle="permission maintenance" ipackage=users
+			ifile=admin/permissions.php} page to make sure that all permissions
+			are assigned to the correct groups.</p>
 	{/if}
 
 	{if $deActivated}
