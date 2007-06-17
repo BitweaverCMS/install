@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.66 2007/06/16 14:25:42 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.67 2007/06/17 15:33:19 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -242,14 +242,12 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					foreach( $tables as $table ) {
 						$delete = "
 							DELETE FROM `".$tablePrefix.$table."`
-							WHERE `package`=? OR `config_name` STARTING ?";
-						$ret = $gBitInstaller->mDb->query( $delete, array( $package, $package ) );
+							WHERE `package`=? OR `config_name` LIKE ?";
+						$ret = $gBitInstaller->mDb->query( $delete, array( $package, $package."%" ));
 						if (!$ret) {
 							$errors[] = "Error deleting confgis for package ". $package;
 							$failedcommands[] = $delete." ".$package;
 						}
-
-
 					}
 				}
 
@@ -300,8 +298,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 								if (!$ret) {
 									$errors[] = "Error deleting content permissions.";
 									$failedcommands[] = $delete." ".$contentId;
-							}
-
+								}
 							}
 
 							// TODO: we need to physically remove files from the server when we uninstall stuff like fisheye and treasury
