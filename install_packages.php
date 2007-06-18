@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.67 2007/06/17 15:33:19 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.68 2007/06/18 13:23:13 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -265,18 +265,23 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 							// firstly, we delete using the content ids
 							// order is important due to the constraints set in the schema
 							$tables = array(
-								'liberty_aliases'         => 'content_id',
-								'liberty_structures'      => 'content_id',
-								'liberty_content_hits'    => 'content_id',
-								'liberty_content_history' => 'content_id',
-								'liberty_content_prefs'   => 'content_id',
-								'liberty_content_links'   => 'to_content_id',
-								'liberty_content_links'   => 'from_content_id',
-								'users_favorites_map'     => 'favorite_content_id'
-								// not sure about liberty_attachments. will they get lost?
-								//'liberty_attachments'   => 'content_id',
-								// don't think we should remove comments, since these might be in use by boards
-								//'liberty_comments'      => 'content_id',
+								'liberty_aliases'             => 'content_id',
+								'liberty_structures'          => 'content_id',
+								'liberty_content_hits'        => 'content_id',
+								'liberty_content_history'     => 'content_id',
+								'liberty_content_prefs'       => 'content_id',
+								'liberty_content_links'       => 'to_content_id',
+								'liberty_content_links'       => 'from_content_id',
+								'liberty_process_queue'       => 'content_id',
+								'liberty_attachments_map'     => 'content_id',
+								'liberty_content_permissions' => 'content_id',
+								'users_favorites_map'         => 'favorite_content_id'
+								// This table needs to be fixed to use content_id instead of page_id
+								//'liberty_copyrights'          => 'content_id',
+
+								// liberty comments are tricky. should we remove comments linked to the content being deleted?
+								// makes sense to me but only if boards are not installed - xing
+								//'liberty_comments'            => 'root_id',
 							);
 							foreach( $rmContentIds as $contentId ) {
 								foreach( $tables as $table => $column ) {
@@ -289,24 +294,20 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 										$failedcommands[] = $delete." ".$contentId;
 									}
 								}
-
-								// special case: liberty_content_permissions
-								$delete = "
-									DELETE FROM `".$tablePrefix."liberty_content_permissions`
-									WHERE `content_id`=?";
-								$ret = $gBitInstaller->mDb->query( $delete, array( $contentId ));
-								if (!$ret) {
-									$errors[] = "Error deleting content permissions.";
-									$failedcommands[] = $delete." ".$contentId;
-								}
 							}
+							// TODO: get a list of tables that have a liberty_content.content_id constraint and delete those entries that we can
+							// remove the entries from liberty_content in the next step
+							// one such example is stars and stars_history - we need to automagically recognise tables with such constraints.
 
-							// TODO: we need to physically remove files from the server when we uninstall stuff like fisheye and treasury
+							// TODO: we need an option to physically remove files from the server when we uninstall stuff like fisheye and treasury
 							// i think we'll need to call the appropriate expunge function but i'm too tired to work out how or where to get that info from
 
 							// secondly, we delete using the content type guid
 							// order is important due to the constraints set in the schema
-							$tables = array( 'liberty_content', 'liberty_content_types' );
+							$tables = array(
+								'liberty_content',
+								'liberty_content_types'
+							);
 							foreach( $tables as $table ) {
 								$delete = "
 									DELETE FROM `".$tablePrefix.$table."`
@@ -344,12 +345,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		$gBitInstaller->loadConfig();
 
 
-# this is bad if phpBB isn't being used...
-#		// and let's turn on phpBB so people can find it easily.
-#		if( defined( 'PHPBB_PKG_NAME' ) ) {
-#			$gBitSystem->storeConfig( 'package_phpbb', 'y', PHPBB_PKG_NAME );
-#		}
-
 
 
 		// ---------------------- 5. ----------------------
@@ -377,6 +372,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 			}
 		}
+
+
 
 		// ---------------------- 6. ----------------------
 		// Do stuff that only applies during the first install
