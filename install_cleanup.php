@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.12 2007/06/22 23:08:55 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.13 2007/06/22 23:38:17 nickpalmer Exp $
  * @package install
  * @subpackage functions
  */
@@ -109,19 +109,25 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 		$gBitInstallDb->debug = 99;
 	}
 	// === Permissions
-	$fix = array_merge( $delPerms, $insPerms );
 	$fixedPermissions = array();
+	$groupMap = array();
+	$groupMap['basic'] = ANONYMOUS_GROUP_ID;
+	$groupMap['registered'] = 3;
+	$groupMap['editors'] = 2;
+	$groupMap['admin'] = 1;
 	if( !empty( $_REQUEST['perms'] ) ) {
 		foreach( $_REQUEST['perms'] as $perm ) {
-			if (is_array($fix[$perm]['sql'])) {
-				foreach($fix[$perm]['sql'] as $sql) {
+			if (!empty($delPerms[$perm])) {
+				foreach($delPerms[$perm]['sql'] as $sql) {
 					$gBitInstaller->mDb->query( $sql );
 				}
+				$fixedPermissions[] = $delPerms[$perm];
 			}
-			else {
-				$gBitInstaller->mDb->query( $fix[$perm]['sql'] );
+			if (!empty($insPerms[$perm])) {
+				$gBitInstaller->mDb->query( $insPerms[$perm]['sql'] );
+				$fixedPermissions[] = $insPerms[$perm];
+				$gBitUser->assignPermissionToGroup($perm, $groupMap[$insPerms[$perm][2]]);
 			}
-			$fixedPermissions[] = $fix[$perm];
 		}
 	}
 	$gBitSmarty->assign( 'fixedPermissions', $fixedPermissions );
