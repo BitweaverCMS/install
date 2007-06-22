@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.69 2007/06/22 09:35:38 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.70 2007/06/22 10:15:20 lsces Exp $
  * @package install
  * @subpackage functions
  *
@@ -9,7 +9,7 @@
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
 
-/*
+/**
  * we set this variable since || admin >> kernel >> packages || uses this file as well
  */
 if( !isset( $step ) ) {

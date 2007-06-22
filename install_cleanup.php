@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.10 2007/06/22 09:35:38 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.11 2007/06/22 10:15:20 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -144,7 +144,7 @@ $gBitSmarty->assign( 'dbIntegrity', $dbIntegrity );
 
 
 
-/*
+/**
  * function - install_check_database_integrity
  */ 
 function install_check_database_integrity( $pDbTables ) {
