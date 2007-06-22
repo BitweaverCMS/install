@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.11 2007/06/22 10:15:20 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.12 2007/06/22 23:08:55 nickpalmer Exp $
  * @package install
  * @subpackage functions
  */
@@ -30,7 +30,8 @@ while( !$result->EOF ) {
 	foreach( $result->fields as $r ) {
 		$bitPrefs[$result->fields['perm_name']][] = $r;
 	}
-	$bitPrefs[$result->fields['perm_name']]['sql'] = "DELETE FROM `".BIT_DB_PREFIX."users_permissions` WHERE `perm_name`='".$result->fields['perm_name']."'";
+	$bitPrefs[$result->fields['perm_name']]['sql'][] = "DELETE FROM `".BIT_DB_PREFIX."users_group_permissions` WHERE `perm_name`='".$result->fields['perm_name']."'";
+	$bitPrefs[$result->fields['perm_name']]['sql'][] = "DELETE FROM `".BIT_DB_PREFIX."users_permissions` WHERE `perm_name`='".$result->fields['perm_name']."'";
 	$result->MoveNext();
 }
 
@@ -112,7 +113,14 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 	$fixedPermissions = array();
 	if( !empty( $_REQUEST['perms'] ) ) {
 		foreach( $_REQUEST['perms'] as $perm ) {
-			$gBitInstaller->mDb->query( $fix[$perm]['sql'] );
+			if (is_array($fix[$perm]['sql'])) {
+				foreach($fix[$perm]['sql'] as $sql) {
+					$gBitInstaller->mDb->query( $sql );
+				}
+			}
+			else {
+				$gBitInstaller->mDb->query( $fix[$perm]['sql'] );
+			}
 			$fixedPermissions[] = $fix[$perm];
 		}
 	}
