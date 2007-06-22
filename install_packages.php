@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.70 2007/06/22 10:15:20 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.71 2007/06/22 15:02:28 nickpalmer Exp $
  * @package install
  * @subpackage functions
  *
@@ -488,6 +488,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		header( "Location: ".$_SERVER['PHP_SELF']."?step=".$step - 2 );
 	}
 } elseif( !empty( $_REQUEST['submit_packages'] ) ) {
-	$gBitSmarty->assign( 'warning', "No package was selected to install or uninstall" );
+	// No packages to install so just move to the next step.
+	$gBitSmarty->assign( 'next_step', $step + 1 );
+	$app = '_done';
 }
 ?>
