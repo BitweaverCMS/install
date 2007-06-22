@@ -37,6 +37,9 @@
 								<li><strong>database password</strong></li>
 							</ul>
 						</li>
+						{ if ( $fbpath ) }
+							<li>and check that the Firebird tool path is set corrently.</li>
+						{/if}
 					</ul>
 				</divi>
 			{/if}
