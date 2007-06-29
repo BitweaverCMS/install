@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.22 2007/06/24 06:51:48 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.23 2007/06/29 00:21:08 nickpalmer Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -210,6 +210,10 @@ function check_settings() {
 		'Image_Graphviz' => array(
 			'path' => 'Image/GraphViz.php',
 			'note' => 'Pear::Image_Graphviz makes the {graphviz} plugin available. With it you can draw maps of how your wiki pages are linked to each other. This can be used for informational purposes or a site-map.<br /><em>It also requires the application graphviz to be installed as well.</em>',
+		),
+		'HTMLPurifier' => array(
+			'path' => 'HTMLPurifier.php',
+			'note' => 'HTMLPurifier is an advance system for defending against Cross Site Scripting (XSS) attacks and ensuring that all code on your site is standards compliant. It is highly recommended if you are going to allow HTML submission to your site. It is not required if you are only going to use a wiki format like tikiwiki or bbcode. Install with the following commands: pear channel-discover htmlpurifier.org; pear install hp/HTMLPurifier; and enable it in the liberty plugins administration. See <a href="http://htmlpurifier.org">http://htmlpurifier.org</a> for more information.',
 		),
 	);
 
