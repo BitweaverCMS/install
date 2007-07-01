@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.25 2007/07/01 09:40:03 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.26 2007/07/01 09:50:17 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -99,16 +99,12 @@ function check_settings() {
 		}
 		$extensions[$ext]['note'] .= 'available.<br />'.$note;
 	}
-	// if imagick or magickwand are installed, we remove the warning about the 
-	// other extension
-	foreach( $extensions as $extension => $info ) {
-		if( $extension == 'magickwand' && $info['passed'] ) {
-			unset( $extensions['imagick'] );
-		}
 
-		if( $extension == 'imagick' && $info['passed'] ) {
-			unset( $extensions['magickwand'] );
-		}
+	// disable one of the imagick / magickwand warnings
+	if( $extensions['magickwand']['passed'] == TRUE && $extensions['imagick']['passed'] == FALSE ) {
+		unset( $extensions['imagick'] );
+	} elseif( $extensions['imagick']['passed'] == TRUE && $extensions['magickwand']['passed'] == FALSE ) {
+		unset( $extensions['magickwand'] );
 	}
 
 	// make sure we show the worning flag if there is a need for it
