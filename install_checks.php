@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.24 2007/06/29 20:24:06 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.25 2007/07/01 09:40:03 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -45,32 +45,32 @@ function check_settings() {
 	// check file and directory permissisions
 	$i++;
 	if( @file_exists( $config_file ) && @bw_is_writeable( $config_file ) ) {
-		$required[$i]['note'] = 'The configuration file \'<strong>'.$config_file.'</strong>\' is available and the file is writeable.';
+		$required[$i]['note'] = 'The bitweaver configuration file is available and the file is writeable:<br /><code>'.$config_file.'</code>';
 		$required[$i]['passed'] = TRUE;
 	} elseif( @file_exists( $config_file ) && !@bw_is_writeable( $config_file ) ) {
-		$required[$i]['note'] = 'The configuration file \'<strong>'.$config_file.'</strong>\' is available but the file is not writeable. Please execute something like:<br />chmod 777 '.$config_file;
+		$required[$i]['note'] = 'The bitweaver configuration file is available but the file is not writeable. Please execute something like:<br /><code>chmod 777 '.$config_file.'</code>';
 		$required[$i]['passed'] = FALSE;
 	} else {
-		$required[$i]['note'] = 'The configuration file \'<strong>'.$config_file.'</strong>\' is not available. Please execute something like:<br />touch '.$config_file.';<br />chmod 777 '.$config_file;
+		$required[$i]['note'] = 'The bitweaver configuration file is not available. Please execute something like:<br /><code>touch '.$config_file.';<br />chmod 777 '.$config_file.'</code>';
 		$required[$i]['passed'] = FALSE;
 	}
 	$i++;
 
 	$dir_check = array(
-        defined( 'STORAGE_PKG_PATH' ) ? STORAGE_PKG_PATH : BIT_ROOT_PATH.'storage',
-        defined( 'TEMP_PKG_PATH' ) ? TEMP_PKG_PATH : BIT_ROOT_PATH.'temp',
+        'storage' => defined( 'STORAGE_PKG_PATH' ) ? STORAGE_PKG_PATH : BIT_ROOT_PATH.'storage',
+        'temp' => defined( 'TEMP_PKG_PATH' ) ? TEMP_PKG_PATH : BIT_ROOT_PATH.'temp',
     );
-	foreach( $dir_check as $d ) {
+	foreach( $dir_check as $name => $d ) {
 		// final attempt to create the required directories
 		@mkdir( $d,0644 );
 		if( @is_dir( $d ) && bw_is_writeable( $d ) ) {
-			$required[$i]['note'] = 'The directory \'<strong>'.$d.'</strong>\' is available and it is writeable.';
+			$required[$i]['note'] = "The $name directory is available and it is writeable.<br /><code>$d</code>";
 			$required[$i]['passed'] = TRUE;
 		} elseif( @is_dir( $d ) && !bw_is_writeable( $d ) ) {
-			$required[$i]['note'] = 'The directory \'<strong>'.$d.'</strong>\' is available but it is not writeable.<br />Please execute something like:<br />chmod -R 777 '.$d;
+			$required[$i]['note'] = "The $name directory is available but it is not writeable.<br />Please execute something like:<br /><code>chmod -R 777 $d</code>";
 			$required[$i]['passed'] = FALSE;
 		} else {
-			$required[$i]['note'] = 'The directory \'<strong>'.$d.'</strong>\' is not available and we cannot create it automaticalliy.<br />Please execute something like:<br />mkdir -m 777 '.$d;
+			$required[$i]['note'] = "The $name directory is not available and we cannot create it automaticalliy.<br />Please execute something like:<br /><code>mkdir -m 777 $d</code>";
 			$required[$i]['passed'] = FALSE;
 		}
 		$i++;
@@ -192,28 +192,38 @@ function check_settings() {
 	// PEAR checks
 	$pears = array(
 		'PEAR' => array(
-			'path' => 'PEAR.php',
-			'note' => 'This check indicates if PEAR is installed and available. To make use of PEAR extensions, you need to make sure that PEAR is installed and the include_path is set in your php.ini file.',
+			'path'            => 'PEAR.php',
+			'note'            => 'This check indicates if PEAR is installed and available. To make use of PEAR extensions, you need to make sure that PEAR is installed and the include_path is set in your php.ini file.',
 		),
 		'Auth' => array(
-			'path' => 'Auth/Auth.php',
-			'note' => 'This will allow you to use the PEAR::Auth package to authenticate users on your website.',
+			'path'            => 'Auth/Auth.php',
+			'note'            => 'This will allow you to use the PEAR::Auth package to authenticate users on your website.',
+			'install_command' => 'pear install --onlyreqdeps Auth;',
 		),
 		'Text_Wiki' => array(
-			'path' => 'Text/Wiki.php',
-			'note' => 'Having PEAR::Text_Wiki installed will make more wiki format parsers available. The following parsers will be recognised and used: Text_Wiki_BBCode, Text_Wiki_Cowiki, Text_Wiki_Creole, Text_Wiki_Doku, Text_Wiki_Mediawiki, Text_Wiki_Tiki',
+			'path'            => 'Text/Wiki.php',
+			'note'            => 'Having PEAR::Text_Wiki installed will make more wiki format parsers available. The following parsers will be recognised and used: Text_Wiki_BBCode, Text_Wiki_Cowiki, Text_Wiki_Creole, Text_Wiki_Doku, Text_Wiki_Mediawiki, Text_Wiki_Tiki',
+			'install_command' => 'pear install --onlyreqdeps Text_Wiki_BBCode Text_Wiki_Cowiki Text_Wiki_Creole Text_Wiki_Doku Text_Wiki_Mediawiki Text_Wiki_Tiki;',
 		),
 		'Text_Diff' => array(
-			'path' => 'Text/Diff.php',
-			'note' => 'PEAR::Text_Diff makes inline diffing of content available.',
+			'path'            => 'Text/Diff.php',
+			'note'            => 'PEAR::Text_Diff makes inline diffing of content available.',
+			'install_command' => 'pear install --onlyreqdeps Text_Diff;',
 		),
 		'Image_Graphviz' => array(
-			'path' => 'Image/GraphViz.php',
-			'note' => 'Pear::Image_Graphviz makes the {graphviz} plugin available. With it you can draw maps of how your wiki pages are linked to each other. This can be used for informational purposes or a site-map.<br /><em>It also requires the application graphviz to be installed as well.</em>',
+			'path'            => 'Image/GraphViz.php',
+			'note'            => 'Pear::Image_Graphviz makes the {graphviz} plugin available. With it you can draw maps of how your wiki pages are linked to each other. This can be used for informational purposes or a site-map.<br /><em>It also requires the application graphviz to be installed as well.</em>',
+			'install_command' => 'pear install --onlyreqdeps Image_Graphviz;',
 		),
 		'HTMLPurifier' => array(
-			'path' => 'HTMLPurifier.php',
-			'note' => 'HTMLPurifier is an advance system for defending against Cross Site Scripting (XSS) attacks and ensuring that all code on your site is standards compliant. It is highly recommended if you are going to allow HTML submission to your site. It is not required if you are only going to use a wiki format like tikiwiki or bbcode. Install with the following commands: pear channel-discover htmlpurifier.org; pear install hp/HTMLPurifier; and enable it in the liberty plugins administration. See <a class="external" href="http://htmlpurifier.org">http://htmlpurifier.org</a> for more information.',
+			'path'            => 'HTMLPurifier.php',
+			'note'            => 'HTMLPurifier is an advanced system for defending against Cross Site Scripting (XSS) attacks and ensuring that all code on your site is standards compliant. It is highly recommended if you are going to allow HTML submission to your site. It is not required if you are only going to use a wiki format like tikiwiki or bbcode. You alse need to enable it in the liberty plugins administration after installation. See <a class="external" href="http://www.bitweaver.org/wiki/HTMLPurifier">http://www.bitweaver.org/wiki/HTMLPurifier</a> and <a class = "external" href = "http: // htmlpurifier.org">http://htmlpurifier.org</a> for more information.',
+			'install_command' => 'pear channel-discover htmlpurifier.org;<br />pear install hp/HTMLPurifier;',
+		),
+		'HTTP_Download' => array(
+			'path'            => 'HTTP/Download.php',
+			'note'            => 'Treasury - the file manager of bitweaver - can make use of PEAR::HTTP_Download to provide more reliable downloads and download resume support when using a download manager.',
+			'install_command' => 'pear install --alldeps HTTP_Download;',
 		),
 	);
 
@@ -221,7 +231,7 @@ function check_settings() {
 		if( $pear == 'PEAR' ) {
 			$pearexts[$pear]['note'] = '<strong>'.$pear.'</strong> is ';
 		} else {
-			$pearexts[$pear]['note'] = 'The PEAR extension <strong>'.$pear.'</strong> is ';
+			$pearexts[$pear]['note'] = 'The extension <strong>PEAR::'.$pear.'</strong> is ';
 		}
 
 		if( @include_once( $info['path'] )) {
@@ -232,7 +242,12 @@ function check_settings() {
 		}
 
 		$pearexts[$pear]['original_note'] = $info['note'];
-		$pearexts[$pear]['note'] .= 'available.<br />'.$info['note'];
+		$pearexts[$pear]['note'] .= 'available.<br />';
+		$pearexts[$pear]['note'] .= $info['note'];
+
+		if( !empty( $info['install_command'] ) && $pearexts[$pear]['passed'] == FALSE ) {
+			$pearexts[$pear]['note'] .= '<br /><em>Install using this command:</em><br /><code>'.$info['install_command'].'</code>';
+		}
 	}
 
 	$i = 0;

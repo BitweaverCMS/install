@@ -23,6 +23,7 @@ th a						{color:#ff0;}
 td							{padding:2px 3px; vertical-align:top;}
 hr							{border:1px solid #000;}
 p							{margin:0.5em; padding:0.5em;}
+code						{font-weight:900; color:#468;}
 
 /* titles */
 h1							{font-size:160%; font-variant:small-caps;}
