@@ -25,7 +25,12 @@
 		href="http://www.bitweaver.org/wiki/index.php?page=ConnectingToIrc">detailed
 		directions</a> on how to meet up with us on irc).</p>
 
-		<p>This installer will guide you through the installation of bitweaver.
+		<p>This installer will guide you through the installation of bitweaver.</p>
+
+		<p class="warning">
+			If you want to upgrade from <strong>bitweaver R1</strong> please
+			follow the installation process. You can select the upgrader on the
+			<strong>Install Options</strong> page.
 		</p>
 
 		<div class="row submit">
