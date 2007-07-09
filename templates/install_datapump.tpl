@@ -21,8 +21,8 @@
 		{forminput}
 			{if $pumpList}
 				<ul>
-					{foreach from=$pumpList item=pump}
-						<li>{$pump}</li>
+					{foreach from=$pumpList item=file key=package}
+						<li>{$package}</li>
 					{/foreach}
 				</ul>
 			{else}

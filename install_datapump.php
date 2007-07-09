@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.4 2007/06/13 17:04:23 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.5 2007/07/09 13:16:11 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -14,34 +14,36 @@ $gBitSmarty->assign( 'next_step',$step );
 
 $gBitUser->mUserId = ROOT_USER_ID;
 
-$pumpList = false;
+$pumpList = array();
 foreach( array_keys( $gBitSystem->mPackages ) as $package ) {
 	if( $gBitInstaller->isPackageActive( $package ) ) {
-		if( file_exists( 'pump_'.$package.'_inc.php' ) ) {
-			$pumpList[] = $package;
+		$file = constant( strtoupper( $package ).'_PKG_PATH' ).'pump_'.$package.'_inc.php';
+		if( file_exists( $file )) {
+			$pumpList[$package] = $file;
 		}
 	}
 }
-$gBitSmarty->assign( 'pumpList',$pumpList );
+$gBitSmarty->assign( 'pumpList', $pumpList );
 
 /**
  * datapump setup
  */
 if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
-	foreach( $pumpList as $pump ) {
-		include_once( 'pump_'.$pump.'_inc.php' );
+	foreach( $pumpList as $file ) {
+		include_once( $file );
 	}
 	$gBitSmarty->assign( 'pumpedData',$pumpedData );
 	$app = '_done';
 	$gBitSmarty->assign( 'next_step',$step + 1 );
 
-	if( $gBitSystem->isPackageActive( 'wiki' ) && !empty($pumpedData['Wiki'])) {
+	if( $gBitSystem->isPackageActive( 'wiki' ) && !empty( $pumpedData['Wiki'] )) {
 		$gBitSystem->storeConfig( 'wiki_home_page', $pumpedData['Wiki'][0], WIKI_PKG_NAME );
 	}
-} elseif( isset( $_REQUEST['skip'] ) ) {
+} elseif( isset( $_REQUEST['skip'] )) {
 	$app = '_done';
 	$goto = $step + 1;
 	$gBitSmarty->assign( 'next_step',$goto );
 	header( "Location: ".INSTALL_PKG_URL."install.php?step=$goto" );
+	die;
 }
 ?>
