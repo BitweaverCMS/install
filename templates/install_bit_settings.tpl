@@ -50,7 +50,7 @@
 					{/if}
 				{/foreach}
 				{if $gBitSystem->isFeatureActive( 'users_custom_home' )}
-					<option value="users_custom_home"{if $bit_index eq $site_url_index} selected="selected"{/if}>{tr}Custom home{/tr}</option>
+					<option value="users_custom_home"{if $bit_index eq $gBitSystem->getConfig('site_url_index')} selected="selected"{/if}>{tr}Custom home{/tr}</option>
 				{/if}
 			</select>
 			{formhelp note="Pick your site's homepage. This is where they will be redirected, when they access a link to your homepage.
