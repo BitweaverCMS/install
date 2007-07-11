@@ -199,20 +199,37 @@
 		{/forminput}
 	</div>
 
-	{if $pearinstall}
+	{if $pearinstall or $pearextswarning}
 		<p class="warning">
 			{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
-			Here you can find <a class="external"
-				href="http://pear.php.net/manual/en/installation.getting.php">instructions
-				on how to install PEAR</a>.
+			<strong>Installation help</strong>: Below you can find a selection
+			of methods to install PEAR extensions to make them work for your
+			bitweaver install. Please note that <strong>none of these
+				extensions are required</strong> and only enhance some
+			bitweaver features:
 		</p>
-	{elseif $pearextswarning}
-		<p class="warning">
-			{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
-			Here you can find <a class="exteral"
-				href="http://pear.php.net/manual/en/installation.cli.php">
-				instructions on how to install PEAR extensions</a>.
-		</p>
+
+		<ul>
+			{if $pearinstall}
+				<li>If you want to install PEAR, you can view the <a
+						class="external"
+						href="http://pear.php.net/manual/en/installation.getting.php">instructions</a>
+					(this is not necessary if you download the pre-packed set of
+					PEAR extensions below).</li>
+			{/if}
+			<li>Install PEAR extensions using <a class="external"
+					href="http://pear.php.net/manual/en/installation.cli.php">
+					command line interface</a> (requires ssh access).</li>
+			<li>Install PEAR extensions in <a class="external"
+					href="http://pear.php.net/manual/en/installation.shared.php">a
+					shared environment</a> (requires ssh access or ftp access).</li>
+			<li>Download a pre-packed set of <a class="external"
+					href="http://www.bitweaver.org/downloads/file/11619">bitweaver
+					PEAR extensions</a> and extract this to<br />
+				<code>{$smarty.const.UTIL_PKG_PATH}pear/</code>.<br />
+				This solution might be easiest for users in a shared
+				environment.</li>
+		</ul>
 	{else}
 		<p class="success">
 			{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
