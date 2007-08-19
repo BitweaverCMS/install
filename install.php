@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.14 2007/06/22 15:02:28 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.15 2007/08/19 17:17:53 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -15,43 +15,45 @@ if( !empty( $_REQUEST['submit_db_info'] ) && !empty( $_REQUEST['step'] ) && $_RE
 $gForceAdodb = TRUE;
 
 // If we are jumping to start over reset the session
-if (!empty($_REQUEST['step']) && $_REQUEST['step'] == 0) {
-	unset($_REQUEST['BWSESSION']);
+if( !empty( $_REQUEST['step'] ) && $_REQUEST['step'] == 0 ) {
+	unset( $_REQUEST['BWSESSION'] );
 }
 
 // Early check of memory limit just to be sure we can run.
-if( eregi_replace( 'M','',get_cfg_var( 'memory_limit' ) ) < 15 ) {
-	$dir = dirname($_SERVER['PHP_SELF']);
+// Set the number '15' to a lower value if you know that the install process can handle it.
+if( eregi_replace( 'M','',get_cfg_var( 'memory_limit' )) < 15 ) {
+	$dir = dirname( $_SERVER['PHP_SELF'] );
 	// We don't use smarty to avoid using any memory since we already know there is a problem.
-	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">
-<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">
+	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Install Bitweaver - Not enough memory!</title>
-		<style type=\"text/css\">
-			<!-- @import url(".$dir."/style/install.css); -->
+		<style type="text/css">
+			<!-- @import url( '.$dir.'/style/install.css ); -->
 		</style>
 	</head>
 	<body>
-		<div id=container>
-			<div id=header></div>
-			<div id=wrapper>
-				<div id=content>
-					<div class=bittop><h1>Bitweaver Installer</h1></div>
+		<div id="container">
+			<div id="header"></div>
+			<div id="wrapper">
+				<div id="content">
+					<div class="bittop"><h1>Bitweaver Installer</h1></div>
 					<h1>Not enough memory!</h1>
-					<form>
+					<form action="'.$dir.'/install.php">
 						<fieldset>
 							<legend>Unable to run installer</legend>
-							<p class=error>The memory limit of ".get_cfg_var( 'memory_limit')." is not high enough to run the bitweaver installer. Please up the memory limit in you php.ini to at least 16M to install and run bitweaver.</p>
+							<p class="error">The memory limit of <strong>"'.get_cfg_var( 'memory_limit' ).'"</strong> is not high enough to run the bitweaver installer. Please up the memory limit in you php.ini to at least 16M to install and run bitweaver.</p>
 						</fieldset>
-						<div class=\"row submit\">
-							<input type=\"submit\" value=\"Reload\" size=\"20\"/>
+						<div class="row submit">
+							<input type="submit" value="Reload" size="20"/>
 						</div>
 					</form>
 				</div>
 			</div>
+		</div>
 	</body>
-</html>";
+</html>';
 die;
 }
 
