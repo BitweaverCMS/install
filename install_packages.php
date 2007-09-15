@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.71 2007/06/22 15:02:28 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.72 2007/09/15 06:18:04 spiderr Exp $
  * @package install
  * @subpackage functions
  *
@@ -275,7 +275,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 								'liberty_content_links'       => 'to_content_id',
 								'liberty_content_links'       => 'from_content_id',
 								'liberty_process_queue'       => 'content_id',
-								'liberty_attachments_map'     => 'content_id',
 								'liberty_content_permissions' => 'content_id',
 								'users_favorites_map'         => 'favorite_content_id'
 								// This table needs to be fixed to use content_id instead of page_id
