@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_final.php,v 1.3 2005/08/01 18:40:30 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_final.php,v 1.4 2007/09/17 11:15:00 squareing Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -11,15 +11,15 @@
 
 // this is set to tell the progress meter to include this page --> 100% completed
 $app = '_done';
-$gBitSmarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step', $step );
 
 if( isset( $_REQUEST['enter_bitweaver'] ) ) {
 	$_SESSION = NULL;
-	header( 'Location: '.BIT_ROOT_URL );
-	die;
+	bit_redirect( BIT_ROOT_URL );
 } elseif( isset( $_REQUEST['continue_install'] ) ) {
-	header( 'Location: '.INSTALL_PKG_URL.'install.php?step=5' );
-	die;
+	bit_redirect( INSTALL_PKG_URL.'install.php?step=5' );
+} elseif( isset( $_REQUEST['resolve_conflicts'] ) ) {
+	bit_redirect( INSTALL_PKG_URL.'install.php?step=6' );
 } else {
 	$gBitSmarty->assign( 'next_step',$step );
 }
