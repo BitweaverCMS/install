@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.16 2006/11/15 12:24:35 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.17 2007/09/24 11:54:14 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -145,6 +145,19 @@ define( 'AUTO_BUG_SUBMIT', $auto_bug_submit );
 // access bitweaver as 'http://MyServer.com/applications/new/wiki/index.php' you
 // should enter '/applications/new/'
 define( 'BIT_ROOT_URL', '$bit_root_url' );
+
+
+// Here you can set the valid base URI for your site. If you do not set this, we
+// will automatically determine a working value. You can force the use of a 
+// specific URI here by putting something like: 'http://myfiles.example.com'
+//define( 'BIT_ROOT_URI', 'http://myfiles.example.com' );
+
+
+// Add default STORAGE_HOST_URI for optionally splitting off storage files to 
+// separate host. This will allow you to serve thumbnails and other files from 
+// a different server to your web server. If this is not set, we will use 
+// BIT_ROOT_URI instead. Put something like: 'http://myfiles.example.com'
+//define( 'STORAGE_HOST_URI', 'http://myfiles.example.com' );
 
 
 // This allows you to set a custom path to your PHP tmp directory - used for ADODB
