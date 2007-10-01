@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_welcome.php,v 1.5 2007/06/14 06:55:13 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_welcome.php,v 1.6 2007/10/01 18:57:58 nickpalmer Exp $
  * @package install
  * @subpackage functions
  */
@@ -11,7 +11,7 @@
 
 // assign next step in installation process
 if( !empty( $_REQUEST['install'] ) ) {
-	header( 'Location: http://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );
+	header( 'Location: http'.(!empty($_SERVER['HTTPS'])?'s':'').'://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );
 	die;
 }
 $gBitSmarty->assign( 'next_step',$step );
