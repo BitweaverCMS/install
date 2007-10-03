@@ -39,6 +39,8 @@
 				{if $new_packages}
 					<p>This is a list with all available bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this separately after completing the bitweaver installation process.</p>
 
+					{formfeedback warning="Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need."}
+
 					<div class="row">
 						{forminput}
 							<script type="text/javascript">/* <![CDATA[ */
