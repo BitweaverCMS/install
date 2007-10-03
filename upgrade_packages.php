@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.7 2006/05/06 22:01:53 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.8 2007/10/03 18:28:48 spiderr Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -76,12 +76,14 @@ if( !empty( $_REQUEST['upgrade'] ) ) {
 
 			$gBitInstaller->scanPackages( 'admin/upgrade_inc.php', FALSE );
 			$firstPackages = array_flip( array( 'kernel', 'users', 'categories', 'liberty', 'wiki', 'blogs' ) );
-			$secondPackages = array_flip( array_keys( $gBitSystem->mUpgrades ) );
+			$secondPackages = array_flip( $upgrading );
 
 			// upgrade the ones that are order critical first
 			foreach( array_keys( $firstPackages ) as $package ) {
 				$gBitInstaller->upgradePackage( $package );
-				unset( $secondPackages[$package] );
+				if( isset( $secondPackages[$package] ) ) {
+					unset( $secondPackages[$package] );
+				}
 				array_push( $upPackages, $package );
 			}
 
