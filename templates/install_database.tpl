@@ -54,6 +54,11 @@
 			{/if}
 			{if $dbservers}
 				{html_options name='db' options=$dbservers id=db selected=$gBitDbType style="width:50%"}
+				{if $mysqlWarning}
+					<p class="warning">
+						Versions of MySQL less than 4.1 are not supported by some packages due to the <a href="http://dev.mysql.com/doc/refman/4.1/en/subqueries.html">lack of subquery support</a>. Notable among these are the <a href="http://www.bitweaver.org/wiki/BoardsPackage">Boards</a> and <a href="http://www.bitweaver.org/wiki/MessagesPackage">Messages</a> packages. Other packages may also have issues. It is recommended that you use MySQL version 4.1 or higher for the best experience with Bitweaver. It may be possible to use a lower versions of MySQL if you do not install these packages but this is not a supported configuration.
+					</p>
+				{/if}
 			{else}
 				<p class="warning">You currently have no Database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">bitweaver Team</a>.</p>
 			{/if}
