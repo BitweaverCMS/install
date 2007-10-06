@@ -47,6 +47,19 @@
 		your install might have the one case we haven't run into yet.
 	</p>
 
+	{if $smarty.session.upgrade_r1}
+		<h2>Important</h2>
+		<p class="warning">
+			Since you are upgrading from R1 to R2, please visit the
+			<a class="external" href="http://www.bitweaver.org/wiki/bitweaver+R1+to+R2+Upgrade">R1 to R2 Upgrade</a>
+			page. It contains valuable information about the changes that have
+			occurred and how to fix certain upgrade issues that can not be
+			dealt with by the installer. We can not stress enough that it is
+			<strong>essential</strong> that you make a backup of your files and
+			your database before attempting this upgrade.
+		</p>
+	{/if}
+
 	<div class="row submit">
 		<input type="submit" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the Upgrade process!"}" />
 	</div>
