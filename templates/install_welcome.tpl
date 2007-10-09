@@ -12,7 +12,7 @@
 		{/if}
 
 		<p> Thank you for choosing bitweaver. This web application offers an
-		unparalled combination of flexibility, performance, and simplicity.</p>
+		unparalleled combination of flexibility, performance, and simplicity.</p>
 
 		<p> For questions, comments, or support, please don't hesitate to visit <a
 		class="external"
