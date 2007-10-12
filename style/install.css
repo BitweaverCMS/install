@@ -59,7 +59,8 @@ textarea					{width:100%;}
 .formfeedback				{}
 .formfeedback div			{padding:4px; border-bottom:1px dotted #aaa;}
 
-.odd						{background:#eee;}
+.odd						{background:#eee;color:#000}
+.even						{color:#000}
 
 .dialog-error,
 .error						{background:#fdd;}
