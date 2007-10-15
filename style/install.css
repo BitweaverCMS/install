@@ -64,6 +64,7 @@ textarea					{width:100%;}
 
 .dialog-error,
 .error						{background:#fdd;}
+.danger						{background:#fdd url( images/danger.png ) right center no-repeat; border:3px solid #900; padding:1em 100px 1em 1em;}
 .dialog-warning,
 .warning					{background:#fed;}
 .dialog-ok,
