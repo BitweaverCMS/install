@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.27 2007/09/26 16:22:52 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.28 2007/10/26 12:47:10 nickpalmer Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -213,7 +213,7 @@ function check_settings() {
 		),
 		'HTMLPurifier' => array(
 			'path'            => 'HTMLPurifier.php',
-			'note'            => 'HTMLPurifier is an advanced system for defending against Cross Site Scripting (XSS) attacks and ensuring that all code on your site is standards compliant. It is highly recommended if you are going to allow HTML submission to your site. It is not required if you are only going to use a wiki format like tikiwiki or bbcode. You alse need to enable it in the liberty plugins administration after installation. See <a class="external" href="http://www.bitweaver.org/wiki/HTMLPurifier">http://www.bitweaver.org/wiki/HTMLPurifier</a> and <a class = "external" href = "http: // htmlpurifier.org">http://htmlpurifier.org</a> for more information.',
+			'note'            => 'HTMLPurifier is an advanced system for defending against Cross Site Scripting (XSS) attacks and ensuring that all code on your site is standards compliant. It is highly recommended if you are going to allow HTML submission to your site. It is not required if you are only going to use a wiki format like tikiwiki or bbcode. You also need to enable it in the liberty plugins administration after installation. See <a class="external" href="http://www.bitweaver.org/wiki/HTMLPurifier">http://www.bitweaver.org/wiki/HTMLPurifier</a> and <a class = "external" href = "http: // htmlpurifier.org">http://htmlpurifier.org</a> for more information.',
 			'install_command' => 'pear channel-discover htmlpurifier.org;<br />pear install hp/HTMLPurifier;',
 		),
 		'HTTP_Download' => array(
