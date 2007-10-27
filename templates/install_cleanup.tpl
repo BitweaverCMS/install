@@ -29,7 +29,7 @@
 						<ul>
 							{foreach from=$package.tables item=table}
 								<li>
-									<a style="float:right" href="javascript:flip('{$table.name}');">show table details</a> {$table.name}<br />
+									<a style="float:right" href="#" onclick="flip('{$table.name}');return false">show table details</a> {$table.name}<br />
 									<div id="{$table.name}" style="display:none;">
 										<code>{$table.sql|nl2br}</code>
 									</div>
