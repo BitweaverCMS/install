@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.13 2007/06/22 23:38:17 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.14 2007/11/01 11:10:44 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -117,16 +117,19 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 	$groupMap['admin'] = 1;
 	if( !empty( $_REQUEST['perms'] ) ) {
 		foreach( $_REQUEST['perms'] as $perm ) {
-			if (!empty($delPerms[$perm])) {
-				foreach($delPerms[$perm]['sql'] as $sql) {
+			if( !empty( $delPerms[$perm] )) {
+				foreach( $delPerms[$perm]['sql'] as $sql ) {
 					$gBitInstaller->mDb->query( $sql );
 				}
 				$fixedPermissions[] = $delPerms[$perm];
 			}
-			if (!empty($insPerms[$perm])) {
+
+			if( !empty( $insPerms[$perm] )) {
 				$gBitInstaller->mDb->query( $insPerms[$perm]['sql'] );
 				$fixedPermissions[] = $insPerms[$perm];
-				$gBitUser->assignPermissionToGroup($perm, $groupMap[$insPerms[$perm][2]]);
+				if( !empty( $groupMap[$insPerms[$perm][2]] )) {
+					$gBitUser->assignPermissionToGroup( $perm, $groupMap[$insPerms[$perm][2]] );
+				}
 			}
 		}
 	}
