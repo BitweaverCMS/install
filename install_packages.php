@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.72 2007/09/15 06:18:04 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.73 2007/11/08 20:15:24 squareing Exp $
  * @package install
  * @subpackage functions
  *
@@ -381,9 +381,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 			// Some packages have some special things to take care of here.
 			foreach( $gBitInstaller->mInstallModules as $mod ) {
-				if( !isset( $mod['layout'] ) ) {
-					$mod['layout'] = DEFAULT_PACKAGE;
-				}
 				$gBitThemes->storeModule( $mod );
 			}
 
