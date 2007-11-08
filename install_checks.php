@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.28 2007/10/26 12:47:10 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.29 2007/11/08 18:15:01 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -57,9 +57,9 @@ function check_settings() {
 	$i++;
 
 	$dir_check = array(
-        'storage' => defined( 'STORAGE_PKG_PATH' ) ? STORAGE_PKG_PATH : BIT_ROOT_PATH.'storage',
-        'temp' => defined( 'TEMP_PKG_PATH' ) ? TEMP_PKG_PATH : BIT_ROOT_PATH.'temp',
-    );
+		'storage' => defined( 'STORAGE_PKG_PATH' ) ? STORAGE_PKG_PATH : BIT_ROOT_PATH.'storage',
+		'temp' => defined( 'TEMP_PKG_PATH' ) ? TEMP_PKG_PATH : BIT_ROOT_PATH.'temp',
+	);
 	foreach( $dir_check as $name => $d ) {
 		// final attempt to create the required directories
 		@mkdir( $d,0644 );
@@ -283,7 +283,6 @@ function check_settings() {
 
 	// settings that are useful to know about
 	$php_ini_gets = array(
-		array( '<strong>File Uploads</strong> specifies whether you are allowed to upload files<br />recommended <strong>On</strong>.','file_uploads' ),
 		array( '<strong>Maximum post size</strong> will restrict the size of files when you upload a file using a form<br />recommended <strong>8M</strong>.','post_max_size' ),
 		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads<br />recommended <strong>8M</strong>.','upload_max_filesize' ),
 		array( '<strong>Maximum execution time</strong> is related to time outs in PHP - affects database upgrades and backups<br />recommended <strong>60</strong>.','max_execution_time' ),
