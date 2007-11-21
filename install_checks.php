@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.29 2007/11/08 18:15:01 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.30 2007/11/21 19:43:05 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -171,7 +171,7 @@ function check_settings() {
 			$command = $app['command'];
 		}
 
-		if( $shellResults[$exe] = shell_exec( $command )) {
+		if( get_php_setting( 'safe_mode' ) == 'OFF' && $shellResults[$exe] = shell_exec( $command )) {
 			@unlink( TEMP_PKG_PATH.'test.txt' );
 			$executables[$exe]['passed'] = TRUE;
 		} else {
