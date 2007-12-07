@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.8 2007/10/03 18:28:48 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_packages.php,v 1.9 2007/12/07 22:32:28 joasch Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -93,6 +93,25 @@ if( !empty( $_REQUEST['upgrade'] ) ) {
 				array_push( $upPackages, $package );
 			}
 			unset( $gBitInstaller->mUpgrades );
+		}
+		// If server supports InnoDB for MySql and selected for use
+		// we traverse all tables in db after upgrade and change engine if needed
+		if( isset( $_SESSION['use_innodb'] ) && $_SESSION['use_innodb'] == TRUE ) {
+			$rs = $gBitInstaller->mDb->Execute("SHOW TABLE STATUS");
+			while ( !$rs->EOF) {
+				$row = $rs->GetRowAssoc(false);
+				switch( isset( $row['Engine'] ) ? strtoupper( $row['Engine'] ) : strtoupper( $row['Type'] )) {
+					case 'INNODB':
+					case 'INNOBASE':
+						break;
+					default:
+						$gBitInstaller->mDb->Execute("ALTER TABLE " . $row['Name'] . " ENGINE = INNODB");
+						break;
+				}
+
+				$rs->MoveNext();
+			}
+			$rs->Close();
 		}
 	}
 

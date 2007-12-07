@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.6 2006/11/10 20:55:29 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade.php,v 1.7 2007/12/07 22:32:28 joasch Exp $
  * @package install
  * @subpackage upgrade
  */
@@ -44,10 +44,16 @@ $install_file[$i]['name'] = 'Upgrade Complete';
 if( !isset( $_SESSION['upgrade'] ) || $_SESSION['upgrade'] != TRUE ||
 	!isset( $_SERVER['HTTP_REFERER'] ) ||
 	isset( $_SERVER['HTTP_REFERER'] ) &&
-	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ) ) ) 
+	( ( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ) ) && ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ) ) )
 ) {
 	header( 'Location: '.INSTALL_PKG_URL.'install.php' );
 	die;
+}
+// For MySql only, if server supports InnoDB Engine and
+// if it was selected as storage type, we set a session var
+// for use in update_packages.php
+if( isset( $_REQUEST['use_innodb'] ) ) {
+	$_SESSION['use_innodb'] = TRUE;
 }
 
 // finally we are ready to include the actual php file
