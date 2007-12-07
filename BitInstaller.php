@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.28 2007/04/21 14:10:41 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.29 2007/12/07 22:08:18 joasch Exp $
  * @package install
  */
 
@@ -205,20 +205,23 @@ class BitInstaller extends BitSystem {
 							case 'CREATESEQUENCE':
 								foreach( $dd as $create ) {
 									foreach( $create as $sequence ) {
-										$this->mDb->CreateSequence( $sequence );
+										$this->mDb->CreateSequence( $tablePrefix.$sequence );
 									}
 								}
 								break;
 							case 'RENAMESEQUENCE':
 								foreach( $dd as $rename ) {
 									foreach( $rename as $from => $to ) {
-										if( $id = $this->mDb->GenID( $from ) ) {
-											// this causes an error...
-											//$this->mDb->DropSequence( $from );
-											$this->mDb->CreateSequence( $to, $id );
+										if( $this->mDb->tableExists( $tablePrefix.$from ) ) {
+											if( $id = $this->mDb->GenID( $from ) ) {
+												$this->mDb->DropSequence( $tablePrefix.$from );
+												$this->mDb->CreateSequence( $tablePrefix.$to, $id );
+											} else {
+												$errors[] = 'Failed to rename sequence '.$tablePrefix.$from.' to '.$tablePrefix.$to;
+												$failedcommands[] = implode( " ", $sql );
+											}
 										} else {
-											$errors[] = 'Failed to rename sequence '.$from.' to '.$to;
-											$failedcommands[] = implode( " ", $sql );
+											$this->mDb->CreateSequence( $tablePrefix.$to, $this->mPackages[$package]['sequences'][$to]['start'] );
 										}
 									}
 								}
