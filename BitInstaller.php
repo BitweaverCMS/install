@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.29 2007/12/07 22:08:18 joasch Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.30 2007/12/10 19:26:30 joasch Exp $
  * @package install
  */
 
@@ -115,6 +115,9 @@ class BitInstaller extends BitSystem {
 		$ret = array();
 
 		if( !empty( $gBitSystem->mUpgrades[$package] )) {
+			// set table prefixes and handle special case of sequence prefixes
+			$schemaQuote = strrpos( BIT_DB_PREFIX, '`' );
+			$sequencePrefix = ( $schemaQuote ? substr( BIT_DB_PREFIX,  $schemaQuote + 1 ) : BIT_DB_PREFIX );
 			$tablePrefix = $this->getTablePrefix();
 			$dict = NewDataDictionary( $gBitDb->mDb );
 			for( $i=0; $i<count( $gBitSystem->mUpgrades[$package] ); $i++ ) {
@@ -205,7 +208,7 @@ class BitInstaller extends BitSystem {
 							case 'CREATESEQUENCE':
 								foreach( $dd as $create ) {
 									foreach( $create as $sequence ) {
-										$this->mDb->CreateSequence( $tablePrefix.$sequence );
+										$this->mDb->CreateSequence( $sequencePrefix.$sequence );
 									}
 								}
 								break;
@@ -214,14 +217,14 @@ class BitInstaller extends BitSystem {
 									foreach( $rename as $from => $to ) {
 										if( $this->mDb->tableExists( $tablePrefix.$from ) ) {
 											if( $id = $this->mDb->GenID( $from ) ) {
-												$this->mDb->DropSequence( $tablePrefix.$from );
-												$this->mDb->CreateSequence( $tablePrefix.$to, $id );
+												$this->mDb->DropSequence( $sequencePrefix.$from );
+												$this->mDb->CreateSequence( $sequencePrefix.$to, $id );
 											} else {
-												$errors[] = 'Failed to rename sequence '.$tablePrefix.$from.' to '.$tablePrefix.$to;
+												$errors[] = 'Failed to rename sequence '.$sequencePrefix.$from.' to '.$sequencePrefix.$to;
 												$failedcommands[] = implode( " ", $sql );
 											}
 										} else {
-											$this->mDb->CreateSequence( $tablePrefix.$to, $this->mPackages[$package]['sequences'][$to]['start'] );
+											$this->mDb->CreateSequence( $sequencePrefix.$to, $this->mPackages[$package]['sequences'][$to]['start'] );
 										}
 									}
 								}
