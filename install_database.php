@@ -1,13 +1,13 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.18 2007/01/11 08:41:37 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.19 2007/12/12 01:05:56 joasch Exp $
  * @package install
  * @subpackage functions
  */
 
 /**
  * assign next step in installation process
- */ 
+ */
 $gBitSmarty->assign( 'next_step',$step );
 
 require_once( "get_databases_inc.php" );
@@ -35,6 +35,30 @@ if( isset( $_REQUEST['submit_db_info'] )) {
 			$_SESSION['first_install'] = TRUE;
 		} else {
 			$_SESSION['first_install'] = FALSE;
+		}
+
+		if( $_SESSION['first_install'] == TRUE ) {
+			// For MySql only, on first install check if server support
+			// InnoDB and set a smarty var for template to offer using
+			// the transaction safe storage engine
+			if( preg_match( '/mysql/', $gBitDbType )) {
+				$_SESSION['use_innodb'] = FALSE;
+				$rs = $gBitDb->Execute('SHOW ENGINES');
+				while ( !$rs->EOF) {
+					$row = $rs->GetRowAssoc(false);
+					switch( isset( $row['Engine'] ) ? strtoupper( $row['Engine'] ) : strtoupper( $row['Type'] )) {
+						case 'INNODB':
+						case 'INNOBASE':
+							if( strtoupper( $row['Support'] ) == 'YES' || strtoupper( $row['Support'] ) == 'DEFAULT' ) {
+								$gBitSmarty->assign( 'has_innodb_support',strtoupper( $row['Support'] ) );
+								break 2;
+							}
+					}
+
+					$rs->MoveNext();
+				}
+				$rs->Close();
+			}
 		}
 	} else {
 		$gBitSmarty->assign( 'error', TRUE );

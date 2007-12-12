@@ -78,6 +78,16 @@
 		</p>
 	</div>
 
+	{if isset( $has_innodb_support )}
+		<div class="row">
+			{formlabel label="Use InnoDB tables" for="use_innodb"}
+			{forminput}
+				<input type="checkbox" name="use_innodb" id="use_innodb" {if $has_innodb_support eq 'DEFAULT'}checked="checked"{/if} />
+				{formhelp note="Your database server supports InnoDB which provides MySQL with a transaction-safe storage engine that has commit, rollback, and crash recovery capabilities. You usually want this for safest possible data storage. Otherwise the standard MyIsam Engine is used."}
+			{/forminput}
+		</div>
+	{/if}
+
 	<div class="row submit">
 		<input type="submit" value="Continue {$section|default:"Install"} Process" />
 	</div>

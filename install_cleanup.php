@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.14 2007/11/01 11:10:44 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.15 2007/12/12 01:05:56 joasch Exp $
  * @package install
  * @subpackage functions
  */
@@ -15,8 +15,8 @@ $gBitSmarty->assign_by_ref( 'schema', $schema );
 
 
 // ===================== Post install table check =====================
-// $dbTables is the output of BitSystem::verifyInstalledPackages() in 
-// install_inc.php and contains all tables that are not present in the database 
+// $dbTables is the output of BitSystem::verifyInstalledPackages() in
+// install_inc.php and contains all tables that are not present in the database
 // - even tables of packages that are not installed
 $dbIntegrity = install_check_database_integrity( $dbTables );
 
@@ -83,11 +83,22 @@ if( !empty(  $_REQUEST['create_tables'] ) && !empty( $dbIntegrity )) {
 		//$gBitInstaller->debug();
 		//$gBitInstallDb->debug = 99;
 
+		// If we use MySql check which storage engine to use
+		if( isset( $_SESSION['use_innodb'] ) ){
+			if( $_SESSION['use_innodb'] == TRUE ) {
+				$build = array('NEW', 'MYSQL' => 'ENGINE=INNODB');
+			} else {
+				$build = array('NEW', 'MYSQL' => 'ENGINE=MYISAM');
+			}
+		} else {
+			$build = 'NEW';
+		}
+
 		foreach( $dbIntegrity as $package => $info ) {
 			foreach( $info['tables'] as $table ) {
 				$tablePrefix = $gBitInstaller->getTablePrefix();
 				$completeTableName = $tablePrefix.$table['name'];
-				$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$table['name']], 'NEW' );
+				$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$table['name']], $build );
 				// Uncomment this line to see the create sql
 				//vd( $sql );
 				if( $sql ) {
@@ -163,7 +174,7 @@ $gBitSmarty->assign( 'dbIntegrity', $dbIntegrity );
 
 /**
  * function - install_check_database_integrity
- */ 
+ */
 function install_check_database_integrity( $pDbTables ) {
 	global $gBitInstaller;
 	$ret = array();

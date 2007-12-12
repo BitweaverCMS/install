@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.73 2007/11/08 20:15:24 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.74 2007/12/12 01:05:56 joasch Exp $
  * @package install
  * @subpackage functions
  *
@@ -73,6 +73,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			$result = $gBitInstallDb->Execute( "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'" );
 			$result = $gBitInstallDb->Execute( "DECLARE EXTERNAL FUNCTION RAND RETURNS DOUBLE PRECISION BY VALUE ENTRY_POINT 'IB_UDF_rand' MODULE_NAME 'ib_udf'" );
 		}
+
 		$tablePrefix = $gBitInstaller->getTablePrefix();
 
 		$dict = NewDataDictionary( $gBitInstallDb );
@@ -82,8 +83,29 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			$dict->connection->nameQuote = '';
 		}
 
-		// SHOULD HANDLE INNODB so foreign keys are cool - XOXO spiderr
-		// $tableOptions = array('mysql' => 'TYPE=INNODB', 'REPLACE');
+		// When using MySql and installing further packages after first install
+		// check to see what storage engine in use, InnoDb or MyIsam,
+		// so we don't end up with mixed table types.
+		if( $gBitInstaller->isInstalled() ) {
+			global $gBitDbType;
+			if( preg_match( '/mysql/', $gBitDbType )) {
+				$_SESSION['use_innodb'] = FALSE;
+				$rs = $gBitDb->Execute("SHOW TABLE STATUS LIKE '%kernel_config'");
+				while ( !$rs->EOF) {
+					$row = $rs->GetRowAssoc(false);
+					switch( isset( $row['Engine'] ) ? strtoupper( $row['Engine'] ) : strtoupper( $row['Type'] )) {
+						case 'INNODB':
+						case 'INNOBASE':
+							$_SESSION['use_innodb'] = TRUE;
+							break 2;
+					}
+
+					$rs->MoveNext();
+				}
+				$rs->Close();
+			}
+		}
+
 		$sqlArray = array();
 
 		//error_reporting( E_ALL );
@@ -91,13 +113,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// We perform several loops through mPackages due to foreign keys, and some packages may insert
 		// value into other packages tables - typically users_permissions, bit_preferences, etc...
 		sort( $_REQUEST['packages'] );
-
-
-
 		// ---------------------- 1. ----------------------
 		// let's generate all the tables's
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] )) {
+				unset( $build );
 				// work out what we're going to do with this package
 				if ( $method == 'install' && $_SESSION['first_install'] ) {
 					$build = array( 'NEW' );
@@ -109,13 +129,22 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				} elseif( $method == "uninstall" && !empty( $gBitInstaller->mPackages[$package]['installed'] ) && in_array( 'tables', $removeActions )) {
 					$build = array( 'DROP' );
 				}
-
-				// Install tables - $build is empty when we don't pick tables when un / reinstalling packages
+				// If we use MySql and not DROP anything
+				// set correct storage engine to use
+				if( isset( $_SESSION['use_innodb'] ) && isset( $build ) &&  $build['0'] != 'DROP' ){
+					if( $_SESSION['use_innodb'] == TRUE) {
+						$build = array_merge($build, array('MYSQL' => 'ENGINE=INNODB'));
+					} else {
+						$build = array_merge($build, array('MYSQL' => 'ENGINE=MYISAM'));
+					}
+				}
+				// Install tables - $build is empty when we don't pick tables, when un / reinstalling packages
 				if( !empty( $gBitInstaller->mPackages[$package]['tables'] ) && is_array( $gBitInstaller->mPackages[$package]['tables'] ) && !empty( $build )) {
 					foreach( array_keys( $gBitInstaller->mPackages[$package]['tables'] ) as $tableName ) {
 						$completeTableName = $tablePrefix.$tableName;
 						$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$tableName], $build );
 						// Uncomment this line to see the create sql
+						//vd( $sql );
 						if( $sql && $dict->ExecuteSQLArray( $sql ) <= 1) {
 							$errors[] = 'Failed to create table '.$completeTableName;
 							$failedcommands[] = implode(" ", $sql);
@@ -129,7 +158,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// ---------------------- 2. ----------------------
 		// install additional constraints
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-			if( in_array( $package, $_REQUEST['packages'] ) && ($method == 'install' || $method == 'reinstall' ) 
+			if( in_array( $package, $_REQUEST['packages'] ) && ($method == 'install' || $method == 'reinstall' )
 				&& !empty( $gBitInstaller->mPackages[$package]['constraints'] ) && is_array( $gBitInstaller->mPackages[$package]['constraints'] ) ) {
 				foreach( array_keys($gBitInstaller->mPackages[$package]['constraints']) as $tableName ) {
 					$completeTableName = $tablePrefix.$tableName;
@@ -187,6 +216,14 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					}
 
 					if( isset( $gBitInstaller->mPackages[$package]['sequences'] ) && is_array( $gBitInstaller->mPackages[$package]['sequences'] ) ) {
+						// If we use InnoDB for MySql we need this to get sequence tables created correctly.
+						if( isset( $_SESSION['use_innodb'] ) ) {
+							if( $_SESSION['use_innodb'] == TRUE ) {
+								$gBitInstallDb->_genSeqSQL = "create table %s (id int not null) ENGINE=INNODB";
+							} else {
+								$gBitInstallDb->_genSeqSQL = "create table %s (id int not null) ENGINE=MYISAM";
+							}
+						}
 						foreach( array_keys( $gBitInstaller->mPackages[$package]['sequences'] ) as $sequenceIdx ) {
 							$sql = $gBitInstallDb->CreateSequence( $sequencePrefix.$sequenceIdx, $gBitInstaller->mPackages[$package]['sequences'][$sequenceIdx]['start'] );
 							if (!$sql) {

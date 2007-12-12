@@ -1,11 +1,11 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.15 2007/08/19 17:17:53 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.16 2007/12/12 01:05:56 joasch Exp $
  * @package install
  * @subpackage functions
  */
 
-// hide errors when trying to connect to the database. very unsettling when you 
+// hide errors when trying to connect to the database. very unsettling when you
 // have pages of errors to scroll through
 if( !empty( $_REQUEST['submit_db_info'] ) && !empty( $_REQUEST['step'] ) && $_REQUEST['step'] == 3 ) {
 	ini_set( 'display_errors', '0' );
@@ -80,6 +80,13 @@ if( ( empty( $gBitDbType ) || !$gBitUser->isAdmin() ) || ( $_SESSION['first_inst
 	$onlyDuringFirstInstall = TRUE;
 } else {
 	$onlyDuringFirstInstall = FALSE;
+}
+
+// For MySql only, and if server supports InnoDB Engine
+// we catch here if it was selected as storage type and
+// set a session var for use in install_packages.php
+if( isset( $_REQUEST['use_innodb'] ) ) {
+	$_SESSION['use_innodb'] = TRUE;
 }
 
 // updating $install_file name
