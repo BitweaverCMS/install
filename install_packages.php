@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.74 2007/12/12 01:05:56 joasch Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.75 2008/02/26 15:41:02 wjames5 Exp $
  * @package install
  * @subpackage functions
  *
@@ -410,10 +410,21 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 			}
 		}
-
-
-
+		
+				
 		// ---------------------- 6. ----------------------
+		// register all content types for installed packages
+		foreach( $gBitInstaller->mContentClasses as $package => $classes ){
+			if ( $gBitInstaller->isPackageInstalled( $package ) ){
+				foreach ( $classes as $objectClass=>$classFile ){
+					require_once( $classFile );
+					$tempObject = new $objectClass();
+				}
+			}
+		}
+
+
+		// ---------------------- 7. ----------------------
 		// Do stuff that only applies during the first install
 		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 			// Some packages have some special things to take care of here.
@@ -481,7 +492,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 
 
-		// ---------------------- 7. ----------------------
+		// ---------------------- 8. ----------------------
 		// woo! we're done with the installation bit - below here is some generic installer stuff
 		$gBitSmarty->assign( 'next_step', $step + 1 );
 
