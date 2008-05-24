@@ -8,7 +8,39 @@
 {form}
 	<input type="hidden" name="step" value="{$next_step}" />
 	{legend legend="Database Integrity Check"}
-		{if $dbIntegrity}
+		{if $metaTables}
+			<p class="warning">
+				{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
+				We have scanned the database and have found some outdated tables.
+				We will update these to the latest set of tables.
+				If you wish to upgrade the tables by hand, please visit the
+				<a class="external" href="http://www.bitweaver.org/wiki/SchemaChangelog">SchemaChangelog</a>
+				and apply the new schema from the 23-MAY-2008.
+			</p>
+			<ul>
+				{foreach from=$metaTables key=type item=tables}
+					<li>
+						{$type}
+						<ul>
+							{foreach from=$tables item=table}
+								<li>{$table}</li>
+							{/foreach}
+						</ul>
+					</li>
+				{/foreach}
+			</ul>
+
+			<div class="row submit">
+				<input type="submit" name="update_tables" value="Update old meta table(s)" />
+			</div>
+
+			<div class="row">
+				{forminput}
+					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+					{formhelp note="This will display SQL statements."}
+				{/forminput}
+			</div>
+		{elseif $dbIntegrity}
 			<p class="warning">
 				{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
 				We have scanned the database for missing tables and have found that the following tables have not been installed:
@@ -66,7 +98,13 @@
 
 			<div class="row submit">
 				<input type="submit" name="create_tables" value="Try to create missing table(s)" />
-				<br />This will automatically turn on debugging. If this fails again, please copy the debug output and contact the bitweaver team.
+			</div>
+
+			<div class="row">
+				{forminput}
+					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+					{formhelp note="This will display SQL statements."}
+				{/forminput}
 			</div>
 		{else}
 			<p class="success">
