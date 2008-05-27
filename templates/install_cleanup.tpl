@@ -30,6 +30,17 @@
 				{/foreach}
 			</ul>
 
+			{if $gBitSystem->isPackageActive( "treasury" )}
+				<p class="warning">
+					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
+					Seems that you have been using treasury. After the tables
+					have been fixed, please make sure to go to the
+					<a href="{$smarty.const.TREASURY_PKG_URL}admin/database_to_libertymime.php">treasury database upgrader</a>
+					to complete the upgrade process (best if you open the link
+					a separate tab/window now to ensure you don't forget...
+				</p>
+			{/if}
+
 			<div class="row submit">
 				<input type="submit" name="update_tables" value="Update old meta table(s)" />
 			</div>
