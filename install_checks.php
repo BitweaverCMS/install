@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.31 2008/06/08 10:09:31 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.32 2008/06/08 11:22:56 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -159,7 +159,7 @@ function check_settings() {
 			'result'       => 'Your version of Graphviz: ',
 		),
 		'ffmpeg' => array(
-			'command'      => 'ffmpeg 2>&1 | head -n 1',
+			'command'      => 'ffmpeg 2>&1',
 			'note'         => '<a href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> is a hyper fast video and audio encoder that supports many common formats. If you are planning on uploading video and audio files, we recommend that you install this application.',
 		),
 //		'unstuff' => array(
