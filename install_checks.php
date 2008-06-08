@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.30 2007/11/21 19:43:05 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.31 2008/06/08 10:09:31 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -88,6 +88,7 @@ function check_settings() {
 		'imagick'      => 'ImageMagick supports a multitude of different image and video formats and <strong>can be used instead of the GD Libraries</strong>. Using these libraries will allow you to upload most image formats without any difficulties. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
 		'magickwand'   => 'MagickWand the newer php extension for ImageMagick. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
 		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of php by caching and optimising queries. Using this extension will greatly increase your servers performance and reduce the memory needed to run bitweaver.',
+		'ffmpeg'       => '<a href="http://ffmpeg-php.sourceforge.net/">ffmpeg-php</a> is an extension that will allow you to better process uploaded videos. This extension requires ffmpeg to be installed as well.',
 	);
 	foreach( $php_ext as $ext => $note ) {
 		$extensions[$ext]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
@@ -156,6 +157,10 @@ function check_settings() {
 			'command'      => 'dot -V 2>&1',
 			'note'         => '<a href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} liberty plugin and you only need to install it if you intend to enable that plugin.<br /><em>The Pear::Image_Graphviz plugin is required as well.</em>',
 			'result'       => 'Your version of Graphviz: ',
+		),
+		'ffmpeg' => array(
+			'command'      => 'ffmpeg 2>&1 | head -n 1',
+			'note'         => '<a href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> is a hyper fast video and audio encoder that supports many common formats. If you are planning on uploading video and audio files, we recommend that you install this application.',
 		),
 //		'unstuff' => array(
 //			'params'       => '-xf',
