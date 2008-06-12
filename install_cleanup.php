@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.16 2008/05/24 08:22:33 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.17 2008/06/12 19:32:46 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -33,9 +33,9 @@ if( in_array( 'liberty_meta_content_map', $dbTables['unused'] )) {
 	// this means that we need to remove the 3 old meta tables before we can proceede.
 	$metaTables = array(
 		'old' => array(
+			'liberty_meta_content_map',
 			'liberty_meta_types',
 			'liberty_meta_titles',
-			'liberty_meta_content_map',
 		),
 		'new' => array(
 			'liberty_meta_types',
