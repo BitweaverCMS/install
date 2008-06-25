@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.75 2008/02/26 15:41:02 wjames5 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.76 2008/06/25 22:09:57 spiderr Exp $
  * @package install
  * @subpackage functions
  *
@@ -45,7 +45,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// make sure no required packages are included in this list
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] ) && !empty( $gBitInstaller->mPackages[$package]['required'] )) {
-				$gBitSmarty->assign( 'warning', "Something unexpected has happened: One of the required packaes has appeared in the list of selected packages. This generally only happens if the installation is missing a core database table. Please contact the bitweaver developers team on how to proceed." );
+				$gBitSmarty->assign( 'warning', "Something unexpected has happened: One of the required packages has appeared in the list of selected packages. This generally only happens if the installation is missing a core database table. Please contact the bitweaver developers team on how to proceed." );
 				$method = FALSE;
 			}
 		}
