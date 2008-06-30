@@ -1,13 +1,13 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.32 2008/06/08 11:22:56 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.33 2008/06/30 14:14:56 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
  */
 
 // assign next step in installation process
-$gBitSmarty->assign( 'next_step',$step + 1 );
+$gBitSmarty->assign( 'next_step', $step + 1 );
 
 $check_settings = check_settings();
 
@@ -27,8 +27,8 @@ if( !isset( $_SERVER['HTTP_REFERER'] ) ) {
  * check_settings
  */
 function check_settings() {
-	global $gBitSmarty,$error,$warning;
-	$config_file = clean_file_path( empty($_SERVER['CONFIG_INC']) ? (KERNEL_PKG_PATH.'config_inc.php') : $_SERVER['CONFIG_INC'] );
+	global $gBitSmarty, $error, $warning;
+	$config_file = clean_file_path( empty( $_SERVER['CONFIG_INC'] ) ? KERNEL_PKG_PATH.'config_inc.php' : $_SERVER['CONFIG_INC'] );
 
 	$i = 0;
 	// required settings - if not met, are passed into the array $reqd
@@ -288,9 +288,9 @@ function check_settings() {
 
 	// settings that are useful to know about
 	$php_ini_gets = array(
-		array( '<strong>Maximum post size</strong> will restrict the size of files when you upload a file using a form<br />recommended <strong>8M</strong>.','post_max_size' ),
-		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads<br />recommended <strong>8M</strong>.','upload_max_filesize' ),
-		array( '<strong>Maximum execution time</strong> is related to time outs in PHP - affects database upgrades and backups<br />recommended <strong>60</strong>.','max_execution_time' ),
+		array( '<strong>Maximum post size</strong> will restrict the size of files when you upload a file using a form<br />recommended at least <strong>8M</strong>.', 'post_max_size' ),
+		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads<br />recommended at least <strong>8M</strong>.', 'upload_max_filesize' ),
+		array( '<strong>Maximum execution time</strong> is related to time outs in PHP - affects database upgrades and backups<br />recommended <strong>60</strong>.', 'max_execution_time' ),
 	);
 	foreach( $php_ini_gets as $php_ini_get ) {
 		$value = ini_get( $php_ini_get[1] );

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_admin_inc.php,v 1.3 2005/08/01 18:40:30 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_admin_inc.php,v 1.4 2008/06/30 14:14:56 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -10,9 +10,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 // assign next step in installation process
-$gBitSmarty->assign( 'next_step',$step );
+$gBitSmarty->assign( 'next_step', $step );
 
-if( isset( $_REQUEST['fSubmitAdmin'] ) ) {
+if( !empty( $_REQUEST['admin_submit'] )) {
 	$warning = array();
 	if( empty( $_REQUEST['login'] ) ) {
 		$errors['login'] = "You must specify an administrator name.";
@@ -20,6 +20,7 @@ if( isset( $_REQUEST['fSubmitAdmin'] ) ) {
 	if( empty( $_REQUEST['email'] ) || !BitUser::verifyEmail( $_REQUEST['email'] ) ) {
 		$errors['email'] = 'The email "'.$_REQUEST['email'].'" is not valid.';
 	}
+
 	if( $_REQUEST['password'] != $_REQUEST['pass_confirm'] ) {
 		$errors['password'] = "The passwords you entered do not match.";
 		$_REQUEST['password'] = '';
@@ -27,22 +28,49 @@ if( isset( $_REQUEST['fSubmitAdmin'] ) ) {
 		$errors['password'] = "The administrator password has to be at least 4 characters.";
 		$_REQUEST['password'] = '';
 	}
-	if( empty( $errors ) ) {
-		$app = '_done';
-		$gBitSmarty->assign( 'next_step',$step + 1 );
-		$gBitSmarty->assign( 'pass_disp',eregi_replace( '.','&bull;',$_REQUEST['password'] ) );
-	}
-	$_SESSION['real_name'] = $_REQUEST['real_name'];
-	$_SESSION['login'] = $_REQUEST['login'];
-	$_SESSION['password'] = $_REQUEST['password'];
-	$_SESSION['email'] = $_REQUEST['email'];
 
-	$gBitSmarty->assign( 'real_name',$_SESSION['real_name'] );
-	$gBitSmarty->assign( 'login',$_SESSION['login'] );
-	$gBitSmarty->assign( 'password',$_SESSION['password'] );
-	$gBitSmarty->assign( 'pass_confirm',$_SESSION['password'] );
-	$gBitSmarty->assign( 'email',$_SESSION['email'] );
-	$gBitSmarty->assign( 'errors',$errors );
+	if( empty( $errors )) {
+		$app = '_done';
+		$gBitSmarty->assign( 'next_step', $step + 1 );
+		$gBitSmarty->assign( 'pass_disp', eregi_replace( '.','&bull;',$_REQUEST['password'] ) );
+
+		// do a mailer check as well - we need to remove trailing options for the sendmail_path check
+		if( !empty( $_REQUEST['testemail'] )) {
+			if(( $mail_path = trim( preg_replace( "#\s+\-[a-zA-Z]+.*$#", "", ini_get( 'sendmail_path' )))) && is_file( $mail_path )) {
+				$to      = $_REQUEST['email'];
+				$from    = "bitweaver@".$_SERVER['SERVER_NAME'];
+				$subject = "bitweaver test email";
+				$message = "Congratulations!\r\n".
+					"The email system on your server at ".$_SERVER['SERVER_NAME']." is working!\r\n\r\n".
+					"Thank you for trying bitweaver,\r\n".
+					"The bitweaver team.\r\n";
+				$headers = "From: $from\r\n".
+					"Reply-To: $from\r\n".
+					"X-Mailer: PHP/".phpversion();
+
+				if( mail( $to, $subject, $message, $headers )) {
+					$mail['success'] = "We sent an email to <strong>$to</strong>.";
+				} else {
+					$mail['warning'] = "We have tried to send an email to <strong>$to</strong> and the mailing system on the server has not accepted the email.";
+				}
+			} else {
+				$mail['warning'] = "The email settings on your php server are not set up correctly. Please make sure to set a valid <strong>sendmail_path</strong> if you plan to send emails with bitweaver.";
+			}
+		}
+	}
+
+	$_SESSION['real_name'] = $_REQUEST['real_name'];
+	$_SESSION['login']     = $_REQUEST['login'];
+	$_SESSION['password']  = $_REQUEST['password'];
+	$_SESSION['email']     = $_REQUEST['email'];
+
+	$gBitSmarty->assign( 'mail', $mail );
+	$gBitSmarty->assign( 'real_name', $_SESSION['real_name'] );
+	$gBitSmarty->assign( 'login', $_SESSION['login'] );
+	$gBitSmarty->assign( 'password', $_SESSION['password'] );
+	$gBitSmarty->assign( 'pass_confirm', $_SESSION['password'] );
+	$gBitSmarty->assign( 'email', $_SESSION['email'] );
+	$gBitSmarty->assign( 'errors', $errors );
 } else {
 	$gBitSmarty->assign( 'user', '');
 	$gBitSmarty->assign( 'email', 'admin@localhost');

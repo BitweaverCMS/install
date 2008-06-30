@@ -48,8 +48,16 @@
 		{/forminput}
 	</div>
 
+	<div class="row">
+		{formlabel label="Email Transport" for="testemail"}
+		{forminput}
+			<input type="checkbox" name="testemail" id="testemail" value="y" checked="checked" />
+			{formhelp note="Check this box to send a test email to the above address. This will let you know if the mailing system is working."}
+		{/forminput}
+	</div>
+
 	<div class="row submit">
-		<input type="submit" name="fSubmitAdmin" value="Submit Admin Information" />
+		<input type="submit" name="admin_submit" value="Submit Admin Information" />
 	</div>
 {/form}
 {/strip}

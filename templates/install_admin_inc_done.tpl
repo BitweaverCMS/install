@@ -51,6 +51,19 @@
 		{/forminput}
 	</div>
 
+	<div class="row">
+		{formlabel label="Email Transport"}
+		{forminput}
+			{if $mail.warning}
+				{biticon ipackage="icons" iname="dialog-warning" iexplain=warning} {$mail.warning}<br />
+				You will have to consult your Server Adminstrator to fix this issue.
+			{else}
+				{biticon ipackage="icons" iname="dialog-ok" iexplain=success} {$mail.success}<br />
+				Please check your inbox to confirm that the email was sent.
+			{/if}
+		{/forminput}
+	</div>
+
 	<div class="row submit">
 		<input type="submit" value="Continue Install Process" />
 	</div>
