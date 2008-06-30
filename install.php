@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.16 2007/12/12 01:05:56 joasch Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.17 2008/06/30 14:12:08 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -66,13 +66,13 @@ require_once( 'install_inc.php' );
 $app = '';
 
 // work out where in the installation process we are
-if( !isset( $_REQUEST['step'] ) ) {
+if( !isset( $_REQUEST['step'] )) {
 	$_REQUEST['step'] = 0;
 }
 $step = $_REQUEST['step'];
 
-if( !empty( $_REQUEST['reload'] ) ) {
-	header( "Location: ".$_SERVER['HTTP_REFERER'] );
+if( !empty( $_REQUEST['reload'] )) {
+	bit_redirect( BIT_ROOT_URI.$_SERVER['PHP_SELF']."?step=".$step );
 }
 
 // for pages that should only be shown during a first install
