@@ -296,7 +296,7 @@
 	{if !$error}
 		<div class="row submit">
 			<input type="submit" name="reload" value="Reload Page" />
-			<input type="submit" name="" value="Continue the Install process" />
+			<input type="submit" name="continue" value="Continue the Install process" />
 		</div>
 	{/if}
 {/form}
