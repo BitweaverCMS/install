@@ -69,7 +69,7 @@
 					</li>
 				{/if}
 				<li class="warning" style="text-align:center;">
-					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning iforce=icon}
+					{biticon ipackage="icons" iname="large/dialog-warning" iexplain=warning iforce=icon}
 					<br />
 					Please don't use the browser back button.
 				</li>
