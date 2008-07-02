@@ -120,7 +120,9 @@
 		{else}
 			<p class="success">
 				{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
-				Database integrity has been confirmed by scanning all available tables in your database and comparing them to the ones that should be present.
+				Database integrity has been confirmed by scanning all available
+				tables in your database and comparing them to the ones that
+				should be present.
 			</p>
 		{/if}
 	{/legend}
@@ -129,7 +131,14 @@
 	{legend legend="Fix Permissioning"}
 		{if $delPerms || $insPerms}
 			<p class="warning">
-				Please select the permissions you wish to update.
+				{biticon ipackage="icons" iname="dialog-warning" iexplain="Permission update"}
+				Some permissions require your attention.
+				{if $insPerms}
+					<br />Some of these permissions might be from packages that have
+					no tables in the database. These packages are available
+					without installation but might contain permissions which
+					are included here.
+				{/if}
 			</p>
 
 			<table class="data">
