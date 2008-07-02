@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.18 2008/06/12 21:28:21 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.19 2008/07/02 14:54:08 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -184,6 +184,9 @@ if( !empty(  $_REQUEST['update_tables'] ) && !empty( $metaTables )) {
 		// inform the template that the old tables have been sorted
 		$metaTables = array();
 	}
+
+	// make sure plugins are up to date.
+	$gLibertySystem->scanAllPlugins();
 }
 
 // if any of the serviceList items have been unchecked, disable the appropriate packages
