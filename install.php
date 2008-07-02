@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.17 2008/06/30 14:12:08 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.18 2008/07/02 15:26:58 wjames5 Exp $
  * @package install
  * @subpackage functions
  */
@@ -72,7 +72,7 @@ if( !isset( $_REQUEST['step'] )) {
 $step = $_REQUEST['step'];
 
 if( !empty( $_REQUEST['reload'] )) {
-	bit_redirect( BIT_ROOT_URI.$_SERVER['PHP_SELF']."?step=".$step );
+	header( "Location: ".$_SERVER['HTTP_REFERER'] );
 }
 
 // for pages that should only be shown during a first install
