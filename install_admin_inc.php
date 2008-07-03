@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_admin_inc.php,v 1.4 2008/06/30 14:14:56 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_admin_inc.php,v 1.5 2008/07/03 13:22:34 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -13,7 +13,7 @@
 $gBitSmarty->assign( 'next_step', $step );
 
 if( !empty( $_REQUEST['admin_submit'] )) {
-	$warning = array();
+	$mail = $errors = array();
 	if( empty( $_REQUEST['login'] ) ) {
 		$errors['login'] = "You must specify an administrator name.";
 	}
@@ -36,6 +36,7 @@ if( !empty( $_REQUEST['admin_submit'] )) {
 
 		// do a mailer check as well - we need to remove trailing options for the sendmail_path check
 		if( !empty( $_REQUEST['testemail'] )) {
+			vd(glue);
 			if(( $mail_path = trim( preg_replace( "#\s+\-[a-zA-Z]+.*$#", "", ini_get( 'sendmail_path' )))) && is_file( $mail_path )) {
 				$to      = $_REQUEST['email'];
 				$from    = "bitweaver@".$_SERVER['SERVER_NAME'];
