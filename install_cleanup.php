@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.20 2008/07/02 16:33:33 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.21 2008/07/03 13:41:39 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -64,7 +64,7 @@ while( !$result->EOF ) {
 $insPerms = $delPerms = array();
 foreach( array_keys( $gBitInstaller->mPermHash ) as $perm ) {
 	if( !in_array( $perm, array_keys( $bitPerms ))) {
-		if( @$schema[$gBitInstaller->mPermHash[$perm][3]]['installed'] ) {
+		if( $gBitInstaller->isInstalled( $gBitInstaller->mPermHash[$perm][3] )) {
 			$insPerms[$perm] = $gBitInstaller->mPermHash[$perm];
 		}
 	}
