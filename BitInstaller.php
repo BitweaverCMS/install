@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.30 2007/12/10 19:26:30 joasch Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.31 2008/07/03 13:40:18 squareing Exp $
  * @package install
  */
 
@@ -9,11 +9,21 @@
  */
 class BitInstaller extends BitSystem {
 
+	/**
+	 * Initiolize BitInstaller 
+	 * @access public
+	 */
 	function BitInstaller() {
 		BitSystem::BitSystem();
 		$this->getWebServerUid();
 	}
 
+	/**
+	 * hasAdminBlock 
+	 * 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure
+	 */
 	function hasAdminBlock() {
 		global $gBitUser;
 		// Let's find out if we are have admin perm or a root user
@@ -31,8 +41,15 @@ class BitInstaller extends BitSystem {
 		return $ret;
 	}
 
-	function display($pTemplate, $pBrowserTitle=NULL)
-	{
+	/**
+	 * display 
+	 * 
+	 * @param string $pTemplate 
+	 * @param string $pBrowserTitle 
+	 * @access public
+	 * @return void
+	 */
+	function display( $pTemplate, $pBrowserTitle=NULL ) {
 		header( 'Content-Type: text/html; charset=utf-8' );
 		// force the session to close *before* displaying. Why? Note this very important comment from http://us4.php.net/exec
 		if (ini_get('safe_mode') && ini_get('safe_mode_gid')) {
@@ -48,45 +65,59 @@ class BitInstaller extends BitSystem {
 		$gBitSmarty->display( $pTemplate );
 	}
 
-	function isInstalled() {
-		return ( !empty( $this->mPackages['kernel']['installed'] ) );
+	/**
+	 * isInstalled 
+	 * 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
+	function isInstalled( $pPackage = 'kernel' ) {
+		return( !empty( $this->mPackages[$pPackage]['installed'] ));
 	}
 
+	/**
+	 * getWebServerUid set global wwwuser and wwwgroup
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	function getWebServerUid() {
-		global $wwwuser;
-		global $wwwgroup;
-		$wwwuser = '';
-		$wwwgroup = '';
+		global $wwwuser, $wwwgroup;
+		$wwwuser = $wwwgroup = '';
 
-		if (is_windows()) {
-				$wwwuser = 'SYSTEM';
-
-				$wwwgroup = 'SYSTEM';
+		if( is_windows() ) {
+			$wwwuser = 'SYSTEM';
+			$wwwgroup = 'SYSTEM';
 		}
 
-		if (function_exists('posix_getuid')) {
-				$user = @posix_getpwuid(@posix_getuid());
-
-				$group = @posix_getpwuid(@posix_getgid());
-				$wwwuser = $user ? $user['name'] : false;
-				$wwwgroup = $group ? $group['name'] : false;
+		if( function_exists( 'posix_getuid' )) {
+			$user = @posix_getpwuid( @posix_getuid() );
+			$group = @posix_getpwuid( @posix_getgid() );
+			$wwwuser = $user ? $user['name'] : false;
+			$wwwgroup = $group ? $group['name'] : false;
 		}
 
-		if (!$wwwuser) {
-				$wwwuser = 'nobody (or the user account the web server is running under)';
+		if( !$wwwuser ) {
+			$wwwuser = 'nobody (or the user account the web server is running under)';
 		}
 
-		if (!$wwwgroup) {
-				$wwwgroup = 'nobody (or the group account the web server is running under)';
+		if( !$wwwgroup ) {
+			$wwwgroup = 'nobody (or the group account the web server is running under)';
 		}
 	}
 
+	/**
+	 * getTablePrefix 
+	 * 
+	 * @access public
+	 * @return database adjusted table prefix
+	 */
 	function getTablePrefix() {
 		global $gBitDbType;
 		$ret = BIT_DB_PREFIX;
 		// avoid errors in ADONewConnection() (wrong database driver etc...)
 		// strip out some schema stuff
-		switch ($gBitDbType) {
+		switch( $gBitDbType ) {
 			case "sybase":
 				// avoid database change messages
 				ini_set('sybct.min_server_severity', '11');
@@ -110,6 +141,13 @@ class BitInstaller extends BitSystem {
 		return $ret;
 	}
 
+	/**
+	 * upgradePackage 
+	 * 
+	 * @param array $package 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
 	function upgradePackage( $package ) {
 		global $gBitSystem, $gBitDb;
 		$ret = array();
@@ -318,7 +356,7 @@ class BitInstaller extends BitSystem {
 			}
 
 			// turn on features that are turned on
-			if( $gBitSystem->isFeatureActive( 'feature_'.$package ) ) {
+			if( $gBitSystem->isFeatureActive( 'feature_'.$package )) {
 				$gBitSystem->storeConfig( 'package_'.$package, 'y', KERNEL_PKG_NAME );
 			}
 
@@ -332,18 +370,24 @@ class BitInstaller extends BitSystem {
 	}
 }
 
+/**
+ * check_session_save_path 
+ * 
+ * @access public
+ * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+ */
 function check_session_save_path() {
 	global $errors;
-	if (ini_get('session.save_handler') == 'files') {
-		$save_path = ini_get('session.save_path');
+	if( ini_get( 'session.save_handler' ) == 'files' ) {
+		$save_path = ini_get( 'session.save_path' );
 
-		if (!is_dir($save_path)) {
+		if( !is_dir( $save_path )) {
 			$errors .= "The directory '$save_path' does not exist or PHP is not allowed to access it (check session.save_path or open_basedir entries in php.ini).\n";
-		} else if (!bw_is_writeable($save_path)) {
+		} elseif( !bw_is_writeable( $save_path )) {
 			$errors .= "The directory '$save_path' is not writeable.\n";
 		}
 
-		if ($errors) {
+		if( $errors ) {
 			$save_path = BitSystem::tempdir();
 
 			if (is_dir($save_path) && bw_is_writeable($save_path)) {
@@ -355,19 +399,37 @@ function check_session_save_path() {
 	}
 }
 
-function makeConnection($gBitDbType, $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) {
+/**
+ * makeConnection 
+ * 
+ * @param string $gBitDbType 
+ * @param string $gBitDbHost 
+ * @param string $gBitDbUser 
+ * @param string $gBitDbPassword 
+ * @param string $gBitDbName 
+ * @access public
+ * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+ */
+function makeConnection( $gBitDbType, $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName ) {
 	$gDb = &ADONewConnection( $gBitDbType );
-	if( !$gDb->Connect($gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName) ) {
+	if( !$gDb->Connect( $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName )) {
 		echo $gDb->ErrorMsg()."\n";
 		die;
 	}
 	global $gBitDbCaseSensitivity;
 	$gDb->mCaseSensitive = $gBitDbCaseSensitivity;
-	$gDb->SetFetchMode(ADODB_FETCH_ASSOC);
+	$gDb->SetFetchMode( ADODB_FETCH_ASSOC );
 	return $gDb;
 }
 
-function identifyBlobs($result) {
+/**
+ * identifyBlobs 
+ * 
+ * @param array $result 
+ * @access public
+ * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+ */
+function identifyBlobs( $result ) {
 	$blobs = array();
 	//echo "FieldCount: ".$result->FieldCount()."\n";
 	for($i = 0; $i < $result->FieldCount(); $i++) {
@@ -380,10 +442,18 @@ function identifyBlobs($result) {
 	return $blobs;
 }
 
-// enumerate blob fields and encoded
-function convertBlobs($gDb, &$res, $blobs) {
-	foreach($blobs as $blob) {
-		$res[$blob] = $gDb->dbByteEncode($res[$blob]);
+/**
+ * convertBlobs enumerate blob fields and encoded
+ * 
+ * @param string $gDb 
+ * @param array $res 
+ * @param array $blobs 
+ * @access public
+ * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+ */
+function convertBlobs( $gDb, &$res, $blobs ) {
+	foreach( $blobs as $blob ) {
+		$res[$blob] = $gDb->dbByteEncode( $res[$blob] );
 	}
 }
 
