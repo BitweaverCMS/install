@@ -54,15 +54,14 @@ if [ $MODULE = 'bitweaver' ] ; then
 		mkdir "$BUILDDIR/themes/force"
 	fi
 	if [ -d "$BUILDDIR/languages" ] ; then
-		# export latest language files
-		php -d display_errors=Off ~/bin/export_all_languages.php
-		langdir="/tmp/bitweaver/lang/export/"
-		cp -ru ${langdir}* "$BUILDDIR/languages/lang/"
-		rm -rf $langdir
+		echo "Export languages from database to files"
+		php -d display_errors=Off ~/bin/export_all_languages.php "`pwd`/$BUILDDIR/languages/lang"
 	fi
 fi
 
 echo Create archive of downloaded files
-zip -r $fname.zip $BUILDDIR
+zip -rq $fname.zip $BUILDDIR
+echo Move archive to: $HOME/$fname.zip
 mv $fname.zip $HOME/$fname.zip
+echo Remove all temporary files
 rm -Rf "/tmp/$fname/"
