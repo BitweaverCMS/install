@@ -38,6 +38,7 @@ fname=bitweaver_$1\_wb_`date +"%Gweek%V"`
 
 mkdir -p "/tmp/$fname/"
 cd "/tmp/$fname/"
+echo "cvs -qz5 -d :ext:$SFUSER@bitweaver.cvs.sourceforge.net:/cvsroot/bitweaver/ export -d $BUILDDIR $BRANCH $MODULE"
 cvs -qz5 -d :ext:$SFUSER@bitweaver.cvs.sourceforge.net:/cvsroot/bitweaver/ export -d $BUILDDIR $BRANCH $MODULE
 cd "/tmp/$fname/"
 
@@ -55,8 +56,9 @@ if [ $MODULE = 'bitweaver' ] ; then
 	if [ -d "$BUILDDIR/languages" ] ; then
 		# export latest language files
 		php -d display_errors=Off ~/bin/export_all_languages.php
-		cp -ru ~/live/temp/lang/export/* "$BUILDDIR/languages/lang/"
-		rm -rf ~/live/temp/lang/export/
+		langdir="/tmp/bitweaver/lang/export/"
+		cp -ru ${langdir}* "$BUILDDIR/languages/lang/"
+		rm -rf $langdir
 	fi
 fi
 
