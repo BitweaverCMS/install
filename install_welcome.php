@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_welcome.php,v 1.6 2007/10/01 18:57:58 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_welcome.php,v 1.7 2008/07/06 05:27:10 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -11,7 +11,8 @@
 
 // assign next step in installation process
 if( !empty( $_REQUEST['install'] ) ) {
-	header( 'Location: http'.(!empty($_SERVER['HTTPS'])?'s':'').'://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );
+	// Added check for IIS $_SERVER['HTTPS'] uses 'off' value - wolff_borg
+	header( 'Location: http'.((!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS'] != 'off')?'s':'').'://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );
 	die;
 }
 $gBitSmarty->assign( 'next_step',$step );
