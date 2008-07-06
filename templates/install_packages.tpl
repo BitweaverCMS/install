@@ -89,20 +89,6 @@
 						{/if}
 					{/foreach}
 
-					<div class="row submit">
-						Please press this button only once<br />
-						Depending on the number of packages and the hardware,<br />
-						this process might take up to a few minutes.<br /><br />
-						<input type="hidden" name="resetdb" value="{$resetdb}" />
-						<input type="submit" name="submit_packages" value="Install Packages" />
-					</div>
-
-					<div class="row">
-						{forminput}
-							<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
-							{formhelp note="This will display SQL statements."}
-						{/forminput}
-					</div>
 				{else}
 					<h2>No new Packages</h2>
 
@@ -122,6 +108,21 @@
 						</code><br />
 					</p>
 				{/if}
+				<div class="row submit">
+					Please press this button only once<br />
+					Depending on the number of packages and the hardware,<br />
+					this process might take up to a few minutes.<br /><br />
+					<input type="hidden" name="resetdb" value="{$resetdb}" />
+					<input type="submit" name="submit_packages" value="Install Packages" />
+				</div>
+
+				<div class="row">
+					{forminput}
+						<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
+						{formhelp note="This will display SQL statements."}
+					{/forminput}
+				</div>
+
 			{/form}
 		{/jstab}
 
