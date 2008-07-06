@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_options.php,v 1.4 2007/10/01 18:57:58 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_options.php,v 1.5 2008/07/06 05:34:55 wolff_borg Exp $
  * @package install
  * @subpackage functions
  */
@@ -19,7 +19,8 @@ if( isset( $_REQUEST['upgrade'] ) ) {
 	$_SESSION['upgrade'] = TRUE;
 	$_SESSION['upgrade_r1'] = TRUE;
 	$_SESSION['first_install'] = TRUE;
-	header( 'Location: http'.(!empty($_SERVER['HTTPS'])?'s':'').'://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'upgrade.php' );
+	// Added check for IIS $_SERVER['HTTPS'] uses 'off' value - wolff_borg
+	header( 'Location: http'.((!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS'] != 'off')?'s':'').'://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'upgrade.php' );
 	die;
 } elseif( isset( $_REQUEST['migrate'] ) ) {
 	$_SESSION['migrate'] = TRUE;
@@ -27,7 +28,8 @@ if( isset( $_REQUEST['upgrade'] ) ) {
 	header( 'Location: '.INSTALL_PKG_URL.'migrate.php' );
 	die;
 } elseif( isset( $_REQUEST['continue_install'] ) ) {
-	header( 'Location: http'.(!empty($_SERVER['HTTPS'])?'s':'').'://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );
+	// Added check for IIS $_SERVER['HTTPS'] uses 'off' value - wolff_borg
+	header( 'Location: http'.((!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS'] != 'off')?'s':'').'://'.$_SERVER['HTTP_HOST'].INSTALL_PKG_URL.'install.php?step='.( $step + 1 ) );
 	die;
 } else {
 	$gBitSmarty->assign( 'next_step',$step );
