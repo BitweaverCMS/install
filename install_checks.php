@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.34 2008/07/06 06:17:01 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.35 2008/07/06 07:31:21 wolff_borg Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -33,7 +33,7 @@ function check_settings() {
 	$i = 0;
 	// required settings - if not met, are passed into the array $reqd
 	// PHP system checks
-	$phpvers = '4.1.0';
+	$phpvers = '4.3.0';
 	if( phpversion() < $phpvers ) {
 		$required[$i]['note'] = '<strong>PHP version</strong> should be greater than <strong>'.$phpvers.'</strong>.<br />Your installed version of PHP is <strong>'.phpversion().'</strong>.';
 		$required[$i]['passed'] = FALSE;
