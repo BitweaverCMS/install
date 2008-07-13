@@ -218,7 +218,7 @@
 					PEAR extensions below).</li>
 			{/if}
 			<li>Install PEAR extensions using <a class="external"
-					href="http://pear.php.net/manual/en/installation.cli.php">
+					href="http://pear.php.net/manual/en/guide.users.commandline.cli.php">
 					command line interface</a> (requires ssh access).</li>
 			<li>Install PEAR extensions in <a class="external"
 					href="http://pear.php.net/manual/en/installation.shared.php">a
