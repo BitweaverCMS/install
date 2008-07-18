@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.19 2008/07/18 08:37:32 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.20 2008/07/18 08:38:21 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -8,7 +8,7 @@
 // hide errors when trying to connect to the database. very unsettling when you
 // have pages of errors to scroll through
 if( !empty( $_REQUEST['submit_db_info'] ) && !empty( $_REQUEST['step'] ) && $_REQUEST['step'] == 3 ) {
-	//ini_set( 'display_errors', '0' );
+	ini_set( 'display_errors', '0' );
 }
 
 // here we force the use of adodb during installation
