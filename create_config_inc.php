@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.17 2007/09/24 11:54:14 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.18 2008/07/18 08:37:32 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -52,8 +52,8 @@ function create_config( $pParamHash ) {
 	$config_file = ( strpos( $_SERVER["SERVER_SOFTWARE"],"IIS" ) ? str_replace( "/", "\\", $config_file ) : $config_file );
 
 	$fw = fopen( $config_file, 'w' );
-	if( isset( $fw ) ) {
-		$filetowrite="<?php
+	if( isset( $fw )) {
+		$filetowrite = "<?php
 // Copyright (c) 2006, bitweaver.org
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE.
 
@@ -170,7 +170,19 @@ define( 'BIT_ROOT_URL', '$bit_root_url' );
 // the kernel.  In the example provided below, the kernel package is processed
 // first, followed by the users and liberty packages.  Any packages not specified
 // in \$gPreScan are processed in the traditional order
-//\$gPreScan = array( 'kernel', 'users', 'liberty' );
+//\$gPreScan = array( 'kernel', 'users', 'liberty' );";
+
+		if( substr( PHP_OS, 0, 3 ) == 'WIN' ) {
+			$filetowrite .= "
+
+
+// Insert the absolute path to your php magic database. This is required for 
+// us to check and verify the mime type of uploaded files. This setting is only 
+// required on windows machines.
+//define( 'PHP_MAGIC_PATH', 'C:\\Program Files\\PHP\\extras\\magic.mime' );";
+		}
+
+		$filetowrite .= "
 
 
              /******************************************************\

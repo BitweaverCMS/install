@@ -73,6 +73,12 @@
 			This information was stored in the file:<br />
 			<strong>{$smarty.const.KERNEL_PKG_PATH}config_inc.php</strong>
 		</p>
+		{if substr( PHP_OS, 0, 3 ) == 'WIN'}
+			<p class="warning">
+				{biticon ipackage="icons" iname="dialog-warning" iexplain=success}
+				Your server seems to be a windows machine. Please set the PHP_MAGIC_PATH constant in the configuration file.
+			</p>
+		{/if}
 		<p>
 			If you are interested in debugging or developing bitweaver, please view this file, as there are important additional options that can not be set elsewhere. Web designers can also find some settings that might help with theme creation.
 		</p>
