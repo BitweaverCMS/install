@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.76 2008/06/25 22:09:57 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.77 2008/07/18 08:10:24 squareing Exp $
  * @package install
  * @subpackage functions
  *
@@ -113,6 +113,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// We perform several loops through mPackages due to foreign keys, and some packages may insert
 		// value into other packages tables - typically users_permissions, bit_preferences, etc...
 		sort( $_REQUEST['packages'] );
+
+
+
 		// ---------------------- 1. ----------------------
 		// let's generate all the tables's
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
@@ -153,6 +156,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 			}
 		}
+
 
 
 		// ---------------------- 2. ----------------------
@@ -384,7 +388,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 
 
-
 		// ---------------------- 5. ----------------------
 		// run the defaults through afterwards so we can be sure all tables needed have been created
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
@@ -410,8 +413,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 			}
 		}
-		
-				
+
+
+
 		// ---------------------- 6. ----------------------
 		// register all content types for installed packages
 		foreach( $gBitInstaller->mContentClasses as $package => $classes ){
