@@ -1,11 +1,12 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.9 2007/10/05 20:40:37 nickpalmer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.10 2008/07/29 05:55:17 lsces Exp $
  * @package install
  * @subpackage functions
  *
  * check what db servers are available and display them accordingly - only seems to work with *nix
  */
+$gBitDbCaseSensitivity = TRUE;
 $dbtodsn = array();
 if( function_exists( 'mysql_connect' ) ) {
 	// check version of mysql server - only server that allows check without actually connecting to it... (who knows how that works)
@@ -30,6 +31,7 @@ if( function_exists( 'pg_connect' ) ) {
 }
 if( function_exists( 'ocilogon' ) ) {
 	$dbtodsn['oci8po'] = 'Oracle 8.i';
+	$gBitDbCaseSensitivity = FALSE;
 }
 if( function_exists( 'sybase_connect' ) ) {
 	$dbtodsn['sybase'] = 'Sybase';
@@ -52,9 +54,7 @@ if( function_exists( 'fbird_connect' ) ) {
 	$gBitSmarty->assign( 'fbpath', $fbpath );
 	if ( empty($gBitDbName) ) $gBitDbName = 'bitweaver';
 	$gBitDbCaseSensitivity = FALSE;
-} else {
-	$gBitDbCaseSensitivity = TRUE;
-}
+} 
 if( function_exists( 'sqlite_open' ) ) {
 	$dbtodsn['sqlite'] = 'SQLLite';
 }
