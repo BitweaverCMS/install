@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.20 2008/07/18 08:38:21 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.21 2008/09/22 01:12:27 laetzer Exp $
  * @package install
  * @subpackage functions
  */
@@ -94,7 +94,7 @@ $i = 0;
 $install_file[$i]['file'] = 'welcome';
 $install_file[$i++]['name'] = 'Welcome';
 $install_file[$i]['file'] = 'checks';
-$install_file[$i++]['name'] = 'bitweaver Settings Check';
+$install_file[$i++]['name'] = 'Bitweaver Settings Check';
 // Upgrading of a database can only occur during a first install
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'options';
@@ -120,7 +120,7 @@ $install_file[$i++]['name'] = 'Resolve Conflicts';
 // these settings should only be present when we are installing for the first time
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'bit_settings';
-	$install_file[$i++]['name'] = 'bitweaver Settings';
+	$install_file[$i++]['name'] = 'Bitweaver Settings';
 	// only show db population page when we haven't just done an upgrade
 	if( !isset( $_SESSION['upgrade'] ) ) {
 		$install_file[$i]['file'] = 'datapump';
