@@ -40,7 +40,7 @@ div.progressbar div.progress0 	{background:#fdf9ea;width:3em !important}
 #stepmenu	{border:1px solid #bdf922;background:#ccfd25 url(images/favicon.ico) no-repeat 4px 3px;padding:0 0 0 28px;margin:2em auto 1em auto}
 #stepmenu li	{padding:23px 0.5em 0.5em 0.5em;display:inline;color:#44650c;border:0}
 
-#stepmenu li.current	{background:transparent url(images/media-playback-start-trans.png) no-repeat top;color:#fff;font-weight:700;}
+#stepmenu li.current	{background:transparent url(images/software-update-available-trans.png) no-repeat top;color:#fff;font-weight:700}
 #stepmenu li.current a	{color:#000}
 
 #stepmenu li.success	{background-position:top;background-color:transparent;}
