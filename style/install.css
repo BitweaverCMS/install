@@ -93,6 +93,7 @@ legend	{background:#fdf9ea;padding:1em 1em 1em 0}
 .row	{overflow:auto;clear:both;margin:0 0 1.5em 0}
 .formlabel	{float:left;width:24%;text-align:right;padding:0 0.5em 1em 0;font-weight:bold}
 .formfeedback	{}
+.formfeedback .icon	{display:none;}
 .formfeedback div	{padding:4px;border-bottom:1px dotted #aaa}
 
 .odd	{background:#f4f4f3;color:#000}
