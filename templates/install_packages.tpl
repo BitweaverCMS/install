@@ -16,7 +16,7 @@
 	{/legend}
 {else}
 	{formfeedback warning=$warning}
-	{jstabs}
+	{jstabs tab=0}
 		{jstab title="Install Packages"}
 			{form id="package_select" legend="Please select packages and services you wish to install" id="package_select"}
 				<input type="hidden" name="step" value="{$next_step}" />
@@ -131,7 +131,7 @@
 					<input type="hidden" name="step" value="{$next_step}" />
 
 					<div class="row">
-						{formfeedback warning="These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it will be erased (depending on options below)."}
+						<p class="warning">These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it will be erased (depending on options below).</p>
 					</div>
 
 					<div class="row">
@@ -197,7 +197,7 @@
 			{legend legend="Packages and services required by Bitweaver"}
 				{if !$first_install}
 					<div class="row">
-						{formfeedback warning="To reset the entire system, first create a new database (or empty the existing database manually)."}
+						<p class="warning">To reset the entire system, first create a new database (or empty the existing database manually).</p>
 					</div>
 				{/if}
 
