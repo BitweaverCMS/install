@@ -11,12 +11,12 @@
 				{foreach from=$warning item=warn}
 					<li class="warning">
 						{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
+						&nbsp;
 						{$warn}
 					</li>
 				{/foreach}
 			{else}
 				<li class="success">
-					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 					Administrator configured successfully
 				</li>
 			{/if}
@@ -53,13 +53,19 @@
 
 	{if $mail}
 		<div class="row">
-			{formlabel label="Email Transport"}
+			{formlabel label="Email transport"}
 			{forminput}
 				{if $mail.warning}
-					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning} {$mail.warning}<br />
-					You will have to consult your Server Adminstrator to fix this issue.
+					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
+					&nbsp;
+					{$mail.warning}
+					<br />
+					You will have to consult your server adminstrator to fix this issue.
 				{else}
-					{biticon ipackage="icons" iname="dialog-ok" iexplain=success} {$mail.success}<br />
+					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
+					&nbsp;
+					{$mail.success}
+					<br />
 					Please check your inbox to confirm that the email was sent.
 				{/if}
 			{/forminput}
@@ -67,7 +73,7 @@
 	{/if}
 
 	<div class="row submit">
-		<input type="submit" value="Continue Install Process" />
+		<input type="submit" value="Continue install process" />
 	</div>
 {/form}
 

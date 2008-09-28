@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.21 2008/09/22 01:12:27 laetzer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.22 2008/09/28 08:19:47 laetzer Exp $
  * @package install
  * @subpackage functions
  */
@@ -94,41 +94,41 @@ $i = 0;
 $install_file[$i]['file'] = 'welcome';
 $install_file[$i++]['name'] = 'Welcome';
 $install_file[$i]['file'] = 'checks';
-$install_file[$i++]['name'] = 'Bitweaver Settings Check';
+$install_file[$i++]['name'] = 'Server';
 // Upgrading of a database can only occur during a first install
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'options';
-	$install_file[$i++]['name'] = 'Install Options';
+	$install_file[$i++]['name'] = 'Options';
 }
 // make it possible to reset the config_inc.php file if it's already filled with data
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'database';
-	$install_file[$i++]['name'] = 'Database Connection';
+	$install_file[$i++]['name'] = 'Database';
 } else {
 	$install_file[$i]['file'] = 'database_reset';
-	$install_file[$i++]['name'] = 'Database Connection';
+	$install_file[$i++]['name'] = 'Database';
 }
 // if the admin is already set up and we are not installing for the first time, we skip admin creation page
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'admin_inc';
-	$install_file[$i++]['name'] = 'Admin Setup';
+	$install_file[$i++]['name'] = 'Admin';
 }
 $install_file[$i]['file'] = 'packages';
-$install_file[$i++]['name'] = 'Package Installation';
+$install_file[$i++]['name'] = 'Packages';
 $install_file[$i]['file'] = 'cleanup';
-$install_file[$i++]['name'] = 'Resolve Conflicts';
+$install_file[$i++]['name'] = 'Cleanup';
 // these settings should only be present when we are installing for the first time
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'bit_settings';
-	$install_file[$i++]['name'] = 'Bitweaver Settings';
+	$install_file[$i++]['name'] = 'Settings';
 	// only show db population page when we haven't just done an upgrade
 	if( !isset( $_SESSION['upgrade'] ) ) {
 		$install_file[$i]['file'] = 'datapump';
-		$install_file[$i++]['name'] = 'Database Population';
+		$install_file[$i++]['name'] = 'Content';
 	}
 }
 $install_file[$i]['file'] = 'final';
-$install_file[$i]['name'] = 'Installation Complete';
+$install_file[$i]['name'] = 'Done';
 //don't increment last $i since it's used later on
 
 // if we have to log in, call login template and die

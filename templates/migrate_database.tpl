@@ -10,7 +10,6 @@
 					{if $error_src}
 						<ul class="result">
 							<li class="error">
-								{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 								Database connection could not be established.
 								<ul>
 									<li>Perhaps your database is not available</li>
@@ -30,12 +29,12 @@
 				</div>
 
 				<div class="row">
-					{formlabel label="Source Database type" for="db_src"}
+					{formlabel label="Source database type" for="db_src"}
 					{forminput}
 						{if $dbservers}
 							{html_options name='db_src' options=$dbservers id=db_src selected=$db_src}
 						{else}
-							{formfeedback warning='You currently have no Database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">bitweaver Team</a>.'}
+							{formfeedback warning='You currently have no database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">Bitweaver Team</a>.'}
 						{/if}
 						{formhelp note="The type of database you intend to use."}
 						{formfeedback warning="If the database you wish to use is not listed above, the version of PHP on this server does not have support for that database installed or compiled in."}
@@ -43,19 +42,19 @@
 				</div>
 
 				<div class="row">
-					{formlabel label="Source Host" for="host_src"}
+					{formlabel label="Source host" for="host_src"}
 					{forminput}
 						<input type="text" size="25" name="host_src" id="host_src" value="{if $host_src ne '' }{$host_src}{/if}" />
 						{formhelp note="Hostname or IP for your MySQL database, example:<br />
 							Use 'localhost' if your database is on the same machine as your server.<br />
-							If you use Oracle, insert your TNS Name here<br />
+							If you use Oracle, insert your TNS name here<br />
 							If you use SQLite, insert the path and filename to your database file<br />
 							If you are not sure what to put in here, try using localhost."}
 					{/forminput}
 				</div>
 
 				<div class="row">
-					{formlabel label="Source User" for="user_src"}
+					{formlabel label="Source user" for="user_src"}
 					{forminput}
 						<input type="text" size="25" name="user_src" id="user_src" value="{$user_src}" />
 						{formhelp note="Database user"}
@@ -71,32 +70,32 @@
 				</div>
 
 				<div class="row">
-					{formlabel label="Source Database name" for="name_src"}
+					{formlabel label="Source database name" for="name_src"}
 					{forminput}
 						<input type="text" size="25" name="name_src" id="name_src" value="{$name_src}" />
 						{ if ( $fbpath ) }
-							{formhelp note="The name of the database where bitweaver will create tables. You can
-								create a Firebird alias for the bitweaver database in aliases.conf and then use that
+							{formhelp note="The name of the database where Bitweaver will create tables. You can
+								create a Firebird alias for the Bitweaver database in aliases.conf and then use that
 								aliase as the database name, or provide a full path and file name to create
 								the database in an existing directory."}
 						{else}
-							{formhelp note="The name of the database where bitweaver will create tables. You can
+							{formhelp note="The name of the database where Bitweaver will create tables. You can
 								create the database using mysqladmin, or PHPMyAdmin or ask your
 								hosting service to create a MySQL database.
-								Normally bitweaver tables won't conflict with other product names."}
+								Normally Bitweaver tables won't conflict with other product names."}
 						{/if}
 					{/forminput}
 				</div>
 
 				<div class="row">
 				{ if ( $fbpath ) }
-					{formhelp note="<strong>Do not use Prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
+					{formhelp note="<strong>Do not use prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
 				{/if}
 					{formlabel label="Source Database Prefix" for="prefix_src"}
 					{forminput}
 						<input type="text" size="25" name="prefix_src" id="prefix_src" value="{$prefix_src}" />
 						{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple
-							independent install to share a single database. All bitweaver tables begin with 'bit_' or 'users_',
+							independent install to share a single database. All Bitweaver tables begin with 'bit_' or 'users_',
 							so you rarely need to enter a prefix. If you are NOT running MySQL (i.e. Postgres, Oracle, etc.)
 							you can end the prefix string with a '.' (period) to use a schema in systems that support it.
 							<strong>MySQL does NOT support schemas.</strong>"}
@@ -122,7 +121,6 @@
 				<div class="row">
 					{if $error_dst}
 						<li class="error">
-							{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 							Database connection could not be established.
 							<ul>
 								<li>Perhaps your database is not available</li>
@@ -147,7 +145,7 @@
 						{if $dbservers}
 							{html_options name='db_dst' options=$dbservers id=db_dst selected=$gBitDbType}
 						{else}
-							{formfeedback warning='You currently have no Database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">bitweaver Team</a>.'}
+							{formfeedback warning='You currently have no Database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">Bitweaver Team</a>.'}
 						{/if}
 						{formhelp note="The type of database you intend to use."}
 						{formfeedback warning="If the database you wish to use is not listed above, the version of PHP on this server does not have support for that database installed or compiled in."}
@@ -167,7 +165,7 @@
 				</div>
 
 				<div class="row">
-					{formlabel label="Destination User" for="user_dst"}
+					{formlabel label="Destination user" for="user_dst"}
 					{forminput}
 						<input type="text" size="25" name="user_dst" id="user_dst" value="{$gBitDbUser}" />
 						{formhelp note="Database user"}
@@ -175,7 +173,7 @@
 				</div>
 
 				<div class="row">
-					{formlabel label="Destination Password" for="pass_dst"}
+					{formlabel label="Destination password" for="pass_dst"}
 					{forminput}
 						<input type="password" size="25" name="pass_dst" id="pass_dst" value="{$gBitDbPassword_input}" />
 						{formhelp note="Database password"}
@@ -183,32 +181,32 @@
 				</div>
 
 				<div class="row">
-					{formlabel label="Destination Database name" for="name_dst"}
+					{formlabel label="Destination database name" for="name_dst"}
 					{forminput}
 						<input type="text" size="25" name="name_dst" id="name_dst" value="{$gBitDbName}" />
 						{ if ( $fbpath ) }
-							{formhelp note="The name of the database where bitweaver will create tables. You can
-								create a Firebird alias for the bitweaver database in aliases.conf and then use that
+							{formhelp note="The name of the database where Bitweaver will create tables. You can
+								create a Firebird alias for the Bitweaver database in aliases.conf and then use that
 								aliase as the database name, or provide a full path and file name to create
 								the database in an existing directory."}
 						{else}
-							{formhelp note="The name of the database where bitweaver will create tables. You can
+							{formhelp note="The name of the database where Bitweaver will create tables. You can
 								create the database using mysqladmin, or PHPMyAdmin or ask your
 								hosting service to create a MySQL database.
-								Normally bitweaver tables won't conflict with other product names."}
+								Normally Bitweaver tables won't conflict with other product names."}
 						{/if}
 					{/forminput}
 				</div>
 
 				<div class="row">
 				{ if ( $fbpath ) }
-					{formhelp note="<strong>Do not use Prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
+					{formhelp note="<strong>Do not use prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
 				{/if}
 					{formlabel label="Destination Database Prefix" for="prefix_dst"}
 					{forminput}
 						<input type="text" size="25" name="prefix_dst" id="prefix_dst" value="{$db_prefix_bit}" />
 						{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple
-							independent install to share a single database. All bitweaver tables begin with 'bit_' or 'users_',
+							independent install to share a single database. All Bitweaver tables begin with 'bit_' or 'users_',
 							so you rarely need to enter a prefix. If you are NOT running MySQL (i.e. Postgres, Oracle, etc.)
 							you can end the prefix string with a '.' (period) to use a schema in systems that support it.
 							<strong>MySQL does NOT support schemas.</strong>"}
@@ -217,7 +215,7 @@
 
 				{ if ( $fbpath ) }
 				<div class="row">
-					{formlabel label="Firebird Installation Path" for="fbpath"}
+					{formlabel label="Firebird installation path" for="fbpath"}
 					{forminput}
 						<input type="text" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
 						{formhelp note="If you have modified your Firebird installation from the default please enter the correct
@@ -228,11 +226,10 @@
 				{/if}
 
 				<div class="row">
-					{formlabel label="Site Base Url" for="baseurl"}
+					{formlabel label="Site Base URL" for="baseurl"}
 					{forminput}
 						<input type="text" size="25" name="baseurl" id="baseurl" value="{$bit_root_url}" />
-						{formhelp note="This is the path from the server root to your bitweaver location.<br />
-							i.e. if you access bitweaver as 'http://MyServer.com/applications/new/wiki/index.php' you should enter '/applications/new/'"}
+						{formhelp note="This is the path from the server root to your Bitweaver location, i.e., if you access Bitweaver as <kbd>http://MyServer.com/applications/new/wiki/index.php</kbd> you should enter <kbd>/applications/new/</kbd>"}
 					{/forminput}
 				</div>
 
@@ -240,14 +237,14 @@
 					{formlabel label="Automatically submit bugs" for="auto_bug_submit"}
 					{forminput}
 						<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />
-						{formhelp note="Checking this box will automatically submit fatal database errors to the bitweaver team. If you are running a live site, we recommend you check this box, as it will also avoid horrible error messages from appearing in such cases."}
+						{formhelp note="Checking this box will automatically submit fatal database errors to the Bitweaver team. If you are running a live site, we recommend you check this box, as it will also avoid horrible error messages from appearing in such cases."}
 					{/forminput}
 				</div>
 			{/legend}
 		{/jstab}
 
 		{jstab title="Options"}
-			{legend legend="Migration Options"}
+			{legend legend="Migration options"}
 				<div class="row">
 					{formlabel label="Tables to be skipped" for="skip_tables"}
 					{forminput}
@@ -293,7 +290,7 @@
 				<div class="row">
 					{forminput}
 						<label><input type="checkbox" name="debug" id="debug"{if $debug} checked="checked"{/if} /> Debug mode</label>
-						{formhelp note="This will display SQL statements."}
+						{formhelp note="Display SQL statements."}
 					{/forminput}
 				</div>
 			{/legend}

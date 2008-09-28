@@ -1,4 +1,4 @@
-<h1>Administrator Information</h1>
+<h1>Administrator Setup</h1>
 
 {strip}
 {form legend="Please enter administrator information"}

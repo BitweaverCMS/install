@@ -1,16 +1,9 @@
-<h1>bitweaver Settings</h1>
+<h1>Bitweaver Settings</h1>
 
 {form legend="Some Preliminary Settings"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<p>
-		You can take advantage of setting some preliminary settings that will help you set up your site quickly and easily.
-		Since bitweaver has so many settings and features, we thought it might
-		be useful to collect some of the key settings to simplify the initial stages.
-	</p>
-	<p>
-		These settings can all be found from the Administration panel.
-	</p>
+	<p>Since Bitweaver has so many settings and features, it might be useful to set some of the key settings on this screen already, to simplify the initial stages. These settings can be found later in the administration panel.</p>
 
 	{foreach from=$formInstallToggles key=feature item=output}
 		<div class="row">
@@ -26,7 +19,7 @@
 		{formlabel label="Browser title" for="site_title"}
 		{forminput}
 			<input size="40" type="text" name="site_title" id="site_title" value="{$gBitSystem->getConfig('site_title')|escape}" />
-			{formhelp note="Enter the title that should appear in the title bar of the users browser when visiting your site."}
+			{formhelp note="Enter the text that should appear in the title bar of the user's browser when visiting your site."}
 		{/forminput}
 	</div>
 
@@ -53,7 +46,7 @@
 					<option value="users_custom_home"{if $bit_index eq $gBitSystem->getConfig('site_url_index')} selected="selected"{/if}>{tr}Custom home{/tr}</option>
 				{/if}
 			</select>
-			{formhelp note="Pick your site's homepage. This is where they will be redirected, when they access a link to your homepage.
+			{formhelp note="Pick your site's homepage. This is where users will be redirected, when they access a link to your homepage.
 				<dl>
 					<dt>My Home</dt><dd>This page contains all links the user can access with his/her current permissions. It's like a personal administration screen.</dd>
 					<dt>Group Home</dt><dd>You can define an individual home page for a group of users using this option. To define home pages, please access the <br /><strong>Administration --> Users --> Groups and Permissions</strong> page.</dd>
@@ -70,7 +63,7 @@
 						<option value="{$langCode}" {if $langCode eq "en"}selected="selected"{/if}>{$lang.full_name|escape}</option>
 				{/foreach}
 			</select>
-			{formhelp note="Select the default language of your site. Choosing a language other than english will cause the language to be installed, which might take some time depending on your setup."}
+			{formhelp note="Select the default language of your site. Choosing a language other than English will cause the language to be installed, which might take some time depending on your setup."}
 		{/forminput}
 	</div>
 

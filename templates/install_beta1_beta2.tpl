@@ -37,7 +37,7 @@
 	<div class="row">
 		{forminput}
 			<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
-			{formhelp note="This will display SQL statements."}
+			{formhelp note="Display SQL statements."}
 		{/forminput}
 	</div>
 {/form}

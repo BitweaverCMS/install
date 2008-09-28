@@ -1,6 +1,6 @@
-<h1>Database Connection Information</h1>
+<h1>Database Connection</h1>
 
-{form legend="Please Enter your Database Connection Information"}
+{form legend="Please enter your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 	<input type="hidden" name="gBitDbPassword_hash" value="{$gBitDbPassword_hash}" />
 
@@ -8,13 +8,11 @@
 		{if $warning or $error or $success}
 			{if $warning}
 				<p class="warning">
-					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
-					We have already set up a working connection with your db. Change these settings at your own peril.
+					We have already set up a working connection with your database. Change these settings at your own peril.
 				</p>
 			{elseif $error}
 				<div class="error">
 					<p>
-						{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 						Database connection could not be established.
 					</p>
 
@@ -54,15 +52,15 @@
 			{/if}
 			{if $dbservers}
 				{html_options name='db' options=$dbservers id=db selected=$gBitDbType style="width:50%"}
+				{formhelp note="The type of database you intend to use."}
 				{if $mysqlWarning}
 					<p class="warning">
-						Versions of MySQL less than 4.1 are not supported by some packages due to the <a href="http://dev.mysql.com/doc/refman/4.1/en/subqueries.html">lack of subquery support</a>. Notable among these are the <a href="http://www.bitweaver.org/wiki/BoardsPackage">Boards</a> and <a href="http://www.bitweaver.org/wiki/MessagesPackage">Messages</a> packages. Other packages may also have issues. It is recommended that you use MySQL version 4.1 or higher for the best experience with Bitweaver. It may be possible to use a lower versions of MySQL if you do not install these packages but this is not a supported configuration.
+						Versions of MySQL less than 4.1 are not supported by some packages due to the <a href="http://dev.mysql.com/doc/refman/4.1/en/subqueries.html">lack of subquery support</a>. Notable among these are the <a href="http://www.bitweaver.org/wiki/BoardsPackage">Boards</a> and <a href="http://www.bitweaver.org/wiki/MessagesPackage">Messages</a> packages. Other packages may also have issues. It is recommended that you use MySQL version 4.1 or higher for the best experience with Bitweaver. It <em>may</em> be possible to use a lower versions of MySQL if you do not install these packages.
 					</p>
 				{/if}
 			{else}
-				<p class="warning">You currently have no Database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">bitweaver Team</a>.</p>
+				<p class="warning">You currently have no database installed that works here. If you feel this is wrong, please contact the <a class="external" href="http://www.bitweaver.org/">Bitweaver team</a>.</p>
 			{/if}
-			{formhelp note="The type of database you intend to use."}
 			<p class="warning">If the database you wish to use is not listed above, the version of PHP on this server does not have support for that database installed or compiled in.</p>
 		{/forminput}
 	</div>
@@ -73,7 +71,7 @@
 			<input type="text" size="25" name="host" id="host" value="{if $gBitDbHost ne '' }{$gBitDbHost}{/if}" />
 			{formhelp note="Hostname or IP for your MySQL database, example:<br />
 				Use 'localhost' if your database is on the same machine as your server.<br />
-				If you use Oracle, insert your TNS Name here<br />
+				If you use Oracle, insert your TNS name here<br />
 				If you use SQLite, insert the path and filename to your database file<br />
 				If you are not sure what to put in here, try using localhost."}
 		{/forminput}
@@ -100,15 +98,15 @@
 		{forminput}
 			<input type="text" size="25" name="name" id="name" value="{$gBitDbName}" />
 			{ if ( $fbpath ) }
-				{formhelp note="The name of the database where bitweaver will create tables. You can
-					create a Firebird alias for the bitweaver database in aliases.conf and then use that
+				{formhelp note="The name of the database where Bitweaver will create tables. You can
+					create a Firebird alias for the Bitweaver database in aliases.conf and then use that
 					aliase as the database name, or provide a full path and file name to create
 					the database in an existing directory."}
 			{else}
-				{formhelp note="The name of the database where bitweaver will create tables. You can
+				{formhelp note="The name of the database where Bitweaver will create tables. You can
 					create the database using mysqladmin, or PHPMyAdmin or ask your
 					hosting service to create a MySQL database.
-					Normally bitweaver tables won't conflict with other product names."}
+					Normally, Bitweaver tables won't conflict with other product names."}
 			{/if}
 		{/forminput}
 	</div>
@@ -117,11 +115,11 @@
 	{ if ( $fbpath ) }
 		{formhelp note="<strong>Do not use Prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
 	{/if}
-		{formlabel label="Database Prefix" for="prefix"}
+		{formlabel label="Database prefix" for="prefix"}
 		{forminput}
 			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit|replace:'`':''}" />
 			{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple
-				independent install to share a single database. To ensure problem free usage of bitweaver with other
+				independent install to share a single database. To ensure problem free usage of Bitweaver with other
 				applications in the same database, <strong>we highly recommend using a prefix</strong>.
 				If you are NOT running MySQL (i.e. Postgres, Oracle, etc.) you can end the prefix string with
 				a '.' (period) to use a schema in systems that support it.
@@ -131,38 +129,38 @@
 
 	{ if ( $fbpath ) }
 	<div class="row">
-		{formlabel label="Firebird Installation Path" for="fbpath"}
+		{formlabel label="Firebird installation path" for="fbpath"}
 		{forminput}
 			<input type="text" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
 			{formhelp note="If you have modified your Firebird installation from the default please enter the correct
-				path to the base firebird directory. This is used to find isql in order to create the initial blank
-				database and should be maintained in the correct format for your OS."}
+				path to the base Firebird directory. This is used to find isql in order to create the initial blank
+				database and should be maintained in the correct format for your operating system."}
 		{/forminput}
 	</div>
 	{/if}
 
 	<div class="row">
-		{formlabel label="Site Base Url" for="baseurl"}
+		{formlabel label="Site base URL" for="baseurl"}
 		{forminput}
 			<input type="text" size="25" name="baseurl" id="baseurl" value="{$bit_root_url}" />
-			{formhelp note="This is the path from the server root to your bitweaver location.<br />
-				i.e. if you access bitweaver as 'http://MyServer.com/applications/new/wiki/index.php' you should enter '/applications/new/'"}
+			{formhelp note="This is the path from the server root to your Bitweaver location.<br />
+				i.e. if you access Bitweaver as <kbd>http://MyServer.com/applications/new/wiki/index.php</kbd> you should enter <kbd>/applications/new/</kbd>"}
 		{/forminput}
 	</div>
 
 	<div class="row">
-		{formlabel label="Automatically submit bugs" for="auto_bug_submit"}
+		{formlabel label="Auto submit bugs" for="auto_bug_submit"}
 		{forminput}
 			<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />
-			{formhelp note="Checking this box will automatically submit fatal database errors to the bitweaver team. If you are running a live site, we recommend you check this box, as it will also avoid horrible error messages from appearing in such cases."}
+			{formhelp note="Checking this box will automatically submit fatal database errors to the Bitweaver team. If you are running a live site, consider checking this box, as it will also avoid fatal error messages from appearing to the user."}
 		{/forminput}
 	</div>
 
 	<div class="row">
-		{formlabel label="Site is Live" for="is_live"}
+		{formlabel label="Site is live" for="is_live"}
 		{forminput}
 			<input type="checkbox" name="is_live" id="is_live" />
-			{formhelp note="Checking this will make debugging quite difficult as it will hide errors. Please only check this if your site is being used in a live environment right after installation."}
+			{formhelp note="Checking this will make debugging quite difficult as it will hide errors. Only check if your site is being used in a live environment right after installation."}
 		{/forminput}
 	</div>
 

@@ -9,7 +9,7 @@
 	</p>
 	<div class="row submit">
 		<input type="hidden" name="step" value="{$next_step}" />
-		<input type="submit" name="continue_install" value="Install more Packages" />
+		<input type="submit" name="continue_install" value="Install more packages" />
 	</div>
 
 	<hr />
@@ -17,9 +17,8 @@
 	<p>
 		Due to the large number of changes that have been made, there might be
 		permissions and other minor issues that need to be fixed. You can
-		return to the installer to let us analyse your bitweaver install and
-		try to <strong>resole conflicts</strong>. We will inform you what steps
-		need to be taken to fix these. This option is recommneded since it will
+		return to the installer to let Bitweaver analyse your install and
+		try to <strong>resolve conflicts</strong>. This option is recommended. It will
 		inform you of the health of your install.
 	</p>
 	<div class="row submit">
@@ -29,12 +28,11 @@
 	<hr />
 
 	<p>
-		We recommend that you try to resolve conflicts now but if you can't
-		wait to see if your website is still working, you can enter your
-		bitweaver site now. You can return to the installer at any time to
+		It's recommended to resolve conflicts now, but if you want to see if your website is still working, you can enter your
+		Bitweaver now. You can return to the installer at any time to
 		resolve potential issues and insert missing permissions and settings.
 	</p>
 	<div class="row submit">
-		<input type="submit" name="enter_bitweaver" value="Enter bitweaver" />
+		<input type="submit" name="enter_bitweaver" value="Enter Bitweaver" />
 	</div>
 {/form}

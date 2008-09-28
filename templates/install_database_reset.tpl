@@ -8,14 +8,14 @@
 	</div>
 
 	<div class="row submit">
-		<input type="submit" name="continue_install" value="Continue {$section|default:"Install"} Process" />
+		<input type="submit" name="continue_install" value="Continue {$section|default:"install"} process" />
 	</div>
 
 	<div class="row">
-		<p>Your database information is stored in the file '<strong>{$smarty.const.BIT_ROOT_PATH}kernel/config_inc.php</strong>'. If you would like to reset these settings with new ones, you will first have to delete the settings stored therein before you can connect to a different database.</p>
+		<p>Your database information is stored in the file <kbd>{$smarty.const.BIT_ROOT_PATH}kernel/config_inc.php</kbd>. To reset these settings with new ones, delete the settings stored therein before you connect to a different database.</p>
 		<p class="warning">Before you hit the <strong>Reset config_inc.php file button</strong> please make sure you know what you are doing.</p>
-		<p>Hitting the <strong>Reset</strong> button will delete all contents in the config_inc.php file which will render your site useless until you've completed the installation process again. This is only really useful if your database access information has changed or if you plan to install bitweaver to a different database or use a different schema or prefix.</p>
-		<p>If you want to reinstall bitweaver into the same database as before, make sure you have deleted all bitweaver related tables before doing so. Reinstalling into an existing database might cause unwanted effects.</p>
+		<p>Hitting the <strong>Reset</strong> button will delete all contents in the <kbd>config_inc.php</kbd> file which will render your site useless until you've completed the installation process again. This is only really useful if your database access information has changed or if you plan to install Bitweaver to a different database or use a different schema or prefix.</p>
+		<p>If you want to reinstall Bitweaver into the same database as before, make sure you have deleted all Bitweaver related tables before doing so. Reinstalling into an existing database might cause unwanted effects.</p>
 	</div>
 
 	<div class="row submit">

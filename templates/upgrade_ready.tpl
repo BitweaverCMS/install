@@ -15,7 +15,7 @@
 		<select name="upgrade_from">
 			<option value="TikiWiki 1.8">TikiWiki 1.8</option>
 			<option value="TikiWiki 1.9">TikiWiki 1.9</option>
-			<option value="BWR0">bitweaver ReleaseZero -BONNIE-</option>
+			<option value="BWR0">Bitweaver ReleaseZero -BONNIE-</option>
 		</select>
 			{formhelp note="The type of application you intend to upgrade"}
 		{/forminput}
@@ -25,7 +25,7 @@
 		{forminput}
 			<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 		{/forminput}
-		{formhelp note="This will display SQL statements."}
+		{formhelp note="Display SQL statements."}
 	</div>
 
 	<div class="row submit">

@@ -14,7 +14,6 @@
 		<ul class="result">
 			{if $error}
 				<li class="error">
-					{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 					The following errors occurred during the addition of the data
 					<br />
 					{$error}
@@ -22,10 +21,8 @@
 			{else}
 				<li class="success">
 					{if count($pumpedData) == 0}
-						{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 						The Sample data was not added to your database
 					{else}
-						{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 						The Sample data was successfully added to your database						
 					{/if}
 				</li>
@@ -47,6 +44,6 @@
 	{/foreach}
 
 	<div class="row submit">
-		<input type="submit" value="Continue Install Process" />
+		<input type="submit" value="Continue install process" />
 	</div>
 {/form}

@@ -4,8 +4,7 @@
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p class="success">
-		{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
-		bitweaver was successfully updated
+		Bitweaver was successfully updated
 	</p>
 
 	{if $fixedPermissions}
@@ -40,6 +39,6 @@
 	{/if}
 
 	<div class="row submit">
-		<input type="submit" value="Continue Install Process" />
+		<input type="submit" value="Continue install process" />
 	</div>
 {/form}

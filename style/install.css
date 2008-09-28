@@ -1,137 +1,199 @@
 /*  layout */
-div#container				{width:900px;margin:0 auto}
-div#content					{float:left;width:680px;}
-div#navigation				{float:right;width:200px}
-div#extra					{float:right;clear:right;width:200px}
-div#footer					{clear:both;width:100%}
+div#container	{width:93%;margin:0 auto;max-width:1600px}
 
-#container					{color:#000;}
-#content					{float:left; background:#fff; border:1px solid #2c4268; line-height:16px;}
-#navigation					{background:#fff; font-size:10px; border:1px solid #2c4268;}
-#extra						{background:#235; font-size:10px; border:1px solid #999; color:#ccc; margin:16px 0 0 0; opacity:0.8;}
-#footer						{background:#eee;}
-.progressbar				{padding:15px 5px; font-weight:bold;}
-.progressbar .bar			{border:1px solid #888; background:#457; margin:2px 0;}
-.progressbar .progress		{background:#c30; text-align: center;padding:5px 0; color:#fff;}
+/* header */
+#header	{background:transparent url(images/bg_header-trans.png) no-repeat right top}
+a#bitweaver_logo 	{display:block;clear:both;height:123px;width:66px;margin:0 0 0 3%;background:transparent url(images/bg_header_logo-trans.png) -66px 0 no-repeat}
+a#bitweaver_logo:hover 	{background-position:0 0}
+a#bitweaver_logo em 	{display:none}
 
-/* global stuff */
-body						{background:#124 url( images/bg.gif ) repeat; font-family:verdana, arial, helvetica, sans-serif; font-weight:normal; font-size:12px; margin:0px; padding:10px; vertical-align:middle; color:#fff;}
-table						{border-collapse:collapse; padding:0; margin:0; width:100%;}
-caption						{font-weight:bold; padding:5px 0 0 0;}
-th							{text-align:left; padding:3px 5px; background:#2c4268; border-bottom:2px solid #fff; color:#fff;}
-th a						{color:#ff0;}
-td							{padding:2px 3px; vertical-align:top;}
-hr							{border:1px solid #000;}
-p							{margin:0.5em; padding:0.5em;}
-code						{font-weight:900; color:#468;}
+#header h1 	{display:block;text-align:left;margin:0;padding:0 0 0 2em;font-size:13px;line-height:13px;text-transform:uppercase;font-family:monospace}
+#header h1 strong 	{color:#9f8e24;padding:0 0 0 0.3em;font-weight:500}
+#header h1 em 	{color:#675c17;font-style:normal;padding:0 0.6em}
 
-/* titles */
-h1							{font-size:160%; font-variant:small-caps;}
-h2							{font-size:140%;}
-h3							{font-size:120%;}
-h1,h2,h3					{font-weight:900; text-align:center; color:#900; margin:2px 0; padding:25px 0 0 0;}
+#header div.bittop 	{max-width:785px;margin:0 auto}
+
+#wrapper	{border:4px solid #ffe339;margin:0 auto;max-width:777px}
+#content	{background:#fff url(images/bg_content-trans.png) repeat-x;border:1px solid #fff}
+#footer	{text-align:center;padding:4em 0 1em 0;}
+#footer a,#footer:visited 	{color:#00e;border-bottom:1px solid #f0f0f0}
+#footer a:hover 	{color:#00f;border-bottom:1px solid #ddd;text-decoration:none}
+
+/* navigatioin progress */
+#navigation	{clear:both;margin:0 auto;max-width:785px}
+div.progressbar	{padding:0 4px 5px 4px;font-weight:bold;background:#ffe339}
+div.progressbar em 	{font-style:normal;display:block;width:123px;float:left;padding-left:1em}
+div.progressbar div.bar	{background:#fdf9ea;margin-left:133px}
+div.progressbar div.progress	{background:#bdf922;text-align:center}
+div.progressbar div.progress100	{background:#8de817}
+div.progressbar div.progress0 	{background:#fdf9ea;width:3em !important}
+
+
+/* extra */
+#extra 	{text-align:center}
+#extra ul 	{text-align:center}
+#extra li 	{display:inline;padding-left:28px;background-position:6px 6px;border:1px solid #fefc6b;margin-right:4px}
+#extra li.help	{border-color:#ddd}
+#extra li.warning	{border-color:#ffc994}
+
+/* step nav */
+#stepmenu	{border:1px solid #bdf922;background:#ccfd25 url(images/favicon.ico) no-repeat 4px 3px;padding:0 0 0 28px;margin:2em auto 1em auto}
+#stepmenu li	{padding:23px 0.5em 0.5em 0.5em;display:inline;color:#44650c;border:0}
+
+#stepmenu li.current	{background:transparent url(images/media-playback-start-trans.png) no-repeat top;color:#fff;font-weight:700;}
+#stepmenu li.current a	{color:#000}
+
+#stepmenu li.success	{background-position:top;background-color:transparent;}
+#stepmenu li.success a	{color:#79c714}
+
+#stepmenu li.uncompleted	{}
+#stepmenu li.uncompleted a	{}
+
+
+
+/* global */
+html	{background:#FFFED4}
+body	{background:#FFFED4 url(images/bg_body-trans.png) repeat-x left top}
+body	{font:13px/22px sans-serif;margin:0 auto;padding:0}
+table	{border-collapse:collapse;padding:0;margin:0;width:100%;table-layout:fixed}
+caption	{font-weight:bold}
+th	{text-align:left}
+th a	{color:#ff0}
+td	{vertical-align:top}
+hr	{border:1px dotted #bab7ac;border-width:1px 0 0 0;background:transparent;margin:2em 0}
+p	{margin:1em auto}
+code	{font-family:monospace}
+h1	{font-size:140%;margin-top:1.5em}
+h2	{font-size:120%;margin-top:4em}
+h3	{font-size:110%}
+h1,h2,h3	{font-weight:700;text-align:center}
+.clear	{clear:both}
+.center	{text-align:center}
+.alright	{text-align:right}
 
 /* links */
-a							{color:#f30; text-decoration:none;}
-a.external					{background:transparent url('images/external.gif') no-repeat right; padding-right:12px;}
-a:hover						{text-decoration:underline;}
-.icon						{border:0; vertical-align:middle;}
+a	{text-decoration:none}
+a.external	{background:transparent url(images/external.gif) no-repeat right 4px;padding-right:10px}
+a:hover	{text-decoration:underline}
+.icon	{border:0;vertical-align:middle}
 
-/* styling */
-.bittop						{background:#fff url('images/bitweaver.gif') top left no-repeat;}
-.bittop h1					{font-size:10px; color:#666; text-align:right; padding:110px 10px 0 0; margin:0;}
-.header						{}
-.clear						{clear:both;}
-.highlight					{color:#139;}
+
 
 /* forms */
-form						{clear:both;}
+form	{clear:both}
 form,
 input,
 textarea,
-select						{margin:0; padding:0; font-size:12px; font-family:verdana,arial,helvetica sans-serif;}
-fieldset					{padding:10px; margin:10px; border:0; border-top:3px solid #f60;}
-legend						{padding:2px 7px; background:#fff; font-weight:bold;}
-textarea					{width:100%;}
+select	{margin:0;padding:0;border-width:1px;padding:0.2em}
+textarea	{width:99%}
 
-.row						{overflow:auto; clear:both; margin:0 0 1.5em 0;}
-.formlabel					{float:left; width:24%; text-align:center; padding:0em 1% 1em 0; font-weight:bold;}
-.formfeedback				{}
-.formfeedback div			{padding:4px; border-bottom:1px dotted #aaa;}
+fieldset	{padding:0;margin:1em;border:0px solid #fff}
+legend	{background:#fdf9ea;padding:1em 1em 1em 0}
 
-.odd						{background:#eee;color:#000}
-.even						{color:#000}
+.row	{overflow:auto;clear:both;margin:0 0 1.5em 0}
+.formlabel	{float:left;width:24%;text-align:right;padding:0 0.5em 1em 0;font-weight:bold}
+.formfeedback	{}
+.formfeedback div	{padding:4px;border-bottom:1px dotted #aaa}
 
-.dialog-error,
-.error						{background:#fdd;}
-.danger						{background:#fdd url( images/danger.png ) right center no-repeat; border:3px solid #900; padding:1em 100px 1em 1em;}
-.dialog-warning,
-.warning					{background:#fed;}
-.dialog-ok,
-.success					{background:#def;}
-.media-playback-start,
-.current					{background:#ffc;}
-.help						{background:#eee;}
-div.warning,
-div.success,
-div.error					{border:1px solid #999; padding:1em;}
-p.warning,
-p.success,
-p.error						{border:1px solid #999;}
-p.help						{border:1px solid #ccc; margin:0.5em 0;}
+.odd	{background:#f4f4f3;color:#000}
+.even	{color:#000}
 
-.formfeedback ul 			{padding:0; margin:0;}
-.formfeedback li 			{border-bottom:1px dotted #aaa;}
+.forminput	{margin-left:26%}
+.forminput p	{margin:0.5em 0}
+.formhelp	{color:#666;font-size:11px;cursor:help;line-height:16px}
+.submit	{text-align:center;margin:10px 0 2em 0}
 
-li.error,
-li.warning,
-li.success					{list-style:none; padding:4px; margin:0;}
 
-.forminput					{margin-left:26%;}
-.forminput tr				{padding:4px; border-bottom:1px dotted #aaa;}
-.forminput p				{margin:0.5em 0;}
-.formhelp					{color:#666; font-size:10px; cursor:help;}
-.submit						{text-align:center; margin:10px 0 2em 0;}
-select,
-input 						{padding:5px 10px; font-weight:bold;}
-table input					{padding:0 10px;}
 
-/* special style for checks page */
-.checks .formlabel			{float:none; width:auto; text-align:left; padding:0.5em; background:#68a; color:#fff; border:#000 1px solid;}
-.checks .forminput			{margin-left:10%;}
 
-dl							{padding:0; margin:0.5em 0; line-height:1.3em;}
-dt							{padding:0; margin:0; width:30%; text-align:right; font-weight:bold;}
-dd							{padding:0; margin:-1.3em 0 0.5em 32%;}
+/* feedback */
+.error,
+.warning,
+.success,
+.help	{padding:0.5em;background:#e7e7e6 url(images/favicon.ico) no-repeat 8px 10px;border:3px double #fff;text-indent:24px}
+
+.error	{background-color:#ffdddd;background-image:url(images/dialog-error-trans.png);border:1px solid #900;margin:1em}
+.warning	{background-color:#ffe1c3;background-image:url(images/dialog-warning-trans.png)}
+.success	{background-color:#e0ffb0;background-image:url(images/dialog-ok-trans.png)}
+.help	{}
+
+.danger	{padding:0.5em;background:#ffdddd url(images/danger-trans.png) no-repeat right center;border:3px solid #a00;padding:1em 100px 1em 1em}
+
+.formfeedback ul 	{padding:0;margin:0}
+.formfeedback li 	{border-bottom:1px dotted #aaa}
+
+
+
+
+
+/* lists */
+dl	{padding:0;margin:0.5em 0;line-height:1.3em}
+dt	{padding:0;margin:0;width:30%;text-align:right;font-weight:bold}
+dd	{padding:0;margin:-1.3em 0 0.5em 32%}
+
+#content ul	{padding-left:24px}
+
+
+
+
 
 /* navigation and status */
-#navigation a				{color:#009;}
-#navigation ul				{font-weight:bold;}
-#navigation ul,
+#navigation ul, #navigation li	{padding:0;margin:0;list-style:none}
 #navigation li,
-ul.result,
-.result li					{padding:0; margin:0;}
-ul							{padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:0;}
-#navigation li,
-.result li					{list-style:none; border-bottom:1px dotted #bbb; padding:7px;}
-#navigation .title			{letter-spacing:1px; color:#900; text-align:center; padding:110px 0 10px 0; background:#fff url('images/ometer.gif') top center no-repeat;}
-.result li li				{border:0; padding:1px; list-style:circle;}
+#navigation ul.result li	{border-bottom:1px solid #e7e7e6;padding:3px 0 3px 7px}
+#navigation ul.result li li	{border:0;list-style:circle}
+
+
 
 /* tabs */
 .tabsystem .tabcontainer ul,
-.tabsystem .tabcontainer li				{margin:0; padding:0; border:0; list-style-type:none; display:inline;}
-.tabsystem .tabcontainer				{margin:0; padding:0; border:0; clear:both;}
+.tabsystem .tabcontainer li	{margin:0;padding:0;border:0;list-style-type:none;display:inline}
+.tabsystem .tabcontainer	{margin:0;padding:0;border:0;clear:both}
 .tabsystem .tabcontainer .tab,
-.tabsystem .tabcontainer .tab-active	{position:relative; display:inline; float:left; z-index:1; white-space:nowrap;}
-.tabsystem .tabpage						{clear:both;}
-h4										{margin:0; padding:0;}
+.tabsystem .tabcontainer .tab-active	{position:relative;display:inline;float:left;z-index:1;white-space:nowrap}
+.tabsystem .tabpage	{clear:both}
+h4	{margin:0;padding:0}
 
 /* tabstyle */
 .tabsystem .tabcontainer .tab,
 .tabsystem .tabcontainer .tab-hover,
-.tabsystem .tabcontainer .tab-active	{top:3px; font:10px verdana,arial,sans-serif; font-weight:normal; margin:0 6px; padding:3px 5px 1px 5px; background:transparent url( "images/tab_shade.png" ) repeat-x; border:1px solid #ccc; border-bottom:0;}
-.tabsystem .tabcontainer .tab-hover		{padding-top:2px; border-top:2px solid #f90;}
-.tabsystem .tabcontainer .tab-active	{top:1px; padding:2px 8px 4px 8px; margin:0 3px; border-top:2px solid #f90; background:#fff; color:#000;}
-.tabsystem .tabpage						{border-top:1px solid #ccc;}
-.tabcontainer a,
-.tabcontainer a:hover					{color: #000; text-decoration: none;}
+.tabsystem .tabcontainer .tab-active	{background:#f1eddf;top:3px;margin:0 6px;padding:3px 5px 1px 5px;border:1px solid #ffe339;border-bottom:0}
+.tabsystem .tabcontainer .tab-hover	{background:#fdf9eb;padding-top:2px;border-top:2px solid #ffe339}
+.tabsystem .tabcontainer .tab-active	{background:#fdf9eb;top:1px;padding:2px 8px 4px 8px;margin:0 3px;border-top:2px solid #ffe339}
+.tabsystem .tabpage	{border-top:1px solid #ffe339;border-bottom:1px solid #ffe339;margin-bottom:2em}
+.tabcontainer a	{color:#999;text-decoration:none}
+.tabcontainer a:hover	{color:#000}
+.tabcontainer .tab-active a	{color:#000}	
+
+
+
+
+/* exceptions hacks */
+form.checks legend 	{display:none}
+form.checks .formlabel	{display:none}
+form.checks .forminput	{margin-left:0}
+form.checks .requirements p.success	{background-color:transparent;border:0;background-position:11px 50%;text-indent:0px;padding-left:44px}
+form.checks .recommended p.success,
+form.checks .recommended p.warning	{background-color:transparent;border:0;background-position:11px 12px;text-indent:0px;padding-left:44px}
+
+form.checks #phpini tr.success,
+form.checks #phpini tr.warning	{background-color:transparent;border:0;background-position:11px 50%;text-indent:0px}
+form.checks #phpini td,
+form.checks #phpini th	{padding-left:33px}
+form.checks #phpini 	{max-width:44em}
+
+#install_welcome legend	{display:none}
+#install_welcome div.row.submit input	{border-width:3px;padding:.25em .5em;font-size:1.3em;font-family:sans-serif}
+/*#install_welcome div.row.submit strong{background-color:#fefc6d;padding:0.25em 1em;border:1px solid #ffe339}*/
+
+#install_welcome table 	{margin-bottom:3em}
+#install_welcome table * 	{list-style:none;padding:0;margin:0}
+#install_welcome table ul 	{line-height:23px}
+
+div.progressbar	{-moz-border-radius:0 0 .75em .75em;-webkit-border-radius:0 0 .75em .75em;border-radius:0 0 .75em .75em}
+div.progressbar div.bar	{-moz-border-radius:0 0 .6em 0;-webkit-border-radius:0 0 .6em 0;border-radius:0 0 0.6em 0}
+div.progressbar div.progress100	{-moz-border-radius:0 0 .5em 0;-webkit-border-radius:0 0 .5em 0;border-radius:0 0 0.5em 0}
+#stepmenu 	{-moz-border-radius:.4em;-webkit-border-radius:.4em;border-radius:.4em}
+#install_welcome div.row.submit strong	{-moz-border-radius:1em;-webkit-border-radius:1em;border-radius:1em}
+
+/* vim: set ts=40: */

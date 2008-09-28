@@ -4,16 +4,16 @@
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="row">
-		{formlabel label="Upgrade Application" for="db"}
+		{formlabel label="Upgrade application" for="db"}
 		{forminput}
 			{if $smarty.session.upgrade_r1}
 				<input type="hidden" name="upgrade_from" value="BWR1" />
-				bitweaver <strong>ReleaseOne</strong> &nbsp; <em>-R1-</em>
+				Bitweaver <strong>ReleaseOne</strong> &nbsp; <em>-R1-</em>
 			{else}
 				<select name="upgrade_from">
 					<optgroup label="bitweaver">
-						<option value="BWR0">bitweaver ReleaseZero -BONNIE-</option>
-						<option value="BWR1">bitweaver ReleaseOne -R1-</option>
+						<option value="BWR0">Bitweaver ReleaseZero -BONNIE-</option>
+						<option value="BWR1">Bitweaver ReleaseOne -R1-</option>
 					</optgroup>
 					<optgroup label="TikiWiki">
 						<option value="TikiWiki 1.8">TikiWiki 1.8</option>
@@ -22,7 +22,7 @@
 				</select>
 			{/if}
 			<br />to
-			<br />bitweaver <strong>ReleaseTwo</strong> &nbsp; <em>-R2-</em>
+			<br />Bitweaver <strong>ReleaseTwo</strong> &nbsp; <em>-R2-</em>
 			{formhelp note="The type of application you intend to upgrade"}
 		{/forminput}
 	</div>
@@ -43,7 +43,7 @@
 	<div class="row">
 		{forminput}
 			<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
-			{formhelp note="This will display SQL statements."}
+			{formhelp note="Display SQL statements."}
 		{/forminput}
 	</div>
 {/form}

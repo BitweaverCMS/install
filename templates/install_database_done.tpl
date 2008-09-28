@@ -7,12 +7,10 @@
 		<ul class="result">
 			{if $error}
 				<li class="error">
-					{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 					{$error}
 				</li>
 			{else}
 				<li class="success">
-					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 					A connection to your database was sucessfully established
 				</li>
 			{/if}
@@ -55,14 +53,14 @@
 	</div>
 
 	<div class="row">
-		{formlabel label="Database Prefix"}
+		{formlabel label="Database prefix"}
 		{forminput}
 			{$db_prefix_bit|replace:"`":""}
 		{/forminput}
 	</div>
 
 	<div class="row">
-		{formlabel label="Site Base Url"}
+		{formlabel label="Site base URL"}
 		{forminput}
 			{$bit_root_url}
 		{/forminput}
@@ -75,12 +73,11 @@
 		</p>
 		{if substr( PHP_OS, 0, 3 ) == 'WIN'}
 			<p class="warning">
-				{biticon ipackage="icons" iname="dialog-warning" iexplain=success}
-				Your server seems to be a windows machine. Please set the PHP_MAGIC_PATH constant in the configuration file.
+				Your server seems to run under Microsoft Windows. Please set the PHP_MAGIC_PATH constant in the configuration file.
 			</p>
 		{/if}
 		<p>
-			If you are interested in debugging or developing bitweaver, please view this file, as there are important additional options that can not be set elsewhere. Web designers can also find some settings that might help with theme creation.
+			If you are interested in debugging or developing Bitweaver, please view this file, as there are important additional options that can not be set elsewhere. Web designers can also find some settings that helps with theme creation.
 		</p>
 	</div>
 
@@ -89,12 +86,12 @@
 			{formlabel label="Use InnoDB tables" for="use_innodb"}
 			{forminput}
 				<input type="checkbox" name="use_innodb" id="use_innodb" {if $has_innodb_support eq 'DEFAULT'}checked="checked"{/if} />
-				{formhelp note="Your database server supports InnoDB which provides MySQL with a transaction-safe storage engine that has commit, rollback, and crash recovery capabilities. You usually want this for safest possible data storage. Otherwise the standard MyIsam Engine is used."}
+				{formhelp note="Your database server supports InnoDB which provides MySQL with a transaction-safe storage engine that has commit, rollback, and crash recovery capabilities. You usually want this for safest possible data storage. Otherwise the standard MyIsam engine is used."}
 			{/forminput}
 		</div>
 	{/if}
 
 	<div class="row submit">
-		<input type="submit" value="Continue {$section|default:"Install"} Process" />
+		<input type="submit" value="Continue {$section|default:"install"} process" />
 	</div>
 {/form}

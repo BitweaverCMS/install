@@ -1,4 +1,4 @@
-<h1>bitweaver Settings</h1>
+<h1>Bitweaver Settings</h1>
 
 {form legend="Some Preliminary Settings"}
 	<input type="hidden" name="step" value="{$next_step}" />
@@ -6,7 +6,6 @@
 	<div class="row">
 		<ul class="result">
 			<li class="success">
-				{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 				All setting have been stored successfully
 			</li>
 		</ul>
@@ -50,6 +49,6 @@
 	{/if}
 
 	<div class="row submit">
-		<input type="submit" value="Continue Install Process" />
+		<input type="submit" value="Continue install process" />
 	</div>
 {/form}

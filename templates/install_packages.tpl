@@ -2,18 +2,17 @@
 {if $first_install}
 	<h1>Package Installation</h1>
 {else}
-	<h1>Adding and Removing Packages</h1>
+	<h1>Adding and removing packages</h1>
 {/if}
 <br />
 {if $error}
 	{legend legend="Administrator Data Missing"}
 		<p class="error">
-			{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 			Unfortunately there seems to be a problem with your installation. We can't find the administrator information you entered.
 		</p>
 
-		<p>Please go back one step (using the link to your right, rather than the back button on your browser) and enter the administrator data again. If this is the second time you see this screen, please confirm that php can write sessions and that any firewall / anti-virus software is turned off during the installation process. </p>
-		<p>If you just can't figure out what the hell is going on, please contact the bitweaver team via <a href="http://www.bitweaver.org/wiki/index.php?page=ConnectingToIrc">IRC</a> if possible or post to the forums on <a href="http://www.bitweaver.org">bitweaver.org</a>.</p>
+		<p>Please go back one step (using the link to your right, rather than the back button on your browser) and enter the administrator data again. If this is the second time you see this screen, please confirm that PHP can write sessions and that any firewall/anti-virus software is turned off during the installation process.</p>
+		<p>If you just can't figure out what the hell is going on, please contact the Bitweaver team via <a href="http://www.bitweaver.org/wiki/Live+Support">IRC</a> if possible or post to the forums on <a href="http://www.bitweaver.org">bitweaver.org</a>.</p>
 	{/legend}
 {else}
 	{formfeedback warning=$warning}
@@ -37,9 +36,9 @@
 				{/foreach}
 
 				{if $new_packages}
-					<p>This is a list with all available bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this separately after completing the bitweaver installation process.</p>
+					<p>This is a list with all available Bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this separately after completing the Bitweaver installation process.</p>
 
-					{formfeedback warning="Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need."}
+					<p class="warning">Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need.</p>
 
 					<div class="row">
 						{forminput}
@@ -51,7 +50,7 @@
 
 					<h2>Packages</h2>
 
-					<p>Packages are the parts of bitweaver that deal with content such as wiki pages, blogs or news articles.</p>
+					<p>Packages are the parts of Bitweaver that deal with content such as wiki pages, blogs or news articles.</p>
 
 					{foreach from=$schema key=package item=item}
 						{if !$item.installed and !$item.required and !$item.service}
@@ -109,7 +108,7 @@
 					</p>
 				{/if}
 				<div class="row submit">
-					Please press this button only once<br />
+					Please press this button only once.<br />
 					Depending on the number of packages and the hardware,<br />
 					this process might take up to a few minutes.<br /><br />
 					<input type="hidden" name="resetdb" value="{$resetdb}" />
@@ -119,7 +118,7 @@
 				<div class="row">
 					{forminput}
 						<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
-						{formhelp note="This will display SQL statements."}
+						{formhelp note="Display SQL statements."}
 					{/forminput}
 				</div>
 
@@ -127,16 +126,16 @@
 		{/jstab}
 
 		{if !$first_install}
-			{jstab title="Un / Reinstall Packages"}
+			{jstab title="Uninstall/Reinstall"}
 				{form legend="Already Installed Packages"}
 					<input type="hidden" name="step" value="{$next_step}" />
 
 					<div class="row">
-						{formfeedback warning="These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it, will be erased."}
+						{formfeedback warning="These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it will be erased (depending on options below)."}
 					</div>
 
 					<div class="row">
-						{formlabel label="Un / Reinstall packages"}
+						{formlabel label="selected packages:"}
 						{forminput}
 							<label><input type="radio" name="method" value="reinstall" checked="checked" /> Reinstall</label>
 							<br />
@@ -146,14 +145,14 @@
 					</div>
 
 					<div class="row">
-						{formlabel label="Un / Reinstall options"}
+						{formlabel label=""}
 						{forminput}
-							<label><input type="checkbox" name="remove_actions[]" value="tables" checked="checked" /> Delete package tables.</label>
-							{formhelp note="This will leave all package specific settings in tact and will also leave content in the liberty tables, which might lead to undesired results."}
-							<label><input type="checkbox" name="remove_actions[]" value="settings" checked="checked" /> Delete package settings.</label>
-							{formhelp note="This will remove all package specific settings. Select only this checkbox if you want to reset a package to it's default values including permissions."}
-							<label><input type="checkbox" name="remove_actions[]" value="content" checked="checked" /> Delete package content.</label>
-							{formhelp note="This will remove all content that has been stored in the common content storage area."}
+							<label><input type="checkbox" name="remove_actions[]" value="tables" checked="checked" />&nbsp;Delete database tables</label>
+							{formhelp note="If selected, the package's database tables are deleted. If no other option is selected, specific settings might remain in Kernel configuration, and specific content might remain in Liberty tables, both of which might lead to undesired results."}
+							<label><input type="checkbox" name="remove_actions[]" value="settings" checked="checked" />&nbsp;Delete package settings</label>
+							{formhelp note="If selected, all package specific settings are removed. Therefor the package is reset to it's default values, including permissions."}
+							<label><input type="checkbox" name="remove_actions[]" value="content" checked="checked" />&nbsp;Delete stored content</label>
+							{formhelp note="If selected, all content that has been stored in the common content storage area is removed."}
 						{/forminput}
 					</div>
 
@@ -178,27 +177,27 @@
 					{/foreach}
 
 					<div class="row submit">
-						Please press this button only once<br />
+						Please press this button only once.<br />
 						Depending on the number of packages and the hardware,<br />
 						this process might take up to a few minutes.<br /><br />
-						<input type="submit" name="submit_packages" value="Un / Reinstall Packages" onclick="return confirm( 'Are you sure you want to Un / Reinstall the selected packages?' );" />
+						<input type="submit" name="submit_packages" value="Uninstall/Reinstall Packages" onclick="return confirm( 'Are you sure you want to uninstall/reinstall the selected packages?' );" />
 					</div>
 
 					<div class="row">
 						{forminput}
 							<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
-							{formhelp note="This will display SQL statements."}
+							{formhelp note="Display SQL statements."}
 						{/forminput}
 					</div>
 				{/form}
 			{/jstab}
 		{/if}
 
-		{jstab title="Required Packages"}
-			{legend legend="Packages that are required by bitweaver"}
+		{jstab title="Required"}
+			{legend legend="Packages and services required by Bitweaver"}
 				{if !$first_install}
 					<div class="row">
-						{formfeedback warning="If you wish to reset the data in your entire system, you will first have to create a new database or empty it manually."}
+						{formfeedback warning="To reset the entire system, first create a new database (or empty the existing database manually)."}
 					</div>
 				{/if}
 
@@ -225,7 +224,7 @@
 		{form}
 			<input type="hidden" name="step" value="{$next_step}" />
 			<div class="row submit">
-				&nbsp;&nbsp;<input type="submit" name="cancel" value="Skip this Stage and resolve existing conflicts" />
+				&nbsp;&nbsp;<input type="submit" name="cancel" value="Skip this stage and resolve existing conflicts" />
 			</div>
 		{/form}
 	{/if}

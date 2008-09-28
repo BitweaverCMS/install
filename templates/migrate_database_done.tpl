@@ -12,7 +12,6 @@
 		<ul class="result">
 			{if $error}
 				<li class="error">
-					{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 					{$error}
 				</li>
 			{/if}
@@ -20,6 +19,6 @@
 	</div>
 
 	<div class="row submit">
-		<input type="submit" value="Continue Process" />
+		<input type="submit" value="Continue process" />
 	</div>
 {/form}

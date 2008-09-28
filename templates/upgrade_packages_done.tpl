@@ -13,7 +13,6 @@
 		<div class="row">
 			<ul class="result">
 				<li class="success">
-					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 					All Database operations completed succesfully
 				</li>
 			</ul>
@@ -32,6 +31,6 @@
 	{/if}
 
 	<div class="row submit">
-		<input type="submit" value="Continue Upgrade Process" />
+		<input type="submit" value="Continue upgrade process" />
 	</div>
 {/form}

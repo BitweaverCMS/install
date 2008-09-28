@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.26 2008/09/24 16:22:11 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.27 2008/09/28 08:19:47 laetzer Exp $
  * @package install
  * @subpackage functions
  */
@@ -102,9 +102,6 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 require_once("../bit_setup_inc.php");
 require_once( 'BitInstaller.php' );
 require_once( USERS_PKG_PATH.'BitUser.php' );
-
-// here we force the icon theme
-$gBitSystem->setConfig( 'site_icon_style', 'high_contrast' );
 
 // set some preferences during installation
 global $gBitInstaller, $gBitSystem, $gBitThemes;

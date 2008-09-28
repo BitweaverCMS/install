@@ -8,7 +8,6 @@
 			<div class="row">
 				<ul class="result">
 					<li class="error">
-						{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 						There was a problem during the installation
 					</li>
 					<li>
@@ -21,7 +20,6 @@
 		{if $failedcommands}
 			<div class="row">
 				<h2 class="warning">
-					{biticon ipackage="icons" iname="dialog-error" iexplain=error}
 					The following database operations failed
 				</h2>
 				{section loop=$failedcommands name=idx}<p class="error">{$errors[idx]|escape}:<br/>&nbsp;&nbsp;&nbsp;&nbsp;{$failedcommands[idx]|escape}</p>{/section}
@@ -32,7 +30,6 @@
 		<div class="row">
 			<ul class="result">
 				<li class="success">
-					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 					All Database operations completed succesfully
 				</li>
 			</ul>
@@ -42,7 +39,6 @@
 			<div class="row">
 				<ul class="result">
 					<li class="warning">
-						{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
 						You have just successfully installed new packages.
 						During installation, new permissions were probably
 						added to the database, but not assigned to any groups.
@@ -102,6 +98,6 @@
 	{/if}
 
 	<div class="row submit">
-		<input type="submit" value="Continue Install Process" />
+		<input type="submit" value="Continue install process" />
 	</div>
 {/form}
