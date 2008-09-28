@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.22 2008/09/28 08:19:47 laetzer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.23 2008/09/28 13:41:20 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -135,6 +135,7 @@ $install_file[$i]['name'] = 'Done';
 if( !empty( $gBitDbType ) && !empty( $gBitInstaller->mPackages['users']['installed'] ) && !$gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
 	$install_file = 'login';
 	$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file.".tpl" );
+	$gBitSmarty->assign( 'progress', 0 );
 	$gBitSmarty->display( INSTALL_PKG_PATH.'templates/install.tpl' );
 	die;
 }
