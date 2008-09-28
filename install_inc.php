@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.27 2008/09/28 08:19:47 laetzer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.28 2008/09/28 15:23:31 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -154,13 +154,14 @@ if( !isset( $_SESSION )) {
 
 // if we came from anywhere appart from some installer page, nuke all settings in the _SESSION and set first_install FALSE
 if(
-	( !isset( $_SESSION['first_install'] ) || $_SESSION['first_install'] != TRUE ) ||
-	( isset( $_SESSION['upgrade'] ) && $_SESSION['upgrade'] != TRUE ) ||
-	!isset( $_SERVER['HTTP_REFERER'] ) ||
-	isset( $_SERVER['HTTP_REFERER'] ) && (
-		( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' )) &&
-		( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' )) &&
-		( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ))
+	( !isset( $_SESSION['first_install'] )
+	|| $_SESSION['first_install'] != TRUE )
+	|| ( isset( $_SESSION['upgrade'] ) && $_SESSION['upgrade'] != TRUE )
+	|| !isset( $_SERVER['HTTP_REFERER'] )
+	|| isset( $_SERVER['HTTP_REFERER'] ) && (
+		( !strpos( $_SERVER['HTTP_REFERER'],'install/install.php' ))
+		&& ( !strpos( $_SERVER['HTTP_REFERER'],'install/upgrade.php' ))
+		&& ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ))
 	)
 ) {
 	if( !$gBitUser->isAdmin() ) {
