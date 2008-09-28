@@ -15,9 +15,9 @@
 			<input type="submit" name="install" value="Begin the install process" />
 			<p><strong>This installer will guide you through the installation or upgrade.</strong></p>
 		</div>
-		
+
 		{*<p class="warning">If you want to <strong>upgrade</strong> from Bitweaver version 1, begin the install process now. You will find the upgrader on the <strong>Install Options</strong> page.</p>*}
-		
+
 		<table>
 			<!-- thead>
 				<tr>
@@ -28,7 +28,7 @@
 			<tbody>
 				<tr>
 					<td class="center">
-						<img src="style/images/bitweaver_logo-trans.png" width="121" height="121" />
+						<img src="{$smarty.const.INSTALL_PKG_URL}style/images/bitweaver_logo-trans.png" width="121" height="121" />
 					</td>
 				</tr>
 				<tr>
@@ -39,7 +39,7 @@
 							<li>easy to use, easy to extend</li>
 							<li>many 1st class 3rd party components</li>
 							<li>a community that supports you</li>
-						</ul>	
+						</ul>
 					</td>
 				</tr>
 			</tbody>
