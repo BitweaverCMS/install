@@ -46,7 +46,7 @@
 								</a>
 							{/if}
 						</li>
-					{/foreach}				
+					{/foreach}
 				</ul>
 			</div>
 		</div>
