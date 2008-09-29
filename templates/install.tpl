@@ -1,10 +1,14 @@
+{if ($gBrowserInfo.browser neq 'ie') or ($gBrowserInfo.browser eq 'ie' and $gBrowserInfo.maj_ver gt 7) }
+<?xml version="1.0" encoding="utf-8"?>
+{/if}
 {strip}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<style type="text/css">
-		@import url({$smarty.const.INSTALL_PKG_URL}style/install.css);
+		{* hidden from 4.x browsers: *}
+		@import "{$smarty.const.INSTALL_PKG_URL}style/install.css";
 	</style>
 	<title>Install Bitweaver - {$browserTitle}</title>
 	<link rel="shortcut icon" href="{$smarty.const.INSTALL_PKG_URL}favicon.ico" type="image/x-icon" />
@@ -18,11 +22,11 @@
 	/* ]]> */</script>
 	<script type="text/javascript" src="{$smarty.const.BIT_ROOT_URL}util/javascript/libs/tabpane.js"></script>
 	<script type="text/javascript" src="{$smarty.const.BIT_ROOT_URL}util/javascript/bitweaver.js"></script>
-	{if $gBrowserInfo.browser eq 'ie'}
+	{* if $gBrowserInfo.browser eq 'ie'}
 		<!--[if lt IE 7]>
 			<script type="text/javascript" src="{$smarty.const.BIT_ROOT_URL}util/javascript/fixes/ie7/IE8.js"></script>
 		<![endif]-->
-	{/if}
+	{/if *}
 </head>
 <body id="step{$smarty.request.step}">
 	<div id="container">
@@ -32,6 +36,7 @@
 			</a>
 			<h1 id="title">
 				<strong>Bitweaver {$smarty.const.BIT_MAJOR_VERSION}.{$smarty.const.BIT_MINOR_VERSION}.{$smarty.const.BIT_SUB_VERSION} {$smarty.const.BIT_LEVEL}</strong>
+				&nbsp;
 				<em>{$section|default:"Install"}</em>
 			</h1>
 			<div class="bittop">
