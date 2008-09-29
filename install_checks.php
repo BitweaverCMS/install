@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.35 2008/07/06 07:31:21 wolff_borg Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.36 2008/09/29 00:07:35 laetzer Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -45,13 +45,13 @@ function check_settings() {
 	// check file and directory permissisions
 	$i++;
 	if( @file_exists( $config_file ) && @bw_is_writeable( $config_file ) ) {
-		$required[$i]['note'] = 'The bitweaver configuration file is available and the file is writeable:<br /><code>'.$config_file.'</code>';
+		$required[$i]['note'] = 'The Bitweaver configuration file is available and the file is writeable:<br /><code>'.$config_file.'</code>';
 		$required[$i]['passed'] = TRUE;
 	} elseif( @file_exists( $config_file ) && !@bw_is_writeable( $config_file ) ) {
-		$required[$i]['note'] = 'The bitweaver configuration file is available but the file is not writeable. Please execute something like:<br /><code>chmod 777 '.$config_file.'</code>';
+		$required[$i]['note'] = 'The Bitweaver configuration file is available but the file is not writeable. Please execute something like:<br /><code>chmod 777 '.$config_file.'</code>';
 		$required[$i]['passed'] = FALSE;
 	} else {
-		$required[$i]['note'] = 'The bitweaver configuration file is not available. Please execute something like:<br /><code>touch '.$config_file.';<br />chmod 777 '.$config_file.'</code>';
+		$required[$i]['note'] = 'The Bitweaver configuration file is not available. Please execute something like:<br /><code>touch '.$config_file.';<br />chmod 777 '.$config_file.'</code>';
 		$required[$i]['passed'] = FALSE;
 	}
 	$i++;
@@ -83,12 +83,12 @@ function check_settings() {
 
 	// check extensions
 	$php_ext = array(
-		'zlib'         => '<a href="http://www.zlib.net/">The zlib compression libraries</a> are used to pack and unpack compressed files such as zip files.',
-		'gd'           => '<a href="http://www.boutell.com/gd/">GD Libraries</a> are used to manipulate images. We use these libraries to create thumbnails and convert images from one format to another. The GD libaries are quite limited and <strong>don\'t support</strong> a number of image formats including <strong>bmp</strong>. If you are planning on uploading and using a lot of images, we recommend you use one of the other image processors.<br />If you are running Red Hat or Fedora Core, you can try running: yum install php-gd.',
-		'imagick'      => 'ImageMagick supports a multitude of different image and video formats and <strong>can be used instead of the GD Libraries</strong>. Using these libraries will allow you to upload most image formats without any difficulties. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
-		'magickwand'   => 'MagickWand the newer php extension for ImageMagick. For installation help, please view our online documentation: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick</a> homepage.',
-		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of php by caching and optimising queries. Using this extension will greatly increase your servers performance and reduce the memory needed to run bitweaver.',
-		'ffmpeg'       => '<a href="http://ffmpeg-php.sourceforge.net/">ffmpeg-php</a> is an extension that will allow you to better process uploaded videos. This extension requires ffmpeg to be installed as well.',
+		'zlib'         => '<a href="http://www.zlib.net/">The zlib compression libraries</a> are used to pack and unpack compressed files such as .zip files.',
+		'gd'           => '<a href="http://www.boutell.com/gd/">GD Libraries</a> are used to manipulate images. Bitweaver uses these libraries to create thumbnails and convert images from one format to another. If you are running Red Hat or Fedora Core, you can try: <kbd>yum install php-gd</kbd>. The GD libaries are quite limited and <em>don\'t support</em> a number of image formats including <em>.bmp</em>. If you are planning on uploading and using a lot of images, we recommend you use one of the other image processors.',
+		'imagick'      => 'ImageMagick supports a multitude of different image and video formats and <em>can be used instead of the GD Libraries</em>. Using these libraries will allow you to upload most image formats without any difficulties. For installation help, please view <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick homepage</a>.',
+		'magickwand'   => 'MagickWand is a newer PHP extension for ImageMagick. For installation help, please view Bitweaver\'s: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick homepage</a>.',
+		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of PHP by caching and optimising queries. Using this extension will greatly increase your server\'s performance and reduce the memory needed to run Bitweaver.',
+		'ffmpeg'       => '<a href="http://ffmpeg-php.sourceforge.net/">ffmpeg-php</a> is an extension that will allow you to better process uploaded videos. This extension requires ffmpeg to be installed on your server as well.',
 	);
 	foreach( $php_ext as $ext => $note ) {
 		$extensions[$ext]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
@@ -150,17 +150,17 @@ function check_settings() {
 		),
 		'gs' => array(
 			'command'      => 'gs --version',
-			'note'         => '<a href="http://www.cs.wisc.edu/~ghost/">GhostScript</a> is an interpreter for the PostScript language and for PDF and is used to create PDF previews when uploading PDFs to fisheye. If you do not have this installed, previews of PDF files will not be generated on upload.<br />If you have difficulties with GhostScript, please try installing a different version. We have successfully tested versions: <strong>7.5, 8.15.4, 8.5, 8.54</strong> and we have had difficulties with version <strong>8.1</strong>',
+			'note'         => '<a href="http://www.cs.wisc.edu/~ghost/">GhostScript</a> is an interpreter for the PostScript language and for PDF and is used to create PDF previews when uploading PDF files to Fisheye. If you do not have this installed, previews of PDF files will not be generated on upload. If you have difficulties with GhostScript, please try installing a different version. Bitweaver was successfully tested with versions 7.5, 8.15.4, 8.5, 8.54. There where difficulties with version 8.1.',
 			'result'       => 'Your version of GhostScript: ',
 		),
 		'graphviz' => array(
 			'command'      => 'dot -V 2>&1',
-			'note'         => '<a href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} liberty plugin and you only need to install it if you intend to enable that plugin.<br /><em>The Pear::Image_Graphviz plugin is required as well.</em>',
+			'note'         => '<a href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} Liberty plugin and you only need to install it if you intend to enable that plugin.<br /><em>The Pear::Image_Graphviz plugin is required as well.</em>',
 			'result'       => 'Your version of Graphviz: ',
 		),
 		'ffmpeg' => array(
 			'command'      => 'ffmpeg 2>&1',
-			'note'         => '<a href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> is a hyper fast video and audio encoder that supports many common formats. If you are planning on uploading video and audio files, we recommend that you install this application.',
+			'note'         => '<a href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> is a hyper fast video and audio encoder that supports many common formats. If you are planning on uploading video and audio files, it\'s recommend that you install this application.',
 		),
 //		'unstuff' => array(
 //			'params'       => '-xf',
@@ -213,17 +213,17 @@ function check_settings() {
 		),
 		'Image_Graphviz' => array(
 			'path'            => 'Image/GraphViz.php',
-			'note'            => 'Pear::Image_Graphviz makes the {graphviz} plugin available. With it you can draw maps of how your wiki pages are linked to each other. This can be used for informational purposes or a site-map.<br /><em>It also requires the application graphviz to be installed as well.</em>',
+			'note'            => 'Pear::Image_Graphviz makes the {graphviz} plugin available. With it you can draw maps of how your Wiki pages are linked to each other. This can be used for informational purposes or a site-map. It requires the application graphviz to be installed on your server as well.',
 			'install_command' => 'pear install --onlyreqdeps Image_Graphviz;',
 		),
 		'HTMLPurifier' => array(
 			'path'            => 'HTMLPurifier.php',
-			'note'            => 'HTMLPurifier is an advanced system for defending against Cross Site Scripting (XSS) attacks and ensuring that all code on your site is standards compliant. It is highly recommended if you are going to allow HTML submission to your site. It is not required if you are only going to use a wiki format like tikiwiki or bbcode. You also need to enable it in the liberty plugins administration after installation. See <a class="external" href="http://www.bitweaver.org/wiki/HTMLPurifier">http://www.bitweaver.org/wiki/HTMLPurifier</a> and <a class = "external" href = "http: // htmlpurifier.org">http://htmlpurifier.org</a> for more information.',
+			'note'            => 'HTMLPurifier is an advanced system for defending against Cross Site Scripting (XSS) attacks and ensuring that all code on your site is standards compliant. It is highly recommended if you are going to allow HTML submission to your site. It is not required if you are only going to allow the input of a Wiki format like Tikiwiki or BBcode. You also need to enable it in the Liberty plugins administration after installation. See <a class="external" href="http://www.bitweaver.org/wiki/HTMLPurifier">http://www.bitweaver.org/wiki/HTMLPurifier</a> and <a class = "external" href = "http: // htmlpurifier.org">http://htmlpurifier.org</a> for more information.',
 			'install_command' => 'pear channel-discover htmlpurifier.org;<br />pear install hp/HTMLPurifier;',
 		),
 		'HTTP_Download' => array(
 			'path'            => 'HTTP/Download.php',
-			'note'            => 'Treasury - the file manager of bitweaver - can make use of PEAR::HTTP_Download to provide more reliable downloads and download resume support when using a download manager.',
+			'note'            => 'Treasury - the file manager of Bitweaver - can make use of PEAR::HTTP_Download to provide more reliable downloads and download resume support when using a download manager.',
 			'install_command' => 'pear install --alldeps HTTP_Download;',
 		),
 	);
@@ -288,9 +288,9 @@ function check_settings() {
 
 	// settings that are useful to know about
 	$php_ini_gets = array(
-		array( '<strong>Maximum post size</strong> will restrict the size of files when you upload a file using a form<br />recommended at least <strong>8M</strong>.', 'post_max_size' ),
-		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads<br />recommended at least <strong>8M</strong>.', 'upload_max_filesize' ),
-		array( '<strong>Maximum execution time</strong> is related to time outs in PHP - affects database upgrades and backups<br />recommended <strong>60</strong>.', 'max_execution_time' ),
+		array( '<strong>Maximum post size</strong> restricts the size of files uploaded using a form. <br />Recommended: at least <strong>8M</strong>.', 'post_max_size' ),
+		array( '<strong>Upload max filesize</strong> is related to maximim post size and will also limit the size of uploads. <br />Recommended: at least <strong>8M</strong>.', 'upload_max_filesize' ),
+		array( '<strong>Maximum execution time</strong> is related to time outs in PHP. It affects database upgrades and backups. <br />Recommended: <strong>60</strong>.', 'max_execution_time' ),
 	);
 	foreach( $php_ini_gets as $php_ini_get ) {
 		$value = ini_get( $php_ini_get[1] );

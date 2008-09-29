@@ -147,11 +147,11 @@
 					{/if}
 					<li>Install PEAR extensions using <a class="external"
 							href="http://pear.php.net/manual/en/guide.users.commandline.cli.php">
-							command line interface</a> (requires ssh access).</li>
-					<li>Install PEAR extensions in <a class="external"
+							command line interface</a> (requires ssh access),</li>
+					<li>or install PEAR extensions in <a class="external"
 							href="http://pear.php.net/manual/en/installation.shared.php">a
-							shared environment</a> (requires ssh access or ftp access).</li>
-					<li>Download a pre-packed set of <a class="external"
+							shared environment</a> (requires ssh access or ftp access),</li>
+					<li>or download a pre-packed set of <a class="external"
 							href="http://www.bitweaver.org/downloads/file/11619">Bitweaver
 							PEAR extensions</a> and extract this to<br />
 						<kbd>{$smarty.const.UTIL_PKG_PATH}pear/</kbd></li>
