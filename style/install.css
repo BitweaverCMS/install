@@ -95,7 +95,7 @@ select	{margin:0;padding:0;border-width:1px;padding:0.2em}
 textarea	{width:99%}
 
 fieldset	{padding:0;margin:1em;border:0px solid #fff}
-legend	{background:#fdf9ea;padding:1em 1em 1em 0}
+legend	{background:transparent;padding:1em 1em 1em 0}
 
 .row	{overflow:auto;clear:both;margin:0 0 1.5em 0}
 .formlabel	{float:left;width:24%;text-align:right;padding:0 0.5em 1em 0;font-weight:bold}
