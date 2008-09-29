@@ -5,7 +5,7 @@ div#container	{width:93%;margin:0 auto;max-width:1100px}
 
 
 /* header */
-#header	{background:transparent url(images/bg_header-trans.png) no-repeat right top}
+#header	{background:transparent url(images/bg_header.png) no-repeat right top}
 a#bitweaver_logo	{display:block;clear:both;height:123px;width:66px;margin:0 0 0 3%;background:transparent url(images/bg_header_logo-trans.png) -66px 0 no-repeat}
 a#bitweaver_logo:hover	{background-position:0 0}
 a#bitweaver_logo em	{display:none}
@@ -17,7 +17,7 @@ a#bitweaver_logo em	{display:none}
 #header div.bittop	{max-width:785px;margin:0 auto}
 
 #wrapper	{border:4px solid #ffe339;margin:0 auto;max-width:777px}
-#content	{background:#fff url(images/bg_content-trans.png) repeat-x;border:1px solid #fff}
+#content	{background:#fff url(images/bg_content.png) repeat-x;border:1px solid #fff}
 #footer	{text-align:center;padding:4em 0 1em 0}
 #footer a,#footer:visited	{color:#00e;border-bottom:1px solid #f0f0f0}
 #footer a:hover	{color:#00f;border-bottom:1px solid #ddd;text-decoration:none}
@@ -59,7 +59,7 @@ div.progressbar div.progress0	{background:#fdf9ea;width:3em !important}
 
 /* global */
 html	{background:#FFFED4}
-body	{background:#FFFED4 url(images/bg_body-trans.png) repeat-x left top}
+body	{background:#FFFED4 url(images/bg_body.png) repeat-x left top}
 body	{font:13px/22px sans-serif;margin:0 auto;padding:0}
 table	{border-collapse:collapse;padding:0;margin:0;width:100%;table-layout:fixed}
 caption	{font-weight:bold}
