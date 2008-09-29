@@ -1,38 +1,43 @@
-/*  layout */
+/* layout */
 div#container	{width:93%;margin:0 auto;max-width:1100px}
+
+
+
 
 /* header */
 #header	{background:transparent url(images/bg_header-trans.png) no-repeat right top}
-a#bitweaver_logo 	{display:block;clear:both;height:123px;width:66px;margin:0 0 0 3%;background:transparent url(images/bg_header_logo-trans.png) -66px 0 no-repeat}
-a#bitweaver_logo:hover 	{background-position:0 0}
-a#bitweaver_logo em 	{display:none}
+a#bitweaver_logo	{display:block;clear:both;height:123px;width:66px;margin:0 0 0 3%;background:transparent url(images/bg_header_logo-trans.png) -66px 0 no-repeat}
+a#bitweaver_logo:hover	{background-position:0 0}
+a#bitweaver_logo em	{display:none}
 
-#header h1 	{display:block;text-align:left;margin:0;padding:0 0 0 2em;font-size:13px;line-height:13px;text-transform:uppercase;font-family:monospace}
-#header h1 strong 	{color:#9f8e24;padding:0 0 0 0.3em;font-weight:500}
-#header h1 em 	{color:#675c17;font-style:normal;padding:0 0.6em}
+#header h1	{display:block;text-align:left;margin:0;padding:0 0 0 2em;font-size:13px;line-height:13px;text-transform:uppercase;font-family:monospace}
+#header h1 strong	{color:#9f8e24;padding:0 0 0 0.3em;font-weight:500}
+#header h1 em	{color:#675c17;font-style:normal;padding:0 0.6em}
 
-#header div.bittop 	{max-width:785px;margin:0 auto}
+#header div.bittop	{max-width:785px;margin:0 auto}
 
 #wrapper	{border:4px solid #ffe339;margin:0 auto;max-width:777px}
 #content	{background:#fff url(images/bg_content-trans.png) repeat-x;border:1px solid #fff}
-#footer	{text-align:center;padding:4em 0 1em 0;}
-#footer a,#footer:visited 	{color:#00e;border-bottom:1px solid #f0f0f0}
-#footer a:hover 	{color:#00f;border-bottom:1px solid #ddd;text-decoration:none}
+#footer	{text-align:center;padding:4em 0 1em 0}
+#footer a,#footer:visited	{color:#00e;border-bottom:1px solid #f0f0f0}
+#footer a:hover	{color:#00f;border-bottom:1px solid #ddd;text-decoration:none}
 
-/* navigatioin progress */
+/* navigation, progress */
 #navigation	{clear:both;margin:0 auto;max-width:785px}
 div.progressbar	{padding:0 4px 5px 4px;font-weight:bold;background:#ffe339}
-div.progressbar em 	{font-style:normal;display:block;width:123px;float:left;padding-left:1em}
+div.progressbar em	{font-style:normal;display:block;width:123px;float:left;padding-left:1em}
 div.progressbar div.bar	{background:#fdf9ea;margin-left:133px}
 div.progressbar div.progress	{background:#bdf922;text-align:center}
 div.progressbar div.progress100	{background:#8de817}
-div.progressbar div.progress0 	{background:#fdf9ea;width:3em !important}
+div.progressbar div.progress0	{background:#fdf9ea;width:3em !important}
+
+
 
 
 /* extra */
-#extra 	{text-align:center}
-#extra ul 	{text-align:center}
-#extra li 	{display:inline;padding-left:28px;background-position:6px 6px;border:1px solid #fefc6b;margin-right:4px}
+#extra	{text-align:center}
+#extra ul	{text-align:center}
+#extra li	{display:inline;padding-left:28px;background-position:6px 6px;border:1px solid #fefc6b;margin-right:4px}
 #extra li.help	{border-color:#ddd}
 #extra li.warning	{border-color:#ffc994}
 
@@ -43,11 +48,12 @@ div.progressbar div.progress0 	{background:#fdf9ea;width:3em !important}
 #stepmenu li.current	{background:transparent url(images/software-update-available-trans.png) no-repeat top;color:#fff;font-weight:700}
 #stepmenu li.current a	{color:#000}
 
-#stepmenu li.success	{background-position:top;background-color:transparent;}
+#stepmenu li.success	{background-position:top;background-color:transparent}
 #stepmenu li.success a	{color:#79c714}
 
 #stepmenu li.uncompleted	{}
 #stepmenu li.uncompleted a	{}
+
 
 
 
@@ -79,6 +85,7 @@ a:hover	{text-decoration:underline}
 
 
 
+
 /* forms */
 form	{clear:both}
 form,
@@ -93,7 +100,7 @@ legend	{background:#fdf9ea;padding:1em 1em 1em 0}
 .row	{overflow:auto;clear:both;margin:0 0 1.5em 0}
 .formlabel	{float:left;width:24%;text-align:right;padding:0 0.5em 1em 0;font-weight:bold}
 .formfeedback	{}
-.formfeedback .icon	{display:none;}
+.formfeedback .icon	{display:none}
 .formfeedback div	{padding:4px;border-bottom:1px dotted #aaa}
 
 .odd	{background:#f4f4f3;color:#000}
@@ -120,9 +127,8 @@ legend	{background:#fdf9ea;padding:1em 1em 1em 0}
 
 .danger	{padding:0.5em;background:#ffdddd url(images/danger-trans.png) no-repeat right center;border:3px solid #a00;padding:1em 100px 1em 1em}
 
-.formfeedback ul 	{padding:0;margin:0}
-.formfeedback li 	{border-bottom:1px dotted #aaa}
-
+.formfeedback ul	{padding:0;margin:0}
+.formfeedback li	{border-bottom:1px dotted #aaa}
 
 
 
@@ -137,12 +143,12 @@ dd	{padding:0;margin:-1.3em 0 0.5em 32%}
 
 
 
-
 /* navigation and status */
 #navigation ul, #navigation li	{padding:0;margin:0;list-style:none}
 #navigation li,
 #navigation ul.result li	{border-bottom:1px solid #e7e7e6;padding:3px 0 3px 7px}
 #navigation ul.result li li	{border:0;list-style:circle}
+
 
 
 
@@ -153,24 +159,23 @@ dd	{padding:0;margin:-1.3em 0 0.5em 32%}
 .tabsystem .tabcontainer .tab,
 .tabsystem .tabcontainer .tab-active	{position:relative;display:inline;float:left;z-index:1;white-space:nowrap}
 .tabsystem .tabpage	{clear:both}
-h4	{margin:0;padding:0}
+.tabsystem h4	{margin:0;padding:0}
 
-/* tabstyle */
+.tabsystem .tabcontainer 	{line-height:16px}
 .tabsystem .tabcontainer .tab,
 .tabsystem .tabcontainer .tab-hover,
-.tabsystem .tabcontainer .tab-active	{background:#f1eddf;top:3px;margin:0 6px;padding:3px 5px 1px 5px;border:1px solid #ffe339;border-bottom:0}
-.tabsystem .tabcontainer .tab-hover	{background:#fdf9eb;padding-top:2px;border-top:2px solid #ffe339}
-.tabsystem .tabcontainer .tab-active	{background:#fdf9eb;top:1px;padding:2px 8px 4px 8px;margin:0 3px;border-top:2px solid #ffe339}
-.tabsystem .tabpage	{border-top:1px solid #ffe339;border-bottom:1px solid #ffe339;margin-bottom:2em}
-.tabcontainer a	{color:#999;text-decoration:none}
-.tabcontainer a:hover	{color:#000}
-.tabcontainer .tab-active a	{color:#000}	
+.tabsystem .tabcontainer .tab-active	{top:3px;font-weight:normal;margin:0 6px;padding:3px 5px 1px 5px;background:transparent url(images/tab_shade.png) repeat-x;border:1px solid #ccc;border-bottom:0}
+.tabsystem .tabcontainer .tab-hover	{padding-top:2px;border-top:2px solid #ffe339}
+.tabsystem .tabcontainer .tab-active	{top:1px;padding:2px 8px 4px 8px;margin:0 3px;border-top:2px solid #ffe339;background:#fdf9ec;font-weight:700}
+.tabsystem .tabpage	{border-top:1px solid #ccc}
+.tabcontainer a	{color:#888;text-decoration:none}
+.tabcontainer a:hover	{color:#000;text-decoration:none}
+.tabsystem .tab-active a	{color:#000}
 
 
 
-
-/* exceptions hacks */
-form.checks legend 	{display:none}
+/* hacks */
+form.checks legend	{display:none}
 form.checks .formlabel	{display:none}
 form.checks .forminput	{margin-left:0}
 form.checks .requirements p.success	{background-color:transparent;border:0;background-position:11px 50%;text-indent:0px;padding-left:44px}
@@ -181,20 +186,26 @@ form.checks #phpini tr.success,
 form.checks #phpini tr.warning	{background-color:transparent;border:0;background-position:11px 50%;text-indent:0px}
 form.checks #phpini td,
 form.checks #phpini th	{padding-left:33px}
-form.checks #phpini 	{max-width:44em}
+form.checks #phpini	{max-width:44em}
 
 #install_welcome legend	{display:none}
 #install_welcome div.row.submit input	{border-width:3px;padding:.25em .5em;font-size:1.3em;font-family:sans-serif}
-/*#install_welcome div.row.submit strong{background-color:#fefc6d;padding:0.25em 1em;border:1px solid #ffe339}*/
 
-#install_welcome table 	{margin-bottom:3em}
-#install_welcome table * 	{list-style:none;padding:0;margin:0}
-#install_welcome table ul 	{line-height:23px}
+#install_welcome table	{margin-bottom:3em}
+#install_welcome table *	{list-style:none;padding:0;margin:0}
+#install_welcome table ul	{line-height:23px}
 
+
+
+
+/* trash */
 div.progressbar	{-moz-border-radius:0 0 .75em .75em;-webkit-border-radius:0 0 .75em .75em;border-radius:0 0 .75em .75em}
 div.progressbar div.bar	{-moz-border-radius:0 0 .6em 0;-webkit-border-radius:0 0 .6em 0;border-radius:0 0 0.6em 0}
 div.progressbar div.progress100	{-moz-border-radius:0 0 .5em 0;-webkit-border-radius:0 0 .5em 0;border-radius:0 0 0.5em 0}
-#stepmenu 	{-moz-border-radius:.4em;-webkit-border-radius:.4em;border-radius:.4em}
+#stepmenu	{-moz-border-radius:.4em;-webkit-border-radius:.4em;border-radius:.4em}
 #install_welcome div.row.submit strong	{-moz-border-radius:1em;-webkit-border-radius:1em;border-radius:1em}
+
+
+
 
 /* vim: set ts=40: */
