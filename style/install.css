@@ -5,10 +5,12 @@ div#container	{width:93%;margin:0 auto;max-width:1100px}
 
 
 /* header */
+/*
 #header	{background:transparent url(images/bg_header.png) no-repeat right top}
 a#bitweaver_logo	{display:block;clear:both;height:123px;width:66px;margin:0 0 0 3%;background:transparent url(images/bg_header_logo-trans.png) -66px 0 no-repeat}
 a#bitweaver_logo:hover	{background-position:0 0}
 a#bitweaver_logo em	{display:none}
+*/
 
 #header h1	{display:block;text-align:left;margin:0;padding:0 0 0 2em;font-size:13px;line-height:13px;text-transform:uppercase;font-family:monospace}
 #header h1 strong	{color:#9f8e24;padding:0 0 0 0.3em;font-weight:500}

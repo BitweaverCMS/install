@@ -31,9 +31,11 @@
 <body id="step{$smarty.request.step}">
 	<div id="container">
 		<div id="header">
+			{*
 			<a href="http://www.bitweaver.org/" title="bitweaver.org" id="bitweaver_logo">
 				<em>bitweaver.org</em>
 			</a>
+			*}
 			<h1 id="title">
 				<strong>Bitweaver {$smarty.const.BIT_MAJOR_VERSION}.{$smarty.const.BIT_MINOR_VERSION}.{$smarty.const.BIT_SUB_VERSION} {$smarty.const.BIT_LEVEL}</strong>
 				&nbsp;
