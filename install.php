@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.23 2008/09/28 13:41:20 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.24 2008/10/03 10:14:15 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -126,6 +126,9 @@ if( $onlyDuringFirstInstall ) {
 		$install_file[$i]['file'] = 'datapump';
 		$install_file[$i++]['name'] = 'Content';
 	}
+} else {
+	$install_file[$i]['file'] = 'version';
+	$install_file[$i++]['name'] = 'Update';
 }
 $install_file[$i]['file'] = 'final';
 $install_file[$i]['name'] = 'Done';
