@@ -22,7 +22,7 @@
 			<ul>
 				<li>
 					<strong>Linux</strong>
-					<br />Change the directory permission with <kbd>chmod 000 install/</kbd>. If need to run the installer again, you will have to revert the permissions with <kbd>chmod 755 install/</kbd>.
+					<br />Change the directory permission with <kbd>chmod 000 install/</kbd>. If you need to run the installer again, you will have to revert the permissions with <kbd>chmod 755 install/</kbd>.
 				</li>
 				<li>
 					<strong>Windows</strong>
