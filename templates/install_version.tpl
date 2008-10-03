@@ -18,12 +18,13 @@
 		{if $version_210beta}
 			<h3>Update to version 2.1.0 beta</h3>
 			<p class="help">
-				You can visit the {smartlink ititle="Permission Maintenance" ipackage=users ifile=admin/permissions.php} page at any time to make further adjustments.
+				The following table shows you all permissions on your system. The default group of a given permission is <span style="background:#fc3">highlighted</span>.  We urge you to study this table closely as the default for many of the edit permissions have changed. Additionally, new create permissions have been added, please be sure to check those as well. If you don't update these, your site will likely allow unwanted users to edit content.
 			</p>
 
 			<p class="help">
-				The following table shows you all permissions on your system. The default group of a given permission is <span style="background:#fc3">highlighted</span>.  We urge you to study this table closely as the default for many of the edit permissions have changed. Additionally, new create permissions have been added, please be sure to check those as well. If you don't update these, your site will likely allow unwanted users to edit content.
+				You can visit the {smartlink ititle="Permission Maintenance" ipackage=users ifile=admin/permissions.php} page at any time to make further adjustments.
 			</p>
+
 
 			<table class="data">
 				<caption>{tr}Available Permissions{/tr}</caption>
