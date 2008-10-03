@@ -4,7 +4,7 @@
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	{legend legend="Database Integrity Check"}
-	
+
 		{if $metaTables}
 			<p class="warning">
 				We have scanned the database and have found some outdated tables.
