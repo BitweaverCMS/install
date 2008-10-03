@@ -44,7 +44,7 @@
 	</ul>
 
 	<br />
-	<p class="help" style="text-align:center;">Finally, we thank you again for trying Bitweaver.</p>
+	<p class="help" style="text-align:center;">Finally, we thank you again for using Bitweaver.</p>
 	<br />
 
 	<div class="row submit">
