@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.21 2008/07/03 13:41:39 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.22 2008/10/03 16:01:41 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -48,7 +48,8 @@ if( in_array( 'liberty_meta_content_map', $dbTables['unused'] )) {
 
 
 // ===================== Permissions =====================
-// check all permissions, compare them to each other and see if there are old permissions and ones that need to be inserted
+// check all permissions, compare them to each other and see if there are old 
+// permissions and ones that need to be inserted
 $query = "SELECT * FROM `".BIT_DB_PREFIX."users_permissions` ORDER BY `package` ASC";
 $result = $gBitInstaller->mDb->query( $query );
 while( !$result->EOF ) {
@@ -60,7 +61,23 @@ while( !$result->EOF ) {
 	$result->MoveNext();
 }
 
-// compare both perm arrays and work out what needs to be done
+// we will make sure all the permission levels are what they should be. we will 
+// update these without consulting the user. this is purely backend stuff, has 
+// no outcome on the site itself but determines what the default permission 
+// level is. the user can never modify these settings.
+foreach( array_keys( $gBitInstaller->mPermHash ) as $perm ) {
+	// permission level is stored in [2]
+	$bindVars = array();
+	if( !empty( $bitPerms[$perm] ) && $gBitInstaller->mPermHash[$perm][2] != $bitPerms[$perm][2] ) {
+		$query = "UPDATE `".BIT_DB_PREFIX."users_permissions` SET `perm_level` = ? WHERE `perm_name` = ?";
+		$bindVars[] = $gBitInstaller->mPermHash[$perm][2];
+		$bindVars[] = $perm;
+		$gBitInstaller->mDb->query( $query, $bindVars );
+	}
+}
+
+// compare both perm arrays with each other and work out what permissions need 
+// to be added and which ones removed
 $insPerms = $delPerms = array();
 foreach( array_keys( $gBitInstaller->mPermHash ) as $perm ) {
 	if( !in_array( $perm, array_keys( $bitPerms ))) {
