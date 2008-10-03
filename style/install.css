@@ -12,7 +12,7 @@ a#bitweaver_logo:hover	{background-position:0 0}
 a#bitweaver_logo em	{display:none}
 */
 
-#header h1	{display:block;text-align:left;margin:0;padding:0 0 0 2em;font-size:13px;line-height:13px;text-transform:uppercase;font-family:monospace}
+#header h1	{display:block;text-align:center;margin:0;padding:0;font-size:13px;line-height:13px;text-transform:uppercase;font-family:monospace}
 #header h1 strong	{color:#9f8e24;padding:0 0 0 0.3em;font-weight:500}
 #header h1 em	{color:#675c17;font-style:normal;padding:0 0.6em}
 
@@ -120,12 +120,13 @@ legend	{background:transparent;padding:1em 1em 1em 0}
 .error,
 .warning,
 .success,
-.help	{padding:0.5em;background:#e7e7e6 url(images/favicon.ico) no-repeat 8px 10px;border:3px double #fff;text-indent:24px}
+.note,
+.help	{padding:0.5em;background:transparent url(images/favicon.ico) no-repeat 8px 10px;border:3px double #fff;text-indent:24px}
 
 .error	{background-color:#ffdddd;background-image:url(images/dialog-error-trans.png);border:1px solid #900;margin:1em}
 .warning	{background-color:#ffe1c3;background-image:url(images/dialog-warning-trans.png)}
 .success	{background-color:#e0ffb0;background-image:url(images/dialog-ok-trans.png)}
-.help	{}
+.help	{background-color:#e7e7e6}
 
 .danger	{padding:0.5em;background:#ffdddd url(images/danger-trans.png) no-repeat right center;border:3px solid #a00;padding:1em 100px 1em 1em}
 
