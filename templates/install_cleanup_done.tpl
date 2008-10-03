@@ -1,6 +1,6 @@
-<h1>Deactivated Packages</h1>
+<h1>Resolved Conflicts</h1>
 
-{form legend="Installed Packages"}
+{form legend="Resolved Conflicts"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p class="success">
@@ -9,7 +9,7 @@
 
 	{if $fixedPermissions}
 		<div class="row">
-			{formlabel label="Permissions that were updated"}
+			{formlabel label="Updated Permissions"}
 			{forminput}
 				<ul>
 					{foreach from=$fixedPermissions item=perm}
@@ -27,7 +27,7 @@
 
 	{if $deActivated}
 		<div class="row">
-			{formlabel label="Packages that were deactivated"}
+			{formlabel label="Deactivated Packages"}
 			{forminput}
 				<ul>
 					{foreach from=$deActivated item=package}
