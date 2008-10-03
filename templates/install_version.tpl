@@ -22,7 +22,7 @@
 			</p>
 
 			<p class="help">
-				The following table shows you all permissions on your system. The default group of a given permission is <span style="background:#fc3">highlighted</span>.  We urge you to study this table closely as the default for some permissions has changed. If you don't update these, your site might allow unwanted users to edit content.
+				The following table shows you all permissions on your system. The default group of a given permission is <span style="background:#fc3">highlighted</span>.  We urge you to study this table closely as the default for many of the edit permissions have changed. Additionally, new create permissions have been added, please be sure to check those as well. If you don't update these, your site will likely allow unwanted users to edit content.
 			</p>
 
 			<table class="data">
