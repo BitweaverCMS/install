@@ -22,7 +22,7 @@
 			</p>
 
 			<p class="help">
-				The following table shows you all permissions on your system. The default group of a given permission is <span style="background:yellow">highlighted</span>.  We urge you to study this table closely as the default for some permissions has changed. If you don't update these, your site might allow unwanted users to edit content.
+				The following table shows you all permissions on your system. The default group of a given permission is <span style="background:#fc3">highlighted</span>.  We urge you to study this table closely as the default for some permissions has changed. If you don't update these, your site might allow unwanted users to edit content.
 			</p>
 
 			<table class="data">
@@ -52,7 +52,17 @@
 							{elseif $perm.perm_level == 'registered'}{assign var=id value=3}
 							{elseif $perm.perm_level == 'basic'     }{assign var=id value=-1}{/if}
 
-							<td style="text-align:center;{if $id == $group.group_id}background:yellow;{/if}">
+							{if $id == $group.group_id and !$group.perms.$p}
+								{assign var=style value="background:#fc3"}
+							{elseif $id == $group.group_id and $group.perms.$p}
+								{assign var=style value="background:#fea"}
+							{elseif $id != $group.group_id and $group.perms.$p}
+								{assign var=style value="background:#ddd"}
+							{else}
+								{assign var=style value=""}
+							{/if}
+
+							<td style="text-align:center;{$style}">
 								<input id="{$p}{$group.group_id}" type="checkbox" value="{$p}" name="perms[{$group.group_id}][{$p}]" title="{$group.group_name}" {if $group.perms.$p}checked="checked"{/if}/>
 							</td>
 						{/foreach}
