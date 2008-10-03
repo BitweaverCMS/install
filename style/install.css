@@ -12,9 +12,9 @@ a#bitweaver_logo:hover	{background-position:0 0}
 a#bitweaver_logo em	{display:none}
 */
 
-#header h1	{display:block;text-align:center;margin:0;padding:0;font-size:13px;line-height:13px;text-transform:uppercase;font-family:monospace}
-#header h1 strong	{color:#9f8e24;padding:0 0 0 0.3em;font-weight:500}
-#header h1 em	{color:#675c17;font-style:normal;padding:0 0.6em}
+#header h1	{display:block;text-align:center;margin:0;padding:0;font-size:13px;line-height:17px;font-family:monospace}
+#header h1 strong	{color:#fff;font-weight:500}
+#header h1 em	{color:#ccc;font-style:normal;padding:0 0 0 0.6em}
 
 #header div.bittop	{max-width:785px;margin:0 auto}
 
@@ -44,8 +44,8 @@ div.progressbar div.progress0	{background:#fdf9ea;width:3em !important}
 #extra li.warning	{border-color:#ffc994}
 
 /* step nav */
-#stepmenu	{border:1px solid #bdf922;background:#ccfd25 url(images/favicon.ico) no-repeat 4px 3px;padding:0 0 0 28px;margin:2em auto 1em auto}
-#stepmenu li	{padding:23px 0.5em 0.5em 0.5em;display:inline;color:#44650c;border:0}
+#stepmenu	{background:#ffe339 url(images/favicon.ico) no-repeat 8px 7px;padding:4px 0 0 28px;margin:26px auto 0em auto}
+#stepmenu li	{padding:26px 0.5em 0.5em 0.5em;display:inline;color:#44650c;border:0}
 
 #stepmenu li.current	{background:transparent url(images/software-update-available-trans.png) no-repeat top;color:#fff;font-weight:700}
 #stepmenu li.current a	{color:#000}
