@@ -82,9 +82,15 @@
 				{/forminput}
 			</div>
 		{else}
-			<div class="row submit">
-				<input type="submit" name="skip" value="Continue install process" />
-			</div>
+			{if $upToDate}
+				<div class="row submit">
+					<input type="submit" name="skip" value="Continue install process" />
+				</div>
+			{else}
+				<div class="row submit">
+					<input type="submit" name="update_version" value="Update version and continue" />
+				</div>
+			{/if}
 		{/if}
 	{/legend}
 {/form}
