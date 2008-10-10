@@ -45,13 +45,13 @@ div.progressbar div.progress0	{background:#fdf9ea;width:3em !important}
 
 /* step nav */
 #stepmenu	{background:#ffe339 url(images/favicon.ico) no-repeat 8px 7px;padding:4px 0 0 28px;margin:26px auto 0em auto}
-#stepmenu li	{padding:26px 0.5em 0.5em 0.5em;display:inline;color:#44650c;border:0}
+#stepmenu li	{padding:26px 0.5em 0.5em 0.5em;display:inline;color:#000;border:0}
 
 #stepmenu li.current	{background:transparent url(images/software-update-available-trans.png) no-repeat top;color:#fff;font-weight:700}
 #stepmenu li.current a	{color:#000}
 
 #stepmenu li.success	{background-position:top;background-color:transparent}
-#stepmenu li.success a	{color:#79c714}
+#stepmenu li.success a	{color:#a73}
 
 #stepmenu li.uncompleted	{}
 #stepmenu li.uncompleted a	{}
