@@ -205,7 +205,7 @@ form.checks #phpini	{max-width:44em}
 div.progressbar	{-moz-border-radius:0 0 .75em .75em;-webkit-border-radius:0 0 .75em .75em;border-radius:0 0 .75em .75em}
 div.progressbar div.bar	{-moz-border-radius:0 0 .6em 0;-webkit-border-radius:0 0 .6em 0;border-radius:0 0 0.6em 0}
 div.progressbar div.progress100	{-moz-border-radius:0 0 .5em 0;-webkit-border-radius:0 0 .5em 0;border-radius:0 0 0.5em 0}
-#stepmenu	{-moz-border-radius:.4em;-webkit-border-radius:.4em;border-radius:.4em}
+#stepmenu	{-moz-border-radius:.4em .4em 0 0;-webkit-border-radius:.4em .4em 0 0;border-radius:.4em .4em 0 0}
 #install_welcome div.row.submit strong	{-moz-border-radius:1em;-webkit-border-radius:1em;border-radius:1em}
 
 
