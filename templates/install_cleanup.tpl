@@ -14,11 +14,11 @@
 				and apply the new schema from the 23-MAY-2008.
 			</p>
 			<ul>
-				{foreach from=$metaTables key=type item=tables}
+				{foreach from=$metaTables key=type item=hash}
 					<li>
 						{$type}
 						<ul>
-							{foreach from=$tables item=table}
+							{foreach from=$hash.tables item=table}
 								<li>{$table}</li>
 							{/foreach}
 						</ul>
