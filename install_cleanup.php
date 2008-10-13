@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.23 2008/10/13 18:41:12 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.24 2008/10/13 19:08:32 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -28,7 +28,7 @@ $dbIntegrity = install_check_database_integrity( $dbTables );
 // original set, if they exist, we'll add a button to the page and allow users 
 // to upgrade.
 $metaTables = array();
-if( in_array( 'liberty_meta_content_map', $dbTables['unused'] )) {
+if( in_array( 'liberty_meta_content_map', $dbTables['unused'] ) || ( !empty( $dbTables['missing']['liberty'] ) && in_array( 'liberty_meta_titles', $dbTables['missing']['liberty'] ))) {
 	// we have established that we have the liberty_meta_content_map table in the database.
 	// this means that we need to remove the 3 old meta tables before we can proceede.
 	$metaTables = array(
