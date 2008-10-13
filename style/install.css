@@ -65,7 +65,7 @@ body	{background:#FFFED4 url(images/bg_body.png) repeat-x left top}
 body	{font:13px/22px sans-serif;margin:0 auto;padding:0}
 table	{border-collapse:collapse;padding:0;margin:0;width:100%;table-layout:fixed}
 caption	{font-weight:bold}
-th	{text-align:left}
+th	{text-align:left;overflow:hidden}
 th a	{color:#ff0}
 td	{vertical-align:top}
 hr	{border:1px dotted #bab7ac;border-width:1px 0 0 0;background:transparent;margin:2em 0}
