@@ -131,13 +131,13 @@
 			<table class="data">
 				<caption>Permissions that need amending</caption>
 				{if $insPerms}
-					<tr><th colspan="5">New Permissions</th></tr>
+					<tr><th style="width:20px;"></th><th colspan="4" style="width:99%;">New Permissions</th></tr>
 					<tr>
 						<th></th>
-						<th>Permission</th>
-						<th>Description</th>
-						<th>Level</th>
-						<th>Package</th>
+						<th style="width:30%;">Permission</th>
+						<th style="width:40%;">Description</th>
+						<th style="width:15%;">Level</th>
+						<th style="width:14%;">Package</th>
 					</tr>
 					{foreach from=$insPerms item=perm}
 						<tr class="{cycle values="odd,even"}">
@@ -151,7 +151,7 @@
 				{/if}
 
 				{if $delPerms}
-					<tr><th colspan="5">Permissions no longer in use</th></tr>
+					<tr><th></th><th colspan="4">Permissions no longer in use</th></tr>
 					<tr>
 						<th></th>
 						<th>Permission</th>
