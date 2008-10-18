@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.78 2008/10/03 09:21:48 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.79 2008/10/18 07:43:04 squareing Exp $
  * @package install
  * @subpackage functions
  *
@@ -454,7 +454,14 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			if( in_array( 'users', $_REQUEST['packages'] ) ) {
 				// Creating 'root' user has id=1. phpBB starts with user_id=2, so this is a hack to keep things in sync
 				$rootUser = new BitPermUser();
-				$storeHash = array( 'real_name' => 'root', 'login' => 'root', 'password' => $_SESSION['password'], 'email' => 'root@localhost', 'pass_due' => FALSE, 'user_id' => ROOT_USER_ID );
+				$storeHash = array(
+					'real_name' => 'Root',
+					'login'     => 'root',
+					'password'  => $_SESSION['password'],
+					'email'     => 'root@localhost',
+					'pass_due'  => FALSE,
+					'user_id'   => ROOT_USER_ID
+				);
 				if( $rootUser->store( $storeHash ) ) {
 					$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 1, 'Administrators','Site operators')" );
 					$rootUser->addUserToGroup( ROOT_USER_ID, 1 );
@@ -463,7 +470,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 
 				// now let's set up some default data. Group_id's are hardcoded in users/schema_inc defaults
-				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", -1, 'Anonymous','Public users not logged')" );
+				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", ".ANONYMOUS_GROUP_ID.", 'Anonymous','Public users not logged')" );
 				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 2, 'Editors','Site  Editors')" );
 				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`,`is_default`) VALUES ( ".ROOT_USER_ID.", 3, 'Registered', 'Users logged into the system', 'y')" );
 
@@ -474,9 +481,16 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 				// Create 'Anonymous' user has id= -1 just like phpBB
 				$anonUser = new BitPermUser();
-				$storeHash = array( 'real_name' => 'Guest', 'login' => 'guest', 'password' => $_SESSION['password'], 'email' =>'guest@localhost', 'pass_due' => FALSE, 'user_id' => ANONYMOUS_USER_ID,  'default_group_id' => ANONYMOUS_GROUP_ID );
+				$storeHash = array(
+					'real_name'        => 'Guest',
+					'login'            => 'guest',
+					'password'         => $_SESSION['password'],
+					'email'            => 'guest@localhost',
+					'pass_due'         => FALSE,
+					'user_id'          => ANONYMOUS_USER_ID,
+					'default_group_id' => ANONYMOUS_GROUP_ID
+				);
 				if( $anonUser->store( $storeHash ) ) {
-
 					// Remove anonymous from registered group
 					$regGroupId = $anonUser->groupExists( 'Registered', ROOT_USER_ID );
 					$anonUser->removeUserFromGroup( ANONYMOUS_USER_ID, $regGroupId );
@@ -484,9 +498,15 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 
 				$adminUser = new BitPermUser();
-				$storeHash = array( 'real_name' => $_SESSION['real_name'], 'login' => $_SESSION['login'], 'password' => $_SESSION['password'], 'email' =>$_SESSION['email'], 'pass_due' => FALSE );
+				$storeHash = array(
+					'real_name' => $_SESSION['real_name'],
+					'login'     => $_SESSION['login'],
+					'password'  => $_SESSION['password'],
+					'email'     => $_SESSION['email'],
+					'pass_due'  => FALSE
+				);
 				if( $adminUser->store( $storeHash ) ) {
-					$adminUser->addUserToGroup($adminUser->mUserId, 1 );
+					$adminUser->addUserToGroup( $adminUser->mUserId, 1 );
 				}
 
 				// kill admin info in $_SESSION
