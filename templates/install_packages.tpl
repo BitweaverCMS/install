@@ -224,7 +224,7 @@
 		{form}
 			<input type="hidden" name="step" value="{$next_step}" />
 			<div class="row submit">
-				&nbsp;&nbsp;<input type="submit" name="cancel" value="Skip this stage and resolve existing conflicts" />
+				&nbsp;&nbsp;<input type="submit" name="cancel" value="Skip this stage" />
 			</div>
 		{/form}
 	{/if}
