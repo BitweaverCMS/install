@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.6 2006/09/21 07:59:39 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.7 2008/10/23 19:57:07 squareing Exp $
  * @package install
  * @subpackage upgrade
  *
@@ -9,7 +9,7 @@
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: migrate_database.php,v 1.6 2006/09/21 07:59:39 squareing Exp $
+ * $Id: migrate_database.php,v 1.7 2008/10/23 19:57:07 squareing Exp $
  */
 
 /**
@@ -260,7 +260,7 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 		//echo "$table\n";
 		//print_r($encoded_tables);
 		//var_dump(array_search($table, $encoded_tables));die;
-		$blobs = identifyBlobs($result);
+		$blobs = BitInstaller::identifyBlobs($result);
 		//print_r($blobs);
 
 		while ($res = $result->FetchRow()) {
@@ -268,7 +268,7 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 			// convert blobs
 			if($convert_blobs && !empty($blobs)) {
 				$c++;
-				convertBlobs($gDb_dst, $res, $blobs);
+				BitInstaller::convertBlobs($gDb_dst, $res, $blobs);
 			}
 			$q++;
 			// insert data into destination

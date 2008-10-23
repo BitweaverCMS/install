@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.31 2008/07/03 13:40:18 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.32 2008/10/23 19:57:07 squareing Exp $
  * @package install
  */
 
@@ -19,26 +19,107 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * hasAdminBlock 
+	 * loadUpgradeFiles This will load all files in the dir <pckage>/admin/upgrades/<version>.php with a version greater than the one installed
 	 * 
+	 * @param array $pPackage 
 	 * @access public
-	 * @return TRUE on success, FALSE on failure
+	 * @return void
 	 */
-	function hasAdminBlock() {
-		global $gBitUser;
-		// Let's find out if we are have admin perm or a root user
-		$ret = TRUE;
-		if( empty( $gBitUser ) || $gBitUser->isAdmin() ) {
-			$ret = FALSE;
-		} else {
-			// let's try to load up user_id - if successful, we know we have one.
-			$rootUser = new BitPermUser( 1 );
-			$rootUser->load();
-			if( !$rootUser->isValid() ) {
-				$ret = FALSE;
+	function loadUpgradeFiles( $pPackage ) {
+		if( !empty( $pPackage )) {
+			$dir = constant( strtoupper( $pPackage )."_PKG_PATH" )."admin/upgrades/";
+			if( $this->isPackageActive( $pPackage ) && is_dir( $dir ) && $upDir = opendir( $dir )) {
+				while( FALSE !== ( $file = readdir( $upDir ))) {
+					if( is_file( $dir.$file )) {
+						$upVersion = str_replace( ".php", "", $file );
+						// we only want to load files of versions that are greater than is installed
+						if( $this->validateVersion( $upVersion ) && version_compare( $this->getVersion( $pPackage ), $upVersion, '<' )) {
+							include_once( $dir.$file );
+						}
+					}
+				}
 			}
 		}
-		return $ret;
+	}
+
+	/**
+	 * registerPackageUpgrade 
+	 * 
+	 * @param array $pPackage 
+	 * @param array $pVersion 
+	 * @param array $pDatadict 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
+	function registerPackageUpgrade( $pPackage, $pVersion, $pDatadict ) {
+		if( !empty( $pPackage ) && $this->validateVersion( $pVersion ) && !empty( $pDatadict )) {
+			if( empty( $this->mPackageUpgrades[$pPackage][$pVersion] )) {
+				$this->mPackageUpgrades[$pPackage][$pVersion]['datadict'] = $pDatadict;
+				// ensure all upgrades are in ascending order that the upgrade can do its thing easily.
+				uksort( $this->mPackageUpgrades[$pPackage], 'upgrade_version_sort' );
+			} else {
+				vd( "Please make sure you use a unique version number to register your new database changes." );
+			}
+		} else {
+			vd( "Please make sure you use a valid version number." );
+		}
+	}
+
+	/**
+	 * registerDependency 
+	 * 
+	 * @param array $pPackage Package that requires the dependency
+	 * @param array $pVersion Version of the package that requires the dependency
+	 * @param array $pDepPackage package dependency required
+	 * @param array $pDepVersion Version of the package that is required
+	 * @access public
+	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
+	function registerPackageDependencies( $pPackage, $pVersion, $pDepHash ) {
+		if( !empty( $pPackage ) && $this->validateVersion( $pVersion ) && !empty( $pDepHash ) && is_array( $pDepHash )) {
+			foreach( $pDepHash as $pkg => $version ) {
+				if( $this->validateVersion( $version )) {
+					$this->mPackageDependencies[$pPackage][$pVersion]['dependencies'] = array(
+						'dependency' => $pkg,
+						'minversion' => $version,
+					);
+				} else {
+					vd( "Please make sure you use a valid version number." );
+				}
+			}
+		}
+	}
+
+	function verifyDependencies() {
+		// anyone feel like it?
+	}
+
+	/**
+	 * registerPackageVersion Holds the package version
+	 *
+	 * @param array $pPackage 
+	 * @param array $pVersion 
+	 * @access public
+	 * @return void
+	 */
+	function registerPackageVersion( $pPackage, $pVersion ) {
+		$pPackage = strtolower( $pPackage ); // lower case for uniformity
+		$this->mPackages[$pPackage]['version'] = $pVersion;
+	}
+
+	/**
+	 * registerUpgrade 
+	 * 
+	 * @param array $pPackage 
+	 * @param array $pUpgradeHash 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
+	function registerUpgrade( $pPackage, $pUpgradeHash ) {
+		$pPackage = strtolower( $pPackage ); // lower case for uniformity
+		if( !empty( $pUpgradeHash ) ) {
+			$this->mUpgrades[$pPackage] = $pUpgradeHash;
+		}
 	}
 
 	/**
@@ -51,10 +132,10 @@ class BitInstaller extends BitSystem {
 	 */
 	function display( $pTemplate, $pBrowserTitle=NULL ) {
 		header( 'Content-Type: text/html; charset=utf-8' );
-		// force the session to close *before* displaying. Why? Note this very important comment from http://us4.php.net/exec
-		if (ini_get('safe_mode') && ini_get('safe_mode_gid')) {
-			umask(0007);
+		if( ini_get( 'safe_mode' ) && ini_get( 'safe_mode_gid' )) {
+			umask( 0007 );
 		}
+		// force the session to close *before* displaying. Why? Note this very important comment from http://us4.php.net/exec
 		session_write_close();
 
 		if( !empty( $pBrowserTitle ) ) {
@@ -149,31 +230,31 @@ class BitInstaller extends BitSystem {
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
 	function upgradePackage( $package ) {
-		global $gBitSystem, $gBitDb;
+		global $gBitDb;
 		$ret = array();
 
-		if( !empty( $gBitSystem->mUpgrades[$package] )) {
+		if( !empty( $this->mUpgrades[$package] )) {
 			// set table prefixes and handle special case of sequence prefixes
 			$schemaQuote = strrpos( BIT_DB_PREFIX, '`' );
 			$sequencePrefix = ( $schemaQuote ? substr( BIT_DB_PREFIX,  $schemaQuote + 1 ) : BIT_DB_PREFIX );
 			$tablePrefix = $this->getTablePrefix();
 			$dict = NewDataDictionary( $gBitDb->mDb );
-			for( $i=0; $i<count( $gBitSystem->mUpgrades[$package] ); $i++ ) {
+			for( $i = 0; $i < count( $this->mUpgrades[$package] ); $i++ ) {
 
-				if( !is_array( $gBitSystem->mUpgrades[$package][$i] ) ) {
+				if( !is_array( $this->mUpgrades[$package][$i] ) ) {
 					vd( "[$package][$i] is NOT array" );
-					vd( $gBitSystem->mUpgrades[$package][$i] );
+					vd( $this->mUpgrades[$package][$i] );
 					bt();
 					die;
 				}
 
-				$type = key( $gBitSystem->mUpgrades[$package][$i] );
-				$step = &$gBitSystem->mUpgrades[$package][$i][$type];
+				$type = key( $this->mUpgrades[$package][$i] );
+				$step = &$this->mUpgrades[$package][$i][$type];
 				$failedcommands = array();
 
 				switch( $type ) {
 					case 'DATADICT':
-						for( $j=0; $j<count($step); $j++ ) {
+						for( $j = 0; $j < count( $step ); $j++ ) {
 							$dd = &$step[$j];
 							switch( key( $dd ) ) {
 							case 'CREATE':
@@ -356,8 +437,8 @@ class BitInstaller extends BitSystem {
 			}
 
 			// turn on features that are turned on
-			if( $gBitSystem->isFeatureActive( 'feature_'.$package )) {
-				$gBitSystem->storeConfig( 'package_'.$package, 'y', KERNEL_PKG_NAME );
+			if( $this->isFeatureActive( 'feature_'.$package )) {
+				$this->storeConfig( 'package_'.$package, 'y', KERNEL_PKG_NAME );
 			}
 
 			if( !empty( $failedcommands )) {
@@ -366,6 +447,66 @@ class BitInstaller extends BitSystem {
 			}
 		}
 
+		return $ret;
+	}
+
+	/**
+	 * identifyBlobs 
+	 * 
+	 * @param array $result 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
+	function identifyBlobs( $result ) {
+		$blobs = array();
+		//echo "FieldCount: ".$result->FieldCount()."\n";
+		for($i = 0; $i < $result->FieldCount(); $i++) {
+			$field = $result->FetchField($i);
+			//echo $i."-".$field->name."-".$result->MetaType($field->type)."-".$field->max_length."\n";
+			// check for blobs
+			if(($result->MetaType($field->type)=='B') || ($result->MetaType($field->type)=='X' && $field->max_length >= 16777215))
+				$blobs[] = $field->name;
+		}
+		return $blobs;
+	}
+
+	/**
+	 * convertBlobs enumerate blob fields and encoded
+	 * 
+	 * @param string $gDb 
+	 * @param array $res 
+	 * @param array $blobs 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
+	function convertBlobs( $gDb, &$res, $blobs ) {
+		foreach( $blobs as $blob ) {
+			$res[$blob] = $gDb->dbByteEncode( $res[$blob] );
+		}
+	}
+
+	/**
+	 * hasAdminBlock 
+	 * 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure
+	 * @deprecated i think this isn't used any more
+	 */
+	function hasAdminBlock() {
+		deprecated( "i think this isn't used anymore." );
+		global $gBitUser;
+		// Let's find out if we are have admin perm or a root user
+		$ret = TRUE;
+		if( empty( $gBitUser ) || $gBitUser->isAdmin() ) {
+			$ret = FALSE;
+		} else {
+			// let's try to load up user_id - if successful, we know we have one.
+			$rootUser = new BitPermUser( 1 );
+			$rootUser->load();
+			if( !$rootUser->isValid() ) {
+				$ret = FALSE;
+			}
+		}
 		return $ret;
 	}
 }
@@ -423,38 +564,15 @@ function makeConnection( $gBitDbType, $gBitDbHost, $gBitDbUser, $gBitDbPassword,
 }
 
 /**
- * identifyBlobs 
+ * upgrade_version_sort 
  * 
- * @param array $result 
+ * @param array $a 
+ * @param array $b 
  * @access public
  * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
  */
-function identifyBlobs( $result ) {
-	$blobs = array();
-	//echo "FieldCount: ".$result->FieldCount()."\n";
-	for($i = 0; $i < $result->FieldCount(); $i++) {
-		$field = $result->FetchField($i);
-		//echo $i."-".$field->name."-".$result->MetaType($field->type)."-".$field->max_length."\n";
-		// check for blobs
-		if(($result->MetaType($field->type)=='B') || ($result->MetaType($field->type)=='X' && $field->max_length >= 16777215))
-			$blobs[] = $field->name;
-	}
-	return $blobs;
-}
-
-/**
- * convertBlobs enumerate blob fields and encoded
- * 
- * @param string $gDb 
- * @param array $res 
- * @param array $blobs 
- * @access public
- * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
- */
-function convertBlobs( $gDb, &$res, $blobs ) {
-	foreach( $blobs as $blob ) {
-		$res[$blob] = $gDb->dbByteEncode( $res[$blob] );
-	}
+function upgrade_version_sort( $a, $b ) {
+	return version_compare( $a, $b, '>' );
 }
 
 ?>
