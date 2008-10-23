@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.24 2008/10/03 10:14:15 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.25 2008/10/23 20:09:47 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -115,6 +115,10 @@ if( $onlyDuringFirstInstall ) {
 }
 $install_file[$i]['file'] = 'packages';
 $install_file[$i++]['name'] = 'Packages';
+if( !$onlyDuringFirstInstall ) {
+#	$install_file[$i]['file'] = 'upgrade';
+#	$install_file[$i++]['name'] = 'Upgrade';
+}
 $install_file[$i]['file'] = 'cleanup';
 $install_file[$i++]['name'] = 'Cleanup';
 // these settings should only be present when we are installing for the first time
