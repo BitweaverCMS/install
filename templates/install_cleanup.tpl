@@ -5,48 +5,7 @@
 
 	{legend legend="Database Integrity Check"}
 
-		{if $metaTables}
-			<p class="warning">
-				We have scanned the database and have found some outdated tables.
-				We will update these to the latest set of tables.
-				If you wish to upgrade the tables by hand, please visit the
-				<a class="external" href="http://www.bitweaver.org/wiki/SchemaChangelog">SchemaChangelog</a>
-				and apply the new schema from the 23-MAY-2008.
-			</p>
-			<ul>
-				{foreach from=$metaTables key=type item=hash}
-					<li>
-						{$type}
-						<ul>
-							{foreach from=$hash.tables item=table}
-								<li>{$table}</li>
-							{/foreach}
-						</ul>
-					</li>
-				{/foreach}
-			</ul>
-
-			{if $gBitSystem->isPackageActive( "treasury" )}
-				<p class="warning">
-					Seems that you have been using treasury. After the tables
-					have been fixed, please make sure to go to the
-					<a href="{$smarty.const.TREASURY_PKG_URL}admin/database_to_libertymime.php">treasury database upgrader</a>
-					to complete the upgrade process (best if you open the link
-					a separate tab/window now to ensure you don't forget...
-				</p>
-			{/if}
-
-			<div class="row submit">
-				<input type="submit" name="update_tables" value="Update old meta table(s)" />
-			</div>
-
-			<div class="row">
-				{forminput}
-					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
-					{formhelp note="Display SQL statements."}
-				{/forminput}
-			</div>
-		{elseif $dbIntegrity}
+		{if $dbIntegrity}
 			<p class="warning">
 				We have scanned the database for missing tables and have found that the following tables have not been installed:
 			</p>

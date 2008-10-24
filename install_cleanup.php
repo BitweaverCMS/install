@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.24 2008/10/13 19:08:32 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.25 2008/10/24 22:08:13 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -19,39 +19,6 @@ $gBitSmarty->assign_by_ref( 'schema', $schema );
 // install_inc.php and contains all tables that are not present in the database
 // - even tables of packages that are not installed
 $dbIntegrity = install_check_database_integrity( $dbTables );
-
-
-
-// ===================== Meta table update =====================
-// We have a special case: we need to remove the old meta tables in the 
-// database and replace them with the new meta schema. simply check for the 
-// original set, if they exist, we'll add a button to the page and allow users 
-// to upgrade.
-$metaTables = array();
-if( in_array( 'liberty_meta_content_map', $dbTables['unused'] ) || ( !empty( $dbTables['missing']['liberty'] ) && in_array( 'liberty_meta_titles', $dbTables['missing']['liberty'] ))) {
-	// we have established that we have the liberty_meta_content_map table in the database.
-	// this means that we need to remove the 3 old meta tables before we can proceede.
-	$metaTables = array(
-		'old' => array(
-			'tables' => array(
-				'liberty_meta_content_map',
-				'liberty_meta_data',
-				'liberty_meta_types',
-			),
-		),
-		'new' => array(
-			'tables' => array(
-				'liberty_meta_types',
-				'liberty_meta_titles',
-				'liberty_attachment_meta_data',
-			),
-			'sequences' => array(
-				'liberty_meta_types_id_seq',
-				'liberty_meta_titles_id_seq',
-			),
-		),
-	);
-}
 
 
 
@@ -161,65 +128,6 @@ if( !empty(  $_REQUEST['create_tables'] ) && !empty( $dbIntegrity )) {
 	}
 }
 
-// update old meta schema to new one
-if( !empty(  $_REQUEST['update_tables'] ) && !empty( $metaTables )) {
-	$gBitInstallDb = &ADONewConnection( $gBitDbType );
-
-	if( $gBitInstallDb->Connect( $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName )) {
-		$dict = NewDataDictionary( $gBitInstallDb );
-
-		if( !$gBitInstaller->mDb->getCaseSensitivity() ) {
-			$dict->connection->nameQuote = '';
-		}
-
-		if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] )) {
-			$gBitInstaller->debug();
-			$gBitInstallDb->debug = 99;
-		}
-
-		// If we use MySql check which storage engine to use
-		if( isset( $_SESSION['use_innodb'] ) ){
-			if( $_SESSION['use_innodb'] == TRUE ) {
-				$build = array('NEW', 'MYSQL' => 'ENGINE=INNODB');
-			} else {
-				$build = array('NEW', 'MYSQL' => 'ENGINE=MYISAM');
-			}
-		} else {
-			$build = 'NEW';
-		}
-
-		$tablePrefix = $gBitInstaller->getTablePrefix();
-
-		// first we remove the old tables
-		foreach( $metaTables['old']['tables'] as $table ) {
-			$completeTableName = $tablePrefix.$table;
-			if( $sql = $dict->DropTableSQL( $completeTableName )) {
-				$dict->ExecuteSQLArray( $sql );
-			}
-		}
-
-		// then we create the new tables and sequences
-		foreach( $metaTables['new']['tables'] as $table ) {
-			$completeTableName = $tablePrefix.$table;
-			if( $sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages['liberty']['tables'][$table], $build )) {
-				$dict->ExecuteSQLArray( $sql );
-			}
-		}
-
-		foreach( $metaTables['new']['sequences'] as $sequenceIdx ) {
-			$schemaQuote = strrpos( BIT_DB_PREFIX, '`' );
-			$sequencePrefix = ( $schemaQuote ? substr( BIT_DB_PREFIX,  $schemaQuote + 1 ) : BIT_DB_PREFIX );
-			$result = $gBitInstallDb->CreateSequence( $sequencePrefix.$sequenceIdx, $gBitInstaller->mPackages['liberty']['sequences'][$sequenceIdx]['start'] );
-		}
-
-		// inform the template that the old tables have been sorted
-		$metaTables = array();
-	}
-
-	// make sure plugins are up to date.
-	$gLibertySystem->scanAllPlugins();
-}
-
 // if any of the serviceList items have been unchecked, disable the appropriate packages
 if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
@@ -280,7 +188,6 @@ $dbIntegrity = install_check_database_integrity( $dbTables );
 $gBitSmarty->assign( 'dbIntegrity', $dbIntegrity );
 
 $gBitSmarty->assign( 'serviceList', $serviceList );
-$gBitSmarty->assign( 'metaTables', $metaTables );
 
 
 

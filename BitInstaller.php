@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.33 2008/10/24 20:22:18 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.34 2008/10/24 22:08:13 squareing Exp $
  * @package install
  */
 
@@ -64,29 +64,33 @@ class BitInstaller extends BitSystem {
 	/**
 	 * verifyPackageUpgrade 
 	 * 
-	 * @param array $pParams 
-	 * @param array $pCheckDesc 
+	 * @param array $pParams Hash of information about upgrade
+	 * @param string $pParams[package] Name of package that is upgrading
+	 * @param string $pParams[version] Version of this upgrade
+	 * @param string $pParams[description] Description of what the upgrade does
+	 * @param string $pParams[post_upgrade] Textual note of stuff that needs to be observed after the upgrade
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
-	function verifyPackageUpgrade( &$pParams, $pCheckDesc = TRUE ) {
+	function verifyPackageUpgrade( &$pParams ) {
 		if( empty( $pParams['package'] )) {
 			$this->mErrors['package'] = "Please provide a valid package name.";
 		}
 
 		if( empty( $pParams['version'] ) || !$this->validateVersion( $pParams['version'] )) {
-			$this->mErrors['package'] = "Please provide a valid version number.";
+			$this->mErrors['version'] = "Please provide a valid version number.";
 		} elseif( empty( $this->mErrors ) && !empty( $this->mPackageUpgrades[$pParams['package']][$pParams['version']] )) {
-			$this->mErrors['package'] = "Please make sure you use a unique version number to register your new database changes.";
+			$this->mErrors['version'] = "Please make sure you use a unique version number to register your new database changes.";
 		}
 
-		if( $pCheckDesc && empty( $pParams['description'] )) {
-			$this->mErrors['package'] = "Please add a brief description of what this upgrade is all about.";
+		if( empty( $pParams['description'] )) {
+			$this->mErrors['description'] = "Please add a brief description of what this upgrade is all about.";
 		}
 
 		// since this should only show up when devs are working, we'll simply display the output:
 		if( !empty( $this->mErrors )) {
-			var_dump( $this->mErrors );
+			vd( $this->mErrors );
+			bt();
 		}
 
 		return( count( $this->mErrors ) == 0 );
