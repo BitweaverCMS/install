@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.32 2008/10/23 19:57:07 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.33 2008/10/24 20:22:18 squareing Exp $
  * @package install
  */
 
@@ -8,6 +8,8 @@
  * @package install
  */
 class BitInstaller extends BitSystem {
+
+	var $mPackageUpgrades = array();
 
 	/**
 	 * Initiolize BitInstaller 
@@ -45,44 +47,64 @@ class BitInstaller extends BitSystem {
 	/**
 	 * registerPackageUpgrade 
 	 * 
-	 * @param array $pPackage 
-	 * @param array $pVersion 
-	 * @param array $pDatadict 
+	 * @param array $pParams 
+	 * @param array $pUpgradeHash 
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
-	function registerPackageUpgrade( $pPackage, $pVersion, $pDatadict ) {
-		if( !empty( $pPackage ) && $this->validateVersion( $pVersion ) && !empty( $pDatadict )) {
-			if( empty( $this->mPackageUpgrades[$pPackage][$pVersion] )) {
-				$this->mPackageUpgrades[$pPackage][$pVersion]['datadict'] = $pDatadict;
-				// ensure all upgrades are in ascending order that the upgrade can do its thing easily.
-				uksort( $this->mPackageUpgrades[$pPackage], 'upgrade_version_sort' );
-			} else {
-				vd( "Please make sure you use a unique version number to register your new database changes." );
-			}
-		} else {
-			vd( "Please make sure you use a valid version number." );
+	function registerPackageUpgrade( $pParams, $pUpgradeHash ) {
+		if( $this->verifyPackageUpgrade( $pParams ) && !empty( $pUpgradeHash )) {
+			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]            = $pParams;
+			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]['upgrade'] = $pUpgradeHash;
+			// ensure all upgrades are in ascending order
+			uksort( $this->mPackageUpgrades[$pParams['package']], 'upgrade_version_sort' );
 		}
 	}
 
 	/**
-	 * registerDependency 
+	 * verifyPackageUpgrade 
 	 * 
-	 * @param array $pPackage Package that requires the dependency
-	 * @param array $pVersion Version of the package that requires the dependency
-	 * @param array $pDepPackage package dependency required
-	 * @param array $pDepVersion Version of the package that is required
+	 * @param array $pParams 
+	 * @param array $pCheckDesc 
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
-	function registerPackageDependencies( $pPackage, $pVersion, $pDepHash ) {
-		if( !empty( $pPackage ) && $this->validateVersion( $pVersion ) && !empty( $pDepHash ) && is_array( $pDepHash )) {
+	function verifyPackageUpgrade( &$pParams, $pCheckDesc = TRUE ) {
+		if( empty( $pParams['package'] )) {
+			$this->mErrors['package'] = "Please provide a valid package name.";
+		}
+
+		if( empty( $pParams['version'] ) || !$this->validateVersion( $pParams['version'] )) {
+			$this->mErrors['package'] = "Please provide a valid version number.";
+		} elseif( empty( $this->mErrors ) && !empty( $this->mPackageUpgrades[$pParams['package']][$pParams['version']] )) {
+			$this->mErrors['package'] = "Please make sure you use a unique version number to register your new database changes.";
+		}
+
+		if( $pCheckDesc && empty( $pParams['description'] )) {
+			$this->mErrors['package'] = "Please add a brief description of what this upgrade is all about.";
+		}
+
+		// since this should only show up when devs are working, we'll simply display the output:
+		if( !empty( $this->mErrors )) {
+			var_dump( $this->mErrors );
+		}
+
+		return( count( $this->mErrors ) == 0 );
+	}
+
+	/**
+	 * registerPackageDependencies 
+	 * 
+	 * @param array $pParams 
+	 * @param array $pDepHash 
+	 * @access public
+	 * @return void
+	 */
+	function registerPackageDependencies( $pParams, $pDepHash ) {
+		if( !empty( $pParams['package'] ) && !empty( $pParams['version'] ) && $this->validateVersion( $pParams['version'] ) && !empty( $pDepHash ) && is_array( $pDepHash )) {
 			foreach( $pDepHash as $pkg => $version ) {
 				if( $this->validateVersion( $version )) {
-					$this->mPackageDependencies[$pPackage][$pVersion]['dependencies'] = array(
-						'dependency' => $pkg,
-						'minversion' => $version,
-					);
+					$this->mPackageDependencies[$pParams['package']][$pParams['version']]['dependencies'] = $pDepHash;
 				} else {
 					vd( "Please make sure you use a valid version number." );
 				}
@@ -92,6 +114,11 @@ class BitInstaller extends BitSystem {
 
 	function verifyDependencies() {
 		// anyone feel like it?
+		// thoughts:
+		// - get version of installed packages and merge them with the ones that are about to be installed
+		// - check if all dependencies will be met at the end of the installation
+		// - is there a need to specify in which order the installs need to be performed?
+		return TRUE;
 	}
 
 	/**
@@ -225,177 +252,218 @@ class BitInstaller extends BitSystem {
 	/**
 	 * upgradePackage 
 	 * 
-	 * @param array $package 
+	 * @param array $pPackage 
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
-	function upgradePackage( $package ) {
+	function upgradePackage( $pPackage ) {
+		if( !empty( $pPackage ) && !empty( $this->mUpgrades[$pPackage] )) {
+			return( $this->applyUpgrade( $pPackage, $this->mUpgrades[$pPackage] ));
+		}
+	}
+
+	/**
+	 * upgradePackageVersion 
+	 * 
+	 * @param array $pPackage 
+	 * @param array $pVersion 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
+	function upgradePackageVersions( $pPackage ) {
+		if( !empty( $pPackage ) && !empty( $this->mPackageUpgrades[$pPackage] )) {
+			// make sure everything is in the right order
+			uksort( $this->mPackageUpgrades[$pPackage], 'upgrade_version_sort' );
+
+			foreach( $this->mPackageUpgrades[$pPackage] as $version => $package ) {
+				$errors[$version] = $this->applyUpgrade( $pPackage, $this->mPackageUpgrades[$pPackage][$version]['upgrade'] );
+				if( !empty( $errors[$version] )) {
+					return $errors;
+				} else {
+					// if the upgrade ended without incidence, we store the package version
+					// this way we store the version after every successful step to avoid duplicate upgrades
+					$this->storeVersion( $pPackage, $version );
+				}
+			}
+		}
+
+		return NULL;
+	}
+
+	/**
+	 * applyUpgrade 
+	 * 
+	 * @param array $pPackage 
+	 * @param array $pUpgradeHash 
+	 * @access public
+	 * @return empty array on success, array with errors on failure
+	 */
+	function applyUpgrade( $pPackage, $pUpgradeHash ) {
 		global $gBitDb;
 		$ret = array();
 
-		if( !empty( $this->mUpgrades[$package] )) {
+		if( !empty( $pUpgradeHash ) && is_array( $pUpgradeHash )) {
 			// set table prefixes and handle special case of sequence prefixes
 			$schemaQuote = strrpos( BIT_DB_PREFIX, '`' );
 			$sequencePrefix = ( $schemaQuote ? substr( BIT_DB_PREFIX,  $schemaQuote + 1 ) : BIT_DB_PREFIX );
 			$tablePrefix = $this->getTablePrefix();
 			$dict = NewDataDictionary( $gBitDb->mDb );
-			for( $i = 0; $i < count( $this->mUpgrades[$package] ); $i++ ) {
+			$failedcommands = array();
 
-				if( !is_array( $this->mUpgrades[$package][$i] ) ) {
-					vd( "[$package][$i] is NOT array" );
-					vd( $this->mUpgrades[$package][$i] );
+			for( $i = 0; $i < count( $pUpgradeHash ); $i++ ) {
+				if( !is_array( $pUpgradeHash[$i] ) ) {
+					vd( "[$pPackage][$i] is NOT an array" );
+					vd( $pUpgradeHash[$i] );
 					bt();
 					die;
 				}
 
-				$type = key( $this->mUpgrades[$package][$i] );
-				$step = &$this->mUpgrades[$package][$i][$type];
-				$failedcommands = array();
+				$type = key( $pUpgradeHash[$i] );
+				$step = &$pUpgradeHash[$i][$type];
 
 				switch( $type ) {
 					case 'DATADICT':
 						for( $j = 0; $j < count( $step ); $j++ ) {
 							$dd = &$step[$j];
 							switch( key( $dd ) ) {
-							case 'CREATE':
-								foreach( $dd as $create ) {
-									foreach( array_keys( $create ) as $tableName ) {
-										$completeTableName = $tablePrefix.$tableName;
-										$sql = $dict->CreateTableSQL( $completeTableName, $create[$tableName], 'REPLACE' );
-										if( $sql && ( $dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-										} else {
-											$errors[] = 'Failed to create '.$completeTableName;
-											$failedcommands[] = implode( " ", $sql );
-										}
-									}
-								}
-								break;
-							case 'ALTER':
-								foreach( $dd as $alter ) {
-									foreach( array_keys( $alter ) as $tableName ) {
-										$completeTableName = $tablePrefix.$tableName;
-										foreach( $alter[$tableName] as $from => $flds ) {
-											if (is_string($flds)) {
-												$sql = $dict->ChangeTableSQL( $completeTableName, $flds );
+								case 'CREATE':
+									foreach( $dd as $create ) {
+										foreach( array_keys( $create ) as $tableName ) {
+											$completeTableName = $tablePrefix.$tableName;
+											$sql = $dict->CreateTableSQL( $completeTableName, $create[$tableName], 'REPLACE' );
+											if( $sql && ( $dict->ExecuteSQLArray( $sql, FALSE ) > 0 ) ) {
 											} else {
-												$sql = $dict->ChangeTableSQL( $completeTableName, array($flds) );
-											}
-											if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-											} else {
-												$errors[] = 'Failed to alter '.$completeTableName.' -> '.$alter[$tableName];
+												$errors[] = 'Failed to create '.$completeTableName;
 												$failedcommands[] = implode( " ", $sql );
 											}
 										}
 									}
-								}
-								break;
-							case 'RENAMETABLE':
-								foreach( $dd as $rename ) {
-									foreach( array_keys( $rename ) as $tableName ) {
-										$completeTableName = $tablePrefix.$tableName;
-										if( $sql = @$dict->RenameTableSQL( $completeTableName, $tablePrefix.$rename[$tableName] ) ) {
-											foreach( $sql AS $query ) {
-												$this->mDb->query( $query );
-											}
-										} else {
-											$errors[] = 'Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1];
-											$failedcommands[] = implode( " ", $sql );
-										}
-									}
-								}
-								break;
-							case 'RENAMECOLUMN':
-								foreach( $dd as $rename ) {
-									foreach( array_keys( $rename ) as $tableName ) {
-										$completeTableName = $tablePrefix.$tableName;
-										foreach( $rename[$tableName] as $from => $flds ) {
-											// MySQL needs the fields string, others do not.
-											// see http://phplens.com/lens/adodb/docs-datadict.htm
-											$to = substr( $flds, 0, strpos( $flds, ' ') );
-											if( $sql = @$dict->RenameColumnSQL( $completeTableName, $from, $to, $flds ) ) {
-												foreach( $sql AS $query ) {
-													$this->mDb->query( $query );
+									break;
+								case 'ALTER':
+									foreach( $dd as $alter ) {
+										foreach( array_keys( $alter ) as $tableName ) {
+											$completeTableName = $tablePrefix.$tableName;
+											foreach( $alter[$tableName] as $from => $flds ) {
+												if( is_string( $flds )) {
+													$sql = $dict->ChangeTableSQL( $completeTableName, $flds );
+												} else {
+													$sql = $dict->ChangeTableSQL( $completeTableName, array( $flds ));
 												}
-											} else {
-												$errors[] = 'Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1];
-												$failedcommands[] = implode( " ", $sql );
-											}
-										}
-									}
-								}
-								break;
-							case 'CREATESEQUENCE':
-								foreach( $dd as $create ) {
-									foreach( $create as $sequence ) {
-										$this->mDb->CreateSequence( $sequencePrefix.$sequence );
-									}
-								}
-								break;
-							case 'RENAMESEQUENCE':
-								foreach( $dd as $rename ) {
-									foreach( $rename as $from => $to ) {
-										if( $this->mDb->tableExists( $tablePrefix.$from ) ) {
-											if( $id = $this->mDb->GenID( $from ) ) {
-												$this->mDb->DropSequence( $sequencePrefix.$from );
-												$this->mDb->CreateSequence( $sequencePrefix.$to, $id );
-											} else {
-												$errors[] = 'Failed to rename sequence '.$sequencePrefix.$from.' to '.$sequencePrefix.$to;
-												$failedcommands[] = implode( " ", $sql );
-											}
-										} else {
-											$this->mDb->CreateSequence( $sequencePrefix.$to, $this->mPackages[$package]['sequences'][$to]['start'] );
-										}
-									}
-								}
-								break;
-							case 'DROPCOLUMN':
-								foreach( $dd as $drop ) {
-									foreach( array_keys( $drop ) as $tableName ) {
-										$completeTableName = $tablePrefix.$tableName;
-										foreach( $drop[$tableName] as $col ) {
-											if( $sql = $dict->DropColumnSQL( $completeTableName, $col ) ) {
-												foreach( $sql AS $query ) {
-													$this->mDb->query( $query );
-												}
-											} else {
-												$errors[] = 'Failed to drop column '.$completeTableName;
-												$failedcommands[] = implode( " ", $sql );
-											}
-										}
-									}
-								}
-								break;
-							case 'DROPTABLE':
-								foreach( $dd as $drop ) {
-									foreach( $drop as $tableName ) {
-										$completeTableName = $tablePrefix.$tableName;
-										$sql = $dict->DropTableSQL( $completeTableName );
-										if( $sql && ($dict->ExecuteSQLArray( $sql ) > 0 ) ) {
-										} else {
-											$errors[] = 'Failed to drop table '.$completeTableName;
-											$failedcommands[] = implode( " ", $sql );
-										}
-									}
-								}
-								break;
-							case 'CREATEINDEX':
-								foreach( $dd as $indices ) {
-									foreach( array_keys( $indices ) as $index ) {
-										$completeTableName = $tablePrefix.$indices[$index][0];
-										if( $sql = $dict->CreateIndexSQL( $index, $completeTableName, $indices[$index][1], $indices[$index][2] ) ) {
-											foreach( $sql AS $query ) {
-												$this->mDb->query( $query );
-											}
-										} else {
-											$errors[] = 'Failed to create index '.$index;
-											$failedcommands[] = implode( " ", $sql );
-										}
-									}
-								}
 
-								break;
+												if( $sql && $dict->ExecuteSQLArray( $sql, FALSE ) > 0 ) {
+												} else {
+													$errors[] = 'Failed to alter '.$completeTableName.' -> '.$alter[$tableName];
+													$failedcommands[] = implode( " ", $sql );
+												}
+											}
+										}
+									}
+									break;
+								case 'RENAMETABLE':
+									foreach( $dd as $rename ) {
+										foreach( array_keys( $rename ) as $tableName ) {
+											$completeTableName = $tablePrefix.$tableName;
+											if( $sql = @$dict->RenameTableSQL( $completeTableName, $tablePrefix.$rename[$tableName] ) ) {
+												foreach( $sql AS $query ) {
+													$this->mDb->query( $query );
+												}
+											} else {
+												$errors[] = 'Failed to rename table '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1];
+												$failedcommands[] = implode( " ", $sql );
+											}
+										}
+									}
+									break;
+								case 'RENAMECOLUMN':
+									foreach( $dd as $rename ) {
+										foreach( array_keys( $rename ) as $tableName ) {
+											$completeTableName = $tablePrefix.$tableName;
+											foreach( $rename[$tableName] as $from => $flds ) {
+												// MySQL needs the fields string, others do not.
+												// see http://phplens.com/lens/adodb/docs-datadict.htm
+												$to = substr( $flds, 0, strpos( $flds, ' ') );
+												if( $sql = @$dict->RenameColumnSQL( $completeTableName, $from, $to, $flds ) ) {
+													foreach( $sql AS $query ) {
+														$this->mDb->query( $query );
+													}
+												} else {
+													$errors[] = 'Failed to rename column '.$completeTableName.'.'.$rename[$tableName][0].' to '.$rename[$tableName][1];
+													$failedcommands[] = implode( " ", $sql );
+												}
+											}
+										}
+									}
+									break;
+								case 'CREATESEQUENCE':
+									foreach( $dd as $create ) {
+										foreach( $create as $sequence ) {
+											$this->mDb->CreateSequence( $sequencePrefix.$sequence );
+										}
+									}
+									break;
+								case 'RENAMESEQUENCE':
+									foreach( $dd as $rename ) {
+										foreach( $rename as $from => $to ) {
+											if( $this->mDb->tableExists( $tablePrefix.$from ) ) {
+												if( $id = $this->mDb->GenID( $from ) ) {
+													$this->mDb->DropSequence( $sequencePrefix.$from );
+													$this->mDb->CreateSequence( $sequencePrefix.$to, $id );
+												} else {
+													$errors[] = 'Failed to rename sequence '.$sequencePrefix.$from.' to '.$sequencePrefix.$to;
+													$failedcommands[] = implode( " ", $sql );
+												}
+											} else {
+												$this->mDb->CreateSequence( $sequencePrefix.$to, $pUpgradeHash['sequences'][$to]['start'] );
+											}
+										}
+									}
+									break;
+								case 'DROPCOLUMN':
+									foreach( $dd as $drop ) {
+										foreach( array_keys( $drop ) as $tableName ) {
+											$completeTableName = $tablePrefix.$tableName;
+											foreach( $drop[$tableName] as $col ) {
+												if( $sql = $dict->DropColumnSQL( $completeTableName, $col ) ) {
+													foreach( $sql AS $query ) {
+														$this->mDb->query( $query );
+													}
+												} else {
+													$errors[] = 'Failed to drop column '.$completeTableName;
+													$failedcommands[] = implode( " ", $sql );
+												}
+											}
+										}
+									}
+									break;
+								case 'DROPTABLE':
+									foreach( $dd as $drop ) {
+										foreach( $drop as $tableName ) {
+											$completeTableName = $tablePrefix.$tableName;
+											$sql = $dict->DropTableSQL( $completeTableName );
+											if( $sql && ($dict->ExecuteSQLArray( $sql, FALSE ) > 0 ) ) {
+											} else {
+												$errors[] = 'Failed to drop table '.$completeTableName;
+												$failedcommands[] = implode( " ", $sql );
+											}
+										}
+									}
+									break;
+								case 'CREATEINDEX':
+									foreach( $dd as $indices ) {
+										foreach( array_keys( $indices ) as $index ) {
+											$completeTableName = $tablePrefix.$indices[$index][0];
+											if( $sql = $dict->CreateIndexSQL( $index, $completeTableName, $indices[$index][1], $indices[$index][2] ) ) {
+												foreach( $sql AS $query ) {
+													$this->mDb->query( $query );
+												}
+											} else {
+												$errors[] = 'Failed to create index '.$index;
+												$failedcommands[] = implode( " ", $sql );
+											}
+										}
+									}
+									break;
 							}
-
 						}
 						break;
 					case 'QUERY':
@@ -437,8 +505,9 @@ class BitInstaller extends BitSystem {
 			}
 
 			// turn on features that are turned on
-			if( $this->isFeatureActive( 'feature_'.$package )) {
-				$this->storeConfig( 'package_'.$package, 'y', KERNEL_PKG_NAME );
+			// legacy stuff
+			if( $this->isFeatureActive( 'feature_'.$pPackage )) {
+				$this->storeConfig( 'package_'.$pPackage, 'y', KERNEL_PKG_NAME );
 			}
 
 			if( !empty( $failedcommands )) {
@@ -460,11 +529,11 @@ class BitInstaller extends BitSystem {
 	function identifyBlobs( $result ) {
 		$blobs = array();
 		//echo "FieldCount: ".$result->FieldCount()."\n";
-		for($i = 0; $i < $result->FieldCount(); $i++) {
+		for( $i = 0; $i < $result->FieldCount(); $i++ ) {
 			$field = $result->FetchField($i);
 			//echo $i."-".$field->name."-".$result->MetaType($field->type)."-".$field->max_length."\n";
 			// check for blobs
-			if(($result->MetaType($field->type)=='B') || ($result->MetaType($field->type)=='X' && $field->max_length >= 16777215))
+			if(( $result->MetaType( $field->type ) == 'B' ) || ( $result->MetaType( $field->type )=='X' && $field->max_length >= 16777215 ))
 				$blobs[] = $field->name;
 		}
 		return $blobs;
