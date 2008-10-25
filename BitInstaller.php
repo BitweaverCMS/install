@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.34 2008/10/24 22:08:13 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.35 2008/10/25 06:24:20 squareing Exp $
  * @package install
  */
 
@@ -444,7 +444,7 @@ class BitInstaller extends BitSystem {
 										foreach( $drop as $tableName ) {
 											$completeTableName = $tablePrefix.$tableName;
 											$sql = $dict->DropTableSQL( $completeTableName );
-											if( $sql && ($dict->ExecuteSQLArray( $sql, FALSE ) > 0 ) ) {
+											if( $sql && $dict->ExecuteSQLArray( $sql ) > 0 ) {
 											} else {
 												$errors[] = 'Failed to drop table '.$completeTableName;
 												$failedcommands[] = implode( " ", $sql );
