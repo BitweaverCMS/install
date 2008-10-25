@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.36 2008/10/25 08:14:03 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.37 2008/10/25 09:49:45 squareing Exp $
  * @package install
  */
 
@@ -18,6 +18,16 @@ class BitInstaller extends BitSystem {
 	function BitInstaller() {
 		BitSystem::BitSystem();
 		$this->getWebServerUid();
+	}
+
+	/**
+	 * unloadUpgradeFiles Clear out upgrades hash
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	function unloadUpgradeFiles() {
+		$this->mPackageUpgrades = array();
 	}
 
 	/**
