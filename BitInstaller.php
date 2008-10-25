@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.35 2008/10/25 06:24:20 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.36 2008/10/25 08:14:03 squareing Exp $
  * @package install
  */
 
@@ -47,13 +47,17 @@ class BitInstaller extends BitSystem {
 	/**
 	 * registerPackageUpgrade 
 	 * 
-	 * @param array $pParams 
-	 * @param array $pUpgradeHash 
+	 * @param array $pParams Hash of information about upgrade
+	 * @param string $pParams[package] Name of package that is upgrading
+	 * @param string $pParams[version] Version of this upgrade
+	 * @param string $pParams[description] Description of what the upgrade does
+	 * @param string $pParams[post_upgrade] Textual note of stuff that needs to be observed after the upgrade
+	 * @param array $pUpgradeHash Hash of update rules. See existing upgrades on how this works.
 	 * @access public
-	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 * @return void
 	 */
-	function registerPackageUpgrade( $pParams, $pUpgradeHash ) {
-		if( $this->verifyPackageUpgrade( $pParams ) && !empty( $pUpgradeHash )) {
+	function registerPackageUpgrade( $pParams, $pUpgradeHash = array() ) {
+		if( $this->verifyPackageUpgrade( $pParams )) {
 			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]            = $pParams;
 			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]['upgrade'] = $pUpgradeHash;
 			// ensure all upgrades are in ascending order
