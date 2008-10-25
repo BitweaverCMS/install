@@ -3,6 +3,7 @@
 {jstabs tab=0}
 	{jstab title="Available Upgrades"}
 		{form id="package_select" legend="Please select packages you wish to upgrade" id="package_select"}
+			<p class="danger">You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</p>
 			<input type="hidden" name="step" value="{$next_step}" />
 			{foreach from=$packageUpgrades item=upgrade key=package}
 				<h3><label><input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}</label></h3>
@@ -26,6 +27,30 @@
 					{/foreach}
 				</dl>
 			{/foreach}
+
+			{if $success}
+				<h2>Post Install Notes</h2>
+				<p class="success">Some packages were successfully updated which might have important post upgrade notes.</p>
+				<dl>
+					{foreach from=$success item=upgrade key=package}
+						{foreach from=$upgrade item=data key=version}
+							{if $data.post_upgrade}
+								<dt>{$package}</dt>
+								<dd>
+									Upgrade &rarr; {$version}<br />
+									<strong>Post install notes</strong><br />
+									{$data.post_upgrade}
+								</dd>
+								{assign var=upgrade_notes value=1}
+							{/if}
+						{/foreach}
+					{/foreach}
+				</dl>
+
+				{if !$upgrade_notes}
+					<p class="help">No package seems to have any important notes.</p>
+				{/if}
+			{/if}
 
 			{if $errors}
 				<hr />

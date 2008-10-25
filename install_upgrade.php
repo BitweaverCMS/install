@@ -3,12 +3,11 @@ $gBitSmarty->assign( 'next_step', $step );
 
 $errors = $success = array();
 
-//$gBitSystem->storeVersion( 'wiki', '0.1.0' );
-
 // load up all available package upgrades that we have
 foreach( array_keys( $gBitInstaller->mPackages ) as $pkg ) {
 	$gBitInstaller->loadUpgradeFiles( $pkg );
 }
+
 $gBitSmarty->assign( 'packageUpgrades', $gBitInstaller->mPackageUpgrades );
 $gBitSmarty->assign( 'schema', $gBitInstaller->mPackages );
 
@@ -23,7 +22,8 @@ if( !empty( $_REQUEST['upgrade_packages'] )) {
 			if( $error = $gBitInstaller->upgradePackageVersions( $package )) {
 				$errors[$package] = $error;
 			} else {
-				$success[] = $package;
+				// copy the upgrade hash to success. next round this isn't available anymore from mPackageUpgrades since the package is up to date and the upgrade files aren't loaded anymore.
+				$success[$package] = $gBitInstaller->mPackageUpgrades[$package];
 			}
 		}
 	}
@@ -37,6 +37,6 @@ if( !empty( $_REQUEST['upgrade_packages'] )) {
 	}
 }
 
-$gBitSmarty->assign( 'errors', $errors );
 $gBitSmarty->assign( 'success', $success );
+$gBitSmarty->assign( 'errors', $errors );
 ?>
