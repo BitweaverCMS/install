@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.37 2008/10/25 09:49:45 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.38 2008/10/26 11:04:59 squareing Exp $
  * @package install
  */
 
@@ -18,16 +18,6 @@ class BitInstaller extends BitSystem {
 	function BitInstaller() {
 		BitSystem::BitSystem();
 		$this->getWebServerUid();
-	}
-
-	/**
-	 * unloadUpgradeFiles Clear out upgrades hash
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	function unloadUpgradeFiles() {
-		$this->mPackageUpgrades = array();
 	}
 
 	/**
@@ -68,6 +58,7 @@ class BitInstaller extends BitSystem {
 	 */
 	function registerPackageUpgrade( $pParams, $pUpgradeHash = array() ) {
 		if( $this->verifyPackageUpgrade( $pParams )) {
+			$this->registerPackageVersion( $pParams['package'], $pParams['version'] );
 			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]            = $pParams;
 			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]['upgrade'] = $pUpgradeHash;
 			// ensure all upgrades are in ascending order
@@ -119,24 +110,142 @@ class BitInstaller extends BitSystem {
 	 * @return void
 	 */
 	function registerPackageDependencies( $pParams, $pDepHash ) {
-		if( !empty( $pParams['package'] ) && !empty( $pParams['version'] ) && $this->validateVersion( $pParams['version'] ) && !empty( $pDepHash ) && is_array( $pDepHash )) {
-			foreach( $pDepHash as $pkg => $version ) {
-				if( $this->validateVersion( $version )) {
-					$this->mPackageDependencies[$pParams['package']][$pParams['version']]['dependencies'] = $pDepHash;
-				} else {
-					vd( "Please make sure you use a valid version number." );
-				}
-			}
+		if( !empty( $pParams['package'] ) && !empty( $pParams['version'] ) && $this->validateVersion( $pParams['version'] ) && $this->verifyPackageDependencies( $pDepHash )) {
+			$this->mPackageDependencies[$pParams['package']][$pParams['version']]['dependencies'] = $pDepHash;
 		}
 	}
 
-	function verifyDependencies() {
-		// anyone feel like it?
-		// thoughts:
-		// - get version of installed packages and merge them with the ones that are about to be installed
-		// - check if all dependencies will be met at the end of the installation
-		// - is there a need to specify in which order the installs need to be performed?
-		return TRUE;
+	/**
+	 * verifyPackageDependencies 
+	 * 
+	 * @param array $pDepHash 
+	 * @access public
+	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+	 */
+	function verifyPackageDependencies( &$pDepHash ) {
+		if( !empty( $pDepHash ) && is_array( $pDepHash )) {
+			foreach( $pDepHash as $pkg => $versions ) {
+				if( empty( $versions['min'] )) {
+					$this->mErrors['version_min'] = "You have to provide a minimum version number for the $pkg dependency.";
+				} elseif( !$this->validateVersion( $versions['min'] )) {
+					$this->mErrors['version_min'] = "Please make sure you use a valid minimum version number for the $pkg dependency.";
+				} else {
+					// maximum version number is not required
+					if( !empty( $versions['max'] ) && !$this->validateVersion( $versions['max'] )) {
+						$this->mErrors['version_max'] = "Please make sure you use a valid maximum version number for the $pkg dependency.";
+					}
+				}
+			}
+		} else {
+			$this->mErrors['deps'] = "If you want to register dependencies, please do so with a valid dependency hash.";
+		}
+
+		// since this should only show up when devs are working, we'll simply display the output:
+		if( !empty( $this->mErrors )) {
+			vd( $this->mErrors );
+			bt();
+		}
+
+		return( count( $this->mErrors ) == 0 );
+	}
+
+	/**
+	 * getPackageDependencies 
+	 * 
+	 * @param array $pPackage 
+	 * @access public
+	 * @return array of package dependencies
+	 */
+	function getPackageDependencies( $pPackage ) {
+		$ret = array();
+		if( !empty( $pPackage )) {
+			$version = $this->getLatestUpgradeVersion( $pPackage );
+			if( !empty( $version ) && !empty( $this->mPackageDependencies[$pPackage][$version]['dependencies'] )) {
+				return $this->mPackageDependencies[$pPackage][$version]['dependencies'];
+			}
+		}
+		return $ret;
+	}
+
+	/**
+	 * calculateDependencies will calculate all dependencies and return a hash of the results
+	 * 
+	 * @access public
+	 * @return array of calculated dependencies
+	 */
+	function calculateDependencies() {
+		$ret = array();
+		// first we gather all version information.
+		foreach( array_keys( $this->mPackages ) as $package ) {
+			if( $this->isPackageActive( $package )) {
+
+				// get the latest upgrade version, since this is the version the package will be at after install
+				if( !$version = $this->getLatestUpgradeVersion( $package )) {
+					$version = $this->getVersion( $package );
+				}
+				$installed[$package] = $version;
+
+				if( $deps = $this->getPackageDependencies( $package )) {
+					$dependencies[$package] = $deps;
+				}
+			}
+		}
+
+		if( !empty( $dependencies )) {
+			foreach( $dependencies as $package => $deps ) {
+				foreach( $deps as $depPackage => $depVersion ) {
+					$hash = array(
+						'package'   => $package,
+						'requires'  => $depPackage,
+						'version'   => $depVersion,
+					);
+
+					if( !empty( $installed[$depPackage] )) {
+						$hash['version']['available'] = $installed[$depPackage];
+					}
+
+					if( empty( $installed[$depPackage] )) {
+						$hash['result'] = 'missing';
+					} elseif( version_compare( $depVersion['min'], $installed[$depPackage], '>' )) {
+						$hash['result'] = 'min_dep';
+					} elseif( !empty( $depVersion['max'] ) && version_compare( $depVersion['max'], $installed[$depPackage], '<' )) {
+						$hash['result'] = 'max_dep';
+					} else {
+						$hash['result'] = 'ok';
+					}
+
+					$ret[] = $hash;
+				}
+			}
+		}
+
+		return $ret;
+	}
+
+	/**
+	 * getLatestUpgradeVersion will fetch the greatest upgrade number for a given package
+	 * 
+	 * @param array $pPackage package we want to fetch the latest version number for
+	 * @access public
+	 * @return string greatest upgrade number for a given package
+	 */
+	function getLatestUpgradeVersion( $pPackage ) {
+		$ret = '0.0.0';
+		if( !empty( $pPackage )) {
+			$dir = constant( strtoupper( $pPackage )."_PKG_PATH" )."admin/upgrades/";
+			if( is_dir( $dir ) && $upDir = opendir( $dir )) {
+				while( FALSE !== ( $file = readdir( $upDir ))) {
+					if( is_file( $dir.$file )) {
+						$upVersion = str_replace( ".php", "", $file );
+						// we only want to update $ret if the version of the file is greater than the previous one
+						if( $this->validateVersion( $upVersion ) && version_compare( $ret, $upVersion, "<" )) {
+							$ret = $upVersion;
+						}
+					}
+				}
+			}
+		}
+		return(( $ret == '0.0.0' ) ? FALSE : $ret );
 	}
 
 	/**

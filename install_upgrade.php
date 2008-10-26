@@ -34,6 +34,7 @@ if( !empty( $_REQUEST['upgrade_packages'] )) {
 	}
 }
 
+$gBitSmarty->assign( 'dependencies', $gBitInstaller->calculateDependencies() );
 $gBitSmarty->assign( 'packageUpgrades', $gBitInstaller->mPackageUpgrades );
 $gBitSmarty->assign( 'schema', $gBitInstaller->mPackages );
 $gBitSmarty->assign( 'success', $success );

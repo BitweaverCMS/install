@@ -6,7 +6,11 @@
 			<p class="danger">You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</p>
 			<input type="hidden" name="step" value="{$next_step}" />
 			{foreach from=$packageUpgrades item=upgrade key=package}
-				<h3><label><input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}</label></h3>
+				{* users don't have the option to select what packages to upgrade since the code of the package is dependent on this upgrade
+				<h3><label><input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}</label></h3> *}
+
+				<h3>{$package}</h3>
+				<input type="hidden" name="packages[]" value="{$package}" />
 				<dl>
 					<dt>{$gBitSystem->getVersion($package)}</dt>
 					<dd>This is the currently installed version</dd>
@@ -49,6 +53,74 @@
 
 				{if !$upgrade_notes}
 					<p class="help">No package seems to have any important notes.</p>
+				{/if}
+			{/if}
+
+			{if $dependencies}
+				<h2>Dependency Table</h2>
+				<p class="help">Below you will find a table with package dependencies. If not all package dependencies are met, consider trying to meet all package dependencies. If you don't meet them, you can continue at your own peril.</p>
+				<table id="dependencies">
+					<caption>Package Dependencies</caption>
+					<tr>
+						<th style="width:16%;">Requirement</th>
+						<th style="width:16%;">Min Version</th>
+						<th style="width:16%;">Max Version</th>
+						<th style="width:16%;">Available</th>
+						<th style="width:36%;">Result</th>
+					</tr>
+					{foreach from=$dependencies item=dep}
+						{if $pkg != $dep.package}
+							<tr><th colspan="5">{$dep.package|ucfirst} requirements</th></tr>
+							{assign var=pkg value=$dep.package}
+						{/if}
+
+						{if $dep.result == 'ok'}
+							{assign var=class value=success}
+						{elseif $dep.result == 'missing'}
+							{assign var=class value=error}
+						{elseif $dep.result == 'min_dep'}
+							{assign var=class value=error}
+						{elseif $dep.result == 'max_dep'}
+							{assign var=class value=warning}
+						{/if}
+
+						<tr class="{$class}">
+							<td>{$dep.requires|ucfirst}</td>
+							<td>{$dep.version.min}</td>
+							<td>{$dep.version.max}</td>
+							<td>{$dep.version.available}</td>
+							<td>
+								{if $dep.result == 'ok'}
+									OK
+								{elseif $dep.result == 'missing'}
+									Package missing
+									{assign var=missing value=true}
+								{elseif $dep.result == 'min_dep'}
+									Minimum version not met
+									{assign var=min_dep value=true}
+								{elseif $dep.result == 'max_dep'}
+									Maximum version exceeded
+									{assign var=max_dep value=true}
+								{/if}
+							</td>
+						</tr>
+					{/foreach}
+				</table>
+
+				{if $missing}
+					<p class="warning">At least one required package is missing. Please install that package before proceeding with the upgrade.</p>
+				{/if}
+
+				{if $min_dep}
+					<p class="warning">At least one package did not meet the minimum version requirement in our calculations. If possible, please get a newer version of those packages and upgrade them as well.</p>
+				{/if}
+
+				{if $max_dep}
+					<p class="warning">At least one package recommend a version lower to the one you have installed or are about to upgrade to. The package you wish to upgrade might work with this combination, but no guarantees can be given.</p>
+				{/if}
+
+				{if !$min_dep && !$max_dep && !$missing}
+					<p class="success">All package dependencies have been met. You can proceed with the installation process.</p>
 				{/if}
 			{/if}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.79 2008/10/18 07:43:04 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.80 2008/10/26 11:04:59 squareing Exp $
  * @package install
  * @subpackage functions
  *
@@ -369,9 +369,14 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					// apparently we need to first remove the vaue from the database to make sure it's set
 					$gBitSystem->storeConfig( 'package_'.$package , NULL );
 					$gBitSystem->storeConfig( 'package_'.$package , 'y', $package );
-					if( !empty( $gBitSystem->mPackages[$package]['version'] )) {
+
+					// we can assume that the latest upgrade version available for a package is the most current version number for that package
+					if( $version = $gBitInstaller->getLatestUpgradeVersion( $package )) {
+						$gBitSystem->storeVersion( $package, $version );
+					} elseif( !empty( $gBitSystem->mPackages[$package]['version'] )) {
 						$gBitSystem->storeVersion( $package, $gBitSystem->mPackages[$package]['version'] );
 					}
+
 					$gBitInstaller->mPackages[ $package ]['installed'] = TRUE;
 					$gBitInstaller->mPackages[ $package ]['active_switch'] = TRUE;
 					// we'll default wiki to the home page
