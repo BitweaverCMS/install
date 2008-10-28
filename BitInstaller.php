@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.39 2008/10/28 21:00:42 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.40 2008/10/28 21:09:40 squareing Exp $
  * @package install
  */
 
@@ -61,8 +61,9 @@ class BitInstaller extends BitSystem {
 			$this->registerPackageVersion( $pParams['package'], $pParams['version'] );
 			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]            = $pParams;
 			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]['upgrade'] = $pUpgradeHash;
-			// ensure all upgrades are in the right order
-			uksort( $this->mPackageUpgrades, 'upgrade_package_sort' );
+
+			// sort everything for a nice display
+			ksort( $this->mPackageUpgrades );
 			uksort( $this->mPackageUpgrades[$pParams['package']], 'upgrade_version_sort' );
 		}
 	}
