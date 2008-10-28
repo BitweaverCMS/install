@@ -60,7 +60,7 @@
 								</div>
 								{forminput}
 									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
-									{formhelp note=`$item.info`}
+									{formhelp note=$item.info is_installer=1}
 									{formhelp note="<strong>Location</strong>: `$item.url`"}
 									{formhelp package=$package}
 								{/forminput}
@@ -80,7 +80,7 @@
 								</div>
 								{forminput}
 									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
-									{formhelp note=`$item.info`}
+									{formhelp note=$item.info is_installer=1}
 									{formhelp note="<strong>Location</strong>: `$item.url`"}
 									{formhelp package=$package}
 								{/forminput}
@@ -167,7 +167,7 @@
 									</div>
 									{forminput}
 										<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" /> <strong>{$package|capitalize}</strong></label>
-										{formhelp note=`$item.info`}
+										{formhelp note=$item.info is_installer=1}
 										{formhelp note="<strong>Location</strong>: `$item.url`"}
 										{formhelp package=$package}
 									{/forminput}
@@ -209,7 +209,7 @@
 							</div>
 							{forminput}
 								<strong>{$package|capitalize}</strong>
-								{formhelp note=`$item.info`}
+								{formhelp note=$item.info is_installer=1}
 								{formhelp note="<strong>Location</strong>: `$item.url`"}
 								{formhelp package=$package}
 							{/forminput}
