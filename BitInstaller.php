@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.38 2008/10/26 11:04:59 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.39 2008/10/28 21:00:42 squareing Exp $
  * @package install
  */
 
@@ -61,7 +61,8 @@ class BitInstaller extends BitSystem {
 			$this->registerPackageVersion( $pParams['package'], $pParams['version'] );
 			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]            = $pParams;
 			$this->mPackageUpgrades[$pParams['package']][$pParams['version']]['upgrade'] = $pUpgradeHash;
-			// ensure all upgrades are in ascending order
+			// ensure all upgrades are in the right order
+			uksort( $this->mPackageUpgrades, 'upgrade_package_sort' );
 			uksort( $this->mPackageUpgrades[$pParams['package']], 'upgrade_version_sort' );
 		}
 	}
@@ -757,6 +758,27 @@ function makeConnection( $gBitDbType, $gBitDbHost, $gBitDbUser, $gBitDbPassword,
 	$gDb->mCaseSensitive = $gBitDbCaseSensitivity;
 	$gDb->SetFetchMode( ADODB_FETCH_ASSOC );
 	return $gDb;
+}
+
+/**
+ * upgrade_package_sort 
+ * 
+ * @param array $a 
+ * @param array $b 
+ * @access public
+ * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+ */
+function upgrade_package_sort( $a, $b ) {
+	global $gBitInstaller;
+	$aa = $gBitInstaller->mPackages[$a];
+	$bb = $gBitInstaller->mPackages[$b];
+	if(( $aa['required'] && $bb['required'] ) || ( !$aa['required'] && !$bb['required'] )) {
+		return 0;
+	} elseif( $aa['required'] && !$bb['required'] ) {
+		return -1;
+	} elseif( !$aa['required'] && $bb['required'] ) {
+		return 1;
+	}
 }
 
 /**
