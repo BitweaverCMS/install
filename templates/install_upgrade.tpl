@@ -3,34 +3,39 @@
 {jstabs tab=0}
 	{jstab title="Available Upgrades"}
 		{form id="package_select" legend="Please select packages you wish to upgrade" id="package_select"}
-			<p class="danger">You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</p>
 			<input type="hidden" name="step" value="{$next_step}" />
-			{foreach from=$packageUpgrades item=upgrade key=package}
-				{* users don't have the option to select what packages to upgrade since the code of the package is dependent on this upgrade
-				<h3><label><input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}</label></h3> *}
 
-				<h3>{$package}</h3>
-				<input type="hidden" name="packages[]" value="{$package}" />
-				<dl>
-					<dt>{$gBitSystem->getVersion($package)}</dt>
-					<dd>This is the currently installed version</dd>
-					{foreach from=$upgrade item=data key=version}
-						<dt>{$data.version}</dt>
-						<dd>{$data.description}</dd>
-						{if $errors.$package.$version}
-							<p class="error">SQL errors that occurred during the {$version} upgrade:<br />
-								<kbd>
-									{if $errors.$package.$version.failedcommands}
-										{foreach from=$errors.$package.$version.failedcommands item=command}
-											{$command}<br />
-										{/foreach}
-									{/if}
-								</kbd>
-							</p>
-						{/if}
-					{/foreach}
-				</dl>
-			{/foreach}
+			{if $packageUpgrades}
+				<p class="danger">You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</p>
+				{foreach from=$packageUpgrades item=upgrade key=package}
+					{* users don't have the option to select what packages to upgrade since the code of the package is dependent on this upgrade
+					<h3><label><input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}</label></h3> *}
+
+					<h3>{$package}</h3>
+					<input type="hidden" name="packages[]" value="{$package}" />
+					<dl>
+						<dt>{$gBitSystem->getVersion($package)}</dt>
+						<dd><small>Currently installed version</small></dd>
+						{foreach from=$upgrade item=data key=version}
+							<dt>{$data.version}</dt>
+							<dd>{$data.description}</dd>
+							{if $errors.$package.$version}
+								<p class="error">SQL errors that occurred during the {$version} upgrade:<br />
+									<kbd>
+										{if $errors.$package.$version.failedcommands}
+											{foreach from=$errors.$package.$version.failedcommands item=command}
+												{$command}<br />
+											{/foreach}
+										{/if}
+									</kbd>
+								</p>
+							{/if}
+						{/foreach}
+					</dl>
+				{/foreach}
+			{elseif !$success}
+				<p class="success">Seems all the packages in your install are up to date!</p>
+			{/if}
 
 			{if $success}
 				<h2>Post Install Notes</h2>
@@ -45,15 +50,10 @@
 									<strong>Post install notes</strong><br />
 									{$data.post_upgrade}
 								</dd>
-								{assign var=upgrade_notes value=1}
 							{/if}
 						{/foreach}
 					{/foreach}
 				</dl>
-
-				{if !$upgrade_notes}
-					<p class="help">No package seems to have any important notes.</p>
-				{/if}
 			{/if}
 
 			{if $dependencies}
