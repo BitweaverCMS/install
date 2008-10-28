@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.40 2008/10/28 21:09:40 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.41 2008/10/28 21:13:54 squareing Exp $
  * @package install
  */
 
@@ -128,7 +128,7 @@ class BitInstaller extends BitSystem {
 		if( !empty( $pDepHash ) && is_array( $pDepHash )) {
 			foreach( $pDepHash as $pkg => $versions ) {
 				if( empty( $versions['min'] )) {
-					$this->mErrors['version_min'] = "You have to provide a minimum version number for the $pkg dependency.";
+					$this->mErrors['version_min'] = "You have to provide a minimum version number for the $pkg dependency. If you just want the required package to be present, please use 0.0.0 as minimum version.";
 				} elseif( !$this->validateVersion( $versions['min'] )) {
 					$this->mErrors['version_min'] = "Please make sure you use a valid minimum version number for the $pkg dependency.";
 				} else {
