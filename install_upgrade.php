@@ -15,6 +15,9 @@ if( !empty( $_REQUEST['upgrade_packages'] )) {
 	}
 
 	if( !empty( $_REQUEST['packages'] ) && is_array( $_REQUEST['packages'] )) {
+		// ensure all packages are in the right order before we start applying upgrades
+		uasort( $_REQUEST['packages'], 'upgrade_package_sort' );
+
 		foreach( $_REQUEST['packages'] as $package ) {
 			if( $error = $gBitInstaller->upgradePackageVersions( $package )) {
 				$errors[$package] = $error;
