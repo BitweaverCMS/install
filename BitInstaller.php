@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.42 2008/10/29 22:07:24 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.43 2008/10/29 22:09:58 squareing Exp $
  * @package install
  */
 
@@ -238,6 +238,7 @@ class BitInstaller extends BitSystem {
 		// only do this if we can load PEAR GraphViz interface
 		if( include_once( 'Image/GraphViz.php' )) {
 			$deps = $this->calculateDependencies();
+			$delKeys = $matches = array();
 
 			// crazy manipulation of hash to remove duplicate version matches.
 			// we do this that we can use double headed arrows in the graph below.
@@ -251,7 +252,6 @@ class BitInstaller extends BitSystem {
 			}
 
 			// get duplicates
-			$delKeys = array();
 			foreach( $matches as $key => $match ) {
 				unset( $delKeys[$match] );
 				$delKeys[$key] = $match;
