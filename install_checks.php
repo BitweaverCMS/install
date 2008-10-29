@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.36 2008/09/29 00:07:35 laetzer Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.37 2008/10/29 22:16:04 squareing Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -83,12 +83,12 @@ function check_settings() {
 
 	// check extensions
 	$php_ext = array(
-		'zlib'         => '<a href="http://www.zlib.net/">The zlib compression libraries</a> are used to pack and unpack compressed files such as .zip files.',
-		'gd'           => '<a href="http://www.boutell.com/gd/">GD Libraries</a> are used to manipulate images. Bitweaver uses these libraries to create thumbnails and convert images from one format to another. If you are running Red Hat or Fedora Core, you can try: <kbd>yum install php-gd</kbd>. The GD libaries are quite limited and <em>don\'t support</em> a number of image formats including <em>.bmp</em>. If you are planning on uploading and using a lot of images, we recommend you use one of the other image processors.',
+		'zlib'         => '<a class="external" href="http://www.zlib.net/">The zlib compression libraries</a> are used to pack and unpack compressed files such as .zip files.',
+		'gd'           => '<a class="external" href="http://www.boutell.com/gd/">GD Libraries</a> are used to manipulate images. Bitweaver uses these libraries to create thumbnails and convert images from one format to another. If you are running Red Hat or Fedora Core, you can try: <kbd>yum install php-gd</kbd>. The GD libaries are quite limited and <em>don\'t support</em> a number of image formats including <em>.bmp</em>. If you are planning on uploading and using a lot of images, we recommend you use one of the other image processors.',
 		'imagick'      => 'ImageMagick supports a multitude of different image and video formats and <em>can be used instead of the GD Libraries</em>. Using these libraries will allow you to upload most image formats without any difficulties. For installation help, please view <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick homepage</a>.',
 		'magickwand'   => 'MagickWand is a newer PHP extension for ImageMagick. For installation help, please view Bitweaver\'s: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick homepage</a>.',
-		'eAccelerator' => '<a href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of PHP by caching and optimising queries. Using this extension will greatly increase your server\'s performance and reduce the memory needed to run Bitweaver.',
-		'ffmpeg'       => '<a href="http://ffmpeg-php.sourceforge.net/">ffmpeg-php</a> is an extension that will allow you to better process uploaded videos. This extension requires ffmpeg to be installed on your server as well.',
+		'eAccelerator' => '<a class="external" href="http://eaccelerator.net/HomeUk">eAccelerator</a> increases the efficiency of PHP by caching and optimising queries. Using this extension will greatly increase your server\'s performance and reduce the memory needed to run Bitweaver.',
+		'ffmpeg'       => '<a class="external" href="http://ffmpeg-php.sourceforge.net/">ffmpeg-php</a> is an extension that will allow you to better process uploaded videos. This extension requires ffmpeg to be installed on your server as well.',
 	);
 	foreach( $php_ext as $ext => $note ) {
 		$extensions[$ext]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
@@ -122,45 +122,45 @@ function check_settings() {
 			'command'      => 'tar -xvf',
 			'dest_params'  => '-C',
 			'testfile'     => 'test.tar',
-			'note'         => '<strong>Tarball</strong> is a common archiving format on Linux and <a href="http://www.gnu.org/software/tar/">tar</a> is used to extract .tar files.',
+			'note'         => '<strong>Tarball</strong> is a common archiving format on Linux and <a class="external" href="http://www.gnu.org/software/tar/">tar</a> is used to extract .tar files.',
 		),
 		'bzip2' => array(
 			'command'      => 'tar -jvxf',
 			'dest_params'  => '-C',
 			'testfile'     => 'test.tar.bz2',
-			'note'         => '<strong>Bzip</strong> is a common compression format on Linux and <a href="http://www.bzip.org/">bzip2</a> is used to extract .bz2 and in combination with tar .tar.bz2 file.',
+			'note'         => '<strong>Bzip</strong> is a common compression format on Linux and <a class="external" href="http://www.bzip.org/">bzip2</a> is used to extract .bz2 and in combination with tar .tar.bz2 file.',
 		),
 		'gzip' => array(
 			'command'      => 'tar -zvxf',
 			'dest_params'  => '-C',
 			'testfile'     => 'test.tar.gz',
-			'note'         => '<strong>Gzip</strong> is a common compression format on Linux and <a href="http://www.gnu.org/software/gzip/gzip.html">gzip</a> is used to extract .gz and in combination with tar .tar.gz file.',
+			'note'         => '<strong>Gzip</strong> is a common compression format on Linux and <a class="external" href="http://www.gnu.org/software/gzip/gzip.html">gzip</a> is used to extract .gz and in combination with tar .tar.gz file.',
 		),
 		'unzip' => array(
 			'command'      => 'unzip -v',
 			'dest_params'  => '-d',
 			'testfile'     => 'test.zip',
-			'note'         => '<strong>Zip</strong> is a common compression format on all operating systems and <a href="http://www.info-zip.org/">unzip</a> is used to extract .zip files.',
+			'note'         => '<strong>Zip</strong> is a common compression format on all operating systems and <a class="external" href="http://www.info-zip.org/">unzip</a> is used to extract .zip files.',
 		),
 		'unrar' => array(
 			'command'      => 'unrar x',
 			'dest_params'  => '',
 			'testfile'     => 'test.rar',
-			'note'         => '<strong>Rar</strong> is a common compression format on all operating systems and <a href="http://www.rarlab.com/rar_add.htm">unrar</a> is used to extract .rar files.',
+			'note'         => '<strong>Rar</strong> is a common compression format on all operating systems and <a class="external" href="http://www.rarlab.com/rar_add.htm">unrar</a> is used to extract .rar files.',
 		),
 		'gs' => array(
 			'command'      => 'gs --version',
-			'note'         => '<a href="http://www.cs.wisc.edu/~ghost/">GhostScript</a> is an interpreter for the PostScript language and for PDF and is used to create PDF previews when uploading PDF files to Fisheye. If you do not have this installed, previews of PDF files will not be generated on upload. If you have difficulties with GhostScript, please try installing a different version. Bitweaver was successfully tested with versions 7.5, 8.15.4, 8.5, 8.54. There where difficulties with version 8.1.',
+			'note'         => '<a class="external" href="http://www.cs.wisc.edu/~ghost/">GhostScript</a> is an interpreter for the PostScript language and for PDF and is used to create PDF previews when uploading PDF files to Fisheye. If you do not have this installed, previews of PDF files will not be generated on upload. If you have difficulties with GhostScript, please try installing a different version. Bitweaver was successfully tested with versions 7.5, 8.15.4, 8.5, 8.54. There where difficulties with version 8.1.',
 			'result'       => 'Your version of GhostScript: ',
 		),
 		'graphviz' => array(
 			'command'      => 'dot -V 2>&1',
-			'note'         => '<a href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} Liberty plugin and you only need to install it if you intend to enable that plugin.<br /><em>The Pear::Image_Graphviz plugin is required as well.</em>',
+			'note'         => '<a class="external" href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} Liberty plugin and you only need to install it if you intend to enable that plugin.<br /><em>The Pear::Image_Graphviz plugin is required as well.</em>',
 			'result'       => 'Your version of Graphviz: ',
 		),
 		'ffmpeg' => array(
 			'command'      => 'ffmpeg 2>&1',
-			'note'         => '<a href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> is a hyper fast video and audio encoder that supports many common formats. If you are planning on uploading video and audio files, it\'s recommend that you install this application.',
+			'note'         => '<a class="external" href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> is a hyper fast video and audio encoder that supports many common formats. If you are planning on uploading video and audio files, it\'s recommend that you install this application.',
 		),
 //		'unstuff' => array(
 //			'params'       => '-xf',
