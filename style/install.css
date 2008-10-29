@@ -121,7 +121,7 @@ legend	{background:transparent;padding:1em 1em 1em 0}
 .warning,
 .success,
 .note,
-.help	{padding:0.5em;background:transparent url(images/favicon.ico) no-repeat 8px 10px;border:3px double #fff;text-indent:24px}
+.help	{padding:0.5em;background:transparent url(images/favicon.ico) no-repeat 8px 10px;border:3px double #fff;text-indent:24px;list-style-type:none}
 
 .error	{background-color:#ffdddd;background-image:url(images/dialog-error-trans.png);border:1px solid #900;margin:1em}
 .warning	{background-color:#ffe1c3;background-image:url(images/dialog-warning-trans.png)}
