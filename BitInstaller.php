@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.41 2008/10/28 21:13:54 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.42 2008/10/29 22:07:24 squareing Exp $
  * @package install
  */
 
@@ -131,10 +131,11 @@ class BitInstaller extends BitSystem {
 					$this->mErrors['version_min'] = "You have to provide a minimum version number for the $pkg dependency. If you just want the required package to be present, please use 0.0.0 as minimum version.";
 				} elseif( !$this->validateVersion( $versions['min'] )) {
 					$this->mErrors['version_min'] = "Please make sure you use a valid minimum version number for the $pkg dependency.";
-				} else {
-					// maximum version number is not required
-					if( !empty( $versions['max'] ) && !$this->validateVersion( $versions['max'] )) {
+				} elseif( !empty( $versions['max'] )) {
+					if( !$this->validateVersion( $versions['max'] )) {
 						$this->mErrors['version_max'] = "Please make sure you use a valid maximum version number for the $pkg dependency.";
+					} elseif( version_compare( $versions['min'], $versions['max'], '>=' )) {
+						$this->mErrors['version_max'] = "Please make sure the maximum version is greater than the minimum version for the $pkg dependency.";
 					}
 				}
 			}
@@ -197,9 +198,10 @@ class BitInstaller extends BitSystem {
 			foreach( $dependencies as $package => $deps ) {
 				foreach( $deps as $depPackage => $depVersion ) {
 					$hash = array(
-						'package'   => $package,
-						'requires'  => $depPackage,
-						'version'   => $depVersion,
+						'package'          => $package,
+						'package_version'  => $installed[$package],
+						'requires'         => $depPackage,
+						'required_version' => $depVersion,
 					);
 
 					if( !empty( $installed[$depPackage] )) {
@@ -225,29 +227,109 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * getLatestUpgradeVersion will fetch the greatest upgrade number for a given package
+	 * drawDependencyGraph 
 	 * 
-	 * @param array $pPackage package we want to fetch the latest version number for
 	 * @access public
-	 * @return string greatest upgrade number for a given package
+	 * @return image
 	 */
-	function getLatestUpgradeVersion( $pPackage ) {
-		$ret = '0.0.0';
-		if( !empty( $pPackage )) {
-			$dir = constant( strtoupper( $pPackage )."_PKG_PATH" )."admin/upgrades/";
-			if( is_dir( $dir ) && $upDir = opendir( $dir )) {
-				while( FALSE !== ( $file = readdir( $upDir ))) {
-					if( is_file( $dir.$file )) {
-						$upVersion = str_replace( ".php", "", $file );
-						// we only want to update $ret if the version of the file is greater than the previous one
-						if( $this->validateVersion( $upVersion ) && version_compare( $ret, $upVersion, "<" )) {
-							$ret = $upVersion;
-						}
+	function drawDependencyGraph( $pImageFormat = 'png', $pCommand = 'dot' ) {
+		global $gBitSmarty;
+
+		// only do this if we can load PEAR GraphViz interface
+		if( include_once( 'Image/GraphViz.php' )) {
+			$deps = $this->calculateDependencies();
+
+			// crazy manipulation of hash to remove duplicate version matches.
+			// we do this that we can use double headed arrows in the graph below.
+			foreach( $deps as $key => $dep ) {
+				foreach( $deps as $k => $d ) {
+					if( $dep['requires'] == $d['package'] && $dep['package'] == $d['requires'] && $dep['result'] == 'ok' && $d['result'] == 'ok' ) {
+						$deps[$key]['dir'] = 'both';
+						$matches[$key] = $k;
 					}
 				}
 			}
+
+			// get duplicates
+			$delKeys = array();
+			foreach( $matches as $key => $match ) {
+				unset( $delKeys[$match] );
+				$delKeys[$key] = $match;
+			}
+
+			// remove dupes from hash
+			foreach( $delKeys as $key ) {
+				unset( $deps[$key] );
+			}
+
+			// start drawing stuff
+			$graphattributes = array(
+				'fontname' => 'mono',
+				'fontsize' => 11,
+				'overlap'  => 'scale',
+				'size'     => '7,10',
+				'ratio'    => 'auto',
+			);
+			$graph = new Image_GraphViz( TRUE, $graphattributes, 'Dependencies', TRUE );
+
+			$nodeattributes = array(
+				'overlap'  => 'scale',
+				'fontname' => 'mono',
+				'fontsize' => 11,
+			);
+
+			foreach( $deps as $node ) {
+				//$fromNode = ucfirst( $node['package'] )."\n".$node['package_version'];
+				//$toNode   = ucfirst( $node['requires'] )."\n".$node['required_version']['min'];
+
+				$fromNode = ucfirst( $node['package'] );
+				$toNode   = ucfirst( $node['requires'] );
+
+				switch( $node['result'] ) {
+				case 'max_dep':
+					$edgecolor = 'darkorange';
+					$headlabel = 'Maximum version\nexceeded';
+					$toNode   .= "\n".$node['required_version']['min']." - ".$node['required_version']['max'];
+					break;
+				case 'min_dep':
+					$edgecolor = 'crimson';
+					$headlabel = 'Minimum version\nnot met';
+					$toNode   .= "\n".$node['required_version']['min'];
+					if( !empty( $node['required_version']['max'] )) {
+						$toNode .= " - ".$node['required_version']['max'];
+					}
+					break;
+				case 'missing':
+					$edgecolor = 'crimson';
+					$headlabel = 'Missing package';
+					$toNode   .= "\n".$node['required_version']['min'];
+					if( !empty( $node['required_version']['max'] )) {
+						$toNode .= " - ".$node['required_version']['max'];
+					}
+					break;
+				default:
+					$edgecolor = 'darkgreen';
+					$headlabel = '';
+					break;
+				}
+
+				$graph->addNode( $fromNode, $nodeattributes );
+				$graph->addNode( $toNode, $nodeattributes );
+				$graph->addEdge(
+					array( $fromNode => $toNode ),
+					array(
+						'dir'       => ( !empty( $node['dir'] ) ? $node['dir'] : '' ),
+						'color'     => $edgecolor,
+						'fontcolor' => $edgecolor,
+						'label'     => $headlabel,
+						'fontname'  => 'mono',
+						'fontsize'  => 11
+					)
+				);
+			}
+
+			$graph->image( $pImageFormat, $pCommand );
 		}
-		return(( $ret == '0.0.0' ) ? FALSE : $ret );
 	}
 
 	/**

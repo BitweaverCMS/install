@@ -37,6 +37,9 @@ if( !empty( $_REQUEST['upgrade_packages'] )) {
 	}
 }
 
+if( include_once( 'Image/GraphViz.php' )) {
+	$gBitSmarty->assign( 'depgraph', TRUE );
+}
 $gBitSmarty->assign( 'dependencies', $gBitInstaller->calculateDependencies() );
 $gBitSmarty->assign( 'packageUpgrades', $gBitInstaller->mPackageUpgrades );
 $gBitSmarty->assign( 'schema', $gBitInstaller->mPackages );

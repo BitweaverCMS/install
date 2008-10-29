@@ -57,6 +57,14 @@
 			{/if}
 
 			{if $dependencies}
+				{if $depgraph}
+					<h2>Dependency Graph</h2>
+					<p class="help">Below you will find an illustration of how the packages relate to each other.</p>
+					<div style="text-align:center; overflow:auto;">
+						<img alt="A graphical representation of package dependencies" title="Dependency graph" src="{$smarty.const.INSTALL_PKG_URL}dependency_graph.php?command={$smarty.request.command}" />
+					</div>
+				{/if}
+
 				<h2>Dependency Table</h2>
 				<p class="help">Below you will find a table with package dependencies. If not all package dependencies are met, consider trying to meet all package dependencies. If you don't meet them, you can continue at your own peril.</p>
 				<table id="dependencies">
@@ -86,9 +94,9 @@
 
 						<tr class="{$class}">
 							<td>{$dep.requires|ucfirst}</td>
-							<td>{$dep.version.min}</td>
-							<td>{$dep.version.max}</td>
-							<td>{$dep.version.available}</td>
+							<td>{$dep.required_version.min}</td>
+							<td>{$dep.required_version.max}</td>
+							<td>{$dep.required_version.available}</td>
 							<td>
 								{if $dep.result == 'ok'}
 									OK
