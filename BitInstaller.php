@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.44 2008/10/30 09:59:34 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.45 2008/10/30 22:02:19 squareing Exp $
  * @package install
  */
 
@@ -18,12 +18,12 @@ class BitInstaller extends BitSystem {
 	var $mPackageUpgrades = array();
 
 	/**
-	 * mPackageDependencies 
+	 * mDependencies 
 	 * 
 	 * @var array
 	 * @access public
 	 */
-	var $mPackageDependencies = array();
+	var $mDependencies = array();
 
 	/**
 	 * Initiolize BitInstaller 
@@ -35,13 +35,25 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
+	 * loadAllUpgradeFiles load upgrade files from all packages that are installed
+	 * 
+	 * @access public
+	 * void
+	 */
+	function loadAllUpgradeFiles() {
+		foreach( array_keys( $this->mPackages ) as $pkg ) {
+			$this->loadUpgradeFiles( $pkg );
+		}
+	}
+
+	/**
 	 * loadUpgradeFiles This will load all files in the dir <pckage>/admin/upgrades/<version>.php with a version greater than the one installed
 	 * 
 	 * @param array $pPackage 
 	 * @access public
 	 * @return void
 	 */
-	function loadUpgradeFiles( $pPackage, $pForceAll = FALSE ) {
+	function loadUpgradeFiles( $pPackage ) {
 		if( !empty( $pPackage )) {
 			$dir = constant( strtoupper( $pPackage )."_PKG_PATH" )."admin/upgrades/";
 			if( $this->isPackageActive( $pPackage ) && is_dir( $dir ) && $upDir = opendir( $dir )) {
@@ -49,7 +61,7 @@ class BitInstaller extends BitSystem {
 					if( is_file( $dir.$file )) {
 						$upVersion = str_replace( ".php", "", $file );
 						// we only want to load files of versions that are greater than is installed
-						if( $this->validateVersion( $upVersion ) && ( $pForceAll || version_compare( $this->getVersion( $pPackage ), $upVersion, '<' ))) {
+						if( $this->validateVersion( $upVersion ) && version_compare( $this->getVersion( $pPackage ), $upVersion, '<' )) {
 							include_once( $dir.$file );
 						}
 					}
@@ -117,261 +129,6 @@ class BitInstaller extends BitSystem {
 		}
 
 		return( count( $this->mErrors ) == 0 );
-	}
-
-	/**
-	 * registerPackageDependencies 
-	 * 
-	 * @param array $pParams 
-	 * @param array $pDepHash 
-	 * @access public
-	 * @return void
-	 */
-	function registerPackageDependencies( $pParams, $pDepHash ) {
-		if( !empty( $pParams['package'] ) && !empty( $pParams['version'] ) && $this->validateVersion( $pParams['version'] ) && $this->verifyPackageDependencies( $pDepHash )) {
-			$this->mPackageDependencies[strtolower( $pParams['package'] )][$pParams['version']]['dependencies'] = $pDepHash;
-		}
-	}
-
-	/**
-	 * verifyPackageDependencies 
-	 * 
-	 * @param array $pDepHash 
-	 * @access public
-	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
-	 */
-	function verifyPackageDependencies( &$pDepHash ) {
-		if( !empty( $pDepHash ) && is_array( $pDepHash )) {
-			foreach( $pDepHash as $pkg => $versions ) {
-				if( empty( $versions['min'] )) {
-					$this->mErrors['version_min'] = "You have to provide a minimum version number for the $pkg dependency. If you just want the required package to be present, please use 0.0.0 as minimum version.";
-				} elseif( !$this->validateVersion( $versions['min'] )) {
-					$this->mErrors['version_min'] = "Please make sure you use a valid minimum version number for the $pkg dependency.";
-				} elseif( !empty( $versions['max'] )) {
-					if( !$this->validateVersion( $versions['max'] )) {
-						$this->mErrors['version_max'] = "Please make sure you use a valid maximum version number for the $pkg dependency.";
-					} elseif( version_compare( $versions['min'], $versions['max'], '>=' )) {
-						$this->mErrors['version_max'] = "Please make sure the maximum version is greater than the minimum version for the $pkg dependency.";
-					}
-				}
-			}
-		} else {
-			$this->mErrors['deps'] = "If you want to register dependencies, please do so with a valid dependency hash.";
-		}
-
-		// since this should only show up when devs are working, we'll simply display the output:
-		if( !empty( $this->mErrors )) {
-			vd( $this->mErrors );
-			bt();
-		}
-
-		return( count( $this->mErrors ) == 0 );
-	}
-
-	/**
-	 * getPackageDependencies 
-	 * 
-	 * @param array $pPackage 
-	 * @access public
-	 * @return array of package dependencies
-	 */
-	function getPackageDependencies( $pPackage ) {
-		$ret = array();
-		if( !empty( $pPackage )) {
-			$pPackage = strtolower( $pPackage );
-			$version = $this->getLatestUpgradeVersion( $pPackage );
-			if( !empty( $version ) && !empty( $this->mPackageDependencies[$pPackage][$version]['dependencies'] )) {
-				return $this->mPackageDependencies[$pPackage][$version]['dependencies'];
-			}
-		}
-		return $ret;
-	}
-
-	/**
-	 * calculateDependencies will calculate all dependencies and return a hash of the results
-	 * 
-	 * @access public
-	 * @return array of calculated dependencies
-	 */
-	function calculateDependencies() {
-		$ret = array();
-		// first we gather all version information.
-		foreach( array_keys( $this->mPackages ) as $package ) {
-			if( $this->isPackageActive( $package )) {
-
-				// get the latest upgrade version, since this is the version the package will be at after install
-				if( !$version = $this->getLatestUpgradeVersion( $package )) {
-					$version = $this->getVersion( $package );
-				}
-				$installed[$package] = $version;
-
-				if( $deps = $this->getPackageDependencies( $package )) {
-					$dependencies[$package] = $deps;
-				}
-			}
-		}
-
-		if( !empty( $dependencies )) {
-			foreach( $dependencies as $package => $deps ) {
-				foreach( $deps as $depPackage => $depVersion ) {
-					$hash = array(
-						'package'          => $package,
-						'package_version'  => $installed[$package],
-						'requires'         => $depPackage,
-						'required_version' => $depVersion,
-					);
-
-					if( !empty( $installed[$depPackage] )) {
-						$hash['version']['available'] = $installed[$depPackage];
-					}
-
-					if( empty( $installed[$depPackage] )) {
-						$hash['result'] = 'missing';
-					} elseif( version_compare( $depVersion['min'], $installed[$depPackage], '>' )) {
-						$hash['result'] = 'min_dep';
-					} elseif( !empty( $depVersion['max'] ) && version_compare( $depVersion['max'], $installed[$depPackage], '<' )) {
-						$hash['result'] = 'max_dep';
-					} else {
-						$hash['result'] = 'ok';
-					}
-
-					$ret[] = $hash;
-				}
-			}
-		}
-
-		return $ret;
-	}
-
-	function loadAllUpgradeFiles( $pForceAll = FALSE ) {
-		foreach( array_keys( $this->mPackages ) as $pkg ) {
-			$this->loadUpgradeFiles( $pkg, $pForceAll );
-		}
-	}
-
-	/**
-	 * drawDependencyGraph 
-	 * 
-	 * @access public
-	 * @return image
-	 */
-	function drawDependencyGraph( $pFormat = 'png', $pCommand = 'dot' ) {
-		global $gBitSmarty;
-
-		// only do this if we can load PEAR GraphViz interface
-		if( include_once( 'Image/GraphViz.php' )) {
-			// perform the old switcheroo that we can load all deps, even if packages are already up to date.
-			// this is a cheap hack to display the deps of all installed packages, not just the ones we're about to upgrade.
-			// i can't think of a different way to do this since upgrade files register their stuff with $gBitInstaller->registerPackage[Stuff]
-			$tempDeps = $this->mPackageDependencies;
-			$tempUps  = $this->mPackageUpgrades;
-			$this->loadAllUpgradeFiles( TRUE );
-			$deps = $this->calculateDependencies();
-			$this->mPackageDependencies = $tempDeps;
-			$this->mPackageUpgrades     = $tempUps;
-
-			$delKeys = $matches = array();
-
-			// crazy manipulation of hash to remove duplicate version matches.
-			// we do this that we can use double headed arrows in the graph below.
-			foreach( $deps as $key => $dep ) {
-				foreach( $deps as $k => $d ) {
-					if( $dep['requires'] == $d['package'] && $dep['package'] == $d['requires'] && $dep['result'] == 'ok' && $d['result'] == 'ok' ) {
-						$deps[$key]['dir'] = 'both';
-						$matches[$key] = $k;
-					}
-				}
-			}
-
-			// get duplicates
-			foreach( $matches as $key => $match ) {
-				unset( $delKeys[$match] );
-				$delKeys[$key] = $match;
-			}
-
-			// remove dupes from hash
-			foreach( $delKeys as $key ) {
-				unset( $deps[$key] );
-			}
-
-			// start drawing stuff
-			$graphattributes = array(
-				'fontname' => 'mono',
-				'fontsize' => 11,
-				'overlap'  => 'scale',
-				'size'     => '7,10',
-				'ratio'    => 'auto',
-			);
-			$graph = new Image_GraphViz( TRUE, $graphattributes, 'Dependencies', TRUE );
-
-			$nodeattributes = array(
-				'overlap'  => 'scale',
-				'fontname' => 'mono',
-				'fontsize' => 11,
-			);
-
-			foreach( $deps as $node ) {
-				//$fromNode = ucfirst( $node['package'] )."\n".$node['package_version'];
-				//$toNode   = ucfirst( $node['requires'] )."\n".$node['required_version']['min'];
-
-				$fromNode = ucfirst( $node['package'] );
-				$toNode   = ucfirst( $node['requires'] );
-
-				switch( $node['result'] ) {
-				case 'max_dep':
-					$edgecolor = 'darkorange';
-					$headlabel = 'Maximum version\nexceeded';
-					$toNode   .= "\n".$node['required_version']['min']." - ".$node['required_version']['max'];
-					break;
-				case 'min_dep':
-					$edgecolor = 'crimson';
-					$headlabel = 'Minimum version\nnot met';
-					$toNode   .= "\n".$node['required_version']['min'];
-					if( !empty( $node['required_version']['max'] )) {
-						$toNode .= " - ".$node['required_version']['max'];
-					}
-					break;
-				case 'missing':
-					$edgecolor = 'crimson';
-					$headlabel = 'Missing package';
-					$toNode   .= "\n".$node['required_version']['min'];
-					if( !empty( $node['required_version']['max'] )) {
-						$toNode .= " - ".$node['required_version']['max'];
-					}
-					break;
-				default:
-					$edgecolor = 'darkgreen';
-					$headlabel = '';
-					break;
-				}
-
-				$nodeattributes['URL'] = "http://www.bitweaver.org/wiki/".ucfirst( $node['package'] )."Package";
-				$graph->addNode( $fromNode, $nodeattributes );
-
-				$nodeattributes['URL'] = "http://www.bitweaver.org/wiki/".ucfirst( $node['requires'] )."Package";
-				$graph->addNode( $toNode,   $nodeattributes );
-
-				$graph->addEdge(
-					array( $fromNode => $toNode ),
-					array(
-						'dir'       => ( !empty( $node['dir'] ) ? $node['dir'] : '' ),
-						'color'     => $edgecolor,
-						'fontcolor' => $edgecolor,
-						'label'     => $headlabel,
-						'fontname'  => 'mono',
-						'fontsize'  => 11
-					)
-				);
-			}
-
-			if( $pFormat == 'cmapx' ) {
-				return $graph->fetch( $pFormat, $pCommand );
-			} else {
-				$graph->image( $pFormat, $pCommand );
-			}
-		} else {
-			return FALSE;
-		}
 	}
 
 	/**

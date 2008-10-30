@@ -60,7 +60,7 @@
 				<h2>Dependency Graph</h2>
 				<p class="help">Below you will find an illustration of how the packages depend on each other.</p>
 				<div style="text-align:center; overflow:auto;">
-					<img alt="A graphical representation of package dependencies" title="Dependency graph" src="{$smarty.const.INSTALL_PKG_URL}dependency_graph.php?format={$smarty.request.format}&amp;command={$smarty.request.command}" usemap="#Dependencies" />
+					<img alt="A graphical representation of package dependencies" title="Dependency graph" src="{$smarty.const.KERNEL_PKG_URL}dependency_graph.php?format={$smarty.request.format}&amp;command={$smarty.request.command}" usemap="#Dependencies" />
 					{$dependencymap}
 				</div>
 			{/if}
