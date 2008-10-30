@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.43 2008/10/29 22:09:58 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.44 2008/10/30 09:59:34 squareing Exp $
  * @package install
  */
 
@@ -9,7 +9,21 @@
  */
 class BitInstaller extends BitSystem {
 
+	/**
+	 * mPackageUpgrades 
+	 * 
+	 * @var array
+	 * @access public
+	 */
 	var $mPackageUpgrades = array();
+
+	/**
+	 * mPackageDependencies 
+	 * 
+	 * @var array
+	 * @access public
+	 */
+	var $mPackageDependencies = array();
 
 	/**
 	 * Initiolize BitInstaller 
@@ -27,7 +41,7 @@ class BitInstaller extends BitSystem {
 	 * @access public
 	 * @return void
 	 */
-	function loadUpgradeFiles( $pPackage ) {
+	function loadUpgradeFiles( $pPackage, $pForceAll = FALSE ) {
 		if( !empty( $pPackage )) {
 			$dir = constant( strtoupper( $pPackage )."_PKG_PATH" )."admin/upgrades/";
 			if( $this->isPackageActive( $pPackage ) && is_dir( $dir ) && $upDir = opendir( $dir )) {
@@ -35,7 +49,7 @@ class BitInstaller extends BitSystem {
 					if( is_file( $dir.$file )) {
 						$upVersion = str_replace( ".php", "", $file );
 						// we only want to load files of versions that are greater than is installed
-						if( $this->validateVersion( $upVersion ) && version_compare( $this->getVersion( $pPackage ), $upVersion, '<' )) {
+						if( $this->validateVersion( $upVersion ) && ( $pForceAll || version_compare( $this->getVersion( $pPackage ), $upVersion, '<' ))) {
 							include_once( $dir.$file );
 						}
 					}
@@ -64,7 +78,7 @@ class BitInstaller extends BitSystem {
 
 			// sort everything for a nice display
 			ksort( $this->mPackageUpgrades );
-			uksort( $this->mPackageUpgrades[$pParams['package']], 'upgrade_version_sort' );
+			uksort( $this->mPackageUpgrades[$pParams['package']], 'version_compare' );
 		}
 	}
 
@@ -82,6 +96,8 @@ class BitInstaller extends BitSystem {
 	function verifyPackageUpgrade( &$pParams ) {
 		if( empty( $pParams['package'] )) {
 			$this->mErrors['package'] = "Please provide a valid package name.";
+		} else {
+			$pParams['package'] = strtolower( $pParams['package'] );
 		}
 
 		if( empty( $pParams['version'] ) || !$this->validateVersion( $pParams['version'] )) {
@@ -113,7 +129,7 @@ class BitInstaller extends BitSystem {
 	 */
 	function registerPackageDependencies( $pParams, $pDepHash ) {
 		if( !empty( $pParams['package'] ) && !empty( $pParams['version'] ) && $this->validateVersion( $pParams['version'] ) && $this->verifyPackageDependencies( $pDepHash )) {
-			$this->mPackageDependencies[$pParams['package']][$pParams['version']]['dependencies'] = $pDepHash;
+			$this->mPackageDependencies[strtolower( $pParams['package'] )][$pParams['version']]['dependencies'] = $pDepHash;
 		}
 	}
 
@@ -162,6 +178,7 @@ class BitInstaller extends BitSystem {
 	function getPackageDependencies( $pPackage ) {
 		$ret = array();
 		if( !empty( $pPackage )) {
+			$pPackage = strtolower( $pPackage );
 			$version = $this->getLatestUpgradeVersion( $pPackage );
 			if( !empty( $version ) && !empty( $this->mPackageDependencies[$pPackage][$version]['dependencies'] )) {
 				return $this->mPackageDependencies[$pPackage][$version]['dependencies'];
@@ -226,18 +243,33 @@ class BitInstaller extends BitSystem {
 		return $ret;
 	}
 
+	function loadAllUpgradeFiles( $pForceAll = FALSE ) {
+		foreach( array_keys( $this->mPackages ) as $pkg ) {
+			$this->loadUpgradeFiles( $pkg, $pForceAll );
+		}
+	}
+
 	/**
 	 * drawDependencyGraph 
 	 * 
 	 * @access public
 	 * @return image
 	 */
-	function drawDependencyGraph( $pImageFormat = 'png', $pCommand = 'dot' ) {
+	function drawDependencyGraph( $pFormat = 'png', $pCommand = 'dot' ) {
 		global $gBitSmarty;
 
 		// only do this if we can load PEAR GraphViz interface
 		if( include_once( 'Image/GraphViz.php' )) {
+			// perform the old switcheroo that we can load all deps, even if packages are already up to date.
+			// this is a cheap hack to display the deps of all installed packages, not just the ones we're about to upgrade.
+			// i can't think of a different way to do this since upgrade files register their stuff with $gBitInstaller->registerPackage[Stuff]
+			$tempDeps = $this->mPackageDependencies;
+			$tempUps  = $this->mPackageUpgrades;
+			$this->loadAllUpgradeFiles( TRUE );
 			$deps = $this->calculateDependencies();
+			$this->mPackageDependencies = $tempDeps;
+			$this->mPackageUpgrades     = $tempUps;
+
 			$delKeys = $matches = array();
 
 			// crazy manipulation of hash to remove duplicate version matches.
@@ -313,8 +345,12 @@ class BitInstaller extends BitSystem {
 					break;
 				}
 
+				$nodeattributes['URL'] = "http://www.bitweaver.org/wiki/".ucfirst( $node['package'] )."Package";
 				$graph->addNode( $fromNode, $nodeattributes );
-				$graph->addNode( $toNode, $nodeattributes );
+
+				$nodeattributes['URL'] = "http://www.bitweaver.org/wiki/".ucfirst( $node['requires'] )."Package";
+				$graph->addNode( $toNode,   $nodeattributes );
+
 				$graph->addEdge(
 					array( $fromNode => $toNode ),
 					array(
@@ -328,7 +364,13 @@ class BitInstaller extends BitSystem {
 				);
 			}
 
-			$graph->image( $pImageFormat, $pCommand );
+			if( $pFormat == 'cmapx' ) {
+				return $graph->fetch( $pFormat, $pCommand );
+			} else {
+				$graph->image( $pFormat, $pCommand );
+			}
+		} else {
+			return FALSE;
 		}
 	}
 
@@ -341,8 +383,9 @@ class BitInstaller extends BitSystem {
 	 * @return void
 	 */
 	function registerPackageVersion( $pPackage, $pVersion ) {
-		$pPackage = strtolower( $pPackage ); // lower case for uniformity
-		$this->mPackages[$pPackage]['version'] = $pVersion;
+		if( !empty( $pPackage ) && $this->validateVersion( $pVersion )) {
+			$this->mPackages[strtolower( $pPackage )]['version'] = $pVersion;
+		}
 	}
 
 	/**

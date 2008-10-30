@@ -4,9 +4,7 @@ $gBitSmarty->assign( 'next_step', $step );
 $errors = $success = array();
 
 // load up all available package upgrades that we have
-foreach( array_keys( $gBitInstaller->mPackages ) as $pkg ) {
-	$gBitInstaller->loadUpgradeFiles( $pkg );
-}
+$gBitInstaller->loadAllUpgradeFiles();
 
 if( !empty( $_REQUEST['upgrade_packages'] )) {
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
@@ -37,9 +35,7 @@ if( !empty( $_REQUEST['upgrade_packages'] )) {
 	}
 }
 
-if( include_once( 'Image/GraphViz.php' )) {
-	$gBitSmarty->assign( 'depgraph', TRUE );
-}
+$gBitSmarty->assign( 'dependencymap', $gBitInstaller->drawDependencyGraph( 'cmapx', ( !empty( $_REQUEST['command'] ) ? $_REQUEST['command'] : 'dot' )));
 $gBitSmarty->assign( 'dependencies', $gBitInstaller->calculateDependencies() );
 $gBitSmarty->assign( 'packageUpgrades', $gBitInstaller->mPackageUpgrades );
 $gBitSmarty->assign( 'schema', $gBitInstaller->mPackages );
