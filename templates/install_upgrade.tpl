@@ -2,10 +2,11 @@
 
 {jstabs tab=0}
 	{jstab title="Available Upgrades"}
-		{form id="package_select" legend="Please select packages you wish to upgrade" id="package_select"}
+		{form id="package_select" legend="Packages that will be upgraded" id="package_select"}
 			<input type="hidden" name="step" value="{$next_step}" />
 
 			{if $packageUpgrades}
+				<h2>Packages and their upgrades</h2>
 				<p class="danger">You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</p>
 				{foreach from=$packageUpgrades item=upgrade key=package}
 					{* users don't have the option to select what packages to upgrade since the code of the package is dependent on this upgrade
