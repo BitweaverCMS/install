@@ -35,8 +35,8 @@ if( !empty( $_REQUEST['upgrade_packages'] )) {
 	}
 }
 
-$gBitSmarty->assign( 'dependencies', $gBitInstaller->calculateDependencies() );
-$gBitSmarty->assign( 'dependencymap', $gBitInstaller->drawDependencyGraph( FALSE, 'cmapx', ( !empty( $_REQUEST['command'] ) ? $_REQUEST['command'] : 'dot' )));
+$gBitSmarty->assign( 'requirements', $gBitInstaller->calculateRequirements() );
+$gBitSmarty->assign( 'requirementsMap', $gBitInstaller->drawRequirementsGraph( FALSE, 'cmapx', ( !empty( $_REQUEST['command'] ) ? $_REQUEST['command'] : 'dot' )));
 $gBitSmarty->assign( 'packageUpgrades', $gBitInstaller->mPackageUpgrades );
 $gBitSmarty->assign( 'schema', $gBitInstaller->mPackages );
 $gBitSmarty->assign( 'success', $success );

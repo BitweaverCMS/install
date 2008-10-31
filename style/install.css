@@ -198,9 +198,9 @@ form.checks #phpini	{max-width:44em}
 #install_welcome table *	{list-style:none;padding:0;margin:0}
 #install_welcome table ul	{line-height:23px}
 
-table#dependencies tr.error,
-table#dependencies tr.success,
-table#dependencies tr.warning	{border:0;background-position:right 50%;text-indent:0px}
+table#requirements tr.error,
+table#requirements tr.success,
+table#requirements tr.warning	{border:0;background-position:right 50%;text-indent:0px}
 
 
 

@@ -57,20 +57,20 @@
 				</dl>
 			{/if}
 
-			{if $dependencymap}
-				<h2>Dependency Graph</h2>
+			{if $requirementsMap}
+				<h2>Requirements Graph</h2>
 				<p class="help">Below you will find an illustration of how packages will depend on each other after the upgrade has been completed.</p>
 				<div style="text-align:center; overflow:auto;">
-					<img alt="A graphical representation of package dependencies" title="Dependency graph" src="{$smarty.const.KERNEL_PKG_URL}dependency_graph.php?format={$smarty.request.format}&amp;command={$smarty.request.command}" usemap="#Dependencies" />
-					{$dependencymap}
+					<img alt="A graphical representation of package requirements" title="Requirements graph" src="{$smarty.const.KERNEL_PKG_URL}requirements_graph.php?format={$smarty.request.format}&amp;command={$smarty.request.command}" usemap="#Requirements" />
+					{$requirementsMap}
 				</div>
 			{/if}
 
-			{if $dependencies}
-				<h2>Dependency Table</h2>
-				<p class="help">Below you will find a detailed table with package dependencies after the upgrade has completed successfully. If not all package dependencies are met, consider trying to meet all package dependencies. If you don't meet them, you may continue at your own peril.</p>
-				<table id="dependencies">
-					<caption>Package Dependencies</caption>
+			{if $requirements}
+				<h2>Requirements Table</h2>
+				<p class="help">Below you will find a detailed table with package requirements after the upgrade has completed successfully. If not all package requirements are met, consider trying to meet all package requirements. If you don't meet them, you may continue at your own peril.</p>
+				<table id="requirements">
+					<caption>Package Requirements</caption>
 					<tr>
 						<th style="width:16%;">Requirement</th>
 						<th style="width:16%;">Min Version</th>
@@ -78,7 +78,7 @@
 						<th style="width:16%;">Available</th>
 						<th style="width:36%;">Result</th>
 					</tr>
-					{foreach from=$dependencies item=dep}
+					{foreach from=$requirements item=dep}
 						{if $pkg != $dep.package}
 							<tr><th colspan="5">{$dep.package|ucfirst} requirements</th></tr>
 							{assign var=pkg value=$dep.package}
@@ -130,7 +130,7 @@
 				{/if}
 
 				{if !$min_dep && !$max_dep && !$missing}
-					<p class="success">All package dependencies have been met. You can proceed with the installation process.</p>
+					<p class="success">All package requirements have been met. You can proceed with the installation process.</p>
 				{/if}
 			{/if}
 

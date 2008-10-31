@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.45 2008/10/30 22:02:19 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.46 2008/10/31 08:12:23 squareing Exp $
  * @package install
  */
 
@@ -18,12 +18,12 @@ class BitInstaller extends BitSystem {
 	var $mPackageUpgrades = array();
 
 	/**
-	 * mDependencies 
+	 * mRequirements 
 	 * 
 	 * @var array
 	 * @access public
 	 */
-	var $mDependencies = array();
+	var $mRequirements = array();
 
 	/**
 	 * Initiolize BitInstaller 
@@ -129,20 +129,6 @@ class BitInstaller extends BitSystem {
 		}
 
 		return( count( $this->mErrors ) == 0 );
-	}
-
-	/**
-	 * registerPackageVersion Holds the package version
-	 *
-	 * @param array $pPackage 
-	 * @param array $pVersion 
-	 * @access public
-	 * @return void
-	 */
-	function registerPackageVersion( $pPackage, $pVersion ) {
-		if( !empty( $pPackage ) && $this->validateVersion( $pVersion )) {
-			$this->mPackages[strtolower( $pPackage )]['version'] = $pVersion;
-		}
 	}
 
 	/**
