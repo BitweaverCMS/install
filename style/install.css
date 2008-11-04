@@ -84,7 +84,7 @@ a	{text-decoration:none}
 a.external	{background:transparent url(images/external.gif) no-repeat right 4px;padding-right:10px}
 a:hover	{text-decoration:underline}
 .icon	{border:0;vertical-align:middle}
-
+a img	{border:0}
 
 
 
