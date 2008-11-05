@@ -158,7 +158,6 @@
 				</ul>
 			{else}
 				<p class="success">
-					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
 					All recommended pear extensions are installed.
 				</p>
 			{/if}
