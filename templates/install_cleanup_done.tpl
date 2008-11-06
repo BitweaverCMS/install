@@ -11,15 +11,15 @@
 		<div class="row">
 			{formlabel label="Updated Permissions"}
 			{forminput}
-				<ul>
+				<ul id="fixedpermlist">
 					{foreach from=$fixedPermissions item=perm}
-						<li><strong>{$perm.0}</strong>:<br />{$perm.1}<li>
+						<li><strong>{$perm.0}</strong>: {$perm.1}<li>
 					{/foreach}
 				</ul>
 			{/forminput}
 		</div>
 
-		<p>Since permissions have been modified, you should probably visit the
+		<p>Since permissions have been modified, you should visit the
 			{smartlink ititle="permission maintenance" ipackage=users
 			ifile=admin/permissions.php} page to make sure that all permissions
 			are assigned to the correct groups.</p>
