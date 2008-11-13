@@ -39,7 +39,7 @@
 					<p class="danger">The upgrade process was halted due to the SQL problems listed above. Please contact the bitweaver team to fix this issue.</p>
 				{/if}
 			{elseif !$success}
-				<p class="success">Seems all the packages in your install are up to date!</p>
+				<p class="success">Seems all installed packages are up to date!</p>
 			{/if}
 
 			{if $success}
