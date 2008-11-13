@@ -34,6 +34,10 @@
 						{/foreach}
 					</dl>
 				{/foreach}
+
+				{if $errors}
+					<p class="danger">The upgrade process was halted due to the SQL problems listed above. Please contact the bitweaver team to fix this issue.</p>
+				{/if}
 			{elseif !$success}
 				<p class="success">Seems all the packages in your install are up to date!</p>
 			{/if}
@@ -132,11 +136,6 @@
 				{if !$min_dep && !$max_dep && !$missing}
 					<p class="success">All package requirements have been met. You can proceed with the installation process.</p>
 				{/if}
-			{/if}
-
-			{if $errors}
-				<hr />
-				<p class="error">The upgrade process was halted due to the SQL problems listed above. Please contact the bitweaver team to fix this issue.</p>
 			{/if}
 
 			<div class="row submit">
