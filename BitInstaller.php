@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.46 2008/10/31 08:12:23 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.47 2008/11/15 07:20:21 spiderr Exp $
  * @package install
  */
 
@@ -230,16 +230,17 @@ class BitInstaller extends BitSystem {
 			case "oci8":
 			case "postgres":
 				// Do a little prep work for postgres, no break, cause we want default case too
-				$ret = preg_replace( '/`/', '"', BIT_DB_PREFIX );
 				if( preg_match( '/\./', $ret ) ) {
 					// Assume we want to dump in a schema, so set the search path and nuke the prefix here.
-					$schema = substr( $ret, 0, strpos( $ret, '.' ));
+					$schema = preg_replace( '/`/', '"', substr( $ret, 0, strpos( $ret, '.' )) );
 					$quote = strpos( $schema, '"' );
 					if( $quote !== 0 ) {
 						$schema = '"'.$schema;
 					}
-					$result = $this->mDb->query( "CREATE SCHEMA $schema" );
+					// set scope to current schema
 					$result = $this->mDb->query( "SET search_path TO $schema" );
+					// return everything after the prefix
+					$ret = substr( BIT_DB_PREFIX, strrpos( BIT_DB_PREFIX, '`' ) + 1 );
 				}
 				break;
 		}
@@ -340,11 +341,18 @@ class BitInstaller extends BitSystem {
 									foreach( $dd as $alter ) {
 										foreach( array_keys( $alter ) as $tableName ) {
 											$completeTableName = $tablePrefix.$tableName;
+											$this->mDb->convertQuery( $completeTableName );
 											foreach( $alter[$tableName] as $from => $flds ) {
 												if( is_string( $flds )) {
 													$sql = $dict->ChangeTableSQL( $completeTableName, $flds );
 												} else {
 													$sql = $dict->ChangeTableSQL( $completeTableName, array( $flds ));
+												}
+
+												if( $sql ) {
+													for( $sqlIdx = 0; $sqlIdx < count( $sql ); $sqlIdx++ ) {
+														$this->mDb->convertQuery( $sqlFoo );
+													}
 												}
 
 												if( $sql && $dict->ExecuteSQLArray( $sql, FALSE ) > 0 ) {

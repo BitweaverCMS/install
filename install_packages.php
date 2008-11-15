@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.80 2008/10/26 11:04:59 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.81 2008/11/15 07:20:21 spiderr Exp $
  * @package install
  * @subpackage functions
  *
@@ -116,6 +116,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 
 
+		// Need to unquote constraints. but this need replacing with a datadict function
+		require_once('../kernel/BitDbBase.php');
+		$gBitKernelDb = new BitDb();
+		$gBitKernelDb->mType = $gBitDbType;
+
 		// ---------------------- 1. ----------------------
 		// let's generate all the tables's
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
@@ -145,9 +150,12 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				if( !empty( $gBitInstaller->mPackages[$package]['tables'] ) && is_array( $gBitInstaller->mPackages[$package]['tables'] ) && !empty( $build )) {
 					foreach( array_keys( $gBitInstaller->mPackages[$package]['tables'] ) as $tableName ) {
 						$completeTableName = $tablePrefix.$tableName;
+						// in case prefix has backticks for schema
 						$sql = $dict->CreateTableSQL( $completeTableName, $gBitInstaller->mPackages[$package]['tables'][$tableName], $build );
 						// Uncomment this line to see the create sql
-						//vd( $sql );
+						for( $sqlIdx = 0; $sqlIdx < count( $sql ); $sqlIdx++ ) {
+							$gBitKernelDb->convertQuery( $sql[$sqlIdx] );
+						}
 						if( $sql && $dict->ExecuteSQLArray( $sql ) <= 1) {
 							$errors[] = 'Failed to create table '.$completeTableName;
 							$failedcommands[] = implode(" ", $sql);
@@ -168,10 +176,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					$completeTableName = $tablePrefix.$tableName;
 					foreach( array_keys($gBitInstaller->mPackages[$package]['constraints'][$tableName]) as $constraintName ) {
 						$sql = 'ALTER TABLE `'.$completeTableName.'` ADD CONSTRAINT `'.$constraintName.'` '.$gBitInstaller->mPackages[$package]['constraints'][$tableName][$constraintName];
-						// Need to unquote constraints. but this need replacing with a datadict function
-						require_once('../kernel/BitDbBase.php');
-						$gBitKernelDb = new BitDb();
-						$gBitKernelDb->mType = $gBitDbType;
 						$gBitKernelDb->convertQuery($sql);
 						$ret = $gBitInstallDb->Execute( $sql );
 						if ( $ret === false ) {
