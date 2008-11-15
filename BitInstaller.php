@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.47 2008/11/15 07:20:21 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.48 2008/11/15 09:05:32 squareing Exp $
  * @package install
  */
 
@@ -297,7 +297,7 @@ class BitInstaller extends BitSystem {
 	 * @return empty array on success, array with errors on failure
 	 */
 	function applyUpgrade( $pPackage, $pUpgradeHash ) {
-		global $gBitDb;
+		global $gBitDb, $gBitDbType;
 		$ret = array();
 
 		if( !empty( $pUpgradeHash ) && is_array( $pUpgradeHash )) {
@@ -472,23 +472,18 @@ class BitInstaller extends BitSystem {
 						}
 						break;
 					case 'QUERY':
-						global $gBitDbType;
+						uksort( $step, 'upgrade_query_sort' );
 						foreach( array_keys( $step ) as $dbType ) {
-							switch( $dbType ) {
-								case 'MYSQL' :
-									if( preg_match( '/mysql/', $gBitDbType ) ) {
-										$sql = $step[$dbType];
-									}
-									break;
-								case 'PGSQL' :
-									if( preg_match( '/postgres/', $gBitDbType ) ) {
-										$sql = $step[$dbType];
-									}
-									break;
-								case 'SQL92' :
-									$sql = $step[$dbType];
-									break;
+							if( $dbType == 'MYSQL' && preg_match( '/mysql/', $gBitDbType )) {
+								$sql = $step[$dbType];
+								unset( $step['SQL92'] );
+							} elseif( $dbType == 'PGSQL' && preg_match( '/postgres/', $gBitDbType )) {
+								$sql = $step[$dbType];
+								unset( $step['SQL92'] );
+							} elseif( $dbType == 'SQL92' && !empty( $step['SQL92'] )) {
+								$sql = $step[$dbType];
 							}
+
 							if( !empty( $sql ) ) {
 								foreach( $sql as $query ) {
 									if( !$result = $this->mDb->query( $query )) {
@@ -638,12 +633,12 @@ function makeConnection( $gBitDbType, $gBitDbHost, $gBitDbUser, $gBitDbPassword,
 }
 
 /**
- * upgrade_package_sort 
+ * upgrade_package_sort sort packages before they are upgraded
  * 
- * @param array $a 
- * @param array $b 
+ * @param string $a 
+ * @param string $b 
  * @access public
- * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+ * @return numeric sort direction
  */
 function upgrade_package_sort( $a, $b ) {
 	global $gBitInstaller;
@@ -659,15 +654,33 @@ function upgrade_package_sort( $a, $b ) {
 }
 
 /**
- * upgrade_version_sort 
+ * upgrade_version_sort sort upgrades based on version number
  * 
- * @param array $a 
- * @param array $b 
+ * @param string $a 
+ * @param string $b 
  * @access public
- * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
+ * @return numeric sort direction
  */
 function upgrade_version_sort( $a, $b ) {
 	return version_compare( $a, $b, '>' );
+}
+
+/**
+ * upgrade_query_sort sort queries that SQL92 queries are called last
+ * 
+ * @param string $a 
+ * @param string $b 
+ * @access public
+ * @return numeric sort direction
+ */
+function upgrade_query_sort( $a, $b ) {
+	if( $a == 'SQL92' ) {
+		return 1;
+	} elseif( $b == 'SQL92' ) {
+		return -1;
+	} else {
+		return 0;
+	}
 }
 
 ?>
