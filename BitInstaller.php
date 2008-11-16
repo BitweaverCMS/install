@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.48 2008/11/15 09:05:32 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.49 2008/11/16 10:29:54 squareing Exp $
  * @package install
  */
 
@@ -273,13 +273,17 @@ class BitInstaller extends BitSystem {
 			// make sure everything is in the right order
 			uksort( $this->mPackageUpgrades[$pPackage], 'upgrade_version_sort' );
 
-			foreach( $this->mPackageUpgrades[$pPackage] as $version => $package ) {
+			foreach( array_keys( $this->mPackageUpgrades[$pPackage] ) as $version ) {
+				// version we are upgrading from
+				$this->mPackageUpgrades[$pPackage][$version]['from_version'] = $this->getVersion( $pPackage );
+
+				// apply upgrade
 				$errors[$version] = $this->applyUpgrade( $pPackage, $this->mPackageUpgrades[$pPackage][$version]['upgrade'] );
 				if( !empty( $errors[$version] )) {
 					return $errors;
 				} else {
-					// if the upgrade ended without incidence, we store the package version
-					// this way we store the version after every successful step to avoid duplicate upgrades
+					// if the upgrade ended without incidence, we store the package version.
+					// this way any successfully applied upgrade can only be applied once.
 					$this->storeVersion( $pPackage, $version );
 				}
 			}

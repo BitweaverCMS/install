@@ -30,8 +30,6 @@ if( !empty( $_REQUEST['upgrade_packages'] )) {
 		// display success page when done
 		$app = '_done';
 		$gBitSmarty->assign( 'next_step', $step + 1 );
-	} else {
-		$gBitSmarty->assign( 'errors', $errors );
 	}
 }
 

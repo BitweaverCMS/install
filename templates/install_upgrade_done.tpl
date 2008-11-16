@@ -5,9 +5,9 @@
 	<input type="hidden" name="step" value="{$next_step}" />
 	<dl>
 		{foreach from=$success item=upgrade key=package}
-			{foreach from=$upgrade item=data key=version}
+			{foreach from=$upgrade item=data}
 				<dt>{$package}</dt>
-				<dd>Upgrade &rarr; {$version}
+				<dd>Upgrade {$data.from_version} &rarr; {$data.version}
 					{if $data.post_upgrade}
 						<br /><strong>Post install notes</strong>:
 						<br />{$data.post_upgrade}
