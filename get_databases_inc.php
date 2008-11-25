@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.10 2008/07/29 05:55:17 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.11 2008/11/25 15:26:07 lsces Exp $
  * @package install
  * @subpackage functions
  *
@@ -47,9 +47,9 @@ if( function_exists( 'fbird_connect' ) ) {
 	if ( !empty($_REQUEST['fbpath']) ) $fbpath = $_REQUEST['fbpath'];
 	if ( empty($fbpath) ) {
 		if ( is_windows() )
-			$fbpath = 'c:\Program Files\Firebird\Firebird_2_0\bin\isql';
+			$fbpath = 'c:\Program Files\Firebird\Firebird_2_1\bin\isql';
 		else
-			$fbpath = '/opt/firebird/bin/isql';
+			$fbpath = '/usr/lib64/firebird/bin/isql';
 	}
 	$gBitSmarty->assign( 'fbpath', $fbpath );
 	if ( empty($gBitDbName) ) $gBitDbName = 'bitweaver';
