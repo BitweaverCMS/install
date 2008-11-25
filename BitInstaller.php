@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.49 2008/11/16 10:29:54 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.50 2008/11/25 19:40:05 lsces Exp $
  * @package install
  */
 
@@ -474,6 +474,7 @@ class BitInstaller extends BitSystem {
 									break;
 							}
 						}
+						if( !empty( $sql ) ) $sql = null;
 						break;
 					case 'QUERY':
 						uksort( $step, 'upgrade_query_sort' );
