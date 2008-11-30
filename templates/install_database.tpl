@@ -71,8 +71,8 @@
 			<input type="text" size="25" name="host" id="host" value="{if $gBitDbHost ne '' }{$gBitDbHost}{/if}" />
 			{formhelp note="Hostname or IP for your MySQL database, example:<br />
 				Use 'localhost' if your database is on the same machine as your server.<br />
-				If you use Oracle, insert your TNS name here<br />
-				If you use SQLite, insert the path and filename to your database file<br />
+				If you use Oracle, insert your TNS name here.<br />
+				If you use SQLite, insert the path and filename to your database file.<br />
 				If you are not sure what to put in here, try using localhost."}
 		{/forminput}
 	</div>
