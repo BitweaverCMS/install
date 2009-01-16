@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.81 2008/11/15 07:20:21 spiderr Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.82 2009/01/16 22:56:00 squareing Exp $
  * @package install
  * @subpackage functions
  *
@@ -377,8 +377,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					// we can assume that the latest upgrade version available for a package is the most current version number for that package
 					if( $version = $gBitInstaller->getLatestUpgradeVersion( $package )) {
 						$gBitSystem->storeVersion( $package, $version );
-					} elseif( !empty( $gBitSystem->mPackages[$package]['version'] )) {
-						$gBitSystem->storeVersion( $package, $gBitSystem->mPackages[$package]['version'] );
+					} elseif( !empty( $gBitInstaller->mPackages[$package]['version'] )) {
+						$gBitSystem->storeVersion( $package, $gBitInstaller->mPackages[$package]['version'] );
 					}
 
 					$gBitInstaller->mPackages[ $package ]['installed'] = TRUE;
