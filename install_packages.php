@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.82 2009/01/16 22:56:00 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.83 2009/01/23 17:13:49 squareing Exp $
  * @package install
  * @subpackage functions
  *
@@ -441,7 +441,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// Do stuff that only applies during the first install
 		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 			// set the version of bitweaver in the database
-			$gBitSystem->storeVersion( NULL, BIT_MAJOR_VERSION.".".BIT_MINOR_VERSION.".".BIT_SUB_VERSION."-".BIT_LEVEL );
+			$bitversion = BIT_MAJOR_VERSION.".".BIT_MINOR_VERSION.".".BIT_SUB_VERSION;
+			if( defined( BIT_LEVEL ) && BIT_LEVEL != '' ) {
+				$bitversion .= '-'.BIT_LEVEL;
+			}
+			$gBitSystem->storeVersion( NULL, $bitversion );
 
 			// Some packages have some special things to take care of here.
 			foreach( $gBitInstaller->mInstallModules as $mod ) {
