@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_version.php,v 1.2 2009/01/26 17:27:53 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_version.php,v 1.3 2009/01/28 10:48:35 squareing Exp $
  * @package install
  * @subpackage functions
  */
@@ -9,7 +9,7 @@
 $gBitSmarty->assign( 'next_step', $step );
 
 // check if database version is up to date
-if( version_compare( BIT_MAJOR_VERSION.".".BIT_MINOR_VERSION.".".BIT_SUB_VERSION."-".BIT_LEVEL, $gBitSystem->getVersion(), '==' )) {
+if( version_compare( $gBitSystem->getBitVersion(), $gBitSystem->getVersion(), '==' )) {
 	$upToDate = TRUE;
 	$gBitSmarty->assign( 'upToDate', $upToDate );
 }
@@ -51,12 +51,8 @@ if( !empty( $_REQUEST['update_version'] )) {
 		// if we're already up to date, we'll simply move on to the next page
 		bit_redirect( $_SERVER['PHP_SELF']."?step=".++$step );
 	} else {
-		$bitversion = BIT_MAJOR_VERSION.".".BIT_MINOR_VERSION.".".BIT_SUB_VERSION;
-		if( defined( BIT_LEVEL ) && BIT_LEVEL != '' ) {
-			$bitversion .= '-'.BIT_LEVEL;
-		}
-
-		if( $gBitSystem->storeVersion( NULL, $bitversion )) {
+		// set the version of bitweaver in the database
+		if( $gBitSystem->storeVersion( NULL, $gBitSystem->getBitVersion() )) {
 			// display the confirmation page
 			$gBitSmarty->assign( 'next_step', $step + 1 );
 			$app = '_done';

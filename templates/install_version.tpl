@@ -11,7 +11,7 @@
 			</p>
 		{else}
 			<p class="help">
-				Your version of bitweaver will be updated to <strong>{$smarty.const.BIT_MAJOR_VERSION}.{$smarty.const.BIT_MINOR_VERSION}.{$smarty.const.BIT_SUB_VERSION} {$smarty.const.BIT_LEVEL}</strong> as soon as you hit the submit button below. This will allow you to enter your site again.
+				Your version of bitweaver will be updated to <strong>{$gBitSystem->getBitVersion()}</strong> as soon as you hit the submit button below. This will allow you to enter your site again.
 			</p>
 		{/if}
 

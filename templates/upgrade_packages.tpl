@@ -1,4 +1,4 @@
-<h3>Upgrading {$upgradeFrom} to {$smarty.const.BIT_MAJOR_VERSION}.{$smarty.const.BIT_MINOR_VERSION}.{$smarty.const.BIT_SUB_VERSION} {$smarty.const.BIT_LEVEL}</h3>
+<h3>Upgrading {$upgradeFrom} to {$gBitSystem->getBitVersion()}</h3>
 
 {form legend="Begin the upgrade process"}
 	<input type="hidden" name="step" value="{$next_step}" />

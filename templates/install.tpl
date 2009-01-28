@@ -37,7 +37,7 @@
 			</a>
 			*}
 			<h1 id="title">
-				<strong>Bitweaver {$smarty.const.BIT_MAJOR_VERSION}.{$smarty.const.BIT_MINOR_VERSION}.{$smarty.const.BIT_SUB_VERSION} {$smarty.const.BIT_LEVEL}</strong>
+				<strong>Bitweaver {$gBitSystem->getBitVersion()}</strong>
 				&nbsp;
 				<em>{$section|default:"Install"}</em>
 			</h1>
