@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.26 2008/10/24 20:22:18 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install.php,v 1.27 2009/02/03 22:24:52 dansut Exp $
  * @package install
  * @subpackage functions
  */
@@ -137,6 +137,9 @@ if( $onlyDuringFirstInstall ) {
 $install_file[$i]['file'] = 'final';
 $install_file[$i]['name'] = 'Done';
 //don't increment last $i since it's used later on
+
+// Needed for version number
+$gBitSmarty->assign_by_ref( 'gBitSystem', $gBitSystem );
 
 // if we have to log in, call login template and die
 if( !empty( $gBitDbType ) && !empty( $gBitInstaller->mPackages['users']['installed'] ) && !$gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
