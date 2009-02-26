@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.50 2008/11/25 19:40:05 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.51 2009/02/26 19:42:19 tekimaki_admin Exp $
  * @package install
  */
 
@@ -413,7 +413,7 @@ class BitInstaller extends BitSystem {
 								case 'RENAMESEQUENCE':
 									foreach( $dd as $rename ) {
 										foreach( $rename as $from => $to ) {
-											if( $this->mDb->tableExists( $tablePrefix.$from ) ) {
+											if( $gBitDbType != 'mysql' || $this->mDb->tableExists( $tablePrefix.$from ) ) {
 												if( $id = $this->mDb->GenID( $from ) ) {
 													$this->mDb->DropSequence( $sequencePrefix.$from );
 													$this->mDb->CreateSequence( $sequencePrefix.$to, $id );
