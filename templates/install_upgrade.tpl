@@ -102,7 +102,7 @@
 							<td>{$dep.requires|ucfirst}</td>
 							<td>{$dep.required_version.min}</td>
 							<td>{$dep.required_version.max}</td>
-							<td>{$dep.required_version.available}</td>
+							<td>{$dep.version.available}</td>
 							<td>
 								{if $dep.result == 'ok'}
 									OK
