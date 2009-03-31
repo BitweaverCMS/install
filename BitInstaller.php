@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.51 2009/02/26 19:42:19 tekimaki_admin Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.52 2009/03/31 08:14:43 lsces Exp $
  * @package install
  */
 
@@ -38,7 +38,7 @@ class BitInstaller extends BitSystem {
 	 * loadAllUpgradeFiles load upgrade files from all packages that are installed
 	 * 
 	 * @access public
-	 * void
+	 * @return void
 	 */
 	function loadAllUpgradeFiles() {
 		foreach( array_keys( $this->mPackages ) as $pkg ) {

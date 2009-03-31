@@ -1,4 +1,10 @@
 <?php
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_upgrade.php,v 1.18 2009/03/31 08:14:44 lsces Exp $
+ * @package install
+ * @subpackage functions
+ */
+
 $gBitSmarty->assign( 'next_step', $step );
 
 $errors = $success = array();
