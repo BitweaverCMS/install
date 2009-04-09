@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.18 2008/07/18 08:37:32 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.19 2009/04/09 16:42:53 spiderr Exp $
  * @package install
  * @subpackage functions
  */
@@ -170,7 +170,7 @@ define( 'BIT_ROOT_URL', '$bit_root_url' );
 // the kernel.  In the example provided below, the kernel package is processed
 // first, followed by the users and liberty packages.  Any packages not specified
 // in \$gPreScan are processed in the traditional order
-//\$gPreScan = array( 'kernel', 'users', 'liberty' );";
+//\$gPreScan = array( 'kernel', 'storage', 'liberty', 'themes', 'users' );";
 
 		if( substr( PHP_OS, 0, 3 ) == 'WIN' ) {
 			$filetowrite .= "
