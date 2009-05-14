@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.37 2008/10/29 22:16:04 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_checks.php,v 1.38 2009/05/14 06:56:49 lsces Exp $
  * @package install
  * @subpackage functions
  * @author xing
@@ -122,19 +122,19 @@ function check_settings() {
 			'command'      => 'tar -xvf',
 			'dest_params'  => '-C',
 			'testfile'     => 'test.tar',
-			'note'         => '<strong>Tarball</strong> is a common archiving format on Linux and <a class="external" href="http://www.gnu.org/software/tar/">tar</a> is used to extract .tar files.',
+			'note'         => '<strong>Tarball</strong> is a common archiving format on Linux and <a class="external" href="http://www.gnu.org/software/tar/">tar</a> is used to extract .tar files. For windows use <a class="external" href="http://gnuwin32.sourceforge.net/downlinks/libarchive.php">bsdtar</a> from gnuwin32 ( See <a class="external" href="http://www.bitweaver.org/wiki/Windows+installation+notes">Windows notes for installation help</a> ).',
 		),
 		'bzip2' => array(
 			'command'      => 'tar -jvxf',
 			'dest_params'  => '-C',
 			'testfile'     => 'test.tar.bz2',
-			'note'         => '<strong>Bzip</strong> is a common compression format on Linux and <a class="external" href="http://www.bzip.org/">bzip2</a> is used to extract .bz2 and in combination with tar .tar.bz2 file.',
+			'note'         => '<strong>Bzip</strong> is a common compression format on Linux and <a class="external" href="http://www.bzip.org/">bzip2</a> is used to extract .bz2 and in combination with tar .tar.bz2 file. ( For windows see bsdtar above. )',
 		),
 		'gzip' => array(
 			'command'      => 'tar -zvxf',
 			'dest_params'  => '-C',
 			'testfile'     => 'test.tar.gz',
-			'note'         => '<strong>Gzip</strong> is a common compression format on Linux and <a class="external" href="http://www.gnu.org/software/gzip/gzip.html">gzip</a> is used to extract .gz and in combination with tar .tar.gz file.',
+			'note'         => '<strong>Gzip</strong> is a common compression format on Linux and <a class="external" href="http://www.gnu.org/software/gzip/gzip.html">gzip</a> is used to extract .gz and in combination with tar .tar.gz file. ( For windows see bsdtar above. )',
 		),
 		'unzip' => array(
 			'command'      => 'unzip -v',
@@ -154,12 +154,12 @@ function check_settings() {
 			'result'       => 'Your version of GhostScript: ',
 		),
 		'graphviz' => array(
-			'command'      => 'dot -V 2>&1',
+			'command'      => 'dot -V',
 			'note'         => '<a class="external" href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} Liberty plugin and you only need to install it if you intend to enable that plugin.<br /><em>The Pear::Image_Graphviz plugin is required as well.</em>',
 			'result'       => 'Your version of Graphviz: ',
 		),
 		'ffmpeg' => array(
-			'command'      => 'ffmpeg 2>&1',
+			'command'      => 'ffmpeg',
 			'note'         => '<a class="external" href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> is a hyper fast video and audio encoder that supports many common formats. If you are planning on uploading video and audio files, it\'s recommend that you install this application.',
 		),
 //		'unstuff' => array(
@@ -176,9 +176,18 @@ function check_settings() {
 			$command = $app['command'];
 		}
 
-		if( get_php_setting( 'safe_mode' ) == 'OFF' && $shellResults[$exe] = shell_exec( $command )) {
+		if( get_php_setting( 'safe_mode' ) == 'OFF' && $shellResults[$exe] = shell_exec( $command .' 2> '.TEMP_PKG_PATH.'output' ) ) {
 			@unlink( TEMP_PKG_PATH.'test.txt' );
 			$executables[$exe]['passed'] = TRUE;
+		} elseif ( $shellResults[$exe] = join("", file(TEMP_PKG_PATH.'output')) ) {
+			if ( strpos( $shellResults[$exe], 'command' ) and strpos( $shellResults[$exe], 'not' ) ) {
+				$executables[$exe]['note'] .= 'not ';
+				$executables[$exe]['passed'] = FALSE;
+				$shellResults[$exe] = "";
+			} else {
+				@unlink( TEMP_PKG_PATH.'test.txt' );
+				$executables[$exe]['passed'] = TRUE;
+			}
 		} else {
 			$executables[$exe]['note'] .= 'not ';
 			$executables[$exe]['passed'] = FALSE;
