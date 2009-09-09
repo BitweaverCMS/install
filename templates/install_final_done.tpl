@@ -37,7 +37,7 @@
 		<li>
 			<strong>Performance</strong>
 			<ul>
-				<li>For production sites, we recommond you visit our <a class="external" href="http://www.bitweaver.org/wiki/Bitweaver+Performance">Bitweaver Performance</a> page on how to optimise your Bitweaver install.</li>
+				<li>For production sites, we recommend you visit our <a class="external" href="http://www.bitweaver.org/wiki/Bitweaver+Performance">Bitweaver Performance</a> page on how to optimise your Bitweaver install.</li>
 				<li>Please also have a look at your <kbd>kernel/config_inc.php</kbd> file. It contains various settings that cannot be set elsewhere and which might be of interest to you.</li>
 			</ul>
 		</li>
