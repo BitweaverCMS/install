@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_admin_inc.php,v 1.6 2008/07/03 13:23:01 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_admin_inc.php,v 1.7 2009/09/24 21:07:01 dansut Exp $
  * @package install
  * @subpackage functions
  */
@@ -17,8 +17,10 @@ if( !empty( $_REQUEST['admin_submit'] )) {
 	if( empty( $_REQUEST['login'] ) ) {
 		$errors['login'] = "You must specify an administrator name.";
 	}
-	if( empty( $_REQUEST['email'] ) || !BitUser::verifyEmail( $_REQUEST['email'] ) ) {
-		$errors['email'] = 'The email "'.$_REQUEST['email'].'" is not valid.';
+	if( empty( $_REQUEST['email'] ) ) {
+		$errors['email'] = "You must specify an email address.";
+	} else {
+		BitUser::verifyEmail( $_REQUEST['email'], $errors );
 	}
 
 	if( $_REQUEST['password'] != $_REQUEST['pass_confirm'] ) {
