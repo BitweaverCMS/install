@@ -94,7 +94,7 @@
 							{assign var=class value=error}
 						{elseif $dep.result == 'min_dep'}
 							{assign var=class value=error}
-						{elseif $dep.result == 'max_dep'}
+						{else}
 							{assign var=class value=warning}
 						{/if}
 
@@ -115,6 +115,12 @@
 								{elseif $dep.result == 'max_dep'}
 									Maximum version exceeded
 									{assign var=max_dep value=true}
+								{elseif $dep.result == 'inactive'}
+									Package disabled
+									{assign var=inactive value=true}
+								{else}
+									Unknown state
+									{assign var=confused value=true}
 								{/if}
 							</td>
 						</tr>
@@ -131,6 +137,14 @@
 
 				{if $max_dep}
 					<p class="warning">At least one package recommend a version lower to the one you have installed or are about to upgrade to. The package you wish to upgrade might work with this combination, but no guarantees can be given.</p>
+				{/if}
+
+				{if $inactive}
+					<p class="warning">At least one required package is disabled. Please activate that package once your install is complete.</p>
+				{/if}
+
+				{if $confused}
+					<p class="warning">At least one required package is in an unknown state. The upgrade may not work because of this. It is probably worth reinstalling the latest version of that package or contacting its developer.</p>
 				{/if}
 
 				{if !$min_dep && !$max_dep && !$missing}
