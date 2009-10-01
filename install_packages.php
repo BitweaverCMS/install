@@ -1,12 +1,12 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.85 2009/03/06 07:59:57 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.86 2009/10/01 13:45:41 wjames5 Exp $
  * @package install
  * @subpackage functions
  *
  * @copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
- * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details.
  */
 
 /**

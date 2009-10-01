@@ -1,13 +1,13 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.5 2007/07/09 13:16:11 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.6 2009/10/01 13:45:41 wjames5 Exp $
  * @package install
  * @subpackage functions
  */
 
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details.
 
 // assign next step in installation process
 $gBitSmarty->assign( 'next_step',$step );
