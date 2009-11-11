@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.20 2009/05/01 15:05:12 wjames5 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.21 2009/11/11 15:58:12 dansut Exp $
  * @package install
  * @subpackage functions
  */
@@ -216,6 +216,11 @@ define( 'BIT_ROOT_URL', '$bit_root_url' );
 // Note: be sure to set this to FALSE and clear out the cache once done since it
 //       will increase the page size by at least 10%.
 //define( 'TEMPLATE_DEBUG', TRUE );
+
+// If you want to go a step further with template debugging then this enables
+// smarty's debugging console.  A popup with a dump of all of the vars the
+// template(s) have been passed.
+\$smarty_debugging = FALSE;
 
 
 // This statement will enable you to view all database queries made
