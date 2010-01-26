@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.52 2009/03/31 08:14:43 lsces Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/BitInstaller.php,v 1.53 2010/01/26 15:38:13 dansut Exp $
  * @package install
  */
 
@@ -424,6 +424,13 @@ class BitInstaller extends BitSystem {
 											} else {
 												$this->mDb->CreateSequence( $sequencePrefix.$to, $pUpgradeHash['sequences'][$to]['start'] );
 											}
+										}
+									}
+									break;
+								case 'DROPSEQUENCE':
+									foreach( $dd as $drop ) {
+										foreach( $drop as $sequence ) {
+											$this->mDb->DropSequence( $sequencePrefix.$sequence );
 										}
 									}
 									break;
