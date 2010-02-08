@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.30 2009/10/01 14:17:00 wjames5 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_inc.php,v 1.31 2010/02/08 21:27:23 wjames5 Exp $
  * @package install
  * @subpackage functions
  */
@@ -99,7 +99,7 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 		include( $config_file );
 	}
 }
-require_once("../bit_setup_inc.php");
+require_once("../kernel/setup_inc.php");
 require_once( 'BitInstaller.php' );
 require_once( USERS_PKG_PATH.'BitUser.php' );
 
