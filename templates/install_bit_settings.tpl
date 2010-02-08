@@ -16,7 +16,7 @@
 	{/foreach}
 
 	<div class="row">
-		{formlabel label="Browser title" for="site_title"}
+		{formlabel label="Browser Title" for="site_title"}
 		{forminput}
 			<input size="40" type="text" name="site_title" id="site_title" value="{$gBitSystem->getConfig('site_title')|escape}" />
 			{formhelp note="Enter the text that should appear in the title bar of the user's browser when visiting your site."}
@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="row">
-		{formlabel label="Site slogan" for="site_slogan"}
+		{formlabel label="Site Slogan" for="site_slogan"}
 		{forminput}
 			<input size="40" type="text" name="site_slogan" id="site_slogan" value="{$gBitSystem->getConfig('site_slogan')|escape}" />
 			{formhelp note="This slogan is (usually) shown below the site title."}
@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="row">
-		{formlabel label="Home page" for="bit_index"}
+		{formlabel label="Home Page" for="bit_index"}
 		{forminput}
 			<select name="bit_index" id="bit_index">
 				<option value="my_home"{if $bit_index eq 'my_home'} selected="selected"{/if}>{tr}My home{/tr}</option>
@@ -52,6 +52,18 @@
 					<dt>Group Home</dt><dd>You can define an individual home page for a group of users using this option. To define home pages, please access the <br /><strong>Administration --> Users --> Groups and Permissions</strong> page.</dd>
 					<dt>Other Home Pages</dt><dd>Here you can set a particular package that will serve as your home page. If you want to select an individual home page from the exisiting ones, please access the <br /><strong>Administration --> 'Package' --> 'Package' Settings</strong> page.</dd>
 				</dl>"}
+		{/forminput}
+	</div>
+
+	<div class="row">
+		{formlabel label="Site Style" for="site_style"}
+		{forminput}
+			<select name="site_style" id="site_style">
+				{foreach from=$stylesList item=s}
+						<option value="{$s.style}" {if $s.style eq "basic"}selected="selected"{/if}>{$s.style}</option>
+				{/foreach}
+			</select>
+			{formhelp note="Pick the look and feel style you wish to use. Custom styles can be added to the themes/styles/ directory and then selected in the themes administration panel."}
 		{/forminput}
 	</div>
 

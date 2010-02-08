@@ -12,7 +12,7 @@
 	</div>
 
 	<div class="row">
-		{formlabel label="Browser title"}
+		{formlabel label="Browser Title"}
 		{forminput}
 			{$gBitSystem->getConfig('site_title')}
 		{/forminput}
@@ -26,9 +26,16 @@
 	</div>
 
 	<div class="row">
-		{formlabel label="Home page"}
+		{formlabel label="Home Page"}
 		{forminput}
 			{$gBitSystem->getConfig('bit_index')}
+		{/forminput}
+	</div>
+
+	<div class="row">
+		{formlabel label="Site Style"}
+		{forminput}
+			{$gBitSystem->getConfig('style')}
 		{/forminput}
 	</div>
 

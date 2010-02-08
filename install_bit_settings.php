@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.17 2009/10/01 14:17:00 wjames5 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.18 2010/02/08 20:12:42 wjames5 Exp $
  * @package install
  * @subpackage functions
  */
@@ -52,6 +52,11 @@ if( count( $processors ) > 0 ) {
 	$formInstallValues['image_processor'] = 'liberty';
 }
 
+// list of available site styles
+$subDirs = array( 'style_info', 'alternate' );
+$stylesList = $gBitThemes->getStylesList( NULL, NULL, $subDirs );
+$gBitSmarty->assign_by_ref( "stylesList", $stylesList );
+
 // get list of available languages
 $languages = array();
 $languages = $gBitLanguage->listLanguages();
@@ -66,6 +71,10 @@ if( isset( $_REQUEST['bit_settings'] ) ) {
 	if( empty( $_REQUEST['bitlanguage'] ) ) {
 		$_REQUEST['bitlanguage'] = 'en';
 	}
+
+	if( !empty( $_REQUEST["site_style"] ) ) {
+		$gBitSystem->storeConfig( 'style', $_REQUEST["site_style"], THEMES_PKG_NAME );
+	};
 
 	if( !array_key_exists( $_REQUEST['bitlanguage'], $languages ) ) {
 		$languages[$_REQUEST['bitlanguage']] = '';

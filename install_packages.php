@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.87 2009/10/01 14:17:00 wjames5 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.88 2010/02/08 20:12:42 wjames5 Exp $
  * @package install
  * @subpackage functions
  *
@@ -476,6 +476,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 1, 'Administrators','Site operators')" );
 					$rootUser->addUserToGroup( ROOT_USER_ID, 1 );
 				} else {
+					vd( 'Errors in root user store:'.PHP_EOL );
 					vd( $rootUser->mErrors );
 				}
 
