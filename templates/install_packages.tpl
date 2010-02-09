@@ -43,7 +43,7 @@
 					<div class="row">
 						{forminput}
 							<script type="text/javascript">/* <![CDATA[ */
-								document.write("<label><input name=\"switcher\" id=\"switcher\" type=\"checkbox\" checked onclick=\"switchCheckboxes(this.form.id,'packages[]','switcher')\" /> Batch (de)select all Packages and Services on this page</label>");
+								document.write("<label><input name=\"switcher\" id=\"switcher\" type=\"checkbox\" checked onclick=\"BitBase.switchCheckboxes(this.form.id,'packages[]','switcher')\" /> Batch (de)select all Packages and Services on this page</label>");
 							/* ]]> */</script>
 						{/forminput}
 					</div>
