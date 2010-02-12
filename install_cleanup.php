@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.26 2010/02/12 14:53:29 wjames5 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.27 2010/02/12 15:39:22 wjames5 Exp $
  * @package install
  * @subpackage functions
  */
@@ -195,7 +195,7 @@ $dbTables = $gBitInstaller->verifyInstalledPackages( 'all' );
 $dbIntegrity = install_check_database_integrity( $dbTables );
 $gBitSmarty->assign( 'dbIntegrity', $dbIntegrity );
 
-$gBitSmarty->assign( 'serviceList', $serviceList );
+// $gBitSmarty->assign( 'serviceList', $serviceList );
 
 
 
