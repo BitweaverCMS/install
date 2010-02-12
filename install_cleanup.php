@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.25 2008/10/24 22:08:13 squareing Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.26 2010/02/12 14:53:29 wjames5 Exp $
  * @package install
  * @subpackage functions
  */
@@ -74,6 +74,13 @@ $gBitSmarty->assign( 'insPerms', $insPerms );
 
 // ===================== Services =====================
 // check if we have installed more than one service of any given type
+// DEPRECATED - this check never really made sense. The original purpose
+// of the services was to have multiple under the same identifier to
+// be able to invoke them all in one shot. Recent updates to the services
+// flattens the array so that there is one and only one service set per
+// service type. This could revert back with time. For now this is commented
+// out.
+/*
 $serviceList = array();
 if( !empty( $gLibertySystem->mServices ) ) {
 	foreach( $gLibertySystem->mServices as $service_name => $service ) {
@@ -82,6 +89,7 @@ if( !empty( $gLibertySystem->mServices ) ) {
 		}
 	}
 }
+*/
 
 
 
