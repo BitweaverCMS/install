@@ -53,7 +53,7 @@
 					<p>Packages are the parts of Bitweaver that deal with content such as wiki pages, blogs or news articles.</p>
 
 					{foreach from=$schema key=package item=item}
-						{if !$item.installed and !$item.required and !$item.service}
+						{if !$item.installed and !$item.required}
 							<div class="row">
 								<div class="formlabel">
 									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
@@ -67,27 +67,6 @@
 							</div>
 						{/if}
 					{/foreach}
-
-					<h2>Services</h2>
-
-					<p>Services are special packages and can be considered extensions to the way content is handled. An extension might allow you to protect, categorise or rate your content.</p>
-
-					{foreach from=$schema key=package item=item}
-						{if !$item.installed and !$item.required and $item.service}
-							<div class="row">
-								<div class="formlabel">
-									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
-								</div>
-								{forminput}
-									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
-									{formhelp note=$item.info is_installer=1}
-									{formhelp note="<strong>Location</strong>: `$item.url`"}
-									{formhelp package=$package}
-								{/forminput}
-							</div>
-						{/if}
-					{/foreach}
-
 				{else}
 					<h2>No new Packages</h2>
 
