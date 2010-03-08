@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.7 2009/10/01 14:17:00 wjames5 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.8 2010/03/08 20:45:29 bitweaver Exp $
  * @package install
  * @subpackage functions
  */
@@ -17,7 +17,7 @@ $gBitUser->mUserId = ROOT_USER_ID;
 $pumpList = array();
 foreach( array_keys( $gBitSystem->mPackages ) as $package ) {
 	if( $gBitInstaller->isPackageActive( $package ) ) {
-		$file = constant( strtoupper( $package ).'_PKG_PATH' ).'pump_'.$package.'_inc.php';
+		$file = constant( strtoupper( $package ).'_PKG_PATH' ).'admin/pump_'.$package.'_inc.php';
 		if( file_exists( $file )) {
 			$pumpList[$package] = $file;
 		}
