@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_admin_inc.php,v 1.9 2009/10/01 14:17:00 wjames5 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_admin_inc.php,v 1.10 2010/03/22 21:15:04 lsces Exp $
  * @package install
  * @subpackage functions
  */
@@ -34,7 +34,7 @@ if( !empty( $_REQUEST['admin_submit'] )) {
 	if( empty( $errors )) {
 		$app = '_done';
 		$gBitSmarty->assign( 'next_step', $step + 1 );
-		$gBitSmarty->assign( 'pass_disp', eregi_replace( '.','&bull;',$_REQUEST['password'] ) );
+		$gBitSmarty->assign( 'pass_disp', preg_replace( '/./i','&bull;',$_REQUEST['password'] ) );
 
 		// do a mailer check as well - we need to remove trailing options for the sendmail_path check
 		if( !empty( $_REQUEST['testemail'] )) {
