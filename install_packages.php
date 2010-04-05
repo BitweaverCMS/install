@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.88 2010/02/08 20:12:42 wjames5 Exp $
+ * @version $Header: /cvsroot/bitweaver/_bit_install/install_packages.php,v 1.89 2010/04/05 15:57:11 wjames5 Exp $
  * @package install
  * @subpackage functions
  *
@@ -517,7 +517,10 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					'pass_due'  => FALSE
 				);
 				if( $adminUser->store( $storeHash ) ) {
+					// add user to admin group
 					$adminUser->addUserToGroup( $adminUser->mUserId, 1 );
+					// set admin group as default
+					$adminUser->storeUserDefaultGroup( $adminUser->mUserId, 1 );
 				}
 
 				// kill admin info in $_SESSION
