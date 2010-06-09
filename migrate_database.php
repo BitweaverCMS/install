@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/migrate_database.php,v 1.9 2009/10/01 14:17:00 wjames5 Exp $
+ * @version $Header$
  * @package install
  * @subpackage upgrade
  *
@@ -9,7 +9,7 @@
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details
  *
- * $Id: migrate_database.php,v 1.9 2009/10/01 14:17:00 wjames5 Exp $
+ * $Id$
  */
 
 /**

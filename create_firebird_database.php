@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_firebird_database.php,v 1.3 2006/02/03 14:06:00 lsces Exp $
+ * @version $Header$
  * @package install
  * @subpackage functions
  */

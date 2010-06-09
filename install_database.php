@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_database.php,v 1.20 2008/11/30 22:42:09 pppspoonman Exp $
+ * @version $Header$
  * @package install
  * @subpackage functions
  */

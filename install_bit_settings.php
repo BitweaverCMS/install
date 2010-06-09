@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_bit_settings.php,v 1.18 2010/02/08 20:12:42 wjames5 Exp $
+ * @version $Header$
  * @package install
  * @subpackage functions
  */

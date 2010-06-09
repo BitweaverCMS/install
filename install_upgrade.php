@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_upgrade.php,v 1.18 2009/03/31 08:14:44 lsces Exp $
+ * @version $Header$
  * @package install
  * @subpackage functions
  */

@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_install/templates/install_login.tpl,v 1.3 2008/10/03 09:19:40 squareing Exp $ *}
+{* $Header$ *}
 
 <h1>{$title|default:"You must be logged in as an administrator to run the installer."}</h1>
 

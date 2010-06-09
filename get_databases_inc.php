@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/get_databases_inc.php,v 1.11 2008/11/25 15:26:07 lsces Exp $
+ * @version $Header$
  * @package install
  * @subpackage functions
  *

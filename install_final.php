@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_final.php,v 1.5 2007/06/22 09:35:38 lsces Exp $
+ * @version $Header$
  * this is set to tell the progress meter to include this page --> 100% completed
  * 
  * @package install

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_datapump.php,v 1.8 2010/03/08 20:45:29 bitweaver Exp $
+ * @version $Header$
  * @package install
  * @subpackage functions
  */

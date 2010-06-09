@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/upgrade_welcome.php,v 1.5 2007/04/21 14:10:41 squareing Exp $
+ * @version $Header$
  * @package install
  * @subpackage upgrade
  */

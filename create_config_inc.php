@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/create_config_inc.php,v 1.21 2009/11/11 15:58:12 dansut Exp $
+ * @version $Header$
  * @package install
  * @subpackage functions
  */

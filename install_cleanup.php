@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/install_cleanup.php,v 1.27 2010/02/12 15:39:22 wjames5 Exp $
+ * @version $Header$
  * @package install
  * @subpackage functions
  */

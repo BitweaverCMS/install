@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_install/migrate.php,v 1.4 2009/10/01 14:17:00 wjames5 Exp $
+ * @version $Header$
  * @package install
  * @subpackage migrate
  */
