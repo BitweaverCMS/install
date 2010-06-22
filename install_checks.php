@@ -28,7 +28,7 @@ if( !isset( $_SERVER['HTTP_REFERER'] ) ) {
  */
 function check_settings() {
 	global $gBitSmarty, $error, $warning;
-	$config_file = clean_file_path( empty( $_SERVER['CONFIG_INC'] ) ? KERNEL_PKG_PATH.'config_inc.php' : $_SERVER['CONFIG_INC'] );
+	$config_file = clean_file_path( empty( $_SERVER['CONFIG_INC'] ) ? BIT_ROOT_PATH.'config/kernel_config.php' : $_SERVER['CONFIG_INC'] );
 
 	$i = 0;
 	// required settings - if not met, are passed into the array $reqd

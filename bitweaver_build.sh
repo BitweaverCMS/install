@@ -48,7 +48,7 @@ if [ $MODULE = 'bitweaver' ] ; then
 		touch "$BUILDDIR/phpbb/config.php"
 	fi
 	if [ -d "$BUILDDIR/kernel" ] ; then
-		touch "$BUILDDIR/kernel/config_inc.php"
+		touch "$BUILDDIR/config/kernel_config.php"
 	fi
 	if [ -d "$BUILDDIR/themes" ] ; then
 		mkdir "$BUILDDIR/themes/force"

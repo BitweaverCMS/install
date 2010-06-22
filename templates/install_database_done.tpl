@@ -69,7 +69,7 @@
 	<div class="row">
 		<p class="success">
 			This information was stored in the file:<br />
-			<strong>{$smarty.const.KERNEL_PKG_PATH}config_inc.php</strong>
+			<strong>{$smarty.const.CONFIG_PKG_PATH}kernel_config.php</strong>
 		</p>
 		{if substr( PHP_OS, 0, 3 ) == 'WIN'}
 			<p class="warning">

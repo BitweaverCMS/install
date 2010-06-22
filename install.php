@@ -100,7 +100,7 @@ if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'options';
 	$install_file[$i++]['name'] = 'Options';
 }
-// make it possible to reset the config_inc.php file if it's already filled with data
+// make it possible to reset the config/kernel_config.php file if it's already filled with data
 if( $onlyDuringFirstInstall ) {
 	$install_file[$i]['file'] = 'database';
 	$install_file[$i++]['name'] = 'Database';
