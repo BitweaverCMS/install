@@ -56,17 +56,11 @@
 			{formlabel label="Email transport"}
 			{forminput}
 				{if $mail.warning}
-					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
-					&nbsp;
-					{$mail.warning}
-					<br />
-					You will have to consult your server adminstrator to fix this issue.
+					{formfeedback error=$mail.warning}
+					{tr}You will have to consult your server adminstrator to fix this issue.{/tr}
 				{else}
-					{biticon ipackage="icons" iname="dialog-ok" iexplain=success}
-					&nbsp;
-					{$mail.success}
-					<br />
-					Please check your inbox to confirm that the email was sent.
+					{formfeedback success=$mail.success}		
+					{tr}Please check your inbox to confirm that the email was sent.{/tr}
 				{/if}
 			{/forminput}
 		</div>
