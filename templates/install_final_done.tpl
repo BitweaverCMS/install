@@ -30,7 +30,7 @@
 				</li>
 				<li>
 					<strong>bitweaver Configuration</strong>
-					<br />We urge you to look at your <kbd>config/kernel_config.php</kbd> file. It has various useful settings for sites in production. One of these is the <strong>IS_LIVE</strong> parameter. Setting this to <strong>TRUE</strong> will prevent any visible bug reports and will therefore not display sensitive information to the user.
+					<br />We urge you to look at your <kbd>config/kernel/config_inc.php</kbd> file. It has various useful settings for sites in production. One of these is the <strong>IS_LIVE</strong> parameter. Setting this to <strong>TRUE</strong> will prevent any visible bug reports and will therefore not display sensitive information to the user.
 				</li>
 			</ul>
 		</li>
@@ -38,7 +38,7 @@
 			<strong>Performance</strong>
 			<ul>
 				<li>For production sites, we recommend you visit our <a class="external" href="http://www.bitweaver.org/wiki/Bitweaver+Performance">Bitweaver Performance</a> page on how to optimise your Bitweaver install.</li>
-				<li>Please also have a look at your <kbd>config/kernel_config.php</kbd> file. It contains various settings that cannot be set elsewhere and which might be of interest to you.</li>
+				<li>Please also have a look at your <kbd>config/kernel/config_inc.php</kbd> file. It contains various settings that cannot be set elsewhere and which might be of interest to you.</li>
 			</ul>
 		</li>
 	</ul>

@@ -10,7 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details.
 
 $gBitSmarty->assign( 'next_step',$step );
-$config_file = empty($_SERVER['CONFIG_INC']) ? '../config/kernel_config.php' : $_SERVER['CONFIG_INC'];
+$config_file = empty($_SERVER['CONFIG_INC']) ? '../config/kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
 
 // set the maximum execution time to very high
 ini_set( "max_execution_time", "86400" );
