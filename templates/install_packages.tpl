@@ -18,7 +18,7 @@
 	{formfeedback warning=$warning}
 	{jstabs tab=0}
 		{jstab title="Install Packages"}
-			{form id="package_select" legend="Please select packages and services you wish to install" id="package_select"}
+			{form id="package_select" id="package_select"}
 				<input type="hidden" name="step" value="{$next_step}" />
 				<input type="hidden" name="method" value="install" />
 
@@ -36,6 +36,7 @@
 				{/foreach}
 
 				{if $new_packages}
+					<h2>Please select packages and services you wish to install</h2>
 					<p>This is a list with all available Bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this separately after completing the Bitweaver installation process.</p>
 
 					<p class="warning">Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need.</p>
@@ -67,8 +68,11 @@
 							</div>
 						{/if}
 					{/foreach}
+				{elseif $first_install}
+					<h2>Core System Installation</h2>
+					<p>{tr}Only the core required packages will be installed{/tr}</p>
 				{else}
-					<h2>No new Packages</h2>
+					<h2>No Additional Packages</h2>
 
 					<p>
 						All available packages have already been installed. If you are expecting to see a particular package here, please make sure that it is in the correct directory and also that the server has read permissions to that package. You can always test the permissions by setting them 777:<br />
