@@ -25,7 +25,7 @@
 			$sql .= ' USER "'.$user.'"';
 		if (strlen($pass) > 0)
 			$sql .= ' PASSWORD "'.$pass.'"';
-		$sql .= ' PAGE_SIZE = 4096';
+		$sql .= ' PAGE_SIZE = 16384';
 
 //		if ($s_create_charset != 'NONE') {
 			// NONE is the default character set
