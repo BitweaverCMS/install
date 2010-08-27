@@ -52,8 +52,12 @@ if( function_exists( 'fbird_connect' ) ) {
 			$fbpath = '/usr/lib64/firebird/bin/isql';
 	}
 	$gBitSmarty->assign( 'fbpath', $fbpath );
-	if ( empty($gBitDbName) ) $gBitDbName = 'bitweaver';
+	if ( empty($gBitDbName) ) { $gBitDbName = 'bitweaver'; }
 	$gBitDbCaseSensitivity = FALSE;
+	if ( empty($gBitDbUser) ) {
+		$gBitDbUser = 'SYSDBA';
+		$gBitDbPassword = 'masterkey';
+	}
 } 
 if( function_exists( 'sqlite_open' ) ) {
 	$dbtodsn['sqlite'] = 'SQLLite';

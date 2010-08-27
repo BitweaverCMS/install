@@ -124,6 +124,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 		// ---------------------- 1. ----------------------
 		// let's generate all the tables's
+		$gBitInstallDb->StartTrans();
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] )) {
 				unset( $build );
@@ -254,6 +255,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 			}
 		}
+		$gBitInstallDb->CompleteTrans();
 		// Force a reload of all our preferences
 		$gBitInstaller->mPrefs = '';
 		$gBitInstaller->loadConfig();
@@ -262,6 +264,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 		// ---------------------- 4. ----------------------
 		// manipulate the data in kernel_config
+		$gBitInstaller->mDb->StartTrans();
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
 			if( in_array( $package, $_REQUEST['packages'] ) ) {
 				// remove all the requested settings - this is a bit tricky and might require some more testing
@@ -423,7 +426,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 			}
 		}
-
+		$gBitInstaller->mDb->CompleteTrans();
 
 
 		// ---------------------- 6. ----------------------
@@ -440,6 +443,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 		// ---------------------- 7. ----------------------
 		// Do stuff that only applies during the first install
+		$gBitSystem->mDb->StartTrans();
 		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 			// set the version of bitweaver in the database
 			$gBitSystem->storeVersion( NULL, $gBitSystem->getBitVersion() );
@@ -565,6 +569,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			$gBitSmarty->assign( 'errors', $errors);
 			$gBitSmarty->assign( 'failedcommands', $failedcommands);
 		}
+		$gBitSystem->mDb->CompleteTrans();
 
 		// display the confirmation page
 		$app = '_done';
