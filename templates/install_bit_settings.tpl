@@ -63,7 +63,7 @@
 						<option value="{$s.style}" {if $s.style eq "basic"}selected="selected"{/if}>{$s.style}</option>
 				{/foreach}
 			</select>
-			{formhelp note="Pick the look and feel style you wish to use. Custom styles can be added to the themes/styles/ directory and then selected in the themes administration panel."}
+			{formhelp note="Pick the look and feel style you wish to use. Custom styles can be added to the config/themes/ directory and then selected in the themes administration panel."}
 		{/forminput}
 	</div>
 
