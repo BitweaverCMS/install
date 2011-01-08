@@ -47,8 +47,12 @@ function create_config( $pParamHash ) {
 	}
 
 	$config_file = empty( $_SERVER['CONFIG_INC'] ) ? '../config/kernel/config_inc.php' : $_SERVER['CONFIG_INC'];
-	mkdir( dirname( dirname( $config_file ) ) );
-	mkdir( dirname( $config_file ) );
+	if( !file_exists( dirname( dirname( $config_file ) ) ) ) {
+		mkdir( dirname( dirname( $config_file ) ) );
+	}
+	if( !file_exists( dirname( $config_file ) ) ) {
+		mkdir( dirname( $config_file ) );
+	}
 
 	// We can't call clean_file_path here even though we would like to.
 	$config_file = ( strpos( $_SERVER["SERVER_SOFTWARE"],"IIS" ) ? str_replace( "/", "\\", $config_file ) : $config_file );
