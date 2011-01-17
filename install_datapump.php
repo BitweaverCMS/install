@@ -33,7 +33,6 @@ if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
 		foreach( $_REQUEST['pump_package'] as $package ) {
 			if( $gBitInstaller->isPackageActive( $package ) ) {
 				$file = constant( strtoupper( $package ).'_PKG_PATH' ).'admin/pump_'.$package.'_inc.php';
-vd( $file );
 				include_once( $file );
 			}
 		}
