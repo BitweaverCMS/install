@@ -29,8 +29,14 @@ $gBitSmarty->assign( 'pumpList', $pumpList );
  * datapump setup
  */
 if( isset( $_REQUEST['fSubmitDataPump'] ) ) {
-	foreach( $pumpList as $file ) {
-		include_once( $file );
+	if( !empty( $_REQUEST['pump_package'] ) ) {
+		foreach( $_REQUEST['pump_package'] as $package ) {
+			if( $gBitInstaller->isPackageActive( $package ) ) {
+				$file = constant( strtoupper( $package ).'_PKG_PATH' ).'admin/pump_'.$package.'_inc.php';
+vd( $file );
+				include_once( $file );
+			}
+		}
 	}
 	$gBitSmarty->assign( 'pumpedData',$pumpedData );
 	$app = '_done';

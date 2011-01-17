@@ -8,7 +8,7 @@
 		{formfeedback error=`$errors.real_name`}
 		{formlabel label="Full Name" for="real_name"}
 		{forminput}
-			<input type="text" name="real_name" id="real_name" value="Administrator" />
+			<input type="text" name="real_name" id="real_name" value="{$smarty.session.real_name|default:'Administrator'}" />
 			{formhelp note="Administrator full name."}
 		{/forminput}
 	</div>
@@ -17,7 +17,7 @@
 		{formfeedback error=`$errors.login`}
 		{formlabel label="Admin login" for="login"}
 		{forminput}
-			<input type="text" name="login" id="login" value="admin" />
+			<input type="text" name="login" id="login" value="{$smarty.session.login|default:'admin'}" />
 			{formhelp note="Administrator login username."}
 		{/forminput}
 	</div>
@@ -26,7 +26,7 @@
 		{formfeedback error=`$errors.password`}
 		{formlabel label="Password" for="password"}
 		{forminput}
-			<input type="password" name="password" id="password" maxlength="32" value="{$password}" />
+			<input type="password" name="password" id="password" maxlength="32" value="{$smarty.session.password}" />
 			{formhelp note="The administrator's password should be at least 4 characters in length."}
 		{/forminput}
 	</div>
@@ -43,7 +43,7 @@
 		{formfeedback error=`$errors.email`}
 		{formlabel label="Email" for="email"}
 		{forminput}
-			<input type="text" name="email" id="email" value="{$email}" />
+			<input type="text" name="email" id="email" value="{$smarty.session.email}" />
 			{formhelp note="Administrator email address, in case of site malfunction this email will be showen to users."}
 		{/forminput}
 	</div>

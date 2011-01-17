@@ -18,7 +18,7 @@
 			{if $pumpList}
 				<ul>
 					{foreach from=$pumpList item=file key=package}
-						<li>{$package}</li>
+						<li><input type="checkbox" name="pump_package[]" value="{$package}" checked="checked"/>{$package}</li>
 					{/foreach}
 				</ul>
 			{else}

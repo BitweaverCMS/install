@@ -100,26 +100,26 @@ global \$gBitDbType, \$gBitDbHost, \$gBitDbUser, \$gBitDbPassword, \$gBitDbName,
 //    oci8po         Oracle (9i and newer)
 //    firebird       FireBird
 //    sybase         Sybase
-\$gBitDbType    = \"$gBitDbType\";
+\$gBitDbType=\"$gBitDbType\";
 
 // Hostname or IP for your database.
 // Some examples:
 //    'localhost' if you are running the database on the same machine as bitweaver
 //    If you use Oracle, insert your TNS Name here
 //    If you use SQLite, insert the path and filename to your database file
-\$gBitDbHost  = \"$gBitDbHost\";
+\$gBitDbHost=\"$gBitDbHost\";
 
 // Database username
-\$gBitDbUser  = \"$gBitDbUser\";
+\$gBitDbUser=\"$gBitDbUser\";
 
 // Database password
-\$gBitDbPassword  = \"$gBitDbPassword\";
+\$gBitDbPassword=\"$gBitDbPassword\";
 
 // Database name
-\$gBitDbName   = \"$gBitDbName\";
+\$gBitDbName=\"$gBitDbName\";
 
 // Database field case default
-\$gBitDbCaseSensitivity = \"$gBitDbCaseSensitivity\";
+\$gBitDbCaseSensitivity=\"$gBitDbCaseSensitivity\";
 
 // This prefix will be prepended to the begining of every table name to allow
 // multiple independent installs to share a single database. By ending the prefix
