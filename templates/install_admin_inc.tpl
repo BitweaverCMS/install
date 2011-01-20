@@ -34,7 +34,7 @@
 	<div class="row">
 		{formlabel label="Re-enter password" for="pass_confirm"}
 		{forminput}
-			<input type="password" name="pass_confirm" id="pass_confirm" maxlength="32" value="{$pass_confirm}" />
+			<input type="password" name="pass_confirm" id="pass_confirm" maxlength="32" value="{$smarty.session.password}" />
 			{formhelp note="Please confirm the administrators password."}
 		{/forminput}
 	</div>

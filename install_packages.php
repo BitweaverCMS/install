@@ -528,10 +528,10 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				}
 
 				// kill admin info in $_SESSION
-				unset( $_SESSION['real_name'] );
-				unset( $_SESSION['login'] );
-				unset( $_SESSION['password'] );
-				unset( $_SESSION['email'] );
+//				unset( $_SESSION['real_name'] );
+//				unset( $_SESSION['login'] );
+//				unset( $_SESSION['password'] );
+//				unset( $_SESSION['email'] );
 			}
 		}
 
