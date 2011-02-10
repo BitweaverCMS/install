@@ -486,7 +486,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 				// now let's set up some default data. Group_id's are hardcoded in users/schema_inc defaults
 				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", ".ANONYMOUS_GROUP_ID.", 'Anonymous','Public users not logged')" );
-				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 2, 'Editors','Site  Editors')" );
+				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 2, 'Managers','Site Managers')" );
 				$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`,`is_default`) VALUES ( ".ROOT_USER_ID.", 3, 'Registered', 'Users logged into the system', 'y')" );
 
 				$gBitUser->assignLevelPermissions( ANONYMOUS_GROUP_ID, 'basic' );
