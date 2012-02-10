@@ -400,7 +400,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		$gBitInstaller->loadConfig();
 
 
-
+		$gBitInstaller->mDb->query( "DELETE FROM `".BIT_DB_PREFIX."kernel_config` WHERE `package`=?", array( $package ) );
 		// ---------------------- 5. ----------------------
 		// run the defaults through afterwards so we can be sure all tables needed have been created
 		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
@@ -418,6 +418,11 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 									$errors[] = "Error setting defaults";
 									$failedcommands[] = $def;
 								}
+							}
+						}
+						if( !empty( $gBitInstaller->mPackages[$package]['default_prefs'] ) ) {
+							foreach( $gBitInstaller->mPackages[$package]['default_prefs'] as $prefHash ) {
+								$ret = $gBitInstaller->storeConfig( $prefHash['name'], $prefHash['value'], $prefHash['package']  );
 							}
 						}
 					}
