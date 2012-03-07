@@ -115,8 +115,6 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// value into other packages tables - typically users_permissions, bit_preferences, etc...
 		sort( $_REQUEST['packages'] );
 
-
-
 		// Need to unquote constraints. but this need replacing with a datadict function
 		require_once('../kernel/BitDbBase.php');
 		$gBitKernelDb = new BitDb();
@@ -125,8 +123,25 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		// ---------------------- 1. ----------------------
 		// let's generate all the tables's
 		$gBitInstallDb->StartTrans();
-		foreach( array_keys( $gBitInstaller->mPackages ) as $package ) {
-			if( in_array( $package, $_REQUEST['packages'] )) {
+		$uninstalledPackages = array();
+		// get a list of packages to install maintained gScanOrder from mPackages
+		foreach( array_keys( $gBitInstaller->mPackages ) as $p ) {
+			if( in_array( $p, $_REQUEST['packages'] ) ) {
+				$uninstalledPackages[] = $p;
+			}
+		}
+
+		$maxLoop = count( $uninstalledPackages ) * count( $uninstalledPackages );
+
+		$i = 0;
+		$installedPackages = array();
+		do { 
+			$package = array_shift( $uninstalledPackages );
+			$dependentPackages = (!empty( $gBitInstaller->mPackages[$package]['info']['dependencies'] ) ? explode( ',', $gBitInstaller->mPackages[$package]['info']['dependencies'] ) : array());
+
+			if( !empty( $dependentPackages ) && count( array_intersect( $dependentPackages, $_REQUEST['packages'] ) ) != count( $dependentPackages ) ) {
+				$errors[] = 'Required package is missing: '.$package.' requires '.$gBitInstaller->mPackages['info']['dependentPackages'];
+			} elseif( empty( $gBitInstaller->mPackages[$package]['requirements'] ) || count( array_intersect( $dependentPackages, $installedPackages ) ) == count( $dependentPackages ) ) {
 				unset( $build );
 				// work out what we're going to do with this package
 				if ( $method == 'install' && $_SESSION['first_install'] ) {
@@ -161,12 +176,20 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 						if( $sql && $dict->ExecuteSQLArray( $sql ) <= 1) {
 							$errors[] = 'Failed to create table '.$completeTableName;
 							$failedcommands[] = implode(" ", $sql);
-						}
+						} 
 					}
 				}
+				$installedPackages[] = $package;
+			} else {
+				// push dependent package on the end of uninstalled array
+				array_push( $uninstalledPackages, $package );
 			}
-		}
+			$i++;
+		} while( !empty( $uninstalledPackages ) && $i < $maxLoop );
 
+		if( $i > $maxLoop ) {
+			$errors[] = 'Infinite loop detected';
+		}
 
 
 		// ---------------------- 2. ----------------------
