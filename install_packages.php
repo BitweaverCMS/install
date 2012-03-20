@@ -135,13 +135,21 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 		$i = 0;
 		$installedPackages = array();
+		foreach( array_keys( $gBitInstaller->mPackages ) as $key ) {
+			if( !empty( $gBitInstaller->mPackages[$package]['installed'] ) ) {
+				array_push( $installedPackages );
+			}
+		}
+
 		do { 
 			$package = array_shift( $uninstalledPackages );
 			$dependentPackages = (!empty( $gBitInstaller->mPackages[$package]['info']['dependencies'] ) ? explode( ',', $gBitInstaller->mPackages[$package]['info']['dependencies'] ) : array());
-
-			if( !empty( $dependentPackages ) && count( array_intersect( $dependentPackages, $_REQUEST['packages'] ) ) != count( $dependentPackages ) ) {
-				$errors[] = 'Required package is missing: '.$package.' requires '.$gBitInstaller->mPackages['info']['dependentPackages'];
-			} elseif( empty( $gBitInstaller->mPackages[$package]['requirements'] ) || count( array_intersect( $dependentPackages, $installedPackages ) ) == count( $dependentPackages ) ) {
+			$dependentsInstalled = array_intersect( $dependentPackages, $installedPackages );
+			$dependentsUninstalled = array_intersect( $dependentPackages, $uninstalledPackages );
+			if( !empty( $dependentPackages ) && (count( $dependentsUninstalled ) + count( $dependentsInstalled )) != count( $dependentPackages ) ) {
+				// total dependents is not the same as what is/will be installed
+				$errors[] = 'Required package is missing: '.$package.' requires '.$gBitInstaller->mPackages['info']['dependencies'];
+			} elseif( empty( $gBitInstaller->mPackages[$package]['requirements'] ) && count( $dependentsInstalled ) == count( $dependentPackages ) ) {
 				unset( $build );
 				// work out what we're going to do with this package
 				if ( $method == 'install' && $_SESSION['first_install'] ) {
@@ -184,6 +192,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 				// push dependent package on the end of uninstalled array
 				array_push( $uninstalledPackages, $package );
 			}
+
 			$i++;
 		} while( !empty( $uninstalledPackages ) && $i < $maxLoop );
 
