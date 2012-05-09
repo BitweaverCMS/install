@@ -137,7 +137,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		$installedPackages = array();
 		foreach( array_keys( $gBitInstaller->mPackages ) as $key ) {
 			if( !empty( $gBitInstaller->mPackages[$package]['installed'] ) ) {
-				array_push( $installedPackages );
+				array_push( $installedPackages, $package );
 			}
 		}
 
