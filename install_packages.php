@@ -557,11 +557,14 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					'email'     => $_SESSION['email'],
 					'pass_due'  => FALSE
 				);
+
 				if( $adminUser->store( $storeHash ) ) {
 					// add user to admin group
 					$adminUser->addUserToGroup( $adminUser->mUserId, 1 );
 					// set admin group as default
 					$adminUser->storeUserDefaultGroup( $adminUser->mUserId, 1 );
+				} else {
+vd( $adminUser->mErrors ); die;
 				}
 
 				// kill admin info in $_SESSION
