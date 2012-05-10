@@ -586,30 +586,13 @@ vd( $adminUser->mErrors ); die;
 		$gBitSmarty->assign( 'packageList', $packageList );
 
 		// enter some log information to say we've initialised the system
-		if( empty( $failedcommands ) ) {
-			$logHash['action_log'] = array(
-				'user_id' => ROOT_USER_ID,
-				'title' => 'System Installation',
-				'log_message' => 'Packages were successfully installed and bitweaver is ready for use.',
-			);
-
-			if( empty( $_SESSION['first_install'] ) ) {
-				$list = '';
-				foreach( $packageList as $pkg ) {
-					$list .= implode( ", ", $pkg );
-				}
-				$logHash['action_log']['title'] = "Package {$method}";
-				$logHash['action_log']['log_message'] = "The following package(s) were {$method}ed: $list";
-			} else {
-				$gBitSystem->setConfig( 'liberty_action_log', 'y' );
-			}
-
-			LibertyContent::storeActionLog( $logHash );
-		} else {
+		if( !empty( $failedcommands ) ) {
 			$gBitSmarty->assign( 'errors', $errors);
 			$gBitSmarty->assign( 'failedcommands', $failedcommands);
+			$gBitSystem->mDb->RollbackTrans();
+		} else {
+			$gBitSystem->mDb->CompleteTrans();
 		}
-		$gBitSystem->mDb->CompleteTrans();
 
 		// display the confirmation page
 		$app = '_done';
