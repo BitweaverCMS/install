@@ -30,7 +30,7 @@ class BitInstaller extends BitSystem {
 	 * @access public
 	 */
 	function BitInstaller() {
-		BitSystem::BitSystem();
+		parent::__construct();
 		$this->getWebServerUid();
 	}
 
@@ -610,7 +610,7 @@ function check_session_save_path() {
 		}
 
 		if( $errors ) {
-			$save_path = BitSystem::tempdir();
+			$save_path = static::tempdir();
 
 			if (is_dir($save_path) && bw_is_writeable($save_path)) {
 				ini_set('session.save_path', $save_path);
