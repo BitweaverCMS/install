@@ -132,13 +132,13 @@ $failedcommands = array();
 global $gBitLanguage;
 $gBitLanguage->mLanguage = 'en';
 
-// Empty PHP_SELF and incorrect SCRIPT_NAME due to php-cgiwrap - wolff_borg
-if( empty( $_SERVER['PHP_SELF'] )) {
-	$_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_URL'];
+// Empty SCRIPT_NAME and incorrect SCRIPT_NAME due to php-cgiwrap - wolff_borg
+if( empty( $_SERVER['SCRIPT_NAME'] )) {
+	$_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_URL'];
 }
 
 if( empty( $_REQUEST['baseurl'] )) {
-	$bit_root_url = substr( $_SERVER['PHP_SELF'], 0, strpos( $_SERVER['PHP_SELF'], 'install/' ));
+	$bit_root_url = substr( $_SERVER['SCRIPT_NAME'], 0, strpos( $_SERVER['SCRIPT_NAME'], 'install/' ));
 } else {
 	$bit_root_url = BIT_ROOT_URL;
 }

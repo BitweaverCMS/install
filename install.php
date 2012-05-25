@@ -22,7 +22,7 @@ if( !empty( $_REQUEST['step'] ) && $_REQUEST['step'] == 0 ) {
 // Early check of memory limit just to be sure we can run.
 // Set the number '15' to a lower value if you know that the install process can handle it.
 if( get_cfg_var( 'memory_limit' ) !== FALSE && preg_replace( '/M/i','',get_cfg_var( 'memory_limit' )) < 15 ) {
-	$dir = dirname( $_SERVER['PHP_SELF'] );
+	$dir = dirname( $_SERVER['SCRIPT_NAME'] );
 	// We don't use smarty to avoid using any memory since we already know there is a problem.
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -151,9 +151,9 @@ if( !empty( $gBitDbType ) && !empty( $gBitInstaller->mPackages['users']['install
 }
 
 // if the page has been renamed to anything else than 'install.php' we send it to the last installation stage
-if( !strpos( $_SERVER['PHP_SELF'],'install/install.php' ) ) {
+if( !strpos( $_SERVER['SCRIPT_NAME'],'install/install.php' ) ) {
 	$step = $i;
-	$gBitSmarty->assign( 'renamed',basename( $_SERVER['PHP_SELF'] ) );
+	$gBitSmarty->assign( 'renamed',basename( $_SERVER['SCRIPT_NAME'] ) );
 }
 
 // finally we are ready to include the actual php file

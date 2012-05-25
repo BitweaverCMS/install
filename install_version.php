@@ -49,7 +49,7 @@ if( version_compare( '2.1.0-beta', $gBitSystem->getVersion(), '>' )) {
 if( !empty( $_REQUEST['update_version'] )) {
 	if( !empty( $upToDate ) || !empty( $_REQUEST['skip'] )) {
 		// if we're already up to date, we'll simply move on to the next page
-		bit_redirect( $_SERVER['PHP_SELF']."?step=".++$step );
+		bit_redirect( $_SERVER['SCRIPT_NAME']."?step=".++$step );
 	} else {
 		// set the version of bitweaver in the database
 		if( $gBitSystem->storeVersion( NULL, $gBitSystem->getBitVersion() )) {

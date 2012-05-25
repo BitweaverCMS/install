@@ -187,7 +187,7 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 	$app = '_done';
 } elseif( !empty(  $_REQUEST['skip'] ) ) {
 	// if there were no conflicts, we move on to the next page
-	header( "Location: ".$_SERVER['PHP_SELF']."?step=".++$step );
+	header( "Location: ".$_SERVER['SCRIPT_NAME']."?step=".++$step );
 }
 
 // make sure everything is up to date after the above changes

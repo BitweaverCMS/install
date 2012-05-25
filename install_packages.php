@@ -598,7 +598,7 @@ vd( $adminUser->mErrors ); die;
 		$app = '_done';
 	} else {
 		// if we can't connect to the db, move back 2 steps
-		header( "Location: ".$_SERVER['PHP_SELF']."?step=".$step - 2 );
+		header( "Location: ".$_SERVER['SCRIPT_NAME']."?step=".$step - 2 );
 	}
 } elseif( !empty( $_REQUEST['submit_packages'] ) ) {
 	// No packages to install so just move to the next step.
