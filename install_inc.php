@@ -134,7 +134,7 @@ $gBitLanguage->mLanguage = 'en';
 
 // Empty SCRIPT_NAME and incorrect SCRIPT_NAME due to php-cgiwrap - wolff_borg
 if( empty( $_SERVER['SCRIPT_NAME'] )) {
-	$_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_URL'];
+	$_SERVER['SCRIPT_NAME'] = $_SERVER['SCRIPT_URL'];
 }
 
 if( empty( $_REQUEST['baseurl'] )) {
