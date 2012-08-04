@@ -154,7 +154,7 @@ class BitInstaller extends BitSystem {
 	 * @access public
 	 * @return void
 	 */
-	function display( $pTemplate, $pBrowserTitle=NULL ) {
+	function display( $pPackage, $pTemplate ) {
 		header( 'Content-Type: text/html; charset=utf-8' );
 		if( ini_get( 'safe_mode' ) && ini_get( 'safe_mode_gid' )) {
 			umask( 0007 );
@@ -162,12 +162,12 @@ class BitInstaller extends BitSystem {
 		// force the session to close *before* displaying. Why? Note this very important comment from http://us4.php.net/exec
 		session_write_close();
 
-		if( !empty( $pBrowserTitle ) ) {
-			$this->setBrowserTitle( $pBrowserTitle );
+		if( !empty( $pPackage ) ) {
+			$this->setBrowserTitle( $pPackage );
 		}
 		global $gBitSmarty;
 		$gBitSmarty->verifyCompileDir();
-		$gBitSmarty->display( $pTemplate );
+		$gBitSmarty->display( NULL, $pTemplate );
 	}
 
 	/**

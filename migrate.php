@@ -53,6 +53,6 @@ $gBitSmarty->assign( 'menu_file', 'migrate.php' );
 $gBitSmarty->assign( 'section', 'Upgrade' );
 
 $gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/migrate_".$install_file[$step]['file'].$app.".tpl" );
-$gBitInstaller->display( INSTALL_PKG_PATH.'templates/install.tpl', $install_file[$step]['name'] );
+$gBitInstaller->display( $install_file[$step]['name'], INSTALL_PKG_PATH.'templates/install.tpl' );
 
 ?>
