@@ -13,7 +13,7 @@
 	
   Set tabs to 4 for best viewing.
   Added by Lester Caine to provide an in-line generation of Firebird(/Interbase) database
-  Firebird requires the database to exist before it can be connected to as part of it's 
+  Firebird requires the database to exist before it can be connected to as part of it's
   security system
   Still need to be extended to allow selection of OS tmp directory, 
   and path to Firebird bin directory 
@@ -36,7 +36,11 @@
 
 		$sql = str_replace("\r\n", "\n", $sql);
 		$sql .= "\n";
-		$tmp_name = $_ENV["TMP"].'/'.uniqid('').'.sql';
+		if( isset($_ENV["TMP"])) {
+			$tmp_name = $_ENV["TMP"].'/'.uniqid('').'.sql';
+		} else {
+			$tmp_name = '/tmp/'.uniqid('').'.sql';
+		}
 
 		if ($fp = fopen ($tmp_name, 'a')) {
 			fwrite($fp, $sql);

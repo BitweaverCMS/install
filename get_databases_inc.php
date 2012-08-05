@@ -49,7 +49,7 @@ if( function_exists( 'fbird_connect' ) ) {
 		if ( is_windows() )
 			$fbpath = 'c:\Program Files\Firebird\Firebird_2_1\bin\isql';
 		else
-			$fbpath = '/usr/lib64/firebird/bin/isql';
+			$fbpath = '/opt/firebird/bin/isql';
 	}
 	$gBitSmarty->assign( 'fbpath', $fbpath );
 	if ( empty($gBitDbName) ) { $gBitDbName = 'bitweaver'; }
