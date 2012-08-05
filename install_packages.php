@@ -60,7 +60,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		ini_set('sybct.min_server_severity', '11');
 	}
 
-	$gBitInstallDb = &ADONewConnection( $gBitDbType );
+	$gBitInstallDb = ADONewConnection( $gBitDbType );
 
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
 		$gBitInstaller->debug();
