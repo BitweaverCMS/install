@@ -65,6 +65,6 @@ $gBitSmarty->assign( 'menu_file', 'upgrade.php' );
 $gBitSmarty->assign( 'section', 'Upgrade' );
 
 $gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/upgrade_".$install_file[$step]['file'].$app.".tpl" );
-$gBitInstaller->display( $install_file[$step]['name'], INSTALL_PKG_PATH.'templates/install.tpl' );
+$gBitInstaller->in_display( $install_file[$step]['name'], INSTALL_PKG_PATH.'templates/install.tpl' );
 
 ?>

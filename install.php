@@ -146,7 +146,7 @@ if( !empty( $gBitDbType ) && !empty( $gBitInstaller->mPackages['users']['install
 	$install_file = 'login';
 	$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file.".tpl" );
 	$gBitSmarty->assign( 'progress', 0 );
-	$gBitSmarty->display( NULL, INSTALL_PKG_PATH.'templates/install.tpl' );
+	$gBitSmarty->display( INSTALL_PKG_PATH.'templates/install.tpl' );
 	die;
 }
 
@@ -162,5 +162,5 @@ include_once( 'install_'.$install_file[$step]['file'].'.php' );
 $install_file = set_menu( $install_file, $step );
 
 $gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file[$step]['file'].$app.".tpl" );
-$gBitInstaller->display( $install_file[$step]['name'], INSTALL_PKG_PATH.'templates/install.tpl' );
+$gBitInstaller->in_display( $install_file[$step]['name'], INSTALL_PKG_PATH.'templates/install.tpl' );
 ?>

@@ -154,7 +154,7 @@ class BitInstaller extends BitSystem {
 	 * @access public
 	 * @return void
 	 */
-	function display( $pPackage, $pTemplate ) {
+	function in_display( $pPackage, $pTemplate ) {
 		header( 'Content-Type: text/html; charset=utf-8' );
 		if( ini_get( 'safe_mode' ) && ini_get( 'safe_mode_gid' )) {
 			umask( 0007 );
@@ -167,7 +167,7 @@ class BitInstaller extends BitSystem {
 		}
 		global $gBitSmarty;
 		$gBitSmarty->verifyCompileDir();
-		$gBitSmarty->display( NULL, $pTemplate );
+		$gBitSmarty->display( $pTemplate );
 	}
 
 	/**
