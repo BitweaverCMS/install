@@ -20,7 +20,7 @@ if( !empty( $_REQUEST['admin_submit'] )) {
 	if( empty( $_REQUEST['email'] ) ) {
 		$errors['email'] = "You must specify an email address.";
 	} else {
-		BitUser::verifyEmail( $_REQUEST['email'], $errors );
+		BitUser::verifyAnonEmail( $_REQUEST['email'], $errors );
 	}
 
 	if( $_REQUEST['password'] != $_REQUEST['pass_confirm'] ) {
