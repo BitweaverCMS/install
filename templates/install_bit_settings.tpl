@@ -36,7 +36,11 @@
 		{forminput}
 			<select name="bit_index" id="bit_index">
 				<option value="my_home"{if $bit_index eq 'my_home'} selected="selected"{/if}>{tr}My home{/tr}</option>
-				<option value="group_home"{if $bit_index eq 'group_home'} selected="selected"{/if}>{tr}Group home{/tr}</option>
+				{if $role_model }
+					<option value="role_home"{if $bit_index eq 'role_home'} selected="selected"{/if}>{tr}Role home{/tr}</option>
+				{else}
+					<option value="group_home"{if $bit_index eq 'group_home'} selected="selected"{/if}>{tr}Group home{/tr}</option>
+				{/if}
 				{foreach key=name item=package from=$schema }
 					{if $package.homeable && $package.installed}
 						<option {if $package.name=='wiki'}selected="selected"{/if} value="{$package.name}">{$package.name}</option>

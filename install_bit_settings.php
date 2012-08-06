@@ -98,5 +98,8 @@ foreach( $gBitSystem->mPackages as $package ) {
 		$foreign_packages[] = $package;
 	}
 }
+if ( defined( 'ROLE_MODEL' ) ) {
+	$gBitSmarty->assign( "role_model", TRUE );
+}
 $gBitSmarty->assign( "foreign_packages", $foreign_packages );
 ?>

@@ -31,14 +31,18 @@ while( !$result->EOF ) {
 	foreach( $result->fields as $r ) {
 		$bitPerms[$result->fields['perm_name']][] = $r;
 	}
-	$bitPerms[$result->fields['perm_name']]['sql'][] = "DELETE FROM `".BIT_DB_PREFIX."users_group_permissions` WHERE `perm_name`='".$result->fields['perm_name']."'";
+	if ( defined( 'ROLE_MODEL' ) ) {
+		$bitPerms[$result->fields['perm_name']]['sql'][] = "DELETE FROM `".BIT_DB_PREFIX."users_role_permissions` WHERE `perm_name`='".$result->fields['perm_name']."'";
+	} else {
+		$bitPerms[$result->fields['perm_name']]['sql'][] = "DELETE FROM `".BIT_DB_PREFIX."users_group_permissions` WHERE `perm_name`='".$result->fields['perm_name']."'";
+	}
 	$bitPerms[$result->fields['perm_name']]['sql'][] = "DELETE FROM `".BIT_DB_PREFIX."users_permissions` WHERE `perm_name`='".$result->fields['perm_name']."'";
 	$result->MoveNext();
 }
 
-// we will make sure all the permission levels are what they should be. we will 
-// update these without consulting the user. this is purely backend stuff, has 
-// no outcome on the site itself but determines what the default permission 
+// we will make sure all the permission levels are what they should be. we will
+// update these without consulting the user. this is purely backend stuff, has
+// no outcome on the site itself but determines what the default permission
 // level is. the user can never modify these settings.
 foreach( array_keys( $gBitInstaller->mPermHash ) as $perm ) {
 	// permission level is stored in [2]
@@ -51,7 +55,7 @@ foreach( array_keys( $gBitInstaller->mPermHash ) as $perm ) {
 	}
 }
 
-// compare both perm arrays with each other and work out what permissions need 
+// compare both perm arrays with each other and work out what permissions need
 // to be added and which ones removed
 $insPerms = $delPerms = array();
 foreach( array_keys( $gBitInstaller->mPermHash ) as $perm ) {
@@ -144,11 +148,11 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 	}
 	// === Permissions
 	$fixedPermissions = array();
-	$groupMap = array();
-	$groupMap['basic'] = ANONYMOUS_GROUP_ID;
-	$groupMap['registered'] = 3;
-	$groupMap['editors'] = 2;
-	$groupMap['admin'] = 1;
+	$permMap = array();
+	$permMap['basic'] = ANONYMOUS_TEAM_ID;
+	$permMap['registered'] = 3;
+	$permMap['editors'] = 2;
+	$permMap['admin'] = 1;
 	if( !empty( $_REQUEST['perms'] ) ) {
 		foreach( $_REQUEST['perms'] as $perm ) {
 			if( !empty( $delPerms[$perm] )) {
@@ -161,8 +165,12 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 			if( !empty( $insPerms[$perm] )) {
 				$gBitInstaller->mDb->query( $insPerms[$perm]['sql'] );
 				$fixedPermissions[] = $insPerms[$perm];
-				if( !empty( $groupMap[$insPerms[$perm][2]] )) {
-					$gBitUser->assignPermissionToGroup( $perm, $groupMap[$insPerms[$perm][2]] );
+				if( !empty( $roleMap[$insPerms[$perm][2]] )) {
+					if ( defined( 'ROLE_MODEL' ) ) {
+						$gBitUser->assignPermissionToRole( $perm, $permMap[$insPerms[$perm][2]] );
+					} else {
+						$gBitUser->assignPermissionToGroup( $perm, $permMap[$insPerms[$perm][2]] );
+					}
 				}
 			}
 		}
