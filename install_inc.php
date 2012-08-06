@@ -61,6 +61,8 @@ function set_menu( $pInstallFiles, $pStep ) {
  * Global flag to indicate we are installing
  */
 define( 'BIT_INSTALL', 'TRUE' );
+// Uncomment to switch to role team model ...
+//define( 'ROLE_MODEL', 'TRUE' );
 global $gBitSmarty;
 
 // use relative path if no CONFIG_INC path specified - we know we are in installer here...
@@ -101,7 +103,11 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 }
 require_once("../kernel/setup_inc.php");
 require_once( 'BitInstaller.php' );
-require_once( USERS_PKG_PATH.'BitUser.php' );
+if ( defined( 'ROLE_MODEL' ) ) {
+	require_once( USERS_PKG_PATH.'RoleUser.php' );
+} else {
+	require_once( USERS_PKG_PATH.'BitUser.php' );
+}
 
 // set some preferences during installation
 global $gBitInstaller, $gBitSystem, $gBitThemes;
