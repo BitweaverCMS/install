@@ -183,11 +183,12 @@ define( 'BIT_ROOT_URL', '$bit_root_url' );
 // that are used. You can add as many sizes as you want if you override the default. 
 /*
 \$gThumbSizes = array(
-	'icon'   => array( 'width' => 48,  'height' => 48 ),
-	'avatar' => array( 'width' => 100, 'height' => 100 ),
-	'small'  => array( 'width' => 160, 'height' => 120 ),
-	'medium' => array( 'width' => 400, 'height' => 300 ),
-	'large'  => array( 'width' => 800, 'height' => 600 ),
+		'extra-large'  => array( 'width' => 1024, 'height' => 1024 ),
+		'large'  => array( 'width' => 800, 'height' => 800 ),
+		'medium' => array( 'width' => 400, 'height' => 400 ),
+		'small'  => array( 'width' => 160, 'height' => 160 ),
+		'avatar' => array( 'width' => 100, 'height' => 100 ),
+		'icon'   => array( 'width' => 48,  'height' => 48 ),
 );
 */";
 
