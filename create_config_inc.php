@@ -202,6 +202,12 @@ define( 'BIT_ROOT_URL', '$bit_root_url' );
 //define( 'PHP_MAGIC_PATH', 'C:\\Program Files\\PHP\\extras\\magic.mime' );";
 		}
 
+		if( defined( 'ROLE_MODEL' )) {
+			$filetowrite .= "
+
+define( 'LIBERTY_DEFAULT_MIME_HANDLER', 'mimeflatdefault' );";
+		}
+
 		$filetowrite .= "
 
 
