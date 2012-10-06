@@ -141,7 +141,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			}
 		}
 
-		do { 
+		do {
 			$package = array_shift( $uninstalledPackages );
 			$dependentPackages = (!empty( $gBitInstaller->mPackages[$package]['info']['dependencies'] ) ? explode( ',', $gBitInstaller->mPackages[$package]['info']['dependencies'] ) : array());
 			$dependentsInstalled = array_intersect( $dependentPackages, $installedPackages );
@@ -184,7 +184,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 						if( $sql && $dict->ExecuteSQLArray( $sql ) <= 1) {
 							$errors[] = 'Failed to create table '.$completeTableName;
 							$failedcommands[] = implode(" ", $sql);
-						} 
+						}
 					}
 				}
 				$installedPackages[] = $package;
