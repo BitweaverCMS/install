@@ -149,13 +149,17 @@ if( empty( $_REQUEST['baseurl'] )) {
 	$bit_root_url = BIT_ROOT_URL;
 }
 
-$errors = '';
+global $gBitUser;
+if( !empty( $_REQUEST['login'] ) ) {
+	$gBitInstaller->login( $_REQUEST['user'], $_REQUEST['pass'] );	
+} elseif( !empty( $_COOKIE[$gBitUser->getSiteCookieName()] ) && ( $gBitUser->mUserId = $gBitUser->getUserIdFromCookieHash( $_COOKIE[$gBitUser->getSiteCookieName()] ))) {
+	$userInfo = $gBitUser->getUserInfo( array( 'user_id' => $gBitUser->mUserId ) );
 
-// do some session stuff
-// check_session_save_path();
-if( !isset( $_SESSION )) {
-// 	session_start();
-// 	vd( "session start" );
+	if( $userInfo['user_id'] != ANONYMOUS_USER_ID ) {
+		// User is valid and not due to change pass..
+		$gBitUser->mInfo = $userInfo;
+		$gBitUser->loadPermissions( TRUE );
+	}
 }
 
 // if we came from anywhere appart from some installer page, nuke all settings in the _SESSION and set first_install FALSE

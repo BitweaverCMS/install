@@ -47,6 +47,37 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
+	 * Minimal login just for install in case users tables have been modified
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	function login( $pLogin, $pPassword, $pChallenge=NULL, $pResponse=NULL ) {
+		global $gBitUser;
+
+		$isvalid = false;
+
+		$loginCol = strpos( $pLogin, '@' ) ? 'email' : 'login';
+
+		if( $gBitUser->validate( $pLogin, $pPassword, $pChallenge, $pResponse ) ) {
+			$userInfo = $gBitUser->getUserInfo( array( $loginCol => $pLogin ) );
+
+			if( $userInfo['user_id'] != ANONYMOUS_USER_ID ) {
+				// User is valid and not due to change pass..
+				$gBitUser->mUserId = $userInfo['user_id'];
+				$gBitUser->mInfo = $userInfo;
+				$gBitUser->loadPermissions( TRUE );
+
+				$sessionId = session_id();
+				$gBitUser->sendSessionCookie( $sessionId );
+				$gBitUser->updateSession( $sessionId );
+			}
+		}
+
+		return $gBitUser->isAdmin();
+	}
+
+	/**
 	 * loadUpgradeFiles This will load all files in the dir <pckage>/admin/upgrades/<version>.php with a version greater than the one installed
 	 * 
 	 * @param array $pPackage 
