@@ -71,8 +71,10 @@
 				{/foreach}
 			</table>
 
-			<div class="control-group submit">
-				<input type="submit" class="btn" name="fix_version_210beta" value="Fix Permissions" />
+			<div class="control-group">
+		{forminput}
+					<input type="submit" class="btn" name="fix_version_210beta" value="Fix Permissions" />
+		{/forminput}
 			</div>
 
 			<div class="control-group">
@@ -83,12 +85,16 @@
 			</div>
 		{else}
 			{if $upToDate}
-				<div class="control-group submit">
-					<input type="submit" class="btn" name="skip" value="Continue install process" />
+				<div class="control-group">
+		{forminput}
+						<input type="submit" class="btn" name="skip" value="Continue install process" />
+		{/forminput}
 				</div>
 			{else}
-				<div class="control-group submit">
-					<input type="submit" class="btn" name="update_version" value="Update version and continue" />
+				<div class="control-group">
+		{forminput}
+						<input type="submit" class="btn" name="update_version" value="Update version and continue" />
+		{/forminput}
 				</div>
 			{/if}
 		{/if}

@@ -27,8 +27,10 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group submit">
-		{if $pumpList}
+	<div class="control-group">
+		{forminput}
+			{if $pumpList}
+		{/forminput}
 			<input type="submit" class="btn" value="Populate my site" name="fSubmitDataPump" /> 
 		{/if}
 		<input type="submit" class="btn" value="Skip" name="skip" />

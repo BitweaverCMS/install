@@ -55,8 +55,10 @@
 				</p>
 			{/if}
 
-			<div class="control-group submit">
-				<input type="submit" class="btn" name="create_tables" value="Try to create missing table/s" />
+			<div class="control-group">
+		{forminput}
+					<input type="submit" class="btn" name="create_tables" value="Try to create missing table/s" />
+		{/forminput}
 			</div>
 
 			<div class="control-group">
@@ -183,8 +185,10 @@
 		{/if}
 
 		{if $delPerms || $insPerms || $serviceList}
-			<div class="control-group submit">
-				<input type="submit" class="btn" name="resolve_conflicts" value="Resolve Issues" />
+			<div class="control-group">
+		{forminput}
+					<input type="submit" class="btn" name="resolve_conflicts" value="Resolve Issues" />
+		{/forminput}
 			</div>
 
 			<div class="control-group">
@@ -194,8 +198,10 @@
 				{/forminput}
 			</div>
 		{else}
-			<div class="control-group submit">
-				<input type="submit" class="btn" name="skip" value="Continue install process" />
+			<div class="control-group">
+		{forminput}
+					<input type="submit" class="btn" name="skip" value="Continue install process" />
+		{/forminput}
 			</div>
 		{/if}
 	{/legend}

@@ -94,7 +94,9 @@
 		</div>
 	{/if}
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" name="bit_settings" value="{tr}Set Preferences{/tr}" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" name="bit_settings" value="{tr}Set Preferences{/tr}" />
+		{/forminput}
 	</div>
 {/form}

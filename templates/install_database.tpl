@@ -164,8 +164,10 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group submit">
-		<input type="hidden" name="dbcase" value="{$gBitDbCaseSensitivity}" />
+	<div class="control-group">
+		{forminput}
+			<input type="hidden" name="dbcase" value="{$gBitDbCaseSensitivity}" />
+		{/forminput}
 		<input type="hidden" name="resetdb" value="{$resetdb}" />
 		<input type="submit" class="btn" value="Confirm Settings" name="submit_db_info" />
 	</div>

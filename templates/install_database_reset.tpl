@@ -7,8 +7,10 @@
 		<p>If you don't want to reset or change your installation settings, please press the continue button.</p>
 	</div>
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" name="continue_install" value="Continue {$section|default:"install"} process" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" name="continue_install" value="Continue {$section|default:"install"} process" />
+		{/forminput}
 	</div>
 
 	<div class="control-group">
@@ -18,7 +20,9 @@
 		<p>If you want to reinstall Bitweaver into the same database as before, make sure you have deleted all Bitweaver related tables before doing so. Reinstalling into an existing database might cause unwanted effects.</p>
 	</div>
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" name="reset_config_inc" value="Reset config_inc.php file" onclick="return confirm( 'Are you absolutely sure you want to reset your configuration file?' );" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" name="reset_config_inc" value="Reset config_inc.php file" onclick="return confirm( 'Are you absolutely sure you want to reset your configuration file?' );" />
+		{/forminput}
 	</div>
 {/form}

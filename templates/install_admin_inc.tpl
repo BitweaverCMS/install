@@ -56,8 +56,10 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" name="admin_submit" value="Submit Admin Information" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" name="admin_submit" value="Submit Admin Information" />
+		{/forminput}
 	</div>
 {/form}
 {/strip}

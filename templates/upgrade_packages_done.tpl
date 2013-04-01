@@ -30,7 +30,9 @@
 		</div>
 	{/if}
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" value="Continue upgrade process" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" value="Continue upgrade process" />
+		{/forminput}
 	</div>
 {/form}

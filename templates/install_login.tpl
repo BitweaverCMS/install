@@ -19,8 +19,10 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" name="login" value="{tr}Log in to {$gBitSystem->getConfig('site_title')|default:"this site"}{/tr}" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" name="login" value="{tr}Log in to {$gBitSystem->getConfig('site_title')|default:"this site"}{/tr}" />
+		{/forminput}
 		{if $gBitSystem->isFeatureActive('site_https_login_required') || $smarty.server.HTTPS=='on'}
 			{biticon iname="emblem-readonly" ipackage="icons" iexplain="Secure Login"}
 		{/if}

@@ -43,7 +43,9 @@
 		</div>
 	{/foreach}
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" value="Continue install process" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" value="Continue install process" />
+		{/forminput}
 	</div>
 {/form}

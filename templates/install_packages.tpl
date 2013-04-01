@@ -90,8 +90,10 @@
 						</code><br />
 					</p>
 				{/if}
-				<div class="control-group submit">
-					Please press this button only once.<br />
+				<div class="control-group">
+		{forminput}
+						Please press this button only once.<br />
+		{/forminput}
 					Depending on the number of packages and the hardware,<br />
 					this process might take up to a few minutes.<br /><br />
 					<input type="hidden" name="resetdb" value="{$resetdb}" />
@@ -159,8 +161,10 @@
 						{/if}
 					{/foreach}
 
-					<div class="control-group submit">
-						Please press this button only once.<br />
+					<div class="control-group">
+		{forminput}
+							Please press this button only once.<br />
+		{/forminput}
 						Depending on the number of packages and the hardware,<br />
 						this process might take up to a few minutes.<br /><br />
 						<input type="submit" class="btn" name="submit_packages" value="Uninstall/Reinstall Packages" onclick="return confirm( 'Are you sure you want to uninstall/reinstall the selected packages?' );" />
@@ -206,8 +210,10 @@
 	{if !$first_install}
 		{form}
 			<input type="hidden" name="step" value="{$next_step}" />
-			<div class="control-group submit">
-				&nbsp;&nbsp;<input type="submit" class="btn" name="cancel" value="Skip this stage" />
+			<div class="control-group">
+		{forminput}
+					&nbsp;&nbsp;<input type="submit" class="btn" name="cancel" value="Skip this stage" />
+		{/forminput}
 			</div>
 		{/form}
 	{/if}

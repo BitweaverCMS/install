@@ -18,7 +18,9 @@
 		</ul>
 	</div>
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" value="Continue process" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" value="Continue process" />
+		{/forminput}
 	</div>
 {/form}

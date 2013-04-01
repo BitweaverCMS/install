@@ -297,7 +297,9 @@
 		{/jstab}
 	{/jstabs}
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" value="Execute Migration" name="fSubmitDatabase" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" value="Execute Migration" name="fSubmitDatabase" />
+		{/forminput}
 	</div>
 {/form}

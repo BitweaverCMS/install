@@ -36,8 +36,10 @@
 		</ul>
 	{/if}
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" name="upgrade" value="Upgrade Packages" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" name="upgrade" value="Upgrade Packages" />
+		{/forminput}
 	</div>
 
 	<div class="control-group">

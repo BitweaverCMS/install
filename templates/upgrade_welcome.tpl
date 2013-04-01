@@ -56,7 +56,9 @@
 		</p>
 	{/if}
 
-	<div class="control-group submit">
-		<input type="submit" class="btn" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the upgrade process!"}" />
+	<div class="control-group">
+		{forminput}
+			<input type="submit" class="btn" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the upgrade process!"}" />
+		{/forminput}
 	</div>
 {/form}

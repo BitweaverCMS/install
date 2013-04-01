@@ -11,8 +11,10 @@
 
 		<p>Thank you for choosing Bitweaver. This web content management system offers an unparalleled consonance of simplicity, performance, and flexibility. For questions, comments, and support, please visit <a class="external" href="http://www.bitweaver.org">bitweaver.org</a>.  Help is available via <a class="external" href="http://www.bitweaver.org/">the forum</a> and via <a title="#bitweaver IRC Channel on freenode.net" class="external" href="http://www.bitweaver.org/wiki/Live+Support">#bitweaver chat</a>. Click to begin the install process:</p>
 
-		<div class="control-group submit">
-			<input type="submit" class="btn" name="install" value="Begin the install process" />
+		<div class="control-group">
+		{forminput}
+				<input type="submit" class="btn" name="install" value="Begin the install process" />
+		{/forminput}
 			<p><strong>This installer will guide you through the installation or upgrade.</strong></p>
 		</div>
 

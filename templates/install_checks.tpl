@@ -27,8 +27,10 @@
 
 			{if $error}
 				<p class="error">Before you can continue with the installation, you must rectify the <strong>problems listed in red</strong>. After you have made the changes, you can reload the page.</p>
-				<div class="control-group submit">
-					<input type="submit" class="btn" name="reload" value="Reload Page" />
+				<div class="control-group">
+		{forminput}
+						<input type="submit" class="btn" name="reload" value="Reload Page" />
+		{/forminput}
 				</div>
 			{else}
 				<p class="alert alert-success">Your system meets all the requirements. You are ready to install Bitweaver.</p>
@@ -224,8 +226,10 @@
 	{/jstabs}
 
 	{if !$error}
-		<div class="control-group submit">
-			<input type="submit" class="btn" name="reload" value="Reload page" />
+		<div class="control-group">
+		{forminput}
+				<input type="submit" class="btn" name="reload" value="Reload page" />
+		{/forminput}
 			&nbsp;
 			<input type="submit" class="btn" name="continue" value="Continue install process" />
 		</div>

@@ -26,8 +26,10 @@
 		{/foreach}
 	{/legend}
 
-	<div class="control-group submit">
-		Please press this button only once<br />
+	<div class="control-group">
+		{forminput}
+			Please press this button only once<br />
+		{/forminput}
 		Depending on the number of packages and the hardware,<br />
 		this process might take up to a few minutes.<br /><br />
 		<input type="hidden" name="resetdb" value="{$resetdb}" />
