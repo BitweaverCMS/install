@@ -8,7 +8,7 @@
 	</p>
 
 	{if $fixedPermissions}
-		<div class="row">
+		<div class="control-group">
 			{formlabel label="Updated Permissions"}
 			{forminput}
 				<ul id="fixedpermlist">
@@ -26,7 +26,7 @@
 	{/if}
 
 	{if $deActivated}
-		<div class="row">
+		<div class="control-group">
 			{formlabel label="Deactivated Packages"}
 			{forminput}
 				<ul>
@@ -38,7 +38,7 @@
 		</div>
 	{/if}
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" value="Continue install process" />
 	</div>
 {/form}

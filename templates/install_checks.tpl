@@ -9,7 +9,7 @@
 			<h2>Required Settings</h2>
 			<p class="help">The settings below are required by Bitweaver to run. If any of these settings are not met, you will have to change these before you can continue with the installation process.</p>
 
-			<div class="row requirements">
+			<div class="control-group requirements">
 				{formlabel label="Basic Requirements"}
 				{forminput}
 					{foreach from=$required item="check"}
@@ -27,7 +27,7 @@
 
 			{if $error}
 				<p class="error">Before you can continue with the installation, you must rectify the <strong>problems listed in red</strong>. After you have made the changes, you can reload the page.</p>
-				<div class="row submit">
+				<div class="control-group submit">
 					<input type="submit" name="reload" value="Reload Page" />
 				</div>
 			{else}
@@ -39,7 +39,7 @@
 			<h2>PHP Settings</h2>
 			<p class="help">The following are settings that aren't strictly required by Bitweaver to run, but are recommendations. Bitweaver might still operate if your settings do not quite match the recommended.  These settings can be adjusted by changing appropriate values in your <kbd>php.ini</kbd> file.  If you should have problems setting these, please consult the documentation in the <kbd>php.ini</kbd> file itself and the <a class="external" href="http://www.php.net/">PHP homepage</a>.</p>
 
-			<div class="row">
+			<div class="control-group">
 				{formlabel label="Recommended PHP settings"}
 				{forminput}
 					<table id="phpini" summary="This table lists recommended PHP settings for Bitweaver to run smoothly.">
@@ -77,7 +77,7 @@
 			<h2>Recommended Extensions</h2>
 			<p class="help">Bitweaver takes advantage of particular PHP extensions for full functionality. If any of these extensions are not available to Bitweaver, particular features might not work and it might even render particular packages useless.</p>
 
-			<div class="row recommended">
+			<div class="control-group recommended">
 				{formlabel label="Thoroughly recommended extensions"}
 				{forminput}
 					{foreach from=$extensions item="check"}
@@ -102,7 +102,7 @@
 			<h2>Recommended PEAR Extensions</h2>
 			<p class="help">PEAR provides extensions to PHP, which can easily be installed and updated using the pear interface on Linux. None of the extenstions below are required, they always provide an alternative to the existing methods available. Often these alternatives are superior to the default methods.</p>
 
-			<div class="row recommended">
+			<div class="control-group recommended">
 				{formlabel label="Recommended PEAR Extensions"}
 				{forminput}
 					{if !$pearexts.PEAR.passed}
@@ -172,7 +172,7 @@
 				the easiest and quickest way to achieve a certain goal.
 			</p>
 
-			<div class="row recommended">
+			<div class="control-group recommended">
 				{formlabel label="Recommended executables"}
 				{forminput}
 					{foreach from=$executables item="check"}
@@ -209,7 +209,7 @@
 				help you work out problems that might occur.
 			</p>
 
-			<div class="row">
+			<div class="control-group">
 				{formlabel label="Settings worth knowing about"}
 				{forminput}
 					<ul>
@@ -224,7 +224,7 @@
 	{/jstabs}
 
 	{if !$error}
-		<div class="row submit">
+		<div class="control-group submit">
 			<input type="submit" name="reload" value="Reload page" />
 			&nbsp;
 			<input type="submit" name="continue" value="Continue install process" />

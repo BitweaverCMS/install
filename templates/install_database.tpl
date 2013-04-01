@@ -4,7 +4,7 @@
 	<input type="hidden" name="step" value="{$next_step}" />
 	<input type="hidden" name="gBitDbPassword_hash" value="{$gBitDbPassword_hash}" />
 
-	<div class="row">
+	<div class="control-group">
 		{if $warning or $error or $success}
 			{if $warning}
 				<p class="warning">
@@ -44,7 +44,7 @@
 		{/if}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Database type" for="db"}
 		{forminput}
 			{if $section eq 'Upgrade'}
@@ -65,7 +65,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Host" for="host"}
 		{forminput}
 			<input type="text" size="25" name="host" id="host" value="{if $gBitDbHost ne '' }{$gBitDbHost}{/if}" />
@@ -77,7 +77,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="User" for="user"}
 		{forminput}
 			<input type="text" size="25" name="user" id="user" value="{$gBitDbUser}" />
@@ -85,7 +85,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Password" for="pass"}
 		{forminput}
 			<input type="password" size="25" name="pass" id="pass" value="{$gBitDbPassword_input}" />
@@ -93,7 +93,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Database name" for="name"}
 		{forminput}
 			<input type="text" size="25" name="name" id="name" value="{$gBitDbName}" />
@@ -111,7 +111,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 	{ if ( $fbpath ) }
 		{formhelp note="<strong>Do not use Prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
 	{/if}
@@ -128,7 +128,7 @@
 	</div>
 
 	{ if ( $fbpath ) }
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Firebird installation path" for="fbpath"}
 		{forminput}
 			<input type="text" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
@@ -139,7 +139,7 @@
 	</div>
 	{/if}
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Site base URL" for="baseurl"}
 		{forminput}
 			<input type="text" size="25" name="baseurl" id="baseurl" value="{$bit_root_url}" />
@@ -148,7 +148,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Auto submit bugs" for="auto_bug_submit"}
 		{forminput}
 			<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />
@@ -156,7 +156,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Site is live" for="is_live"}
 		{forminput}
 			<input type="checkbox" name="is_live" id="is_live" />
@@ -164,7 +164,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="hidden" name="dbcase" value="{$gBitDbCaseSensitivity}" />
 		<input type="hidden" name="resetdb" value="{$resetdb}" />
 		<input type="submit" value="Confirm Settings" name="submit_db_info" />

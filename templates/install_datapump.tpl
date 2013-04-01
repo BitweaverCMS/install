@@ -12,7 +12,7 @@
 	</p>
 	so? *}
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Packages that can be populated"}
 		{forminput}
 			{if $pumpList}
@@ -27,7 +27,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row submit">
+	<div class="control-group submit">
 		{if $pumpList}
 			<input type="submit" value="Populate my site" name="fSubmitDataPump" /> 
 		{/if}

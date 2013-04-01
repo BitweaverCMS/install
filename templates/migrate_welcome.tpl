@@ -13,7 +13,7 @@
 
 	<strong>{formfeedback warning=$dbWarning}</strong>
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the migrate process!"}" />
 	</div>
 {/form}

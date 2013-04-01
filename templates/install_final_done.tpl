@@ -47,7 +47,7 @@
 	<p class="help" style="text-align:center;">Finally, we thank you again for using Bitweaver.</p>
 	<br />
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" size="20" value="Enter your Bitweaver site" />
 	</div>
 {/form}

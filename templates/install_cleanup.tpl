@@ -55,11 +55,11 @@
 				</p>
 			{/if}
 
-			<div class="row submit">
+			<div class="control-group submit">
 				<input type="submit" name="create_tables" value="Try to create missing table/s" />
 			</div>
 
-			<div class="row">
+			<div class="control-group">
 				{forminput}
 					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
@@ -162,7 +162,7 @@
 			{foreach from=$serviceList key=service_name item=packages}
 				<h3>{$service_name|capitalize}</h3>
 				{foreach from=$packages key=package item=item}
-					<div class="row">
+					<div class="control-group">
 						<div class="formlabel">
 							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 						</div>
@@ -183,18 +183,18 @@
 		{/if}
 
 		{if $delPerms || $insPerms || $serviceList}
-			<div class="row submit">
+			<div class="control-group submit">
 				<input type="submit" name="resolve_conflicts" value="Resolve Issues" />
 			</div>
 
-			<div class="row">
+			<div class="control-group">
 				{forminput}
 					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
 		{else}
-			<div class="row submit">
+			<div class="control-group submit">
 				<input type="submit" name="skip" value="Continue install process" />
 			</div>
 		{/if}

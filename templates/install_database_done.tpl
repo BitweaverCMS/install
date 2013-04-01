@@ -3,7 +3,7 @@
 {form legend="Your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="row">
+	<div class="control-group">
 		<ul class="result">
 			{if $error}
 				<li class="error">
@@ -17,56 +17,56 @@
 		</ul>
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Database type"}
 		{forminput}
 			{$gBitDbType}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Host"}
 		{forminput}
 			{$gBitDbHost}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="User"}
 		{forminput}
 			{$gBitDbUser}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Password"}
 		{forminput}
 			{$gBitDbPassword_print}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Database name"}
 		{forminput}
 			{$gBitDbName}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Database prefix"}
 		{forminput}
 			{$db_prefix_bit|replace:"`":""}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Site base URL"}
 		{forminput}
 			{$bit_root_url}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		<p class="success">
 			This information was stored in the file:<br />
 			<strong>{$smarty.const.CONFIG_PKG_PATH}kernel/config_inc.php</strong>
@@ -82,7 +82,7 @@
 	</div>
 
 	{if isset( $has_innodb_support )}
-		<div class="row">
+		<div class="control-group">
 			{formlabel label="Use InnoDB tables" for="use_innodb"}
 			{forminput}
 				<input type="checkbox" name="use_innodb" id="use_innodb" {if $has_innodb_support eq 'DEFAULT'}checked="checked"{/if} />
@@ -91,7 +91,7 @@
 		</div>
 	{/if}
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" value="Continue {$section|default:"install"} process" />
 	</div>
 {/form}

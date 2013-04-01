@@ -10,7 +10,7 @@
 
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="row">
+	<div class="control-group">
 		<ul class="result">
 			{if $error}
 				<li class="error">
@@ -31,7 +31,7 @@
 	</div>
 
 	{foreach from=$pumpedData item=pumped key=package}
-		<div class="row">
+		<div class="control-group">
 			{formlabel label=$package}
 			{forminput}
 				<ul>
@@ -43,7 +43,7 @@
 		</div>
 	{/foreach}
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" value="Continue install process" />
 	</div>
 {/form}

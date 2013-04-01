@@ -71,11 +71,11 @@
 				{/foreach}
 			</table>
 
-			<div class="row submit">
+			<div class="control-group submit">
 				<input type="submit" name="fix_version_210beta" value="Fix Permissions" />
 			</div>
 
-			<div class="row">
+			<div class="control-group">
 				{forminput}
 					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
@@ -83,11 +83,11 @@
 			</div>
 		{else}
 			{if $upToDate}
-				<div class="row submit">
+				<div class="control-group submit">
 					<input type="submit" name="skip" value="Continue install process" />
 				</div>
 			{else}
-				<div class="row submit">
+				<div class="control-group submit">
 					<input type="submit" name="update_version" value="Update version and continue" />
 				</div>
 			{/if}

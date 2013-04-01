@@ -3,7 +3,7 @@
 {form legend="Some Preliminary Settings"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="row">
+	<div class="control-group">
 		<ul class="result">
 			<li class="success">
 				All setting have been stored successfully
@@ -11,35 +11,35 @@
 		</ul>
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Browser Title"}
 		{forminput}
 			{$gBitSystem->getConfig('site_title')}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Site Slogan"}
 		{forminput}
 			{$gBitSystem->getConfig('site_slogan')}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Home Page"}
 		{forminput}
 			{$gBitSystem->getConfig('bit_index')}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Site Style"}
 		{forminput}
 			{$gBitSystem->getConfig('style')}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Language"}
 		{forminput}
 			{$siteLanguage.full_name}
@@ -47,7 +47,7 @@
 	</div>
 
 	{if $gBitSystem->isFeatureActive('image_processor')}
-		<div class="row">
+		<div class="control-group">
 			{formlabel label="Image Processor"}
 			{forminput}
 				{$gBitSystem->getConfig('image_processor')}
@@ -55,7 +55,7 @@
 		</div>
 	{/if}
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" value="Continue install process" />
 	</div>
 {/form}

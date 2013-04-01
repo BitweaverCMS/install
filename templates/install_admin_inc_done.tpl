@@ -5,7 +5,7 @@
 {form legend="Administrator Information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="row">
+	<div class="control-group">
 		<ul class="result">
 			{if $warning}
 				{foreach from=$warning item=warn}
@@ -23,28 +23,28 @@
 		</ul>
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Admin name"}
 		{forminput}
 			{$real_name}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Admin login"}
 		{forminput}
 			{$login}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Password"}
 		{forminput}
 			{$pass_disp}
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Email"}
 		{forminput}
 			{$email}
@@ -52,7 +52,7 @@
 	</div>
 
 	{if $mail}
-		<div class="row">
+		<div class="control-group">
 			{formlabel label="Email transport"}
 			{forminput}
 				{if $mail.warning}
@@ -66,7 +66,7 @@
 		</div>
 	{/if}
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" value="Continue install process" />
 	</div>
 {/form}

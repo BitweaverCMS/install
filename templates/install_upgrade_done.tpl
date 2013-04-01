@@ -17,7 +17,7 @@
 		{/foreach}
 	</dl>
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" name="continue" value="Continue Install Process" />
 	</div>
 {/form}

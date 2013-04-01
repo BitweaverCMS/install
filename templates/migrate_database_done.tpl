@@ -3,12 +3,12 @@
 {form legend="Select what you want to do next"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Migation Results"}
 		{formfeedback hash=$results}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		<ul class="result">
 			{if $error}
 				<li class="error">
@@ -18,7 +18,7 @@
 		</ul>
 	</div>
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" value="Continue process" />
 	</div>
 {/form}

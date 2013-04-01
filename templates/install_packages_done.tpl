@@ -5,7 +5,7 @@
 
 	{if $failedcommands or $error}
 		{if $error}
-			<div class="row">
+			<div class="control-group">
 				<ul class="result">
 					<li class="error">
 						There was a problem during the installation
@@ -18,7 +18,7 @@
 			</div>
 		{/if}
 		{if $failedcommands}
-			<div class="row">
+			<div class="control-group">
 				<h2 class="warning">
 					The following database operations failed
 				</h2>
@@ -27,7 +27,7 @@
 			</div>
 		{/if}
 	{else}
-		<div class="row">
+		<div class="control-group">
 			<ul class="result">
 				<li class="success">
 					All Database operations completed succesfully
@@ -36,7 +36,7 @@
 		</div>
 
 		{if !$first_install}
-			<div class="row">
+			<div class="control-group">
 				<ul class="result">
 					<li class="warning">
 						You have just successfully installed new packages.
@@ -52,7 +52,7 @@
 		{/if}
 
 		{if $packageList.install}
-			<div class="row">
+			<div class="control-group">
 				{formlabel label="Packages that were installed"}
 				{forminput}
 					<ul>
@@ -67,7 +67,7 @@
 		{/if}
 
 		{if $packageList.uninstall}
-			<div class="row">
+			<div class="control-group">
 				{formlabel label="Packages that were uninstalled"}
 				{forminput}
 					<ul>
@@ -82,7 +82,7 @@
 		{/if}
 
 		{if $packageList.reinstall}
-			<div class="row">
+			<div class="control-group">
 				{formlabel label="Packages that were reinstalled"}
 				{forminput}
 					<ul>
@@ -97,7 +97,7 @@
 		{/if}
 	{/if}
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" value="Continue install process" />
 	</div>
 {/form}

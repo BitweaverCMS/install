@@ -152,11 +152,11 @@
 				{/if}
 			{/if}
 
-			<div class="row submit">
+			<div class="control-group submit">
 				<input type="submit" name="upgrade_packages" value="Upgrade Packages" />
 			</div>
 
-			<div class="row">
+			<div class="control-group">
 				{forminput}
 					<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
@@ -169,7 +169,7 @@
 		{legend legend="Already Installed Packages"}
 			{foreach from=$schema key=package item=item}
 				{if $item.installed}
-					<div class="row">
+					<div class="control-group">
 						<div class="formlabel">
 							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 						</div>
