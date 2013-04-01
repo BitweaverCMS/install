@@ -17,8 +17,8 @@ function set_menu( $pInstallFiles, $pStep ) {
 
 	// here we set up the menu
 	for( $done = 0; $done < $pStep; $done++ ) {
-		$pInstallFiles[$done]['state'] = 'success';
-		$pInstallFiles[$done]['icon'] = 'dialog-ok';
+		$pInstallFiles[$done]['state'] = 'complete';
+		$pInstallFiles[$done]['icon'] = 'icon-ok';
 	}
 
 	// if the page is done, we can display the menu item as done and increase the progress bar
@@ -29,8 +29,8 @@ function set_menu( $pInstallFiles, $pStep ) {
 		$pInstallFiles[$pStep]['state'] = 'warning';
 		$pInstallFiles[$pStep]['icon'] = 'dialog-warning';
 	} elseif( $app == "_done" ) {
-		$pInstallFiles[$pStep]['state'] = 'success';
-		$pInstallFiles[$pStep]['icon'] = 'dialog-ok';
+		$pInstallFiles[$pStep]['state'] = 'complete';
+		$pInstallFiles[$pStep]['icon'] = 'icon-ok';
 		$done++;
 	} else {
 		$pInstallFiles[$pStep]['state'] = 'current';
@@ -40,8 +40,8 @@ function set_menu( $pInstallFiles, $pStep ) {
 	foreach( $pInstallFiles as $key => $menu_step ) {
 		if( !isset( $menu_step['state'] ) ) {
 			if( !empty( $gBitDbType ) && $gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
-				$pInstallFiles[$key]['state'] = 'success';
-				$pInstallFiles[$key]['icon'] = 'dialog-ok';
+				$pInstallFiles[$key]['state'] = 'complete';
+				$pInstallFiles[$key]['icon'] = 'icon-ok';
 			} else {
 				$pInstallFiles[$key]['state'] = 'uncompleted';
 				$pInstallFiles[$key]['icon'] = 'spacer';

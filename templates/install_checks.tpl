@@ -1,6 +1,6 @@
 <h1>Server Settings Check</h1>
 
-{form legend="Server settings" class=checks}
+{form class="form-horizontal" legend="Server settings" class=checks}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	{jstabs tab=0}
@@ -14,7 +14,7 @@
 				{forminput}
 					{foreach from=$required item="check"}
 						{if $check.passed}
-							<p class="success">{$check.note}</p>
+							<p class="alert alert-success">{$check.note}</p>
 						{else}
 							<p class="error">{$check.note}</p>
 						{/if}
@@ -28,10 +28,10 @@
 			{if $error}
 				<p class="error">Before you can continue with the installation, you must rectify the <strong>problems listed in red</strong>. After you have made the changes, you can reload the page.</p>
 				<div class="control-group submit">
-					<input type="submit" name="reload" value="Reload Page" />
+					<input type="submit" class="btn" name="reload" value="Reload Page" />
 				</div>
 			{else}
-				<p class="success">Your system meets all the requirements. You are ready to install Bitweaver.</p>
+				<p class="alert alert-success">Your system meets all the requirements. You are ready to install Bitweaver.</p>
 			{/if}
 
 
@@ -68,7 +68,7 @@
 			{if $rec_warning}
 				<p class="warning">Not all the recommended setting have been met. However, your site might still work without problems. Please keep these settings in mind if you run into problems.</p>
 			{else}
-				<p class="success">All recommended settings have been met.</p>
+				<p class="alert alert-success">All recommended settings have been met.</p>
 			{/if}
 
 		{/jstab}
@@ -82,7 +82,7 @@
 				{forminput}
 					{foreach from=$extensions item="check"}
 						{if $check.passed}
-							<p class="success">{$check.note}</p>
+							<p class="alert alert-success">{$check.note}</p>
 						{else}
 							{assign var=extwarning value=1}
 							<p class="warning">{$check.note}</p>
@@ -94,7 +94,7 @@
 			{if $extwarning}
 				<p class="warning">Before you continue, we suggest that you try and install the mentioned extensions. If you can not do so, please bear in mind that these extensions can be installed at any time and might enhance your Bitweaver experience.</p>
 			{else}
-				<p class="success">All recommended extensions are installed.</p>
+				<p class="alert alert-success">All recommended extensions are installed.</p>
 			{/if}
 
 
@@ -119,7 +119,7 @@
 					{else}
 						{foreach from=$pearexts item="check"}
 							{if $check.passed}
-								<p class="success">{$check.note}</p>
+								<p class="alert alert-success">{$check.note}</p>
 							{else}
 								{assign var=pearextswarning value=1}
 								<p class="warning">{$check.note}</p>
@@ -157,7 +157,7 @@
 						<kbd>{$smarty.const.UTIL_PKG_PATH}pear/</kbd></li>
 				</ul>
 			{else}
-				<p class="success">
+				<p class="alert alert-success">
 					All recommended pear extensions are installed.
 				</p>
 			{/if}
@@ -177,7 +177,7 @@
 				{forminput}
 					{foreach from=$executables item="check"}
 						{if $check.passed}
-							<p class="success">{$check.note}</p>
+							<p class="alert alert-success">{$check.note}</p>
 						{else}
 							{assign var=executableswarning value=1}
 							<p class="warning">{$check.note}</p>
@@ -194,7 +194,7 @@
 					cannot be processed after uploading them.
 				</p>
 			{else}
-				<p class="success">
+				<p class="alert alert-success">
 					All recommended executables are installed.
 				</p>
 			{/if}
@@ -225,9 +225,9 @@
 
 	{if !$error}
 		<div class="control-group submit">
-			<input type="submit" name="reload" value="Reload page" />
+			<input type="submit" class="btn" name="reload" value="Reload page" />
 			&nbsp;
-			<input type="submit" name="continue" value="Continue install process" />
+			<input type="submit" class="btn" name="continue" value="Continue install process" />
 		</div>
 	{/if}
 

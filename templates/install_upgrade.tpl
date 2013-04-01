@@ -2,7 +2,7 @@
 
 {jstabs tab=0}
 	{jstab title="Available Upgrades"}
-		{form id="package_select" legend="Packages that will be upgraded" id="package_select"}
+		{form class="form-horizontal" id="package_select" legend="Packages that will be upgraded" id="package_select"}
 			<input type="hidden" name="step" value="{$next_step}" />
 
 			{if $packageUpgrades}
@@ -39,12 +39,12 @@
 					<p class="danger">The upgrade process was halted due to the SQL problems listed above. Please contact the bitweaver team to fix this issue.</p>
 				{/if}
 			{elseif !$success}
-				<p class="success">Seems all installed packages are up to date!</p>
+				<p class="alert alert-success">Seems all installed packages are up to date!</p>
 			{/if}
 
 			{if $success}
 				<h2>Post Install Notes</h2>
-				<p class="success">Some packages were successfully updated which might have important post upgrade notes.</p>
+				<p class="alert alert-success">Some packages were successfully updated which might have important post upgrade notes.</p>
 				<dl>
 					{foreach from=$success item=upgrade key=package}
 						{foreach from=$upgrade item=data key=version}
@@ -148,12 +148,12 @@
 				{/if}
 
 				{if !$min_dep && !$max_dep && !$missing}
-					<p class="success">All package requirements have been met. You can proceed with the installation process.</p>
+					<p class="alert alert-success">All package requirements have been met. You can proceed with the installation process.</p>
 				{/if}
 			{/if}
 
 			<div class="control-group submit">
-				<input type="submit" name="upgrade_packages" value="Upgrade Packages" />
+				<input type="submit" class="btn" name="upgrade_packages" value="Upgrade Packages" />
 			</div>
 
 			<div class="control-group">

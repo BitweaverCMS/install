@@ -1,5 +1,5 @@
 <h1>Upgrade Process Completed</h1>
-{form legend="Select what you want to do next"}
+{form class="form-horizontal" legend="Select what you want to do next"}
 	<p>
 		Go back to the installer to <strong>install additional
 			packages</strong> that have become available by upgrading. It will
@@ -9,7 +9,7 @@
 	</p>
 	<div class="control-group submit">
 		<input type="hidden" name="step" value="{$next_step}" />
-		<input type="submit" name="continue_install" value="Install more packages" />
+		<input type="submit" class="btn" name="continue_install" value="Install more packages" />
 	</div>
 
 	<hr />
@@ -22,7 +22,7 @@
 		inform you of the health of your install.
 	</p>
 	<div class="control-group submit">
-		<input type="submit" name="resolve_conflicts" value="Resolve Conflicts" />
+		<input type="submit" class="btn" name="resolve_conflicts" value="Resolve Conflicts" />
 	</div>
 
 	<hr />
@@ -33,6 +33,6 @@
 		resolve potential issues and insert missing permissions and settings.
 	</p>
 	<div class="control-group submit">
-		<input type="submit" name="enter_bitweaver" value="Enter Bitweaver" />
+		<input type="submit" class="btn" name="enter_bitweaver" value="Enter Bitweaver" />
 	</div>
 {/form}

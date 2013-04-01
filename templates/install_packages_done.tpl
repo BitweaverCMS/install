@@ -1,6 +1,6 @@
 <h1>Package Installation</h1>
 
-{form legend="Installed Packages"}
+{form class="form-horizontal" legend="Installed Packages"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	{if $failedcommands or $error}
@@ -98,6 +98,6 @@
 	{/if}
 
 	<div class="control-group submit">
-		<input type="submit" value="Continue install process" />
+		<input type="submit" class="btn" value="Continue install process" />
 	</div>
 {/form}

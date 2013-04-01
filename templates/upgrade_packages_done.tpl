@@ -1,6 +1,6 @@
 <h1>Package Upgrade</h1>
 
-{form legend="Installed Packages"}
+{form class="form-horizontal" legend="Installed Packages"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	{if $failedcommands}
@@ -31,6 +31,6 @@
 	{/if}
 
 	<div class="control-group submit">
-		<input type="submit" value="Continue upgrade process" />
+		<input type="submit" class="btn" value="Continue upgrade process" />
 	</div>
 {/form}

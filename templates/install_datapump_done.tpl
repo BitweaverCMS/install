@@ -6,7 +6,7 @@
 	{assign var="formlegend" value="Your Database has been Populated"}	
 {/if}
 	
-	{form legend=$formlegend}
+	{form class="form-horizontal" legend=$formlegend}
 
 	<input type="hidden" name="step" value="{$next_step}" />
 
@@ -44,6 +44,6 @@
 	{/foreach}
 
 	<div class="control-group submit">
-		<input type="submit" value="Continue install process" />
+		<input type="submit" class="btn" value="Continue install process" />
 	</div>
 {/form}

@@ -1,12 +1,12 @@
 <h1>Bitweaver version update</h1>
 
-{form id="integrity_check"}
+{form class="form-horizontal" id="integrity_check"}
 	<input type="hidden" name="step" value="{$next_step}" />
 	<input type="hidden" name="update_version" value="true" />
 
 	{legend legend="Update bitweaver version"}
 		{if $upToDate}
-			<p class="success">
+			<p class="alert alert-success">
 				Your version of bitweaver is already up to date.
 			</p>
 		{else}
@@ -72,7 +72,7 @@
 			</table>
 
 			<div class="control-group submit">
-				<input type="submit" name="fix_version_210beta" value="Fix Permissions" />
+				<input type="submit" class="btn" name="fix_version_210beta" value="Fix Permissions" />
 			</div>
 
 			<div class="control-group">
@@ -84,11 +84,11 @@
 		{else}
 			{if $upToDate}
 				<div class="control-group submit">
-					<input type="submit" name="skip" value="Continue install process" />
+					<input type="submit" class="btn" name="skip" value="Continue install process" />
 				</div>
 			{else}
 				<div class="control-group submit">
-					<input type="submit" name="update_version" value="Update version and continue" />
+					<input type="submit" class="btn" name="update_version" value="Update version and continue" />
 				</div>
 			{/if}
 		{/if}

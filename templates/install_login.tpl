@@ -2,7 +2,7 @@
 
 <h1>{$title|default:"You must be logged in as an administrator to run the installer."}</h1>
 
-{form name="login" legend="Please sign in to continue" secure=$gBitSystem->isFeatureActive("site_https_login_required")}
+{form class="form-horizontal" name="login" legend="Please sign in to continue" secure=$gBitSystem->isFeatureActive("site_https_login_required")}
 	<div class="row">
 		{formfeedback error="$error"}
 		{formlabel label="Username or Email" for="user"}
@@ -19,8 +19,8 @@
 		{/forminput}
 	</div>
 
-	<div class="row submit">
-		<input type="submit" name="login" value="{tr}Log in to {$gBitSystem->getConfig('site_title')|default:"this site"}{/tr}" />
+	<div class="control-group submit">
+		<input type="submit" class="btn" name="login" value="{tr}Log in to {$gBitSystem->getConfig('site_title')|default:"this site"}{/tr}" />
 		{if $gBitSystem->isFeatureActive('site_https_login_required') || $smarty.server.HTTPS=='on'}
 			{biticon iname="emblem-readonly" ipackage="icons" iexplain="Secure Login"}
 		{/if}

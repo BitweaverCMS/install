@@ -8,7 +8,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<style type="text/css">
 		{* hidden from 4.x browsers: *}
-		@import "{$smarty.const.INSTALL_PKG_URL}style/install.css";
+		@import "{$smarty.const.CONFIG_PKG_URL}themes/bootstrap/bootstrap.css";
+		@import "{$smarty.const.INSTALL_PKG_URL}css/install.css";
 	</style>
 	<title>Install Bitweaver - {$browserTitle}</title>
 	<link rel="shortcut icon" href="{$smarty.const.INSTALL_PKG_URL}favicon.ico" type="image/x-icon" />
@@ -20,7 +21,8 @@
 		var bitIconDir = "{$smarty.const.LIBERTY_PKG_URL}icons/";
 		var bitRootUrl = "{$smarty.const.BIT_ROOT_URL}";
 	/* ]]> */</script>
-	<script type="text/javascript" src="{$smarty.const.BIT_ROOT_URL}util/javascript/libs/tabpane.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.CONFIG_PKG_URL}themes/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="{$smarty.const.BIT_ROOT_URL}util/javascript/bitweaver.js"></script>
 	{* if $gBrowserInfo.browser eq 'ie'}
 		<!--[if lt IE 7]>
@@ -29,80 +31,48 @@
 	{/if *}
 </head>
 <body id="step{$smarty.request.step}">
-	<div id="container">
-		<div id="header">
-			{*
-			<a href="http://www.bitweaver.org/" title="bitweaver.org" id="bitweaver_logo">
-				<em>bitweaver.org</em>
-			</a>
-			*}
-			<h1 id="title">
-				<strong>Bitweaver {$gBitSystem->getBitVersion()}</strong>
-				&nbsp;
-				<em>{$section|default:"Install"}</em>
-			</h1>
-			<div class="bittop">
-				<ul id="stepmenu">
+	<header class="container">
+		<div class="navbar">
+			<div  style="margin:10px;overflow:visible;">
+				<div class="brand">Install Bitweaver {$gBitSystem->getBitVersion()} </div>
+				<nav class="pull-right width60p" style="padding:10px 20px 0 0;">
+				<div class="pull-right">
+					<a href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc"><i class="icon-question-sign"></i> Help</a>
+				</div>
+					<div class="progressbar">
+						<em>{$section|default:"Install"} Progress</em>
+						<div class="bar">
+							<div class="progress progress{$progress}" style="width:{$progress|default:0}%;"><strong>{$progress}%</strong></div>
+						</div>
+						<span class="clear"><!-- --></span>
+					</div>
+				</nav>
+			</div>
+			<div class="navbar-inner">
+				<ul class="nav">
 					{foreach from=$menu_steps item=step key=key}
-						<li class="{$step.state}">
-							{if $step.state ne 'uncompleted'}
-								<a href="{$menu_path|default:$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step={$key}">
-							{/if}
-							{$step.name}
-							{if $step.state ne 'uncompleted'}
-								</a>
-							{/if}
+						<li class="{if $smarty.request.step == $key}active{/if}">
+							<a href="{$menu_path|default:$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step={$key}" {if $step.state eq 'uncompleted'}onclick="return false;"{/if}>
+							{if $step.icon}<i class="{$step.icon}"></i> {/if} {$step.name}
+							</a>
 						</li>
 					{/foreach}
 				</ul>
 			</div>
 		</div>
+	</header>
 
-		<div id="wrapper">
-			<div id="content">
-				{include file=$install_file}
-			</div>
-		</div>
-
-		<div id="navigation">
-			<div class="progressbar">
-				<em>{$section|default:"Install"} Progress</em>
-				<div class="bar">
-					<div class="progress progress{$progress}" style="width:{$progress|default:0}%;"><strong>{$progress}%</strong></div>
-				</div>
-				<span class="clear"><!-- --></span>
-			</div>
-		</div>
-
-		<div id="extra">
-			<ul>
-				<li class="help">
-					<a class="external" href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc">{$section|default:"Install"} Help</a>
-				</li>
-				<li class="help">
-					<a href="{$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step=0">Start over</a>
-				</li>
-				{if $section}
-					<li class="help">
-						<a href="{$smarty.const.INSTALL_PKG_URL}install.php?step=2">Return to Installer</a>
-					</li>
-				{/if}
-				<li class="warning" title="Please don't use your browser's back button during this install process.">
-					Please don't use the browser back button
-				</li>
-			</ul>
-		</div>
-
-		<div id="footer">
-			<p>
-				<a href="http://bitweaver.org">
-					Bitweaver.&nbsp;&nbsp;It's the one
-					<br />
-					www.bitweaver.org
-				</a>
-			</p>
-		</div>
+	<div class="container">
+		<section class="row maincontent">
+			{include file=$install_file}
+		<section>
 	</div>
+
+	<footer class="container aligncenter">
+		<a href="http://bitweaver.org">
+			www.bitweaver.org
+		</a>
+	</footer>
 </body>
 </html>
 {/strip}

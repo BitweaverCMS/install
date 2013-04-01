@@ -1,6 +1,6 @@
 <h3>Upgrading {$upgradeFrom} to {$gBitSystem->getBitVersion()}</h3>
 
-{form legend="Begin the upgrade process"}
+{form class="form-horizontal" legend="Begin the upgrade process"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="control-group">
@@ -37,7 +37,7 @@
 	{/if}
 
 	<div class="control-group submit">
-		<input type="submit" name="upgrade" value="Upgrade Packages" />
+		<input type="submit" class="btn" name="upgrade" value="Upgrade Packages" />
 	</div>
 
 	<div class="control-group">

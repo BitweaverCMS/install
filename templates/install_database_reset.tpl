@@ -1,6 +1,6 @@
 <h1>Database Connection Information</h1>
 
-{form legend="Your database connection information"}
+{form class="form-horizontal" legend="Your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="control-group">
@@ -8,7 +8,7 @@
 	</div>
 
 	<div class="control-group submit">
-		<input type="submit" name="continue_install" value="Continue {$section|default:"install"} process" />
+		<input type="submit" class="btn" name="continue_install" value="Continue {$section|default:"install"} process" />
 	</div>
 
 	<div class="control-group">
@@ -19,6 +19,6 @@
 	</div>
 
 	<div class="control-group submit">
-		<input type="submit" name="reset_config_inc" value="Reset config_inc.php file" onclick="return confirm( 'Are you absolutely sure you want to reset your configuration file?' );" />
+		<input type="submit" class="btn" name="reset_config_inc" value="Reset config_inc.php file" onclick="return confirm( 'Are you absolutely sure you want to reset your configuration file?' );" />
 	</div>
 {/form}

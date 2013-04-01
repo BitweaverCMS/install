@@ -1,6 +1,6 @@
 <h1>Database Connection Information</h1>
 
-{form legend="Your database connection information"}
+{form class="form-horizontal" legend="Your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="control-group">
@@ -67,7 +67,7 @@
 	</div>
 
 	<div class="control-group">
-		<p class="success">
+		<p class="alert alert-success">
 			This information was stored in the file:<br />
 			<strong>{$smarty.const.CONFIG_PKG_PATH}kernel/config_inc.php</strong>
 		</p>
@@ -92,6 +92,6 @@
 	{/if}
 
 	<div class="control-group submit">
-		<input type="submit" value="Continue {$section|default:"install"} process" />
+		<input type="submit" class="btn" value="Continue {$section|default:"install"} process" />
 	</div>
 {/form}

@@ -1,6 +1,6 @@
 <h1>Bitweaver upgrade tool</h1>
 
-{form legend="Begin the upgrade process"}
+{form class="form-horizontal" legend="Begin the upgrade process"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p>
@@ -57,6 +57,6 @@
 	{/if}
 
 	<div class="control-group submit">
-		<input type="submit" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the upgrade process!"}" />
+		<input type="submit" class="btn" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the upgrade process!"}" />
 	</div>
 {/form}

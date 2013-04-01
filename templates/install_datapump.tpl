@@ -1,6 +1,6 @@
 <h1>Sample Data</h1>
 
-{form legend="Populating the database with useful information"}
+{form class="form-horizontal" legend="Populating the database with useful information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p>
@@ -29,8 +29,8 @@
 
 	<div class="control-group submit">
 		{if $pumpList}
-			<input type="submit" value="Populate my site" name="fSubmitDataPump" /> 
+			<input type="submit" class="btn" value="Populate my site" name="fSubmitDataPump" /> 
 		{/if}
-		<input type="submit" value="Skip" name="skip" />
+		<input type="submit" class="btn" value="Skip" name="skip" />
 	</div>
 {/form}

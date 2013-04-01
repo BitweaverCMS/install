@@ -25,10 +25,8 @@ a#bitweaver_logo em	{display:none}
 #footer a:hover	{color:#00f;border-bottom:1px solid #ddd;text-decoration:none}
 
 /* navigation, progress */
-#navigation	{clear:both;margin:0 auto;max-width:785px}
-div.progressbar	{padding:0 4px 5px 4px;font-weight:bold;background:#ffe339}
 div.progressbar em	{font-style:normal;display:block;width:123px;float:left;padding-left:1em}
-div.progressbar div.bar	{background:#fdf9ea;margin-left:133px}
+div.progressbar div.bar	{margin-left:133px}
 div.progressbar div.progress	{background:#e0ffb0;text-align:center;border:1px solid white}
 div.progressbar div.progress100	{background:#8de817}
 div.progressbar div.progress0	{background:#fdf9ea;width:3em !important}
@@ -108,25 +106,7 @@ legend	{background:transparent;padding:1em 1em 1em 0}
 .odd	{background:#f4f4f3;color:#000}
 .even	{color:#000}
 
-.forminput	{margin-left:26%}
-.forminput p	{margin:0.5em 0}
-.formhelp	{color:#666;font-size:11px;cursor:help;line-height:16px}
-.submit	{text-align:center;margin:10px 0 2em 0}
 
-
-
-
-/* feedback */
-.error,
-.warning,
-.success,
-.note,
-.help	{padding:0.5em;background:transparent url(images/favicon.ico) no-repeat 8px 10px;border:3px double #fff;text-indent:24px;list-style-type:none}
-
-.error	{background-color:#ffdddd;background-image:url(images/dialog-error-trans.png);border:1px solid #900;margin:1em}
-.warning	{background-color:#ffe1c3;background-image:url(images/dialog-warning-trans.png)}
-.success	{background-color:#e0ffb0;background-image:url(images/dialog-ok-trans.png)}
-.help	{background-color:#e7e7e6}
 
 .danger	{padding:0.5em;background:#ffdddd url(images/danger-trans.png) no-repeat 16px center;border:3px solid #a00;padding:1em 1em 1em 160px;min-height:100px}
 
@@ -144,13 +124,6 @@ dd	{padding:0;margin:-1.3em 0 0.5em 32%}
 #content ul	{padding-left:24px}
 
 
-
-
-/* navigation and status */
-#navigation ul, #navigation li	{padding:0;margin:0;list-style:none}
-#navigation li,
-#navigation ul.result li	{border-bottom:1px solid #e7e7e6;padding:3px 0 3px 7px}
-#navigation ul.result li li	{border:0;list-style:circle}
 
 
 
@@ -205,14 +178,6 @@ table#requirements tr.success	{background-color:transparent}
 
 ul#fixedpermlist,ul#fixedpermlist li	{list-style-type:none}
 
-
-/* trash */
-div.progressbar	{-moz-border-radius:0 0 .75em .75em;-webkit-border-radius:0 0 .75em .75em;border-radius:0 0 .75em .75em}
-div.progressbar div.bar	{-moz-border-radius:0 0 .6em 0;-webkit-border-radius:0 0 .6em 0;border-radius:0 0 0.6em 0}
-div.progressbar div.progress100	{-moz-border-radius:0 0 .5em 0;-webkit-border-radius:0 0 .5em 0;border-radius:0 0 0.5em 0}
-#stepmenu	{-moz-border-radius:.4em .4em 0 0;-webkit-border-radius:.4em .4em 0 0;border-radius:.4em .4em 0 0}
-#install_welcome div.row.submit strong,
-.danger	{-moz-border-radius:.5em;-webkit-border-radius:.5em;border-radius:.5em}
 
 
 

@@ -18,7 +18,7 @@
 	{formfeedback warning=$warning}
 	{jstabs tab=0}
 		{jstab title="Install Packages"}
-			{form id="package_select" id="package_select"}
+			{form class="form-horizontal" id="package_select" id="package_select"}
 				<input type="hidden" name="step" value="{$next_step}" />
 				<input type="hidden" name="method" value="install" />
 
@@ -95,7 +95,7 @@
 					Depending on the number of packages and the hardware,<br />
 					this process might take up to a few minutes.<br /><br />
 					<input type="hidden" name="resetdb" value="{$resetdb}" />
-					<input type="submit" name="submit_packages" value="Install Packages" />
+					<input type="submit" class="btn" name="submit_packages" value="Install Packages" />
 				</div>
 
 				<div class="control-group">
@@ -110,7 +110,7 @@
 
 		{if !$first_install}
 			{jstab title="Uninstall/Reinstall"}
-				{form legend="Already Installed Packages"}
+				{form class="form-horizontal" legend="Already Installed Packages"}
 					<input type="hidden" name="step" value="{$next_step}" />
 
 					<div class="control-group">
@@ -163,7 +163,7 @@
 						Please press this button only once.<br />
 						Depending on the number of packages and the hardware,<br />
 						this process might take up to a few minutes.<br /><br />
-						<input type="submit" name="submit_packages" value="Uninstall/Reinstall Packages" onclick="return confirm( 'Are you sure you want to uninstall/reinstall the selected packages?' );" />
+						<input type="submit" class="btn" name="submit_packages" value="Uninstall/Reinstall Packages" onclick="return confirm( 'Are you sure you want to uninstall/reinstall the selected packages?' );" />
 					</div>
 
 					<div class="control-group">
@@ -207,7 +207,7 @@
 		{form}
 			<input type="hidden" name="step" value="{$next_step}" />
 			<div class="control-group submit">
-				&nbsp;&nbsp;<input type="submit" name="cancel" value="Skip this stage" />
+				&nbsp;&nbsp;<input type="submit" class="btn" name="cancel" value="Skip this stage" />
 			</div>
 		{/form}
 	{/if}

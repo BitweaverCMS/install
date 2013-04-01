@@ -1,6 +1,6 @@
 <h1>Database Connection</h1>
 
-{form legend="Please enter your database connection information"}
+{form class="form-horizontal" legend="Please enter your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 	<input type="hidden" name="gBitDbPassword_hash" value="{$gBitDbPassword_hash}" />
 
@@ -167,6 +167,6 @@
 	<div class="control-group submit">
 		<input type="hidden" name="dbcase" value="{$gBitDbCaseSensitivity}" />
 		<input type="hidden" name="resetdb" value="{$resetdb}" />
-		<input type="submit" value="Confirm Settings" name="submit_db_info" />
+		<input type="submit" class="btn" value="Confirm Settings" name="submit_db_info" />
 	</div>
 {/form}

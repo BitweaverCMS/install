@@ -1,9 +1,9 @@
 <h1>Resolved Conflicts</h1>
 
-{form legend="Resolved Conflicts"}
+{form class="form-horizontal" legend="Resolved Conflicts"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<p class="success">
+	<p class="alert alert-success">
 		Bitweaver was successfully updated
 	</p>
 
@@ -39,6 +39,6 @@
 	{/if}
 
 	<div class="control-group submit">
-		<input type="submit" value="Continue install process" />
+		<input type="submit" class="btn" value="Continue install process" />
 	</div>
 {/form}

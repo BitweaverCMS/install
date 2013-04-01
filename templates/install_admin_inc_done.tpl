@@ -2,7 +2,7 @@
 
 <h1>Administrator Information</h1>
 
-{form legend="Administrator Information"}
+{form class="form-horizontal" legend="Administrator Information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="control-group">
@@ -67,7 +67,7 @@
 	{/if}
 
 	<div class="control-group submit">
-		<input type="submit" value="Continue install process" />
+		<input type="submit" class="btn" value="Continue install process" />
 	</div>
 {/form}
 

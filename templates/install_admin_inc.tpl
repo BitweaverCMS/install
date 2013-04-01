@@ -1,7 +1,7 @@
 <h1>Administrator Setup</h1>
 
 {strip}
-{form legend="Please enter administrator information"}
+{form class="form-horizontal" legend="Please enter administrator information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="control-group">
@@ -57,7 +57,7 @@
 	</div>
 
 	<div class="control-group submit">
-		<input type="submit" name="admin_submit" value="Submit Admin Information" />
+		<input type="submit" class="btn" name="admin_submit" value="Submit Admin Information" />
 	</div>
 {/form}
 {/strip}

@@ -1,6 +1,6 @@
 <h1>Bitweaver integrity check</h1>
 
-{form id="integrity_check"}
+{form class="form-horizontal" id="integrity_check"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	{legend legend="Database Integrity Check"}
@@ -56,7 +56,7 @@
 			{/if}
 
 			<div class="control-group submit">
-				<input type="submit" name="create_tables" value="Try to create missing table/s" />
+				<input type="submit" class="btn" name="create_tables" value="Try to create missing table/s" />
 			</div>
 
 			<div class="control-group">
@@ -66,7 +66,7 @@
 				{/forminput}
 			</div>
 		{else}
-			<p class="success">
+			<p class="alert alert-success">
 				Database integrity has been confirmed by scanning all available
 				tables in your database and comparing them to the ones that
 				should be present.
@@ -130,7 +130,7 @@
 				{/if}
 			</table>
 		{else}
-			<p class="success">
+			<p class="alert alert-success">
 				The permissioning system in your installation is up to date and
 				does not require any adjustments. Even though this is true, we
 				recommend you visit the {smartlink ititle="Permission
@@ -177,14 +177,14 @@
 				<div class="clear"></div>
 			{/foreach}
 		{else}
-			<p class="success">
+			<p class="alert alert-success">
 				None of the packages you have installed are causing any problems.
 			</p>
 		{/if}
 
 		{if $delPerms || $insPerms || $serviceList}
 			<div class="control-group submit">
-				<input type="submit" name="resolve_conflicts" value="Resolve Issues" />
+				<input type="submit" class="btn" name="resolve_conflicts" value="Resolve Issues" />
 			</div>
 
 			<div class="control-group">
@@ -195,7 +195,7 @@
 			</div>
 		{else}
 			<div class="control-group submit">
-				<input type="submit" name="skip" value="Continue install process" />
+				<input type="submit" class="btn" name="skip" value="Continue install process" />
 			</div>
 		{/if}
 	{/legend}
