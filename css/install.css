@@ -12,7 +12,7 @@ a#bitweaver_logo:hover	{background-position:0 0}
 a#bitweaver_logo em	{display:none}
 */
 
-#header h1	{display:block;text-align:center;margin:0;padding:0;font-size:13px;line-height:17px;font-family:monospace}
+#header h1	{display:block;margin:0;padding:0;font-size:13px;line-height:17px;font-family:monospace}
 #header h1 strong	{color:#fff;font-weight:500}
 #header h1 em	{color:#fff;font-style:normal;padding:0 0 0 0.6em}
 
@@ -23,14 +23,6 @@ a#bitweaver_logo em	{display:none}
 #footer	{text-align:center;padding:4em 0 1em 0}
 #footer a,#footer:visited	{color:#00e;border-bottom:1px solid #f0f0f0}
 #footer a:hover	{color:#00f;border-bottom:1px solid #ddd;text-decoration:none}
-
-/* navigation, progress */
-div.progressbar em	{font-style:normal;display:block;width:123px;float:left;padding-left:1em}
-div.progressbar div.bar	{margin-left:133px}
-div.progressbar div.progress	{background:#e0ffb0;text-align:center;border:1px solid white}
-div.progressbar div.progress100	{background:#8de817}
-div.progressbar div.progress0	{background:#fdf9ea;width:3em !important}
-
 
 
 
@@ -60,7 +52,6 @@ div.progressbar div.progress0	{background:#fdf9ea;width:3em !important}
 /* global */
 html	{background:#FFFED4}
 body	{background:#FFFED4 url(images/bg_body.png) repeat-x left top}
-body	{font:13px/22px sans-serif;margin:0 auto;padding:0}
 table	{border-collapse:collapse;padding:0;margin:0;width:100%;table-layout:fixed}
 caption	{font-weight:bold}
 th	{text-align:left;overflow:hidden}
@@ -69,10 +60,10 @@ td	{vertical-align:top}
 hr	{border:1px dotted #bab7ac;border-width:1px 0 0 0;background:transparent;margin:2em 0}
 p	{margin:1em auto}
 code	{font-family:monospace}
-h1	{font-size:140%;margin-top:1.5em}
-h2	{font-size:120%;margin-top:4em}
+h1	{font-size:140%;}
+h2	{font-size:120%;}
 h3	{font-size:110%}
-h1,h2,h3	{font-weight:700;text-align:center}
+h1,h2,h3	{font-weight:700;}
 .clear	{clear:both}
 .center	{text-align:center}
 .alright	{text-align:right}
@@ -93,15 +84,6 @@ input,
 textarea,
 select	{margin:0;padding:0;border-width:1px;padding:0.2em}
 textarea	{width:99%}
-
-fieldset	{padding:0;margin:1em;border:0px solid #fff}
-legend	{background:transparent;padding:1em 1em 1em 0}
-
-.row	{overflow:auto;clear:both;margin:0 0 1.5em 0}
-.formlabel	{float:left;width:24%;text-align:right;padding:0 0.5em 1em 0;font-weight:bold}
-.formfeedback	{}
-.formfeedback .icon	{display:none}
-.formfeedback div	{padding:4px;border-bottom:1px dotted #aaa}
 
 .odd	{background:#f4f4f3;color:#000}
 .even	{color:#000}

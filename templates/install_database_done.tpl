@@ -1,5 +1,15 @@
 <h1>Database Connection Information</h1>
 
+	{if substr( PHP_OS, 0, 3 ) == 'WIN'}
+		<p class="alert alert-info">
+			Your server seems to run under Microsoft Windows. Please set the PHP_MAGIC_PATH constant in the configuration file.
+		</p>
+	{/if}
+	<div class="alert alert-success">
+		Your configuration was successfully created at <strong>{$smarty.const.CONFIG_PKG_PATH}kernel/config_inc.php</strong>
+		<p>If you are interested in debugging or developing Bitweaver, please view this file, as there are important additional options that can not be set elsewhere. Web designers can also find some settings that helps with theme creation.</p>
+	</div>
+
 {form class="form-horizontal" legend="Your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
@@ -66,21 +76,6 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group">
-		<p class="alert alert-success">
-			This information was stored in the file:<br />
-			<strong>{$smarty.const.CONFIG_PKG_PATH}kernel/config_inc.php</strong>
-		</p>
-		{if substr( PHP_OS, 0, 3 ) == 'WIN'}
-			<p class="warning">
-				Your server seems to run under Microsoft Windows. Please set the PHP_MAGIC_PATH constant in the configuration file.
-			</p>
-		{/if}
-		<p>
-			If you are interested in debugging or developing Bitweaver, please view this file, as there are important additional options that can not be set elsewhere. Web designers can also find some settings that helps with theme creation.
-		</p>
-	</div>
-
 	{if isset( $has_innodb_support )}
 		<div class="control-group">
 			{formlabel label="Use InnoDB tables" for="use_innodb"}
@@ -93,7 +88,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" value="Continue {$section|default:"install"} process" />
+			<input type="submit" class="btn btn-primary" value="Continue {$section|default:"install"} process" />
 		{/forminput}
 	</div>
 {/form}

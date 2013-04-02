@@ -11,19 +11,19 @@
 		your install might have the one case we haven't run into yet. 
 		Initial steps before beginning the actual upgrade stages:
 	</p>
-	<p class="warning">
+	<p class="alert alert-block">
 		<strong>Make a Backup</strong><br />
 		You should have a spare dump of your database before you run this. (Of
 		course, you already have a cron job making nightly backups and
 		scp'ing them to another host? Right? Right.)
 	</p>
-	<p class="warning">
+	<p class="alert alert-block">
 		<strong>Do a trial run first</strong><br />
 		You should run a trial upgrade on an offline server, personal machine,
 		etc. before you do this on your live site.
 	</p>
 	{if $max_execution_time}
-		<p class="warning">
+		<p class="alert alert-block">
 			<strong>Upgrades can take a long time. </strong> 
 			We tried to override the max_execution_time setting in your php.ini
 			to ensure enough time but on some systems this does not work. If
@@ -38,7 +38,7 @@
 		</p>
 	{/if}
 	{if $dbWarning}
-		<p class="warning">
+		<p class="alert alert-block">
 			{$dbWarning}
 		</p>
 	{/if}

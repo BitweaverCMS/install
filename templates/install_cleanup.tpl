@@ -6,7 +6,7 @@
 	{legend legend="Database Integrity Check"}
 
 		{if $dbIntegrity}
-			<p class="warning">
+			<p class="alert alert-block">
 				We have scanned the database for missing tables and have found that the following tables have not been installed:
 			</p>
 			<ul>
@@ -37,14 +37,14 @@
 			</ul>
 			<p>If you know SQL, you can display the table details and try to create such a table in your database and reload this page. This check merely checks the existence of a given table, not the table columns.</p>
 			{if $required}
-				<p class="error">
+				<p class="alert alert-error">
 					A required package is missing at least one table. This will have unpredictable results. Please make a note of the table and contact the Bitweaver team on how to proceed.
 					If this is your first install, give it another shot, perhaps with fewer packages selected. You can return to the installer at any time and install more packages later.
 					<br />If this problem persists, turn on the <strong>debugging</strong> option and look for error messages regarding the above tables. This will help the Bitweaver developers you contact to identify the problem more quickly.
 				</p>
 			{/if}
 			{if $optional}
-				<p class="warning">
+				<p class="alert alert-block">
 					One of the optional packages you have selected for
 					installation has not installed one of its tables. This will
 					probably render the package useless. You can try
@@ -79,7 +79,7 @@
 
 	{legend legend="Fix Permissioning"}
 		{if $delPerms || $insPerms}
-			<p class="warning">
+			<p class="alert alert-block">
 				Some permissions require your attention.
 				{if $insPerms}
 					<br />Some of these permissions might be from packages that have
@@ -145,7 +145,7 @@
 
 	{legend legend="Resolve Service Conflicts"}
 		{if $serviceList}
-			<p class="warning">
+			<p class="alert alert-block">
 				We have noticed that you have activated multiple packages of
 				the same service type. A service package is a package that
 				allows you to extend the way you display Bitweaver content &#8211;

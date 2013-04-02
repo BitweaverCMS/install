@@ -21,7 +21,7 @@
 							<dt>{$data.version}</dt>
 							<dd>{$data.description}</dd>
 							{if $errors.$package.$version}
-								<p class="error">SQL errors that occurred during the {$version} upgrade:<br />
+								<p class="alert alert-error">SQL errors that occurred during the {$version} upgrade:<br />
 									<kbd>
 										{if $errors.$package.$version.failedcommands}
 											{foreach from=$errors.$package.$version.failedcommands item=command}
@@ -128,23 +128,23 @@
 				</table>
 
 				{if $missing}
-					<p class="warning">At least one required package is missing. Please install that package before proceeding with the upgrade.</p>
+					<p class="alert alert-block">At least one required package is missing. Please install that package before proceeding with the upgrade.</p>
 				{/if}
 
 				{if $min_dep}
-					<p class="warning">At least one package did not meet the minimum version requirement in our calculations. If possible, please get a newer version of those packages and upgrade them as well.</p>
+					<p class="alert alert-block">At least one package did not meet the minimum version requirement in our calculations. If possible, please get a newer version of those packages and upgrade them as well.</p>
 				{/if}
 
 				{if $max_dep}
-					<p class="warning">At least one package recommend a version lower to the one you have installed or are about to upgrade to. The package you wish to upgrade might work with this combination, but no guarantees can be given.</p>
+					<p class="alert alert-block">At least one package recommend a version lower to the one you have installed or are about to upgrade to. The package you wish to upgrade might work with this combination, but no guarantees can be given.</p>
 				{/if}
 
 				{if $inactive}
-					<p class="warning">At least one required package is disabled. Please activate that package once your install is complete.</p>
+					<p class="alert alert-block">At least one required package is disabled. Please activate that package once your install is complete.</p>
 				{/if}
 
 				{if $confused}
-					<p class="warning">At least one required package is in an unknown state. The upgrade may not work because of this. It is probably worth reinstalling the latest version of that package or contacting its developer.</p>
+					<p class="alert alert-block">At least one required package is in an unknown state. The upgrade may not work because of this. It is probably worth reinstalling the latest version of that package or contacting its developer.</p>
 				{/if}
 
 				{if !$min_dep && !$max_dep && !$missing}

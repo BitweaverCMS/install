@@ -4,21 +4,20 @@
 {else}
 	<h1>Adding and removing packages</h1>
 {/if}
-<br />
 {if $error}
-	{legend legend="Administrator Data Missing"}
-		<p class="error">
-			Unfortunately there seems to be a problem with your installation. We can't find the administrator information you entered.
-		</p>
+		<div class="alert alert-error">
+			<strong>Administrator Data Missing</strong>
+			<p>Unfortunately there seems to be a problem with your installation. We can't find the administrator information you entered.</p>
+		</div>
 
 		<p>Please go back one step (using the link to your right, rather than the back button on your browser) and enter the administrator data again. If this is the second time you see this screen, please confirm that PHP can write sessions and that any firewall/anti-virus software is turned off during the installation process.</p>
 		<p>If you just can't figure out what the hell is going on, please contact the Bitweaver team via <a href="http://www.bitweaver.org/wiki/Live+Support">IRC</a> if possible or post to the forums on <a href="http://www.bitweaver.org">bitweaver.org</a>.</p>
-	{/legend}
 {else}
 	{formfeedback warning=$warning}
+	{form class="form-horizontal"}
 	{jstabs tab=0}
 		{jstab title="Install Packages"}
-			{form class="form-horizontal" id="package_select" id="package_select"}
+				<input type="hidden" name="resetdb" value="{$resetdb}" />
 				<input type="hidden" name="step" value="{$next_step}" />
 				<input type="hidden" name="method" value="install" />
 
@@ -36,10 +35,11 @@
 				{/foreach}
 
 				{if $new_packages}
-					<h2>Please select packages and services you wish to install</h2>
-					<p>This is a list with all available Bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.<br />If you have any external packages such as <strong>phpBB</strong> or <strong>gallery2</strong> lined up for installation, you will have to do this separately after completing the Bitweaver installation process.</p>
+					{legend legend="Please select packages and services you wish to install"}
 
-					<p class="warning">Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need.</p>
+					<p>Packages are apps in Bitweaver that deal with content such as wiki pages, blogs or news articles. Below is a list with all available Bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.</p>
+
+					<p class="alert alert-block">Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need.</p>
 
 					<div class="control-group">
 						{forminput}
@@ -49,16 +49,10 @@
 						{/forminput}
 					</div>
 
-					<h2>Packages</h2>
-
-					<p>Packages are the parts of Bitweaver that deal with content such as wiki pages, blogs or news articles.</p>
-
 					{foreach from=$schema key=package item=item}
 						{if !$item.installed and !$item.required}
 							<div class="control-group">
-								<div class="formlabel">
-									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
-								</div>
+								<label class="control-label" for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
 								{forminput}
 									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
 									{formhelp note=$item.info is_installer=1}
@@ -68,6 +62,7 @@
 							</div>
 						{/if}
 					{/foreach}
+					{/legend}
 				{elseif $first_install}
 					<h2>Core System Installation</h2>
 					<p>{tr}Only the core required packages will be installed{/tr}</p>
@@ -91,14 +86,15 @@
 					</p>
 				{/if}
 				<div class="control-group">
-		{forminput}
-						Please press this button only once.<br />
-		{/forminput}
-					Depending on the number of packages and the hardware,<br />
-					this process might take up to a few minutes.<br /><br />
-					<input type="hidden" name="resetdb" value="{$resetdb}" />
-					<input type="submit" class="btn" name="submit_packages" value="Install Packages" />
+					{forminput}
+				<div class="alert alert-info">
+					<strong>Please press this button only once.</strong>
+					<p> Depending on the number of packages and the hardware, this process might take up to a few minutes.</p>
 				</div>
+						<input type="submit" class="btn btn-primary" name="submit_packages" value="Install Packages" />
+					{/forminput}
+				</div>
+
 
 				<div class="control-group">
 					{forminput}
@@ -106,17 +102,14 @@
 						{formhelp note="Display SQL statements."}
 					{/forminput}
 				</div>
-
-			{/form}
 		{/jstab}
 
 		{if !$first_install}
 			{jstab title="Uninstall/Reinstall"}
-				{form class="form-horizontal" legend="Already Installed Packages"}
 					<input type="hidden" name="step" value="{$next_step}" />
 
 					<div class="control-group">
-						<p class="warning">These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it will be erased (depending on options below).</p>
+						<p class="alert alert-block">These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it will be erased (depending on options below).</p>
 					</div>
 
 					<div class="control-group">
@@ -147,9 +140,9 @@
 						{if $item.tables || $item.defaults}
 							{if $item.installed and !$item.required}
 								<div class="control-group">
-									<div class="formlabel">
+									<label class="control-label">
 										<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
-									</div>
+									</label>
 									{forminput}
 										<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" /> <strong>{$package|capitalize}</strong></label>
 										{formhelp note=$item.info is_installer=1}
@@ -162,12 +155,14 @@
 					{/foreach}
 
 					<div class="control-group">
-		{forminput}
-							Please press this button only once.<br />
-		{/forminput}
-						Depending on the number of packages and the hardware,<br />
-						this process might take up to a few minutes.<br /><br />
-						<input type="submit" class="btn" name="submit_packages" value="Uninstall/Reinstall Packages" onclick="return confirm( 'Are you sure you want to uninstall/reinstall the selected packages?' );" />
+						{forminput}
+							<input type="submit" class="btn" name="submit_packages" value="Uninstall/Reinstall Packages" onclick="return confirm( 'Are you sure you want to uninstall/reinstall the selected packages?' );" />
+						{/forminput}
+					</div>
+
+					<div class="alert alert-info">
+						<strong>Please press this button only once.</strong>
+						<p> Depending on the number of packages and the hardware, this process might take up to a few minutes.</p>
 					</div>
 
 					<div class="control-group">
@@ -176,7 +171,6 @@
 							{formhelp note="Display SQL statements."}
 						{/forminput}
 					</div>
-				{/form}
 			{/jstab}
 		{/if}
 
@@ -184,16 +178,16 @@
 			{legend legend="Packages and services required by Bitweaver"}
 				{if !$first_install}
 					<div class="control-group">
-						<p class="warning">To reset the entire system, first create a new database (or empty the existing database manually).</p>
+						<p class="alert alert-block">To reset the entire system, first create a new database (or empty the existing database manually).</p>
 					</div>
 				{/if}
 
 				{foreach from=$schema key=package item=item}
 					{if $item.required}
 						<div class="control-group">
-							<div class="formlabel">
+							<label class="control-label">
 								{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}
-							</div>
+							</label>
 							{forminput}
 								<strong>{$package|capitalize}</strong>
 								{formhelp note=$item.info is_installer=1}
@@ -208,14 +202,13 @@
 	{/jstabs}
 
 	{if !$first_install}
-		{form}
 			<input type="hidden" name="step" value="{$next_step}" />
 			<div class="control-group">
-		{forminput}
-					&nbsp;&nbsp;<input type="submit" class="btn" name="cancel" value="Skip this stage" />
-		{/forminput}
+				{forminput}
+					<input type="submit" class="btn" name="cancel" value="Skip this stage" />
+				{/forminput}
 			</div>
-		{/form}
 	{/if}
+	{/form}
 {/if}
 {/strip}

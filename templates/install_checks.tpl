@@ -16,17 +16,17 @@
 						{if $check.passed}
 							<p class="alert alert-success">{$check.note}</p>
 						{else}
-							<p class="error">{$check.note}</p>
+							<p class="alert alert-error">{$check.note}</p>
 						{/if}
 					{/foreach}
 					{if $http_referer_error}
-						<p class="error">We have detected that we cannot access the _SERVER['HTTP_REFERER'] variable from your browser. This can be because you have bookmarked this page and accessed this page directly. If so, this will probably not cause any problems during installation. However, if you came here from the welcome page, you are probably using some sort of firewall which is blocking this information (a common example is Norton Firewall). Please disable this feature or the firewall until the installation process is completed.</p>
+						<p class="alert alert-error">We have detected that we cannot access the _SERVER['HTTP_REFERER'] variable from your browser. This can be because you have bookmarked this page and accessed this page directly. If so, this will probably not cause any problems during installation. However, if you came here from the welcome page, you are probably using some sort of firewall which is blocking this information (a common example is Norton Firewall). Please disable this feature or the firewall until the installation process is completed.</p>
 					{/if}
 				{/forminput}
 			</div>
 
 			{if $error}
-				<p class="error">Before you can continue with the installation, you must rectify the <strong>problems listed in red</strong>. After you have made the changes, you can reload the page.</p>
+				<p class="alert alert-error">Before you can continue with the installation, you must rectify the <strong>problems listed in red</strong>. After you have made the changes, you can reload the page.</p>
 				<div class="control-group">
 		{forminput}
 						<input type="submit" class="btn" name="reload" value="Reload Page" />
@@ -38,37 +38,31 @@
 
 
 
-			<h2>PHP Settings</h2>
+			<h2>Recommended PHP Settings</h2>
 			<p class="help">The following are settings that aren't strictly required by Bitweaver to run, but are recommendations. Bitweaver might still operate if your settings do not quite match the recommended.  These settings can be adjusted by changing appropriate values in your <kbd>php.ini</kbd> file.  If you should have problems setting these, please consult the documentation in the <kbd>php.ini</kbd> file itself and the <a class="external" href="http://www.php.net/">PHP homepage</a>.</p>
-
-			<div class="control-group">
-				{formlabel label="Recommended PHP settings"}
-				{forminput}
-					<table id="phpini" summary="This table lists recommended PHP settings for Bitweaver to run smoothly.">
-						<tr>
-							<th scope="col">php.ini setting</th>
-							<th scope="col">should be</th>
-							<th scope="col">actual</th>
+				<table class="table" summary="This table lists recommended PHP settings for Bitweaver to run smoothly.">
+					<tr>
+						<th scope="col">php.ini setting</th>
+						<th scope="col">should be</th>
+						<th scope="col">actual</th>
+					</tr>
+					{foreach from=$recommended item="check"}
+						<tr class="{if $check.passed eq 'y'}success{else}warning{assign var=rec_warning value=true}{/if}">
+							<td>
+								<abbr title="php.ini setting: {$check.1}">{$check.0}</abbr>
+							</td>
+							<td>{$check.shouldbe}</td>
+							<td>{$check.actual}</td>
 						</tr>
-						{foreach from=$recommended item="check"}
-							<tr class="{if $check.passed eq 'y'}success{else}warning{assign var=rec_warning value=true}{/if}">
-								<td>
-									<abbr title="php.ini setting: {$check.1}">{$check.0}</abbr>
-								</td>
-								<td>{$check.shouldbe}</td>
-								<td>{$check.actual}</td>
-							</tr>
-						{/foreach}
-					</table>
-				{/forminput}
-			</div>
+					{/foreach}
+				</table>
 
 			{if $memory_warning}
-				<p class="warning">Your memory limit settings are rather low. Bitweaver requires at least 16MB memory to run, even having a limit of 16MB might cause undesired results. If you end up loading blank pages, it might be the <kbd>memory_limit</kbd> setting in your <kbd>php.ini</kbd> file. If you have a PHP optimiser such as eAccelerator installed you should be fine with 16MB, if not, please try to raise the limit to something higher.</p>
+				<p class="alert alert-block">Your memory limit settings are rather low. Bitweaver requires at least 16MB memory to run, even having a limit of 16MB might cause undesired results. If you end up loading blank pages, it might be the <kbd>memory_limit</kbd> setting in your <kbd>php.ini</kbd> file. If you have a PHP optimiser such as eAccelerator installed you should be fine with 16MB, if not, please try to raise the limit to something higher.</p>
 			{/if}
 
 			{if $rec_warning}
-				<p class="warning">Not all the recommended setting have been met. However, your site might still work without problems. Please keep these settings in mind if you run into problems.</p>
+				<p class="alert alert-block">Not all the recommended setting have been met. However, your site might still work without problems. Please keep these settings in mind if you run into problems.</p>
 			{else}
 				<p class="alert alert-success">All recommended settings have been met.</p>
 			{/if}
@@ -87,14 +81,14 @@
 							<p class="alert alert-success">{$check.note}</p>
 						{else}
 							{assign var=extwarning value=1}
-							<p class="warning">{$check.note}</p>
+							<p class="alert alert-block">{$check.note}</p>
 						{/if}
 					{/foreach}
 				{/forminput}
 			</div>
 
 			{if $extwarning}
-				<p class="warning">Before you continue, we suggest that you try and install the mentioned extensions. If you can not do so, please bear in mind that these extensions can be installed at any time and might enhance your Bitweaver experience.</p>
+				<p class="alert alert-block">Before you continue, we suggest that you try and install the mentioned extensions. If you can not do so, please bear in mind that these extensions can be installed at any time and might enhance your Bitweaver experience.</p>
 			{else}
 				<p class="alert alert-success">All recommended extensions are installed.</p>
 			{/if}
@@ -109,7 +103,7 @@
 				{forminput}
 					{if !$pearexts.PEAR.passed}
 						{assign var=pearinstall value=1}
-						<p class="warning">{$pearexts.PEAR.note}</p>
+						<p class="alert alert-block">{$pearexts.PEAR.note}</p>
 						<p>Extensions we can make use of:</p>
 						<ul>
 							{foreach from=$pearexts key=ext item="check"}
@@ -124,7 +118,7 @@
 								<p class="alert alert-success">{$check.note}</p>
 							{else}
 								{assign var=pearextswarning value=1}
-								<p class="warning">{$check.note}</p>
+								<p class="alert alert-block">{$check.note}</p>
 							{/if}
 						{/foreach}
 					{/if}
@@ -132,7 +126,7 @@
 			</div>
 
 			{if $pearinstall or $pearextswarning}
-				<p class="warning">
+				<p class="alert alert-block">
 					<strong>Installation help</strong>: None of the recommend extension are required.
 					However, they do enhance some Bitweaver features. To install PEAR for your
 					Bitweaver site, choose one of the following methods. Users in a shared hosting environment
@@ -182,14 +176,14 @@
 							<p class="alert alert-success">{$check.note}</p>
 						{else}
 							{assign var=executableswarning value=1}
-							<p class="warning">{$check.note}</p>
+							<p class="alert alert-block">{$check.note}</p>
 						{/if}
 					{/foreach}
 				{/forminput}
 			</div>
 
 			{if $executableswarning}
-				<p class="warning">
+				<p class="alert alert-block">
 					Please bear in mind that certain options will not be available to
 					you due to the fact that some of the applications Bitweaver uses
 					are not available. E.g., if <kbd>unzip</kbd> is not available, .zip files
@@ -228,10 +222,8 @@
 	{if !$error}
 		<div class="control-group">
 		{forminput}
-				<input type="submit" class="btn" name="reload" value="Reload page" />
+			<input type="submit" class="btn" name="reload" value="Reload page" /> <input type="submit" class="btn btn-primary" name="continue" value="Continue install process" />
 		{/forminput}
-			&nbsp;
-			<input type="submit" class="btn" name="continue" value="Continue install process" />
 		</div>
 	{/if}
 

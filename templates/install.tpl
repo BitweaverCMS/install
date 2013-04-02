@@ -36,15 +36,17 @@
 			<div  style="margin:10px;overflow:visible;">
 				<div class="brand">Install Bitweaver {$gBitSystem->getBitVersion()} </div>
 				<nav class="pull-right width60p" style="padding:10px 20px 0 0;">
-				<div class="pull-right">
-					<a href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc"><i class="icon-question-sign"></i> Help</a>
-				</div>
-					<div class="progressbar">
-						<em>{$section|default:"Install"} Progress</em>
-						<div class="bar">
-							<div class="progress progress{$progress}" style="width:{$progress|default:0}%;"><strong>{$progress}%</strong></div>
+					<div class="pull-right">
+						<a href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc"><i class="icon-question-sign"></i> Help</a>
+					</div>
+
+					<div class="pull-right width50p" style="padding:0 10px;">
+						<div class="progress">
+						  <div class="bar bar-success" style="width: {$progress|default:0}%;"></div>
 						</div>
-						<span class="clear"><!-- --></span>
+					</div>
+					<div class="pull-right">
+						<em>{$section|default:"Install"} Progress</em>
 					</div>
 				</nav>
 			</div>
@@ -64,7 +66,9 @@
 
 	<div class="container">
 		<section class="row maincontent">
+			<div class="span12">
 			{include file=$install_file}
+			</div>
 		<section>
 	</div>
 

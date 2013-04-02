@@ -9,19 +9,7 @@
 $gBitDbCaseSensitivity = TRUE;
 $dbtodsn = array();
 if( function_exists( 'mysql_connect' ) ) {
-	// check version of mysql server - only server that allows check without actually connecting to it... (who knows how that works)
-	if( @mysql_get_server_info() ) {
-		$version = mysql_get_server_info();
-		// Check for versions less than 4.0
-		if ($version[0] < 4 || ($version[0] == 4 && $version[2] == 0)) {
-			$gBitSmarty->assign("mysqlWarning", TRUE);
-		}
-		$dbtodsn['mysql'] = 'MySQL '.mysql_get_server_info();
-	} else {
-		$dbtodsn['mysql'] = 'MySQL';
-		// Can't get the version output the warning.
-		$gBitSmarty->assign("mysqlWarning", TRUE);
-	}
+	$dbtodsn['mysql'] = 'MySQL';
 }
 if( function_exists( 'mysqli_connect' ) ) {
 	$dbtodsn['mysqli'] = 'MySQLi';

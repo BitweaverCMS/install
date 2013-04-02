@@ -5,23 +5,23 @@
 {form class="form-horizontal" legend="Administrator Information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="control-group">
-		<ul class="result">
-			{if $warning}
-				{foreach from=$warning item=warn}
-					<li class="warning">
-						{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
-						&nbsp;
-						{$warn}
-					</li>
-				{/foreach}
-			{else}
-				<li class="success">
-					Administrator configured successfully
+	{if $warning}
+		<div class="alert alert-warning">
+			<ul class="result">
+			{foreach from=$warning item=warn}
+				<li class="warning">
+					{biticon ipackage="icons" iname="dialog-warning" iexplain=warning}
+					&nbsp;
+					{$warn}
 				</li>
-			{/if}
+			{/foreach}
+			</div>
 		</ul>
-	</div>
+	{else}
+		<div class="alert alert-success">
+			Administrator configured successfully
+		</div>
+	{/if}
 
 	<div class="control-group">
 		{formlabel label="Admin name"}
@@ -68,7 +68,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" value="Continue install process" />
+			<input type="submit" class="btn btn-primary" value="Continue install process" />
 		{/forminput}
 	</div>
 {/form}
