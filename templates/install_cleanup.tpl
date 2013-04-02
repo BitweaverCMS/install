@@ -199,9 +199,9 @@
 			</div>
 		{else}
 			<div class="control-group">
-		{forminput}
-					<input type="submit" class="btn" name="skip" value="Continue install process" />
-		{/forminput}
+				{forminput}
+					<input type="submit" class="btn btn-primary" name="skip" value="Continue install process" />
+				{/forminput}
 			</div>
 		{/if}
 	{/legend}

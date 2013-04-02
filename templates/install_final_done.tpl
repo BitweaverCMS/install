@@ -1,6 +1,6 @@
 <h1>Installation Complete</h1>
 
-{form class="form-horizontal" action="`$smarty.const.BIT_ROOT_URL`index.php" legend="Installation has been completed sucessfully"}
+{form class="" action="`$smarty.const.BIT_ROOT_URL`index.php" legend="Installation has been completed sucessfully"}
 	<p class="alert alert-success">
 		Your system is ready for use now.
 	</p>
@@ -44,12 +44,12 @@
 	</ul>
 
 	<br />
-	<p class="help" style="text-align:center;">Finally, we thank you again for using Bitweaver.</p>
+	<p class="help">Finally, we thank you again for using Bitweaver.</p>
 	<br />
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" size="20" value="Enter your Bitweaver site" />
+			<input type="submit" class="btn btn-primary" value="Enter your Bitweaver site" />
 		{/forminput}
 	</div>
 {/form}

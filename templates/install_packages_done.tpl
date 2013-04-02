@@ -77,7 +77,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" value="Continue install process" />
+			<input type="submit" class="btn btn-primary" value="Continue install process" />
 		{/forminput}
 	</div>
 {/form}

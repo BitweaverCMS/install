@@ -96,7 +96,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" name="bit_settings" value="{tr}Set Preferences{/tr}" />
+			<input type="submit" class="btn btn-primary" name="bit_settings" value="{tr}Set Preferences{/tr}" />
 		{/forminput}
 	</div>
 {/form}

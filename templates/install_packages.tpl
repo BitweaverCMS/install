@@ -88,7 +88,7 @@
 				<div class="control-group">
 					{forminput}
 				<div class="alert alert-info">
-					<strong>Please press this button only once.</strong>
+					<strong>Please press the install button only once.</strong>
 					<p> Depending on the number of packages and the hardware, this process might take up to a few minutes.</p>
 				</div>
 						<input type="submit" class="btn btn-primary" name="submit_packages" value="Install Packages" />
@@ -161,7 +161,7 @@
 					</div>
 
 					<div class="alert alert-info">
-						<strong>Please press this button only once.</strong>
+						<strong>Please press the install button only once.</strong>
 						<p> Depending on the number of packages and the hardware, this process might take up to a few minutes.</p>
 					</div>
 
