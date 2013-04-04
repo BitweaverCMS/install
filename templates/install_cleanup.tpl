@@ -56,15 +56,15 @@
 			{/if}
 
 			<div class="control-group">
-		{forminput}
-					<input type="submit" class="btn" name="create_tables" value="Try to create missing table/s" />
-		{/forminput}
+				{forminput}
+					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+					{formhelp note="Display SQL statements."}
+				{/forminput}
 			</div>
 
 			<div class="control-group">
 				{forminput}
-					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
-					{formhelp note="Display SQL statements."}
+					<input type="submit" class="btn" name="create_tables" value="Try to create missing table/s" />
 				{/forminput}
 			</div>
 		{else}

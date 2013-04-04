@@ -71,11 +71,9 @@
 			</div>
 		<section>
 	</div>
-
+{include file="bitpackage:kernel/bot_bar.tpl"}
 	<footer class="container aligncenter">
-		<a href="http://bitweaver.org">
-			www.bitweaver.org
-		</a>
+
 	</footer>
 </body>
 </html>

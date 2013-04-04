@@ -28,6 +28,13 @@
 
 	<div class="control-group">
 		{forminput}
+			<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+			{formhelp note="Display SQL statements."}
+		{/forminput}
+	</div>
+
+	<div class="control-group">
+		{forminput}
 			Please press this button only once<br />
 		{/forminput}
 		Depending on the number of packages and the hardware,<br />
@@ -36,11 +43,5 @@
 		<input type="submit" class="btn" name="fSubmitDbCreate" value="Install Packages" />
 	</div>
 
-	<div class="control-group">
-		{forminput}
-			<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
-			{formhelp note="Display SQL statements."}
-		{/forminput}
-	</div>
 {/form}
 {/strip}

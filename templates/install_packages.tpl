@@ -87,21 +87,21 @@
 				{/if}
 				<div class="control-group">
 					{forminput}
-				<div class="alert alert-info">
-					<strong>Please press the install button only once.</strong>
-					<p> Depending on the number of packages and the hardware, this process might take up to a few minutes.</p>
-				</div>
-						<input type="submit" class="btn btn-primary" name="submit_packages" value="Install Packages" />
-					{/forminput}
-				</div>
-
-
-				<div class="control-group">
-					{forminput}
 						<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
 						{formhelp note="Display SQL statements."}
 					{/forminput}
 				</div>
+
+				<div class="control-group">
+					{forminput}
+						<div class="alert alert-info">
+							<strong>Please press the install button only once.</strong>
+							<p> Depending on the number of packages and the hardware, this process might take up to a few minutes.</p>
+						</div>
+						<input type="submit" class="btn btn-primary" name="submit_packages" value="Install Packages" />
+					{/forminput}
+				</div>
+
 		{/jstab}
 
 		{if !$first_install}

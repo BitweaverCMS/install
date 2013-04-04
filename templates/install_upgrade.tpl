@@ -153,15 +153,15 @@
 			{/if}
 
 			<div class="control-group">
-		{forminput}
-					<input type="submit" class="btn" name="upgrade_packages" value="Upgrade Packages" />
-		{/forminput}
+				{forminput}
+					<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
+					{formhelp note="Display SQL statements."}
+				{/forminput}
 			</div>
 
 			<div class="control-group">
 				{forminput}
-					<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
-					{formhelp note="Display SQL statements."}
+					<input type="submit" class="btn" name="upgrade_packages" value="Upgrade Packages" />
 				{/forminput}
 			</div>
 		{/form}

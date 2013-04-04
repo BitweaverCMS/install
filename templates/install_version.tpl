@@ -72,15 +72,15 @@
 			</table>
 
 			<div class="control-group">
-		{forminput}
-					<input type="submit" class="btn" name="fix_version_210beta" value="Fix Permissions" />
-		{/forminput}
+				{forminput}
+					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+					{formhelp note="Display SQL statements."}
+				{/forminput}
 			</div>
 
 			<div class="control-group">
 				{forminput}
-					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
-					{formhelp note="Display SQL statements."}
+					<input type="submit" class="btn" name="fix_version_210beta" value="Fix Permissions" />
 				{/forminput}
 			</div>
 		{else}

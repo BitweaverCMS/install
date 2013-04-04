@@ -280,17 +280,17 @@
 				</div>
 
 				<div class="control-group">
-					{formlabel label="Stop on Errors" for="stop_on_errors"}
 					{forminput}
-						<input type="checkbox" name="stop_on_errors" id="stop_on_errors"{if $stop_on_errors} checked="checked"{/if} />
-						{formhelp note="Checking this box will cause the script to stop on the first error."}
+						<label><input type="checkbox" name="debug" id="debug"{if $debug} checked="checked"{/if} /> Debug mode</label>
+						{formhelp note="Display SQL statements."}
 					{/forminput}
 				</div>
 
 				<div class="control-group">
+					{formlabel label="Stop on Errors" for="stop_on_errors"}
 					{forminput}
-						<label><input type="checkbox" name="debug" id="debug"{if $debug} checked="checked"{/if} /> Debug mode</label>
-						{formhelp note="Display SQL statements."}
+						<input type="checkbox" name="stop_on_errors" id="stop_on_errors"{if $stop_on_errors} checked="checked"{/if} />
+						{formhelp note="Checking this box will cause the script to stop on the first error."}
 					{/forminput}
 				</div>
 			{/legend}

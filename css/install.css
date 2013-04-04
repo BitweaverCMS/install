@@ -1,3 +1,50 @@
+
+/* global */
+html	{background:#5BA6F8}
+body	{
+
+background-image: -moz-linear-gradient(top, #BCEAFF, #5BA6F8);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#BCEAFF), to(#5BA6F8));
+background-image: -webkit-linear-gradient(top, #BCEAFF, #5BA6F8);
+background-image: -o-linear-gradient(top, #BCEAFF, #5BA6F8);
+background-image: linear-gradient(to bottom, #BCEAFF, #5BA6F8);
+background-repeat: repeat-x;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFBCEAFF', endColorstr='#ff5BA6F8', GradientType=0);
+
+}
+table	{border-collapse:collapse;padding:0;margin:0;width:100%;table-layout:fixed}
+caption	{font-weight:bold}
+th	{text-align:left;overflow:hidden}
+th a	{color:#ff0}
+td	{vertical-align:top}
+hr	{border:1px dotted #bab7ac;border-width:1px 0 0 0;background:transparent;margin:2em 0}
+p	{margin:1em auto}
+code	{font-family:monospace}
+h1	{font-size:140%;}
+h2	{font-size:120%;}
+h3	{font-size:110%}
+h1,h2,h3	{font-weight:700;}
+.clear	{clear:both}
+.center	{text-align:center}
+.alright	{text-align:right}
+
+/* links */
+a	{text-decoration:none}
+a.external	{background:transparent url(images/external.gif) no-repeat right 4px;padding-right:10px}
+a:hover	{text-decoration:underline}
+.icon	{border:0;vertical-align:middle}
+a img	{border:0}
+
+
+
+/* forms */
+form	{clear:both}
+form,
+input,
+textarea,
+select	{margin:0;padding:0;border-width:1px;padding:0.2em}
+textarea	{width:99%}
+
 /* layout */
 div#container	{width:93%;margin:0 auto;max-width:1100px}
 
@@ -47,43 +94,6 @@ a#bitweaver_logo em	{display:none}
 #stepmenu li.uncompleted a	{}
 
 
-
-
-/* global */
-html	{background:#FFFED4}
-body	{background:#FFFED4 url(images/bg_body.png) repeat-x left top}
-table	{border-collapse:collapse;padding:0;margin:0;width:100%;table-layout:fixed}
-caption	{font-weight:bold}
-th	{text-align:left;overflow:hidden}
-th a	{color:#ff0}
-td	{vertical-align:top}
-hr	{border:1px dotted #bab7ac;border-width:1px 0 0 0;background:transparent;margin:2em 0}
-p	{margin:1em auto}
-code	{font-family:monospace}
-h1	{font-size:140%;}
-h2	{font-size:120%;}
-h3	{font-size:110%}
-h1,h2,h3	{font-weight:700;}
-.clear	{clear:both}
-.center	{text-align:center}
-.alright	{text-align:right}
-
-/* links */
-a	{text-decoration:none}
-a.external	{background:transparent url(images/external.gif) no-repeat right 4px;padding-right:10px}
-a:hover	{text-decoration:underline}
-.icon	{border:0;vertical-align:middle}
-a img	{border:0}
-
-
-
-/* forms */
-form	{clear:both}
-form,
-input,
-textarea,
-select	{margin:0;padding:0;border-width:1px;padding:0.2em}
-textarea	{width:99%}
 
 .odd	{background:#f4f4f3;color:#000}
 .even	{color:#000}
