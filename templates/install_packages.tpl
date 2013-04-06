@@ -52,7 +52,7 @@
 					{foreach from=$schema key=package item=item}
 						{if !$item.installed and !$item.required}
 							<div class="control-group">
-								<label class="control-label" for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
+								<label class="control-label" for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 								{forminput}
 									<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
 									{formhelp note=$item.info is_installer=1}
@@ -141,7 +141,7 @@
 							{if $item.installed and !$item.required}
 								<div class="control-group">
 									<label class="control-label">
-										<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
+										<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 									</label>
 									{forminput}
 										<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" /> <strong>{$package|capitalize}</strong></label>
@@ -186,7 +186,7 @@
 					{if $item.required}
 						<div class="control-group">
 							<label class="control-label">
-								{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}
+								{biticon ipackage=$package iname="pkg_$package" iexplain=$package}
 							</label>
 							{forminput}
 								<strong>{$package|capitalize}</strong>

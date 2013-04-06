@@ -12,11 +12,11 @@
 				{if $package eq 'languages'}
 					<div class="control-group">
 						<div class="formlabel">
-							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$item.name`}</label>
+							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$item.name}</label>
 						</div>
 						{forminput}
 							<label><input type="checkbox" name="PACKAGE[]" value="{$package}" id="{$package}" checked="checked" /> {$item.name}</label>
-							{formhelp note=`$item.info`}
+							{formhelp note=$item.info}
 							{formhelp note="<strong>Location</strong>: `$item.url`"}
 							{formhelp package=$package}
 						{/forminput}

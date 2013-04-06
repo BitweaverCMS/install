@@ -166,11 +166,11 @@
 				{foreach from=$packages key=package item=item}
 					<div class="control-group">
 						<div class="formlabel">
-							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
+							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 						</div>
 						{forminput}
 							<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> {$package|capitalize}</label>
-							{formhelp note=`$schema.$package.info`}
+							{formhelp note=$schema.$package.info}
 							{formhelp note="<strong>Location</strong>: `$schema.$package.url`"}
 							{formhelp package=$package}
 						{/forminput}

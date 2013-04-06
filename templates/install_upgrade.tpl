@@ -173,11 +173,11 @@
 				{if $item.installed}
 					<div class="control-group">
 						<div class="formlabel">
-							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=`$package`}</label>
+							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 						</div>
 						{forminput}
 							<strong>{$package|capitalize}</strong>
-							{formhelp note=`$item.info`}
+							{formhelp note=$item.info}
 							{formhelp note="<strong>Location</strong>: `$item.url`"}
 							{formhelp package=$package}
 						{/forminput}

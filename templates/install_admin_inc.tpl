@@ -5,7 +5,7 @@
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="control-group">
-		{formfeedback error=`$errors.real_name`}
+		{formfeedback error=$errors.real_name}
 		{formlabel label="Full Name" for="real_name"}
 		{forminput}
 			<input type="text" name="real_name" id="real_name" value="{$smarty.session.real_name|default:'Administrator'}" />
@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="control-group">
-		{formfeedback error=`$errors.login`}
+		{formfeedback error=$errors.login}
 		{formlabel label="Admin login" for="login"}
 		{forminput}
 			<input type="text" name="login" id="login" value="{$smarty.session.login|default:'admin'}" />
@@ -23,7 +23,7 @@
 	</div>
 
 	<div class="control-group">
-		{formfeedback error=`$errors.password`}
+		{formfeedback error=$errors.password}
 		{formlabel label="Password" for="password"}
 		{forminput}
 			<input type="password" name="password" id="password" maxlength="32" value="{$smarty.session.password}" />
@@ -40,7 +40,7 @@
 	</div>
 
 	<div class="control-group">
-		{formfeedback error=`$errors.email`}
+		{formfeedback error=$errors.email}
 		{formlabel label="Email" for="email"}
 		{forminput}
 			<input type="text" name="email" id="email" value="{$smarty.session.email}" />
