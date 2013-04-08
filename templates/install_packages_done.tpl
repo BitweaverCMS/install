@@ -29,7 +29,7 @@
 
 		{if !$first_install}
 			<div class="alert alert-warning">
-				You have just successfully installed new packages.  During installation, new permissions were probably added to the database, but not assigned to any groups.  You can use the <strong>{smartlink ititle="permission maintenance" ipackage=users ifile=admin/permissions.php} </strong> page to assign these permissions quickly and easily.
+				You have just successfully installed new packages.  During installation, new permissions were probably added to the database, but not assigned to any groups.  You can use the <strong>{smartlink ititle="permission maintenance" ipackage=users ifile='admin/permissions.php'} </strong> page to assign these permissions quickly and easily.
 			</div>
 		{/if}
 
