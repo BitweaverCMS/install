@@ -572,8 +572,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					if( $anonUser->store( $storeHash ) ) {
 						// Remove anonymous from registered group
 						$regGroupId = $anonUser->groupExists( 'Registered', ROOT_USER_ID );
-						$anonUser->removeUserFromGroup( ANONYMOUS_USER_ID, $regRoleId );
-						$anonUser->addUserToGroup( ANONYMOUS_USER_ID, ANONYMOUS_TEAM_ID);
+						$anonUser->removeUserFromGroup( ANONYMOUS_USER_ID, $regGroupId );
+						$anonUser->addUserToGroup( ANONYMOUS_USER_ID, ANONYMOUS_GROUP_ID);
 					}
 				}
 

@@ -15,15 +15,13 @@
 	<div class="control-group">
 		{formlabel label="Packages that can be populated"}
 		{forminput}
-			{if $pumpList}
-				<ul>
-					{foreach from=$pumpList item=file key=package}
-						<li><input type="checkbox" name="pump_package[]" value="{$package}" checked="checked"/>{$package}</li>
-					{/foreach}
-				</ul>
-			{else}
+			{foreach from=$pumpList item=file key=package}
+			<label class="checkbox">
+				<input type="checkbox" name="pump_package[]" value="{$package}" checked="checked"/>{$package}
+			</label>
+			{foreachelse}
 				No packages with prepared data have been installed.
-			{/if}
+			{/foreach}
 		{/forminput}
 	</div>
 
@@ -32,7 +30,7 @@
 			{if $pumpList}
 				<input type="submit" class="btn" value="Populate my site" name="fSubmitDataPump" /> 
 			{/if}
+			<input type="submit" class="btn" value="Skip" name="skip" />
 		{/forminput}
-		<input type="submit" class="btn" value="Skip" name="skip" />
 	</div>
 {/form}
