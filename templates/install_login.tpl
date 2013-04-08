@@ -3,7 +3,7 @@
 <h1>{$title|default:"You must be logged in as an administrator to run the installer."}</h1>
 
 {form class="form-horizontal" name="login" legend="Please sign in to continue" secure=$gBitSystem->isFeatureActive("site_https_login_required")}
-	<div class="row">
+	<div class="control-group">
 		{formfeedback error="$error"}
 		{formlabel label="Username or Email" for="user"}
 		{forminput}
@@ -12,7 +12,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Password" for="pass"}
 		{forminput}
 			<input type="password" name="pass" id="pass" size="25" />
@@ -21,7 +21,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" name="login" value="{tr}Log in to {$gBitSystem->getConfig('site_title')|default:"this site"}{/tr}" />
+			<input type="submit" class="btn btn-primary" name="login" value="{tr}Log in to {$gBitSystem->getConfig('site_title')|default:"this site"}{/tr}" />
 		{/forminput}
 		{if $gBitSystem->isFeatureActive('site_https_login_required') || $smarty.server.HTTPS=='on'}
 			{booticon iname="icon-lock" ipackage="icons" iexplain="Secure Login"}
@@ -32,6 +32,6 @@
 
 <div class="center">
 	<a href="http://www.bitweaver.org/">
-		<img src="{$smarty.const.INSTALL_PKG_URL}style/images/bitweaver_logo-trans.png" width="121" height="121" alt="bitweaver logo" title="Click here to visit the upgrade instructions" />
+		<img src="{$smarty.const.INSTALL_PKG_URL}css/images/bitweaver_logo-trans.png" width="121" height="121" alt="bitweaver logo" title="Click here to visit the upgrade instructions" />
 	</a>
 </div>

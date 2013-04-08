@@ -196,6 +196,7 @@ if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 } elseif( !empty(  $_REQUEST['skip'] ) ) {
 	// if there were no conflicts, we move on to the next page
 	header( "Location: ".$_SERVER['SCRIPT_NAME']."?step=".++$step );
+	die;
 }
 
 // make sure everything is up to date after the above changes
