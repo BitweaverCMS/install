@@ -35,7 +35,7 @@
 								<li><strong>database password</strong></li>
 							</ul>
 						</li>
-						{ if ( $fbpath ) }
+						{if $fbpath}
 							<li>and check that the Firebird tool path is set corrently.</li>
 						{/if}
 					</ul>
@@ -97,44 +97,31 @@
 		{formlabel label="Database name" for="name"}
 		{forminput}
 			<input type="text" size="25" name="name" id="name" value="{$gBitDbName}" />
-			{ if ( $fbpath ) }
-				{formhelp note="The name of the database where Bitweaver will create tables. You can
-					create a Firebird alias for the Bitweaver database in aliases.conf and then use that
-					aliase as the database name, or provide a full path and file name to create
-					the database in an existing directory."}
+			{if $fbpath}
+				{formhelp note="The name of the database where Bitweaver will create tables. You can create a Firebird alias for the Bitweaver database in aliases.conf and then use that aliase as the database name, or provide a full path and file name to create the database in an existing directory."}
 			{else}
-				{formhelp note="The name of the database where Bitweaver will create tables. You can
-					create the database using mysqladmin, or PHPMyAdmin or ask your
-					hosting service to create a MySQL database.
-					Normally, Bitweaver tables won't conflict with other product names."}
+				{formhelp note="The name of the database where Bitweaver will create tables. You can create the database using mysqladmin, or PHPMyAdmin or ask your hosting service to create a MySQL database.  Normally, Bitweaver tables won't conflict with other product names."}
 			{/if}
 		{/forminput}
 	</div>
 
 	<div class="control-group">
-	{ if ( $fbpath ) }
+	{if $fbpath}
 		{formhelp note="<strong>Do not use Prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
 	{/if}
 		{formlabel label="Database prefix" for="prefix"}
 		{forminput}
 			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit|replace:'`':''}" />
-			{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple
-				independent install to share a single database. To ensure problem free usage of Bitweaver with other
-				applications in the same database, <strong>we highly recommend using a prefix</strong>.
-				If you are NOT running MySQL (i.e. Postgres, Oracle, etc.) you can end the prefix string with
-				a '.' (period) to use a schema in systems that support it.
-				<strong>MySQL does NOT support schemas.</strong>"}
+			{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple independent install to share a single database. To ensure problem free usage of Bitweaver with other applications in the same database, <strong>we highly recommend using a prefix</strong>.  If you are NOT running MySQL (i.e. Postgres, Oracle, etc.) you can end the prefix string with a '.' (period) to use a schema in systems that support it.  <strong>MySQL does NOT support schemas.</strong>"}
 		{/forminput}
 	</div>
 
-	{ if ( $fbpath ) }
+	{if $fbpath}
 	<div class="control-group">
 		{formlabel label="Firebird installation path" for="fbpath"}
 		{forminput}
 			<input type="text" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
-			{formhelp note="If you have modified your Firebird installation from the default please enter the correct
-				path to the base Firebird directory. This is used to find isql in order to create the initial blank
-				database and should be maintained in the correct format for your operating system."}
+			{formhelp note="If you have modified your Firebird installation from the default please enter the correct path to the base Firebird directory. This is used to find isql in order to create the initial blank database and should be maintained in the correct format for your operating system."}
 		{/forminput}
 	</div>
 	{/if}

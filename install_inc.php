@@ -113,9 +113,6 @@ if ( defined( 'ROLE_MODEL' ) ) {
 global $gBitInstaller, $gBitSystem, $gBitThemes;
 $gBitInstaller = new BitInstaller();
 
-// default style is set in kernel/config_defaults.php
-//$gBitThemes->setStyle( DEFAULT_THEME );
-
 // IF DB has not been created yet, then packages will not have been scanned yet.
 // and even if they have been scanned, then they will only include active packages,
 // not all packages. So we scan again here including all packages.
