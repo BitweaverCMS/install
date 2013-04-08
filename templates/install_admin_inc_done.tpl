@@ -59,7 +59,7 @@
 					{formfeedback error=$mail.warning}
 					{tr}You will have to consult your server adminstrator to fix this issue.{/tr}
 				{else}
-					{formfeedback success=$mail.success}		
+					{formfeedback note=$mail.success}		
 					{tr}Please check your inbox to confirm that the email was sent.{/tr}
 				{/if}
 			{/forminput}

@@ -147,7 +147,8 @@ if( empty( $_REQUEST['baseurl'] )) {
 }
 
 global $gBitUser;
-if( !empty( $_REQUEST['login'] ) ) {
+
+if( !empty( $_POST['signin'] ) ) {
 	$gBitInstaller->login( $_REQUEST['user'], $_REQUEST['pass'] );	
 } elseif( !empty( $_COOKIE[$gBitUser->getSiteCookieName()] ) && ( $gBitUser->mUserId = $gBitUser->getUserIdFromCookieHash( $_COOKIE[$gBitUser->getSiteCookieName()] ))) {
 	$userInfo = $gBitUser->getUserInfo( array( 'user_id' => $gBitUser->mUserId ) );
