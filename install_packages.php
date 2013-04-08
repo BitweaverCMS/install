@@ -526,7 +526,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 						vd( 'Errors in root user store:'.PHP_EOL );
 						vd( $rootUser->mErrors );
 					}
-					$gBitSystem->storeConfig( 'user_class', 'RolePermUser', USER_PKG_NAME );
+					$gBitSystem->storeConfig( 'user_class', 'RolePermUser', USERS_PKG_NAME );
 					$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_roles` (`user_id`, `role_id`, `role_name`,`role_desc`) VALUES ( ".ROOT_USER_ID.", ".ANONYMOUS_TEAM_ID.", 'Anonymous','Public users not logged')" );
 					$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_roles` (`user_id`, `role_id`, `role_name`,`role_desc`) VALUES ( ".ROOT_USER_ID.", 2, 'Editors','Site  Editors')" );
 					$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_roles` (`user_id`, `role_id`, `role_name`,`role_desc`,`is_default`) VALUES ( ".ROOT_USER_ID.", 3, 'Registered', 'Users logged into the system', 'y')" );
