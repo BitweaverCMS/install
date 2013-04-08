@@ -71,9 +71,9 @@
 			</div>
 		<section>
 	</div>
-{include file="bitpackage:kernel/bot_bar.tpl"}
-	<footer class="container aligncenter">
 
+	<footer class="container aligncenter">
+		{include file="bitpackage:kernel/bot_bar.tpl"}
 	</footer>
 </body>
 </html>
