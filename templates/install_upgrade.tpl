@@ -2,15 +2,15 @@
 
 {jstabs tab=0}
 	{jstab title="Available Upgrades"}
-		{form class="form-horizontal" id="package_select" legend="Packages that will be upgraded" id="package_select"}
+		{form id="package_select" legend="Packages that will be upgraded" id="package_select"}
 			<input type="hidden" name="step" value="{$next_step}" />
 
 			{if $packageUpgrades}
 				<h2>Packages and their upgrades</h2>
-				<p class="danger">You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</p>
+				<div class="alert alert-error"><div class="pull-left"><i class="icon-warning-sign" style="font-size:3em;padding-right:20px;"></i></div> You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</div>
 				{foreach from=$packageUpgrades item=upgrade key=package}
 					{* users don't have the option to select what packages to upgrade since the code of the package is dependent on this upgrade
-					<h3><label><input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}</label></h3> *}
+					<h3><label class="checkbox"><input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}</label></h3> *}
 
 					<h3>{$package}</h3>
 					<input type="hidden" name="packages[]" value="{$package}" />
@@ -154,14 +154,14 @@
 
 			<div class="control-group">
 				{forminput}
-					<label><input type="checkbox" name="debug" value="true" /> Debug mode</label>
+					<label class="checkbox"><input type="checkbox" name="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
 
 			<div class="control-group">
 				{forminput}
-					<input type="submit" class="btn" name="upgrade_packages" value="Upgrade Packages" />
+					<input type="submit" class="btn btn-primary" name="upgrade_packages" value="Upgrade Packages" />
 				{/forminput}
 			</div>
 		{/form}

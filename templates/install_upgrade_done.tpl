@@ -1,6 +1,6 @@
 <h1>Upgrade Packages</h1>
 
-{form class="form-horizontal" id="package_select" legend="Upgraded Packages" id="package_select"}
+{form id="package_select" legend="Upgraded Packages" id="package_select"}
 	<p class="alert alert-success">The following packages were successfully upgraded</p>
 	<input type="hidden" name="step" value="{$next_step}" />
 	<dl>
@@ -19,7 +19,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" name="continue" value="Continue Install Process" />
+			<input type="submit" class="btn btn-primary" name="continue" value="Continue Install Process" />
 		{/forminput}
 	</div>
 {/form}

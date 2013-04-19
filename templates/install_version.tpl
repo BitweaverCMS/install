@@ -1,6 +1,6 @@
 <h1>Bitweaver version update</h1>
 
-{form class="form-horizontal" id="integrity_check"}
+{form id="integrity_check"}
 	<input type="hidden" name="step" value="{$next_step}" />
 	<input type="hidden" name="update_version" value="true" />
 
@@ -22,7 +22,7 @@
 			</p>
 
 			<p class="help">
-				You can visit the {smartlink ititle="Permission Maintenance" ipackage=users ifile=admin/permissions.php} page at any time to make further adjustments.
+				You can visit the {smartlink ititle="Permission Maintenance" ipackage=users ifile="admin/permissions.php"} page at any time to make further adjustments.
 			</p>
 
 
@@ -73,7 +73,7 @@
 
 			<div class="control-group">
 				{forminput}
-					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+					<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
@@ -87,7 +87,7 @@
 			{if $upToDate}
 				<div class="control-group">
 		{forminput}
-						<input type="submit" class="btn" name="skip" value="Continue install process" />
+						<input type="submit" class="btn btn-primary" name="skip" value="Continue install process" />
 		{/forminput}
 				</div>
 			{else}

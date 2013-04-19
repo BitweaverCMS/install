@@ -1,5 +1,5 @@
 <h1>Upgrade Process Completed</h1>
-{form class="form-horizontal" legend="Select what you want to do next"}
+{form legend="Select what you want to do next"}
 	<p>Go back to the installer to install additional packages that were not part of this migrate.</p>
 	<div class="control-group">
 		{forminput}

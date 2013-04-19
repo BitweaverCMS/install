@@ -15,7 +15,7 @@
 							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$item.name}</label>
 						</div>
 						{forminput}
-							<label><input type="checkbox" name="PACKAGE[]" value="{$package}" id="{$package}" checked="checked" /> {$item.name}</label>
+							<label class="checkbox"><input type="checkbox" name="PACKAGE[]" value="{$package}" id="{$package}" checked="checked" /> {$item.name}</label>
 							{formhelp note=$item.info}
 							{formhelp note="<strong>Location</strong>: `$item.url`"}
 							{formhelp package=$package}
@@ -28,7 +28,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+			<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 			{formhelp note="Display SQL statements."}
 		{/forminput}
 	</div>

@@ -38,7 +38,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+			<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 			{formhelp note="Display SQL statements."}
 		{/forminput}
 	</div>

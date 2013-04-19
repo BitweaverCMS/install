@@ -1,6 +1,6 @@
 <h1>Bitweaver integrity check</h1>
 
-{form class="form-horizontal" id="integrity_check"}
+{form id="integrity_check"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	{legend legend="Database Integrity Check"}
@@ -57,7 +57,7 @@
 
 			<div class="control-group">
 				{forminput}
-					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+					<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
@@ -89,49 +89,47 @@
 				{/if}
 			</p>
 
-			<table class="data">
-				<caption>Permissions that need amending</caption>
-				{if $insPerms}
-					<tr><th style="width:20px;"></th><th colspan="4" style="width:99%;">New Permissions</th></tr>
+			{if $insPerms}
+			<h2>New permissions that will be added</h2>
+			<table class="table data">
+				<tr>
+					<th>Permission</th>
+					<th>Description</th>
+					<th class="width10p">Level</th>
+					<th class="width10p">Package</th>
+				</tr>
+				{foreach from=$insPerms item=perm}
 					<tr>
-						<th></th>
-						<th style="width:30%;">Permission</th>
-						<th style="width:40%;">Description</th>
-						<th style="width:15%;">Level</th>
-						<th style="width:14%;">Package</th>
+						<td><label class="checkbox" for="{$perm.0}"><input type="checkbox" value="{$perm.0}" id="{$perm.0}" name="perms[{$perm.0}]" checked="checked" /><strong>{$perm.0}</strong></label></td>
+						<td><label for="{$perm.0}">{$perm.1}</label></td>
+						<td><label for="{$perm.0}">{$perm.2}</label></td>
+						<td><label for="{$perm.0}">{$perm.3}</label></td>
 					</tr>
-					{foreach from=$insPerms item=perm}
-						<tr class="{cycle values="odd,even"}">
-							<td><input type="checkbox" value="{$perm.0}" id="{$perm.0}" name="perms[{$perm.0}]" checked="checked" /></td>
-							<td><label for="{$perm.0}"><strong>{$perm.0}</strong></label></td>
-							<td><label for="{$perm.0}">{$perm.1}</label></td>
-							<td><label for="{$perm.0}">{$perm.2}</label></td>
-							<td><label for="{$perm.0}">{$perm.3}</label></td>
-						</tr>
-					{/foreach}
-				{/if}
-
-				{if $delPerms}
-					<tr><th></th><th colspan="4">Permissions no longer in use</th></tr>
-					<tr>
-						<th></th>
-						<th>Permission</th>
-						<th>Description</th>
-						<th>Level</th>
-						<th>Package</th>
-					</tr>
-					{foreach from=$delPerms item=perm}
-						<tr class="{cycle values="odd,even"}">
-							<td><input type="checkbox" value="{$perm.0}" id="{$perm.0}" name="perms[{$perm.0}]" checked="checked" /></td>
-							<td><label for="{$perm.0}"><strong>{$perm.0}</strong></label></td>
-							<td><label for="{$perm.0}">{$perm.1}</label></td>
-							<td><label for="{$perm.0}">{$perm.2}</label></td>
-							<td><label for="{$perm.0}">{$perm.3}</label></td>
-						</tr>
-					{/foreach}
-				{/if}
+				{/foreach}
 			</table>
-		{else}
+			{/if}
+
+			{if $delPerms}
+			<h2>Permissions no longer in use that will be deleted</h2>
+			<table class="table data">
+				<tr>
+					<th>Permission</th>
+					<th>Description</th>
+					<th class="width10p">Level</th>
+					<th class="width10p">Package</th>
+				</tr>
+				{foreach from=$delPerms item=perm}
+					<tr>
+						<td><label class="checkbox" for="{$perm.0}"><input type="checkbox" value="{$perm.0}" id="{$perm.0}" name="perms[{$perm.0}]" checked="checked" /> <strong>{$perm.0}</strong></label></td>
+						<td><label for="{$perm.0}">{$perm.1}</label></td>
+						<td><label for="{$perm.0}">{$perm.2}</label></td>
+						<td><label for="{$perm.0}">{$perm.3}</label></td>
+					</tr>
+				{/foreach}
+			{/if}
+		</table>
+		{/if}
+		{if empty( $insPerms ) && empty( $delPerms )}
 			<p class="alert alert-success">
 				The permissioning system in your installation is up to date and does not require any adjustments. Even though this is true, we recommend you visit the {smartlink ititle="Permission Maintenance" ipackage=users ifile="admin/permissions.php"} page at some point to ensure that all permissions are active.
 			</p>
@@ -165,7 +163,7 @@
 							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 						</div>
 						{forminput}
-							<label><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> {$package|capitalize}</label>
+							<label class="checkbox"><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> {$package|capitalize}</label>
 							{formhelp note=$schema.$package.info}
 							{formhelp note="<strong>Location</strong>: `$schema.$package.url`"}
 							{formhelp package=$package}
@@ -183,13 +181,13 @@
 		{if $delPerms || $insPerms || $serviceList}
 			<div class="control-group">
 		{forminput}
-					<input type="submit" class="btn" name="resolve_conflicts" value="Resolve Issues" />
+					<input type="submit" class="btn btn-primary" name="resolve_conflicts" value="Resolve Issues" />
 		{/forminput}
 			</div>
 
 			<div class="control-group">
 				{forminput}
-					<label><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+					<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>

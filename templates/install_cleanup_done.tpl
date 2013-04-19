@@ -1,6 +1,6 @@
 <h1>Resolved Conflicts</h1>
 
-{form class="form-horizontal" legend="Resolved Conflicts"}
+{form}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p class="alert alert-success">
@@ -19,10 +19,7 @@
 			{/forminput}
 		</div>
 
-		<p>Since permissions have been modified, you should visit the
-			{smartlink ititle="permission maintenance" ipackage=users
-			ifile=admin/permissions.php} page to make sure that all permissions
-			are assigned to the correct groups.</p>
+		<p>Since permissions have been modified, you should visit the {smartlink ititle="permission maintenance" ipackage=users ifile="admin/permissions.php"} page to make sure that all permissions are assigned to the correct groups.</p>
 	{/if}
 
 	{if $deActivated}
