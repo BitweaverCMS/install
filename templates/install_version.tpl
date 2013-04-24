@@ -26,7 +26,7 @@
 			</p>
 
 
-			<table class="data">
+			<table class="table data">
 				<caption>{tr}Available Permissions{/tr}</caption>
 				{capture assign=theader}
 					<tr>

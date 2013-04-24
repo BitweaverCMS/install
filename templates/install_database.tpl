@@ -136,19 +136,17 @@
 	</div>
 
 	<div class="control-group">
-		{formlabel label="Auto submit bugs" for="auto_bug_submit"}
-		{forminput}
-			<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />
+		<label class="checkbox">
+			<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />Auto submit bugs
 			{formhelp note="Checking this box will automatically submit fatal database errors to the Bitweaver team. If you are running a live site, consider checking this box, as it will also avoid fatal error messages from appearing to the user."}
-		{/forminput}
+		</label>
 	</div>
 
 	<div class="control-group">
-		{formlabel label="Site is live" for="is_live"}
-		{forminput}
-			<input type="checkbox" name="is_live" id="is_live" />
+		<label class="checkbox">
+			<input type="checkbox" name="is_live" id="is_live" />Site is live
 			{formhelp note="Checking this will make debugging quite difficult as it will hide errors. Only check if your site is being used in a live environment right after installation."}
-		{/forminput}
+		</label>
 	</div>
 
 	<div class="control-group">

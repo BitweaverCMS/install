@@ -234,11 +234,10 @@
 				</div>
 
 				<div class="control-group">
-					{formlabel label="Automatically submit bugs" for="auto_bug_submit"}
-					{forminput}
-						<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />
+					<label class="checkbox">
+						<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />Automatically submit bugs
 						{formhelp note="Checking this box will automatically submit fatal database errors to the Bitweaver team. If you are running a live site, we recommend you check this box, as it will also avoid horrible error messages from appearing in such cases."}
-					{/forminput}
+					</label>
 				</div>
 			{/legend}
 		{/jstab}
@@ -264,19 +263,17 @@
 				</div>
 
 				<div class="control-group">
-					{formlabel label="DROP tables" for="empty_tables"}
-					{forminput}
-						<input type="checkbox" name="empty_tables" id="empty_tables"{if $empty_tables} checked="checked"{/if} />
+					<label class="checkbox">
+						<input type="checkbox" name="empty_tables" id="empty_tables"{if $empty_tables} checked="checked"{/if} />DROP tables
 						{formhelp note="Checking this box DROP's tables before new data is migrated"}
-					{/forminput}
+					</label>
 				</div>
 
 				<div class="control-group">
-					{formlabel label="Convert Blobs" for="convert_blobs"}
-					{forminput}
-						<input type="checkbox" name="convert_blobs" id="convert_blobs"{if $convert_blobs} checked="checked"{/if} />
+					<label class="checkbox">
+						<input type="checkbox" name="convert_blobs" id="convert_blobs"{if $convert_blobs} checked="checked"{/if} />Convert Blobs
 						{formhelp note="Checking this box converts blobs from a MySQL type blob to a PgSQL encoded blob."}
-					{/forminput}
+					</label>
 				</div>
 
 				<div class="control-group">
@@ -287,11 +284,10 @@
 				</div>
 
 				<div class="control-group">
-					{formlabel label="Stop on Errors" for="stop_on_errors"}
-					{forminput}
-						<input type="checkbox" name="stop_on_errors" id="stop_on_errors"{if $stop_on_errors} checked="checked"{/if} />
+					<label class="checkbox">
+						<input type="checkbox" name="stop_on_errors" id="stop_on_errors"{if $stop_on_errors} checked="checked"{/if} />Stop on Errors
 						{formhelp note="Checking this box will cause the script to stop on the first error."}
-					{/forminput}
+					</label>
 				</div>
 			{/legend}
 		{/jstab}
