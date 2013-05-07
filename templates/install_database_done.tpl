@@ -78,10 +78,12 @@
 
 	{if isset( $has_innodb_support )}
 		<div class="control-group">
-			<label class="checkbox">
-				<input type="checkbox" name="use_innodb" id="use_innodb" {if $has_innodb_support eq 'DEFAULT'}checked="checked"{/if} />Use InnoDB tables
-				{formhelp note="Your database server supports InnoDB which provides MySQL with a transaction-safe storage engine that has commit, rollback, and crash recovery capabilities. You usually want this for safest possible data storage. Otherwise the standard MyIsam engine is used."}
-			</label>
+			{forminput}
+				<label class="checkbox">
+					<input type="checkbox" name="use_innodb" id="use_innodb" {if $has_innodb_support eq 'DEFAULT'}checked="checked"{/if} />Use InnoDB tables
+					{formhelp note="Your database server supports InnoDB which provides MySQL with a transaction-safe storage engine that has commit, rollback, and crash recovery capabilities. You usually want this for safest possible data storage. Otherwise the standard MyIsam engine is used."}
+				</label>
+			{/forminput}
 		</div>
 	{/if}
 
