@@ -275,7 +275,7 @@ function check_settings() {
 	// now continue with easy toggle checks
 	$php_rec_toggles = array(
 		array( 'Safe Mode','safe_mode','shouldbe' => 'OFF', ),
-		array( 'Display Errors','display_errors','shouldbe' => 'ON' ),
+		array( 'Display Errors','display_errors','shouldbe' => 'OFF' ),
 		array( 'File Uploads','file_uploads','shouldbe' => 'ON' ),
 		array( 'Magic Quotes GPC','magic_quotes_gpc','shouldbe' => 'OFF' ),
 		array( 'Magic Quotes Runtime','magic_quotes_runtime','shouldbe' => 'OFF' ),
