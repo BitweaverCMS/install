@@ -10,23 +10,23 @@
 class BitInstaller extends BitSystem {
 
 	/**
-	 * mPackageUpgrades 
-	 * 
+	 * mPackageUpgrades
+	 *
 	 * @var array
 	 * @access public
 	 */
 	var $mPackageUpgrades = array();
 
 	/**
-	 * mRequirements 
-	 * 
+	 * mRequirements
+	 *
 	 * @var array
 	 * @access public
 	 */
 	var $mRequirements = array();
 
 	/**
-	 * Initiolize BitInstaller 
+	 * Initiolize BitInstaller
 	 * @access public
 	 */
 	function BitInstaller() {
@@ -36,7 +36,7 @@ class BitInstaller extends BitSystem {
 
 	/**
 	 * loadAllUpgradeFiles load upgrade files from all packages that are installed
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -79,8 +79,8 @@ class BitInstaller extends BitSystem {
 
 	/**
 	 * loadUpgradeFiles This will load all files in the dir <pckage>/admin/upgrades/<version>.php with a version greater than the one installed
-	 * 
-	 * @param array $pPackage 
+	 *
+	 * @param array $pPackage
 	 * @access public
 	 * @return void
 	 */
@@ -102,8 +102,8 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * registerPackageUpgrade 
-	 * 
+	 * registerPackageUpgrade
+	 *
 	 * @param array $pParams Hash of information about upgrade
 	 * @param string $pParams[package] Name of package that is upgrading
 	 * @param string $pParams[version] Version of this upgrade
@@ -126,8 +126,8 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * verifyPackageUpgrade 
-	 * 
+	 * verifyPackageUpgrade
+	 *
 	 * @param array $pParams Hash of information about upgrade
 	 * @param string $pParams[package] Name of package that is upgrading
 	 * @param string $pParams[version] Version of this upgrade
@@ -163,10 +163,10 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * registerUpgrade 
-	 * 
-	 * @param array $pPackage 
-	 * @param array $pUpgradeHash 
+	 * registerUpgrade
+	 *
+	 * @param array $pPackage
+	 * @param array $pUpgradeHash
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
@@ -178,10 +178,10 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * display 
-	 * 
-	 * @param string $pTemplate 
-	 * @param string $pBrowserTitle 
+	 * display
+	 *
+	 * @param string $pTemplate
+	 * @param string $pBrowserTitle
 	 * @access public
 	 * @return void
 	 */
@@ -202,8 +202,8 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * isInstalled 
-	 * 
+	 * isInstalled
+	 *
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
@@ -213,7 +213,7 @@ class BitInstaller extends BitSystem {
 
 	/**
 	 * getWebServerUid set global wwwuser and wwwgroup
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -243,8 +243,8 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * getTablePrefix 
-	 * 
+	 * getTablePrefix
+	 *
 	 * @access public
 	 * @return database adjusted table prefix
 	 */
@@ -279,9 +279,9 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * upgradePackage 
-	 * 
-	 * @param array $pPackage 
+	 * upgradePackage
+	 *
+	 * @param array $pPackage
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
@@ -292,10 +292,10 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * upgradePackageVersion 
-	 * 
-	 * @param array $pPackage 
-	 * @param array $pVersion 
+	 * upgradePackageVersion
+	 *
+	 * @param array $pPackage
+	 * @param array $pVersion
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
@@ -324,10 +324,10 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * applyUpgrade 
-	 * 
-	 * @param array $pPackage 
-	 * @param array $pUpgradeHash 
+	 * applyUpgrade
+	 *
+	 * @param array $pPackage
+	 * @param array $pUpgradeHash
 	 * @access public
 	 * @return empty array on success, array with errors on failure
 	 */
@@ -563,9 +563,9 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * identifyBlobs 
-	 * 
-	 * @param array $result 
+	 * identifyBlobs
+	 *
+	 * @param array $result
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
@@ -584,10 +584,10 @@ class BitInstaller extends BitSystem {
 
 	/**
 	 * convertBlobs enumerate blob fields and encoded
-	 * 
-	 * @param string $gDb 
-	 * @param array $res 
-	 * @param array $blobs 
+	 *
+	 * @param string $gDb
+	 * @param array $res
+	 * @param array $blobs
 	 * @access public
 	 * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
 	 */
@@ -598,8 +598,8 @@ class BitInstaller extends BitSystem {
 	}
 
 	/**
-	 * hasAdminBlock 
-	 * 
+	 * hasAdminBlock
+	 *
 	 * @access public
 	 * @return TRUE on success, FALSE on failure
 	 * @deprecated i think this isn't used any more
@@ -624,8 +624,8 @@ class BitInstaller extends BitSystem {
 }
 
 /**
- * check_session_save_path 
- * 
+ * check_session_save_path
+ *
  * @access public
  * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
  */
@@ -653,13 +653,13 @@ function check_session_save_path() {
 }
 
 /**
- * makeConnection 
- * 
- * @param string $gBitDbType 
- * @param string $gBitDbHost 
- * @param string $gBitDbUser 
- * @param string $gBitDbPassword 
- * @param string $gBitDbName 
+ * makeConnection
+ *
+ * @param string $gBitDbType
+ * @param string $gBitDbHost
+ * @param string $gBitDbUser
+ * @param string $gBitDbPassword
+ * @param string $gBitDbName
  * @access public
  * @return TRUE on success, FALSE on failure - mErrors will contain reason for failure
  */
@@ -677,9 +677,9 @@ function makeConnection( $gBitDbType, $gBitDbHost, $gBitDbUser, $gBitDbPassword,
 
 /**
  * upgrade_package_sort sort packages before they are upgraded
- * 
- * @param string $a 
- * @param string $b 
+ *
+ * @param string $a
+ * @param string $b
  * @access public
  * @return numeric sort direction
  */
@@ -698,9 +698,9 @@ function upgrade_package_sort( $a, $b ) {
 
 /**
  * upgrade_version_sort sort upgrades based on version number
- * 
- * @param string $a 
- * @param string $b 
+ *
+ * @param string $a
+ * @param string $b
  * @access public
  * @return numeric sort direction
  */
@@ -710,9 +710,9 @@ function upgrade_version_sort( $a, $b ) {
 
 /**
  * upgrade_query_sort sort queries that SQL92 queries are called last
- * 
- * @param string $a 
- * @param string $b 
+ *
+ * @param string $a
+ * @param string $b
  * @access public
  * @return numeric sort direction
  */

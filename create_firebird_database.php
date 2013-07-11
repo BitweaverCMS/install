@@ -7,16 +7,16 @@
 
 /**
   V4.22 15 Apr 2004  (c) 2000-2004 John Lim (jlim@natsoft.com.my). All rights reserved.
-  Released under both BSD license and Lesser GPL library license. 
-  Whenever there is any discrepancy between the two licenses, 
+  Released under both BSD license and Lesser GPL library license.
+  Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
-	
+
   Set tabs to 4 for best viewing.
   Added by Lester Caine to provide an in-line generation of Firebird(/Interbase) database
   Firebird requires the database to exist before it can be connected to as part of it's
   security system
-  Still need to be extended to allow selection of OS tmp directory, 
-  and path to Firebird bin directory 
+  Still need to be extended to allow selection of OS tmp directory,
+  and path to Firebird bin directory
 */
 	function FirebirdCreateDB($host, $user, $pass, $dbalias, $fbpath)
 	{
