@@ -40,6 +40,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 	// shorthand for the actions we are supposed to perform during an unistall or re-install
 	$removeActions = !empty( $_REQUEST['remove_actions'] ) ? $_REQUEST['remove_actions'] : array();
 
+	// Override reinstall/uninstall flag
+	if ( $_REQUEST['submit_packages'] == 'Install Packages' ) $_REQUEST['method'] = 'install';
 	// make sure that required pkgs are only present when we are installing
 	if(( $method = ( $_REQUEST['method'] )) == 'install' && !$_SESSION['first_install'] ) {
 		// make sure no required packages are included in this list
