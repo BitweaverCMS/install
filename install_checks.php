@@ -87,8 +87,8 @@ function check_settings() {
 		'gd'           => '<a class="external" href="http://www.boutell.com/gd/">GD Libraries</a> are used to manipulate images. Bitweaver uses these libraries to create thumbnails and convert images from one format to another. If you are running Red Hat or Fedora Core, you can try: <kbd>yum install php-gd</kbd>. The GD libaries are quite limited and <em>don\'t support</em> a number of image formats including <em>.bmp</em>. If you are planning on uploading and using a lot of images, we recommend you use one of the other image processors.',
 		'imagick'      => 'ImageMagick supports a multitude of different image and video formats and <em>can be used instead of the GD Libraries</em>. Using these libraries will allow you to upload most image formats without any difficulties. For installation help, please view <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick homepage</a>.',
 		'magickwand'   => 'MagickWand is a newer PHP extension for ImageMagick. For installation help, please view Bitweaver\'s: <a class="external" href="http://www.bitweaver.org/wiki/ImageMagick">ImageMagick and MagickWand installation instructions</a> or visit the <a class="external" href="http://www.imagemagick.org">ImageMagick homepage</a>.',
-		'eAccelerator' => '<a class="external" href="http://eaccelerator.net">eAccelerator</a> increases the efficiency of PHP by caching and optimising queries. Using this extension will greatly increase your server\'s performance and reduce the memory needed to run Bitweaver.',
-		'ffmpeg'       => '<a class="external" href="http://ffmpeg-php.sourceforge.net/">ffmpeg-php</a> is an extension that will allow you to better process uploaded videos. This extension requires ffmpeg to be installed on your server as well.',
+//		'eAccelerator' => '<a class="external" href="http://eaccelerator.net">eAccelerator</a> increases the efficiency of PHP by caching and optimising queries. Using this extension will greatly increase your server\'s performance and reduce the memory needed to run Bitweaver.',
+//		'ffmpeg'       => '<a class="external" href="http://ffmpeg-php.sourceforge.net/">ffmpeg-php</a> is an extension that will allow you to better process uploaded videos. This extension requires ffmpeg to be installed on your server as well.',
 	);
 	foreach( $php_ext as $ext => $note ) {
 		$extensions[$ext]['note'] = 'The extension <strong>'.$ext.'</strong> is ';
@@ -158,10 +158,10 @@ function check_settings() {
 			'note'         => '<a class="external" href="http://www.graphviz.org/">Graphviz</a> is a way of representing structural information as diagrams of abstract graphs and networks and visualizing that representation. It is used by the {graphviz} Liberty plugin and you only need to install it if you intend to enable that plugin.<br /><em>The Pear::Image_Graphviz plugin is required as well.</em>',
 			'result'       => 'Your version of Graphviz: ',
 		),
-		'ffmpeg' => array(
-			'command'      => 'ffmpeg',
-			'note'         => '<a class="external" href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> is a hyper fast video and audio encoder that supports many common formats. If you are planning on uploading video and audio files, it\'s recommend that you install this application.',
-		),
+//		'ffmpeg' => array(
+//			'command'      => 'ffmpeg',
+//			'note'         => '<a class="external" href="http://ffmpeg.mplayerhq.hu/">ffmpeg</a> is a hyper fast video and audio encoder that supports many common formats. If you are planning on uploading video and audio files, it\'s recommend that you install this application.',
+//		),
 //		'unstuff' => array(
 //			'params'       => '-xf',
 //			'testfile'     => 'test.tar',
