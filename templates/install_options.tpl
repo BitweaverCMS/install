@@ -3,9 +3,9 @@
 {form class="form-horizontal" legend="Install or upgrade Bitweaver" style="text-align:center"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<br />
-
 	<input type="submit" class="btn" name="continue_install" value="Install Bitweaver" />
+{*
+	<br />
 	<p>Select this option if this is your first installation of Bitweaver.</p>
 	
 	<hr />
@@ -22,5 +22,6 @@
 
 	<input type="submit" class="btn" name="migrate" value="Migrate database" />
 	<p>Select this option, if you wish to migrate from one database source to another, such as from MySQL to PostgreSQL. You will be brought back to the installer once the upgrade process has been completed. <strong>This feature is currently not working. It was working once and needs some attention since it hasn't been updated in a while. If you know some PHP, please help us out if you are interested in this feature.</strong><p>
+*}
 
 {/form}
