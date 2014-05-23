@@ -1,6 +1,6 @@
 {strip}
 <div class="row">
-	<div class="span8">
+	<div class="col-md-8">
 		<h1>Welcome to the Bitweaver Installer</h1>
 
 		{if $gBitUser->isAdmin()}
@@ -24,7 +24,7 @@
 		</div>
 		{/form}
 	</div>
-	<div class="span3">
+	<div class="col-md-3">
 		<div class="aligncenter"><img src="{$smarty.const.INSTALL_PKG_URL}css/images/bitweaver_logo-trans.png" alt="logo" /></div>
 		<ul>
 			<li>free, gratis, and open source</li>
