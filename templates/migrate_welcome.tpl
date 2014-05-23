@@ -15,7 +15,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the migrate process!"}" />
+			<input type="submit" class="btn btn-default" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the migrate process!"}" />
 		{/forminput}
 	</div>
 {/form}

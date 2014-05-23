@@ -32,7 +32,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" value="Continue upgrade process" />
+			<input type="submit" class="btn btn-default" value="Continue upgrade process" />
 		{/forminput}
 	</div>
 {/form}

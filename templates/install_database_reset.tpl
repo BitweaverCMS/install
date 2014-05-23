@@ -9,7 +9,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" name="continue_install" value="Continue {$section|default:"install"} process" />
+			<input type="submit" class="btn btn-default" name="continue_install" value="Continue {$section|default:"install"} process" />
 		{/forminput}
 	</div>
 
@@ -22,7 +22,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" name="reset_config_inc" value="Reset config_inc.php file" onclick="return confirm( 'Are you absolutely sure you want to reset your configuration file?' );" />
+			<input type="submit" class="btn btn-default" name="reset_config_inc" value="Reset config_inc.php file" onclick="return confirm( 'Are you absolutely sure you want to reset your configuration file?' );" />
 		{/forminput}
 	</div>
 {/form}

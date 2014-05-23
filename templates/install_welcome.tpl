@@ -14,7 +14,7 @@
 		<div class="control-group">
 			{forminput}
 				{if $gBitUser->isAdmin()}
-					<a class="btn" href="{$smart.const.INSTALL_PKG_URL}?step=4">Upgrade</a> <a class="btn" href="{$smart.const.INSTALL_PKG_URL}?step=3">Install Packages</a>
+					<a class="btn btn-default" href="{$smart.const.INSTALL_PKG_URL}?step=4">Upgrade</a> <a class="btn" href="{$smart.const.INSTALL_PKG_URL}?step=3">Install Packages</a>
 					<a class="btn btn-danger pull-right" href="{$smart.const.INSTALL_PKG_URL}?step=1">Restart Installation</a>
 				{else}
 					<input type="hidden" name="step" value="{$next_step}" />

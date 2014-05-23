@@ -255,7 +255,7 @@
 						{/foreach}
 						</select>
 						<br />
-						<input type="submit" class="btn" value="Update Tables List" name="fUpdateTables" />
+						<input type="submit" class="btn btn-default" value="Update Tables List" name="fUpdateTables" />
 						{formhelp note="Please select all talbes that are not supposed to be migrated at all. You can pick some tables
 							here, if you prefer to migrate specific tables separately at a later timepoint. Use Ctrl+click to select
 							more than one, or Ctrl+A to select all tables."}
@@ -295,7 +295,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" value="Execute Migration" name="fSubmitDatabase" />
+			<input type="submit" class="btn btn-default" value="Execute Migration" name="fSubmitDatabase" />
 		{/forminput}
 	</div>
 {/form}

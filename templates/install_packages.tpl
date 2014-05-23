@@ -156,7 +156,7 @@
 
 					<div class="control-group">
 						{forminput}
-							<input type="submit" class="btn" name="submit_packages" value="Uninstall/Reinstall Packages" onclick="return confirm( 'Are you sure you want to uninstall/reinstall the selected packages?' );" />
+							<input type="submit" class="btn btn-default" name="submit_packages" value="Uninstall/Reinstall Packages" onclick="return confirm( 'Are you sure you want to uninstall/reinstall the selected packages?' );" />
 						{/forminput}
 					</div>
 
@@ -205,7 +205,7 @@
 			<input type="hidden" name="step" value="{$next_step}" />
 			<div class="control-group">
 				{forminput}
-					<input type="submit" class="btn" name="cancel" value="Skip this stage" />
+					<input type="submit" class="btn btn-default" name="cancel" value="Skip this stage" />
 				{/forminput}
 			</div>
 	{/if}

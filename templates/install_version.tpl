@@ -80,7 +80,7 @@
 
 			<div class="control-group">
 				{forminput}
-					<input type="submit" class="btn" name="fix_version_210beta" value="Fix Permissions" />
+					<input type="submit" class="btn btn-default" name="fix_version_210beta" value="Fix Permissions" />
 				{/forminput}
 			</div>
 		{else}
@@ -93,7 +93,7 @@
 			{else}
 				<div class="control-group">
 		{forminput}
-						<input type="submit" class="btn" name="update_version" value="Update version and continue" />
+						<input type="submit" class="btn btn-default" name="update_version" value="Update version and continue" />
 		{/forminput}
 				</div>
 			{/if}

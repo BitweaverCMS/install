@@ -11,7 +11,7 @@
 		{forminput}
 			<input type="hidden" name="step" value="{$next_step}" />
 		{/forminput}
-		<input type="submit" class="btn" name="continue_install" value="Install more packages" />
+		<input type="submit" class="btn btn-default" name="continue_install" value="Install more packages" />
 	</div>
 
 	<hr />
@@ -25,7 +25,7 @@
 	</p>
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" name="resolve_conflicts" value="Resolve Conflicts" />
+			<input type="submit" class="btn btn-default" name="resolve_conflicts" value="Resolve Conflicts" />
 		{/forminput}
 	</div>
 
@@ -38,7 +38,7 @@
 	</p>
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" name="enter_bitweaver" value="Enter Bitweaver" />
+			<input type="submit" class="btn btn-default" name="enter_bitweaver" value="Enter Bitweaver" />
 		{/forminput}
 	</div>
 {/form}

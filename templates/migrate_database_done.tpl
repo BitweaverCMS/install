@@ -20,7 +20,7 @@
 
 	<div class="control-group">
 		{forminput}
-			<input type="submit" class="btn" value="Continue process" />
+			<input type="submit" class="btn btn-default" value="Continue process" />
 		{/forminput}
 	</div>
 {/form}

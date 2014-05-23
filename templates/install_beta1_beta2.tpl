@@ -40,7 +40,7 @@
 		Depending on the number of packages and the hardware,<br />
 		this process might take up to a few minutes.<br /><br />
 		<input type="hidden" name="resetdb" value="{$resetdb}" />
-		<input type="submit" class="btn" name="fSubmitDbCreate" value="Install Packages" />
+		<input type="submit" class="btn btn-default" name="fSubmitDbCreate" value="Install Packages" />
 	</div>
 
 {/form}

@@ -64,7 +64,7 @@
 
 			<div class="control-group">
 				{forminput}
-					<input type="submit" class="btn" name="create_tables" value="Try to create missing table/s" />
+					<input type="submit" class="btn btn-default" name="create_tables" value="Try to create missing table/s" />
 				{/forminput}
 			</div>
 		{else}
