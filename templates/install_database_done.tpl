@@ -13,7 +13,7 @@
 {form class="form-horizontal" legend="Your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="control-group">
+	<div class="form-group">
 		<ul class="result">
 			{if $error}
 				<li class="error">
@@ -27,49 +27,49 @@
 		</ul>
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="Database type"}
 		{forminput}
 			{$gBitDbType}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="Host"}
 		{forminput}
 			{$gBitDbHost}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="User"}
 		{forminput}
 			{$gBitDbUser}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="Password"}
 		{forminput}
 			{$gBitDbPassword_print}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="Database name"}
 		{forminput}
 			{$gBitDbName}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="Database prefix"}
 		{forminput}
 			{$db_prefix_bit|replace:"`":""}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="Site base URL"}
 		{forminput}
 			{$bit_root_url}
@@ -77,7 +77,7 @@
 	</div>
 
 	{if isset( $has_innodb_support )}
-		<div class="control-group">
+		<div class="form-group">
 			{forminput}
 				<label class="checkbox">
 					<input type="checkbox" name="use_innodb" id="use_innodb" {if $has_innodb_support eq 'DEFAULT'}checked="checked"{/if} />Use InnoDB tables
@@ -87,7 +87,7 @@
 		</div>
 	{/if}
 
-	<div class="control-group">
+	<div class="form-group">
 		{forminput}
 			<input type="submit" class="btn btn-primary" value="Continue {$section|default:"install"} process" />
 		{/forminput}

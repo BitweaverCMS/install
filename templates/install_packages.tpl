@@ -41,7 +41,7 @@
 
 					<p class="alert alert-block">Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need.</p>
 
-					<div class="control-group">
+					<div class="form-group">
 						{forminput}
 							<script type="text/javascript">/* <![CDATA[ */
 								document.write("<label><input name=\"switcher\" id=\"switcher\" type=\"checkbox\" checked onclick=\"BitBase.switchCheckboxes(this.form.id,'packages[]','switcher')\" /> Batch (de)select all Packages and Services on this page</label>");
@@ -51,7 +51,7 @@
 
 					{foreach from=$schema key=package item=item}
 						{if !$item.installed and !$item.required}
-							<div class="control-group">
+							<div class="form-group">
 								<label class="control-label" for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 								{forminput}
 									<label class="checkbox"><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
@@ -85,14 +85,14 @@
 						</code><br />
 					</p>
 				{/if}
-				<div class="control-group">
+				<div class="form-group">
 					{forminput}
 						<label class="checkbox"><input type="checkbox" name="debug" value="true" /> Debug mode</label>
 						{formhelp note="Display SQL statements."}
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{forminput}
 						<div class="alert alert-warning">
 							<strong>Please press the install button only once.</strong>
@@ -108,11 +108,11 @@
 			{jstab title="Uninstall/Reinstall"}
 					<input type="hidden" name="step" value="{$next_step}" />
 
-					<div class="control-group">
+					<div class="form-group">
 						<p class="alert alert-block">These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it will be erased (depending on options below).</p>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						{formlabel label="selected packages:"}
 						{forminput}
 							<label><input type="radio" name="method" value="reinstall" checked="checked" /> Reinstall</label>
@@ -122,7 +122,7 @@
 						{/forminput}
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						{formlabel label=""}
 						{forminput}
 							<label class="checkbox"><input type="checkbox" name="remove_actions[]" value="tables" checked="checked" />&nbsp;Delete database tables</label>
@@ -139,7 +139,7 @@
 					{foreach from=$schema key=package item=item}
 						{if $item.tables || $item.defaults}
 							{if $item.installed and !$item.required}
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label">
 										<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 									</label>
@@ -154,7 +154,7 @@
 						{/if}
 					{/foreach}
 
-					<div class="control-group">
+					<div class="form-group">
 						{forminput}
 							<input type="submit" class="btn btn-default" name="submit_packages" value="Uninstall/Reinstall Packages" onclick="return confirm( 'Are you sure you want to uninstall/reinstall the selected packages?' );" />
 						{/forminput}
@@ -165,7 +165,7 @@
 						<p> Depending on the number of packages and the hardware, this process might take up to a few minutes.</p>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						{forminput}
 							<label class="checkbox"><input type="checkbox" name="debug" value="true" /> Debug mode</label>
 							{formhelp note="Display SQL statements."}
@@ -177,14 +177,14 @@
 		{jstab title="Required"}
 			{legend legend="Packages and services required by Bitweaver"}
 				{if !$first_install}
-					<div class="control-group">
+					<div class="form-group">
 						<p class="alert alert-block">To reset the entire system, first create a new database (or empty the existing database manually).</p>
 					</div>
 				{/if}
 
 				{foreach from=$schema key=package item=item}
 					{if $item.required}
-						<div class="control-group">
+						<div class="form-group">
 							<label class="control-label">
 								{biticon ipackage=$package iname="pkg_$package" iexplain=$package}
 							</label>
@@ -203,7 +203,7 @@
 
 	{if !$first_install}
 			<input type="hidden" name="step" value="{$next_step}" />
-			<div class="control-group">
+			<div class="form-group">
 				{forminput}
 					<input type="submit" class="btn btn-default" name="cancel" value="Skip this stage" />
 				{/forminput}

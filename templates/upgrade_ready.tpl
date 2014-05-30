@@ -9,7 +9,7 @@
 		{/foreach}
 	</ol>
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="Upgrade Application" for="db"}
 		{forminput}
 			<select name="upgrade_from">
@@ -21,14 +21,14 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{forminput}
 			<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 		{/forminput}
 		{formhelp note="Display SQL statements."}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{forminput}
 			<input type="submit" class="btn btn-default" name="upgrade" value="Upgrade Packages" />
 		{/forminput}

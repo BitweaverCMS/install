@@ -9,7 +9,7 @@
 			<h2>Required Settings</h2>
 			<p class="help">The settings below are required by Bitweaver to run. If any of these settings are not met, you will have to change these before you can continue with the installation process.</p>
 
-			<div class="control-group requirements">
+			<div class="form-group requirements">
 				{formlabel label="Basic Requirements"}
 				{forminput}
 					{foreach from=$required item="check"}
@@ -27,7 +27,7 @@
 
 			{if $error}
 				<p class="alert alert-danger">Before you can continue with the installation, you must rectify the <strong>problems listed in red</strong>. After you have made the changes, you can reload the page.</p>
-				<div class="control-group">
+				<div class="form-group">
 		{forminput}
 						<input type="submit" class="btn btn-default" name="reload" value="Reload Page" />
 		{/forminput}
@@ -73,7 +73,7 @@
 			<h2>Recommended Extensions</h2>
 			<p class="help">Bitweaver takes advantage of particular PHP extensions for full functionality. If any of these extensions are not available to Bitweaver, particular features might not work and it might even render particular packages useless.</p>
 
-			<div class="control-group recommended">
+			<div class="form-group recommended">
 				{formlabel label="Thoroughly recommended extensions"}
 				{forminput}
 					{foreach from=$extensions item="check"}
@@ -98,7 +98,7 @@
 			<h2>Recommended PEAR Extensions</h2>
 			<p class="help">PEAR provides extensions to PHP, which can easily be installed and updated using the pear interface on Linux. None of the extenstions below are required, they always provide an alternative to the existing methods available. Often these alternatives are superior to the default methods.</p>
 
-			<div class="control-group recommended">
+			<div class="form-group recommended">
 				{formlabel label="Recommended PEAR Extensions"}
 				{forminput}
 					{if !$pearexts.PEAR.passed}
@@ -168,7 +168,7 @@
 				the easiest and quickest way to achieve a certain goal.
 			</p>
 
-			<div class="control-group recommended">
+			<div class="form-group recommended">
 				{formlabel label="Recommended executables"}
 				{forminput}
 					{foreach from=$executables item="check"}
@@ -205,7 +205,7 @@
 				help you work out problems that might occur.
 			</p>
 
-			<div class="control-group">
+			<div class="form-group">
 				{formlabel label="Settings worth knowing about"}
 				{forminput}
 					<ul>
@@ -220,7 +220,7 @@
 	{/jstabs}
 
 	{if !$error}
-		<div class="control-group">
+		<div class="form-group">
 		{forminput}
 			<input type="submit" class="btn btn-default" name="reload" value="Reload page" /> <input type="submit" class="btn btn-primary" name="continue" value="Continue install process" />
 		{/forminput}

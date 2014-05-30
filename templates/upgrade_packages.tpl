@@ -3,7 +3,7 @@
 {form class="form-horizontal" legend="Begin the upgrade process"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="Upgrade application" for="db"}
 		{forminput}
 			{if $smarty.session.upgrade_r1}
@@ -36,14 +36,14 @@
 		</ul>
 	{/if}
 
-	<div class="control-group">
+	<div class="form-group">
 		{forminput}
 			<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 			{formhelp note="Display SQL statements."}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{forminput}
 			<input type="submit" class="btn btn-default" name="upgrade" value="Upgrade Packages" />
 		{/forminput}

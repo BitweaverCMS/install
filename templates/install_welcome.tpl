@@ -11,7 +11,7 @@
 
 		{form class="" id="install_welcome"}
 
-		<div class="control-group">
+		<div class="form-group">
 			{forminput}
 				{if $gBitUser->isAdmin()}
 					<a class="btn btn-default" href="{$smart.const.INSTALL_PKG_URL}?step=4">Upgrade</a> <a class="btn" href="{$smart.const.INSTALL_PKG_URL}?step=3">Install Packages</a>

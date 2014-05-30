@@ -55,14 +55,14 @@
 				</p>
 			{/if}
 
-			<div class="control-group">
+			<div class="form-group">
 				{forminput}
 					<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
 
-			<div class="control-group">
+			<div class="form-group">
 				{forminput}
 					<input type="submit" class="btn btn-default" name="create_tables" value="Try to create missing table/s" />
 				{/forminput}
@@ -158,7 +158,7 @@
 			{foreach from=$serviceList key=service_name item=packages}
 				<h3>{$service_name|capitalize}</h3>
 				{foreach from=$packages key=package item=item}
-					<div class="control-group">
+					<div class="form-group">
 						<div class="formlabel">
 							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 						</div>
@@ -179,20 +179,20 @@
 		{/if}
 
 		{if $delPerms || $insPerms || $serviceList}
-			<div class="control-group">
+			<div class="form-group">
 		{forminput}
 					<input type="submit" class="btn btn-primary" name="resolve_conflicts" value="Resolve Issues" />
 		{/forminput}
 			</div>
 
-			<div class="control-group">
+			<div class="form-group">
 				{forminput}
 					<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
 		{else}
-			<div class="control-group">
+			<div class="form-group">
 				{forminput}
 					<input type="submit" class="btn btn-primary" name="skip" value="Continue install process" />
 				{/forminput}
