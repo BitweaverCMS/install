@@ -5,7 +5,7 @@
 	<h1>Adding and removing packages</h1>
 {/if}
 {if $error}
-		<div class="alert alert-error">
+		<div class="alert alert-danger">
 			<strong>Administrator Data Missing</strong>
 			<p>Unfortunately there seems to be a problem with your installation. We can't find the administrator information you entered.</p>
 		</div>

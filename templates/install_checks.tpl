@@ -16,17 +16,17 @@
 						{if $check.passed}
 							<p class="alert alert-success">{$check.note}</p>
 						{else}
-							<p class="alert alert-error">{$check.note}</p>
+							<p class="alert alert-danger">{$check.note}</p>
 						{/if}
 					{/foreach}
 					{if $http_referer_error}
-						<p class="alert alert-error">We have detected that we cannot access the _SERVER['HTTP_REFERER'] variable from your browser. This can be because you have bookmarked this page and accessed this page directly. If so, this will probably not cause any problems during installation. However, if you came here from the welcome page, you are probably using some sort of firewall which is blocking this information (a common example is Norton Firewall). Please disable this feature or the firewall until the installation process is completed.</p>
+						<p class="alert alert-danger">We have detected that we cannot access the _SERVER['HTTP_REFERER'] variable from your browser. This can be because you have bookmarked this page and accessed this page directly. If so, this will probably not cause any problems during installation. However, if you came here from the welcome page, you are probably using some sort of firewall which is blocking this information (a common example is Norton Firewall). Please disable this feature or the firewall until the installation process is completed.</p>
 					{/if}
 				{/forminput}
 			</div>
 
 			{if $error}
-				<p class="alert alert-error">Before you can continue with the installation, you must rectify the <strong>problems listed in red</strong>. After you have made the changes, you can reload the page.</p>
+				<p class="alert alert-danger">Before you can continue with the installation, you must rectify the <strong>problems listed in red</strong>. After you have made the changes, you can reload the page.</p>
 				<div class="control-group">
 		{forminput}
 						<input type="submit" class="btn btn-default" name="reload" value="Reload Page" />

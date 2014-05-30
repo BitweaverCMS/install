@@ -5,7 +5,7 @@
 
 	{if $failedcommands or $error}
 		{if $error}
-			<div class="alert alert-error">
+			<div class="alert alert-danger">
 				<p>There was a problem during the installation</p>
 				<p>
 					It seems the administrators information got lost during the process. Please go back to the admin setup page and enter the information again and follow through with the installation.<br />
@@ -14,7 +14,7 @@
 			</div>
 		{/if}
 		{if $failedcommands}
-			<div class="alert alert-error">
+			<div class="alert alert-danger">
 				<h2 class="warning">
 					The following database operations failed
 				</h2>

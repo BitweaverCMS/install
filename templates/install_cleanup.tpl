@@ -37,7 +37,7 @@
 			</ul>
 			<p>If you know SQL, you can display the table details and try to create such a table in your database and reload this page. This check merely checks the existence of a given table, not the table columns.</p>
 			{if $required}
-				<p class="alert alert-error">
+				<p class="alert alert-danger">
 					A required package is missing at least one table. This will have unpredictable results. Please make a note of the table and contact the Bitweaver team on how to proceed.
 					If this is your first install, give it another shot, perhaps with fewer packages selected. You can return to the installer at any time and install more packages later.
 					<br />If this problem persists, turn on the <strong>debugging</strong> option and look for error messages regarding the above tables. This will help the Bitweaver developers you contact to identify the problem more quickly.
