@@ -152,14 +152,14 @@
 				{/if}
 			{/if}
 
-			<div class="control-group">
+			<div class="control-group column-group gutters">
 				{forminput}
 					<label class="checkbox"><input type="checkbox" name="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
 
-			<div class="control-group">
+			<div class="control-group column-group gutters">
 				{forminput}
 					<input type="submit" class="btn btn-primary" name="upgrade_packages" value="Upgrade Packages" />
 				{/forminput}
@@ -171,7 +171,7 @@
 		{legend legend="Already Installed Packages"}
 			{foreach from=$schema key=package item=item}
 				{if $item.installed}
-					<div class="control-group">
+					<div class="control-group column-group gutters">
 						<div class="formlabel">
 							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 						</div>

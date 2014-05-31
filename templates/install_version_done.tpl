@@ -13,7 +13,7 @@
 		</p>
 	{/if}
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{forminput}
 			<input type="submit" class="btn btn-primary" value="Continue install process" />
 		{/forminput}

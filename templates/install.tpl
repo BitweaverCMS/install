@@ -66,13 +66,13 @@
 
 	<div class="container">
 		<section class="row maincontent">
-			<div class="col-md-12">
+			<div class="span12">
 			{include file=$install_file}
 			</div>
 		<section>
 	</div>
 
-	<footer class="container aligncenter">
+	<footer class="container content-center">
 		{include file="bitpackage:kernel/bot_bar.tpl"}
 	</footer>
 </body>

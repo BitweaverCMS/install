@@ -27,9 +27,9 @@
 
 			{if $error}
 				<p class="alert alert-error">Before you can continue with the installation, you must rectify the <strong>problems listed in red</strong>. After you have made the changes, you can reload the page.</p>
-				<div class="control-group">
+				<div class="control-group column-group gutters">
 		{forminput}
-						<input type="submit" class="btn btn-default" name="reload" value="Reload Page" />
+						<input type="submit" class="ink-button" name="reload" value="Reload Page" />
 		{/forminput}
 				</div>
 			{else}
@@ -205,7 +205,7 @@
 				help you work out problems that might occur.
 			</p>
 
-			<div class="control-group">
+			<div class="control-group column-group gutters">
 				{formlabel label="Settings worth knowing about"}
 				{forminput}
 					<ul>
@@ -220,9 +220,9 @@
 	{/jstabs}
 
 	{if !$error}
-		<div class="control-group">
+		<div class="control-group column-group gutters">
 		{forminput}
-			<input type="submit" class="btn btn-default" name="reload" value="Reload page" /> <input type="submit" class="btn btn-primary" name="continue" value="Continue install process" />
+			<input type="submit" class="ink-button" name="reload" value="Reload page" /> <input type="submit" class="btn btn-primary" name="continue" value="Continue install process" />
 		{/forminput}
 		</div>
 	{/if}

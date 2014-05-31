@@ -23,28 +23,28 @@
 		</div>
 	{/if}
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{formlabel label="Admin name"}
 		{forminput}
 			{$real_name}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{formlabel label="Admin login"}
 		{forminput}
 			{$login}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{formlabel label="Password"}
 		{forminput}
 			{$pass_disp}
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{formlabel label="Email"}
 		{forminput}
 			{$email}
@@ -52,7 +52,7 @@
 	</div>
 
 	{if $mail}
-		<div class="control-group">
+		<div class="control-group column-group gutters">
 			{formlabel label="Email transport"}
 			{forminput}
 				{if $mail.warning}
@@ -65,7 +65,7 @@
 		</div>
 	{/if}
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{forminput}
 			<input type="submit" class="btn btn-primary" value="Continue install process" />
 		{/forminput}

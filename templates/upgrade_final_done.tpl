@@ -7,11 +7,11 @@
 		additional packages, your system will automatically be analysed for
 		potential problems.
 	</p>
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{forminput}
 			<input type="hidden" name="step" value="{$next_step}" />
 		{/forminput}
-		<input type="submit" class="btn btn-default" name="continue_install" value="Install more packages" />
+		<input type="submit" class="ink-button" name="continue_install" value="Install more packages" />
 	</div>
 
 	<hr />
@@ -23,9 +23,9 @@
 		try to <strong>resolve conflicts</strong>. This option is recommended. It will
 		inform you of the health of your install.
 	</p>
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{forminput}
-			<input type="submit" class="btn btn-default" name="resolve_conflicts" value="Resolve Conflicts" />
+			<input type="submit" class="ink-button" name="resolve_conflicts" value="Resolve Conflicts" />
 		{/forminput}
 	</div>
 
@@ -36,9 +36,9 @@
 		Bitweaver now. You can return to the installer at any time to
 		resolve potential issues and insert missing permissions and settings.
 	</p>
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{forminput}
-			<input type="submit" class="btn btn-default" name="enter_bitweaver" value="Enter Bitweaver" />
+			<input type="submit" class="ink-button" name="enter_bitweaver" value="Enter Bitweaver" />
 		{/forminput}
 	</div>
 {/form}

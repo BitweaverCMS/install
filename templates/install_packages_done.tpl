@@ -45,7 +45,7 @@
 		{/if}
 
 		{if $packageList.uninstall}
-			<div class="control-group">
+			<div class="control-group column-group gutters">
 				{formlabel label="Packages that were uninstalled"}
 				{forminput}
 					<ul>
@@ -60,7 +60,7 @@
 		{/if}
 
 		{if $packageList.reinstall}
-			<div class="control-group">
+			<div class="control-group column-group gutters">
 				{formlabel label="Packages that were reinstalled"}
 				{forminput}
 					<ul>
@@ -75,7 +75,7 @@
 		{/if}
 	{/if}
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{forminput}
 			<input type="submit" class="btn btn-primary" value="Continue install process" />
 		{/forminput}

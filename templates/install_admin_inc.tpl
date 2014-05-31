@@ -4,7 +4,7 @@
 {form class="form-horizontal" legend="Please enter administrator information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{formfeedback error=$errors.real_name}
 		{formlabel label="Full Name" for="real_name"}
 		{forminput}
@@ -13,7 +13,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{formfeedback error=$errors.login}
 		{formlabel label="Admin login" for="login"}
 		{forminput}
@@ -22,7 +22,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{formfeedback error=$errors.password}
 		{formlabel label="Password" for="password"}
 		{forminput}
@@ -31,7 +31,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{formlabel label="Re-enter password" for="pass_confirm"}
 		{forminput}
 			<input type="password" name="pass_confirm" id="pass_confirm" maxlength="32" value="{$smarty.session.password}" />
@@ -39,7 +39,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{formfeedback error=$errors.email}
 		{formlabel label="Email" for="email"}
 		{forminput}
@@ -48,7 +48,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{forminput}
 			<label class="checkbox">
 				<input type="checkbox" name="testemail" id="testemail" value="y" checked="checked" />
@@ -58,7 +58,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{forminput}
 			<input type="submit" class="btn btn-primary" name="admin_submit" value="Submit Admin Information" />
 		{/forminput}

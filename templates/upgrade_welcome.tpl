@@ -56,9 +56,9 @@
 		</p>
 	{/if}
 
-	<div class="control-group">
+	<div class="control-group column-group gutters">
 		{forminput}
-			<input type="submit" class="btn btn-default" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the upgrade process!"}" />
+			<input type="submit" class="ink-button" name="fSubmitWelcome" value="{$warningSubmit|default:"Begin the upgrade process!"}" />
 		{/forminput}
 	</div>
 {/form}
