@@ -6,7 +6,7 @@
 	<p>Since Bitweaver has so many settings and features, it might be useful to set some of the key settings on this screen already, to simplify the initial stages. These settings can be found later in the administration panel.</p>
 
 	{foreach from=$formInstallToggles key=feature item=output}
-		<div class="control-group column-group gutters">
+		<div class="form-group">
 			{formlabel label=$output.label for=$feature}
 			{forminput}
 				{html_checkboxes name="$feature" values="y" checked=$gBitSystem->getConfig($feature) labels=false id=$feature}
@@ -15,7 +15,7 @@
 		</div>
 	{/foreach}
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Browser Title" for="site_title"}
 		{forminput}
 			<input size="40" type="text" name="site_title" id="site_title" value="{$gBitSystem->getConfig('site_title')|escape}" />
@@ -23,7 +23,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Site Slogan" for="site_slogan"}
 		{forminput}
 			<input size="40" type="text" name="site_slogan" id="site_slogan" value="{$gBitSystem->getConfig('site_slogan')|escape}" />
@@ -31,7 +31,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Home Page" for="bit_index"}
 		{forminput}
 			<select name="bit_index" id="bit_index">
@@ -59,7 +59,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Site Style" for="site_style"}
 		{forminput}
 			<select name="site_style" id="site_style">
@@ -71,7 +71,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Language" for="language"}
 		{forminput}
 			<select name="bitlanguage" id="bitlanguage">
@@ -84,7 +84,7 @@
 	</div>
 
 	{if $processors}
-		<div class="control-group column-group gutters">
+		<div class="form-group">
 			{formlabel label="Image Processor"}
 			{forminput}
 				{foreach name=iprocs from=$processors key=val item=print}
@@ -94,7 +94,7 @@
 		</div>
 	{/if}
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{forminput}
 			<input type="submit" class="btn btn-primary" name="bit_settings" value="{tr}Set Preferences{/tr}" />
 		{/forminput}

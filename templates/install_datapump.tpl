@@ -12,7 +12,7 @@
 	</p>
 	so? *}
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Packages that can be populated"}
 		{forminput}
 			{foreach from=$pumpList item=file key=package}
@@ -25,12 +25,12 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{forminput}
 			{if $pumpList}
-				<input type="submit" class="ink-button" value="Populate my site" name="fSubmitDataPump" /> 
+				<input type="submit" class="btn btn-default" value="Populate my site" name="fSubmitDataPump" /> 
 			{/if}
-			<input type="submit" class="ink-button" value="Skip" name="skip" />
+			<input type="submit" class="btn btn-default" value="Skip" name="skip" />
 		{/forminput}
 	</div>
 {/form}

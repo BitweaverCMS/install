@@ -4,7 +4,7 @@
 	<input type="hidden" name="step" value="{$next_step}" />
 	<input type="hidden" name="gBitDbPassword_hash" value="{$gBitDbPassword_hash}" />
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{if $warning or $error or $success}
 			{if $warning}
 				<p class="alert alert-block">
@@ -44,7 +44,7 @@
 		{/if}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Database type" for="db"}
 		{forminput}
 			{if $section eq 'Upgrade'}
@@ -65,7 +65,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Host" for="host"}
 		{forminput}
 			<input type="text" size="25" name="host" id="host" value="{if $gBitDbHost ne '' }{$gBitDbHost}{/if}" />
@@ -77,7 +77,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="User" for="user"}
 		{forminput}
 			<input type="text" size="25" name="user" id="user" value="{$gBitDbUser}" />
@@ -85,7 +85,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Password" for="pass"}
 		{forminput}
 			<input type="password" size="25" name="pass" id="pass" value="{$gBitDbPassword_input}" />
@@ -93,7 +93,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Database name" for="name"}
 		{forminput}
 			<input type="text" size="25" name="name" id="name" value="{$gBitDbName}" />
@@ -105,7 +105,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 	{if $fbpath}
 		{formhelp note="<strong>Do not use Prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
 	{/if}
@@ -117,7 +117,7 @@
 	</div>
 
 	{if $fbpath}
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Firebird installation path" for="fbpath"}
 		{forminput}
 			<input type="text" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
@@ -126,7 +126,7 @@
 	</div>
 	{/if}
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{formlabel label="Site base URL" for="baseurl"}
 		{forminput}
 			<input type="text" size="25" name="baseurl" id="baseurl" value="{$bit_root_url}" />
@@ -135,7 +135,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{forminput}
 		<label class="checkbox">
 			<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />Auto submit bugs
@@ -144,7 +144,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{forminput}
 		<label class="checkbox">
 			<input type="checkbox" name="is_live" id="is_live" />Site is live
@@ -153,7 +153,7 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group column-group gutters">
+	<div class="form-group">
 		{forminput}
 			<input type="submit" class="btn btn-primary" value="Confirm Settings" name="submit_db_info" />
 		{/forminput}

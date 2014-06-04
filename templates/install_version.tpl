@@ -71,29 +71,29 @@
 				{/foreach}
 			</table>
 
-			<div class="control-group column-group gutters">
+			<div class="form-group">
 				{forminput}
 					<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
 
-			<div class="control-group column-group gutters">
+			<div class="form-group">
 				{forminput}
-					<input type="submit" class="ink-button" name="fix_version_210beta" value="Fix Permissions" />
+					<input type="submit" class="btn btn-default" name="fix_version_210beta" value="Fix Permissions" />
 				{/forminput}
 			</div>
 		{else}
 			{if $upToDate}
-				<div class="control-group column-group gutters">
+				<div class="form-group">
 		{forminput}
 						<input type="submit" class="btn btn-primary" name="skip" value="Continue install process" />
 		{/forminput}
 				</div>
 			{else}
-				<div class="control-group column-group gutters">
+				<div class="form-group">
 		{forminput}
-						<input type="submit" class="ink-button" name="update_version" value="Update version and continue" />
+						<input type="submit" class="btn btn-default" name="update_version" value="Update version and continue" />
 		{/forminput}
 				</div>
 			{/if}
