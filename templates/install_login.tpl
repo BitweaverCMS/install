@@ -2,8 +2,8 @@
 
 <h1>{$title|default:"You must be logged in as an administrator to run the installer."}</h1>
 
-{form action="/install/install.php" class="form-horizontal" name="login" legend="Please sign in to continue"}
-	<div class="control-group">
+{form class="form-horizontal" name="login" legend="Please sign in to continue"}
+	<div class="form-group">
 		{formfeedback error="$error"}
 		{formlabel label="Username or Email" for="user"}
 		{forminput}
@@ -12,14 +12,14 @@
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{formlabel label="Password" for="pass"}
 		{forminput}
 			<input type="password" name="pass" id="pass" size="25" />
 		{/forminput}
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{forminput}
 			<input type="submit" class="btn btn-primary" name="signin" value="{tr}Log in to {$gBitSystem->getConfig('site_title')|default:"this site"}{/tr}" />
 		{/forminput}

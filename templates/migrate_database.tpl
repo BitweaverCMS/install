@@ -6,7 +6,7 @@
 	{jstabs}
 		{jstab title="Source Database"}
 			{legend legend="Source Database Information"}
-				<div class="control-group">
+				<div class="form-group">
 					{if $error_src}
 						<ul class="result">
 							<li class="error">
@@ -28,7 +28,7 @@
 					{/if}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Source database type" for="db_src"}
 					{forminput}
 						{if $dbservers}
@@ -41,7 +41,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Source host" for="host_src"}
 					{forminput}
 						<input type="text" size="25" name="host_src" id="host_src" value="{if $host_src ne '' }{$host_src}{/if}" />
@@ -53,7 +53,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Source user" for="user_src"}
 					{forminput}
 						<input type="text" size="25" name="user_src" id="user_src" value="{$user_src}" />
@@ -61,7 +61,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Source Password" for="pass_src"}
 					{forminput}
 						<input type="password" size="25" name="pass_src" id="pass_src" value="{$pass_src}" />
@@ -69,7 +69,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Source database name" for="name_src"}
 					{forminput}
 						<input type="text" size="25" name="name_src" id="name_src" value="{$name_src}" />
@@ -87,7 +87,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 				{ if ( $fbpath ) }
 					{formhelp note="<strong>Do not use prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
 				{/if}
@@ -103,7 +103,7 @@
 				</div>
 
 				{ if ( $fbpath ) }
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Firebird Installation Path" for="fbpath"}
 					{forminput}
 						<input type="text" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
@@ -118,7 +118,7 @@
 
 		{jstab title="Destination Database"}
 			{legend legend="Destination Database Information"}
-				<div class="control-group">
+				<div class="form-group">
 					{if $error_dst}
 						<li class="error">
 							Database connection could not be established.
@@ -139,7 +139,7 @@
 					{/if}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Destination Database type" for="db_dst"}
 					{forminput}
 						{if $dbservers}
@@ -152,7 +152,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Destination Host" for="host_dst"}
 					{forminput}
 						<input type="text" size="25" name="host_dst" id="host_dst" value="{if $gBitDbHost ne '' }{$gBitDbHost}{/if}" />
@@ -164,7 +164,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Destination user" for="user_dst"}
 					{forminput}
 						<input type="text" size="25" name="user_dst" id="user_dst" value="{$gBitDbUser}" />
@@ -172,7 +172,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Destination password" for="pass_dst"}
 					{forminput}
 						<input type="password" size="25" name="pass_dst" id="pass_dst" value="{$gBitDbPassword_input}" />
@@ -180,7 +180,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Destination database name" for="name_dst"}
 					{forminput}
 						<input type="text" size="25" name="name_dst" id="name_dst" value="{$gBitDbName}" />
@@ -198,7 +198,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 				{ if ( $fbpath ) }
 					{formhelp note="<strong>Do not use prefix with Firebird, as the field and table names are already up to 30 characters.</strong>"}
 				{/if}
@@ -214,7 +214,7 @@
 				</div>
 
 				{ if ( $fbpath ) }
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Firebird installation path" for="fbpath"}
 					{forminput}
 						<input type="text" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
@@ -225,7 +225,7 @@
 				</div>
 				{/if}
 
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Site Base URL" for="baseurl"}
 					{forminput}
 						<input type="text" size="25" name="baseurl" id="baseurl" value="{$bit_root_url}" />
@@ -233,7 +233,7 @@
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					<label class="checkbox">
 						<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />Automatically submit bugs
 						{formhelp note="Checking this box will automatically submit fatal database errors to the Bitweaver team. If you are running a live site, we recommend you check this box, as it will also avoid horrible error messages from appearing in such cases."}
@@ -244,7 +244,7 @@
 
 		{jstab title="Options"}
 			{legend legend="Migration options"}
-				<div class="control-group">
+				<div class="form-group">
 					{formlabel label="Tables to be skipped" for="skip_tables"}
 					{forminput}
 						<select name="skip_tables[]" id="skip_tables" multiple="multiple" size="10">
@@ -255,35 +255,35 @@
 						{/foreach}
 						</select>
 						<br />
-						<input type="submit" class="btn" value="Update Tables List" name="fUpdateTables" />
+						<input type="submit" class="btn btn-default" value="Update Tables List" name="fUpdateTables" />
 						{formhelp note="Please select all talbes that are not supposed to be migrated at all. You can pick some tables
 							here, if you prefer to migrate specific tables separately at a later timepoint. Use Ctrl+click to select
 							more than one, or Ctrl+A to select all tables."}
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					<label class="checkbox">
 						<input type="checkbox" name="empty_tables" id="empty_tables"{if $empty_tables} checked="checked"{/if} />DROP tables
 						{formhelp note="Checking this box DROP's tables before new data is migrated"}
 					</label>
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					<label class="checkbox">
 						<input type="checkbox" name="convert_blobs" id="convert_blobs"{if $convert_blobs} checked="checked"{/if} />Convert Blobs
 						{formhelp note="Checking this box converts blobs from a MySQL type blob to a PgSQL encoded blob."}
 					</label>
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					{forminput}
 						<label class="checkbox"><input type="checkbox" name="debug" id="debug"{if $debug} checked="checked"{/if} /> Debug mode</label>
 						{formhelp note="Display SQL statements."}
 					{/forminput}
 				</div>
 
-				<div class="control-group">
+				<div class="form-group">
 					<label class="checkbox">
 						<input type="checkbox" name="stop_on_errors" id="stop_on_errors"{if $stop_on_errors} checked="checked"{/if} />Stop on Errors
 						{formhelp note="Checking this box will cause the script to stop on the first error."}
@@ -293,9 +293,9 @@
 		{/jstab}
 	{/jstabs}
 
-	<div class="control-group">
+	<div class="form-group">
 		{forminput}
-			<input type="submit" class="btn" value="Execute Migration" name="fSubmitDatabase" />
+			<input type="submit" class="btn btn-default" value="Execute Migration" name="fSubmitDatabase" />
 		{/forminput}
 	</div>
 {/form}

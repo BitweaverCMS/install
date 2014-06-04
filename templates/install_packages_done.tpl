@@ -5,7 +5,7 @@
 
 	{if $failedcommands or $error}
 		{if $error}
-			<div class="alert alert-error">
+			<div class="alert alert-danger">
 				<p>There was a problem during the installation</p>
 				<p>
 					It seems the administrators information got lost during the process. Please go back to the admin setup page and enter the information again and follow through with the installation.<br />
@@ -14,7 +14,7 @@
 			</div>
 		{/if}
 		{if $failedcommands}
-			<div class="alert alert-error">
+			<div class="alert alert-danger">
 				<h2 class="warning">
 					The following database operations failed
 				</h2>
@@ -45,7 +45,7 @@
 		{/if}
 
 		{if $packageList.uninstall}
-			<div class="control-group">
+			<div class="form-group">
 				{formlabel label="Packages that were uninstalled"}
 				{forminput}
 					<ul>
@@ -60,7 +60,7 @@
 		{/if}
 
 		{if $packageList.reinstall}
-			<div class="control-group">
+			<div class="form-group">
 				{formlabel label="Packages that were reinstalled"}
 				{forminput}
 					<ul>
@@ -75,7 +75,7 @@
 		{/if}
 	{/if}
 
-	<div class="control-group">
+	<div class="form-group">
 		{forminput}
 			<input type="submit" class="btn btn-primary" value="Continue install process" />
 		{/forminput}

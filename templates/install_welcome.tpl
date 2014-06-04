@@ -1,6 +1,6 @@
 {strip}
 <div class="row">
-	<div class="span8">
+	<div class="col-md-8">
 		<h1>Welcome to the Bitweaver Installer</h1>
 
 		{if $gBitUser->isAdmin()}
@@ -11,10 +11,10 @@
 
 		{form class="" id="install_welcome"}
 
-		<div class="control-group">
+		<div class="form-group">
 			{forminput}
 				{if $gBitUser->isAdmin()}
-					<a class="btn" href="{$smart.const.INSTALL_PKG_URL}?step=4">Upgrade</a> <a class="btn" href="{$smart.const.INSTALL_PKG_URL}?step=3">Install Packages</a>
+					<a class="btn btn-default" href="{$smart.const.INSTALL_PKG_URL}?step=4">Upgrade</a> <a class="btn" href="{$smart.const.INSTALL_PKG_URL}?step=3">Install Packages</a>
 					<a class="btn btn-danger pull-right" href="{$smart.const.INSTALL_PKG_URL}?step=1">Restart Installation</a>
 				{else}
 					<input type="hidden" name="step" value="{$next_step}" />
@@ -24,7 +24,7 @@
 		</div>
 		{/form}
 	</div>
-	<div class="span3">
+	<div class="col-md-3">
 		<div class="aligncenter"><img src="{$smarty.const.INSTALL_PKG_URL}css/images/bitweaver_logo-trans.png" alt="logo" /></div>
 		<ul>
 			<li>free, gratis, and open source</li>

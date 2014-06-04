@@ -7,7 +7,7 @@
 
 			{if $packageUpgrades}
 				<h2>Packages and their upgrades</h2>
-				<div class="alert alert-error"><div class="pull-left"><i class="icon-warning-sign" style="font-size:3em;padding-right:20px;"></i></div> You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</div>
+				<div class="alert alert-danger"><div class="pull-left"><i class="icon-warning-sign" style="font-size:3em;padding-right:20px;"></i></div> You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</div>
 				{foreach from=$packageUpgrades item=upgrade key=package}
 					{* users don't have the option to select what packages to upgrade since the code of the package is dependent on this upgrade
 					<h3><label class="checkbox"><input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}</label></h3> *}
@@ -21,7 +21,7 @@
 							<dt>{$data.version}</dt>
 							<dd>{$data.description}</dd>
 							{if $errors.$package.$version}
-								<p class="alert alert-error">SQL errors that occurred during the {$version} upgrade:<br />
+								<p class="alert alert-danger">SQL errors that occurred during the {$version} upgrade:<br />
 									<kbd>
 										{if $errors.$package.$version.failedcommands}
 											{foreach from=$errors.$package.$version.failedcommands item=command}
@@ -152,14 +152,14 @@
 				{/if}
 			{/if}
 
-			<div class="control-group">
+			<div class="form-group">
 				{forminput}
 					<label class="checkbox"><input type="checkbox" name="debug" value="true" /> Debug mode</label>
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
 
-			<div class="control-group">
+			<div class="form-group">
 				{forminput}
 					<input type="submit" class="btn btn-primary" name="upgrade_packages" value="Upgrade Packages" />
 				{/forminput}
@@ -171,7 +171,7 @@
 		{legend legend="Already Installed Packages"}
 			{foreach from=$schema key=package item=item}
 				{if $item.installed}
-					<div class="control-group">
+					<div class="form-group">
 						<div class="formlabel">
 							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 						</div>

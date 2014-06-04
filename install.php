@@ -43,7 +43,7 @@ if( get_cfg_var( 'memory_limit' ) !== FALSE && preg_replace( '/M/i','',get_cfg_v
 					<form action="'.$dir.'/install.php">
 						<fieldset>
 							<legend>Unable to run installer</legend>
-							<p class="alert alert-error">The memory limit of <strong>"'.get_cfg_var( 'memory_limit' ).'"</strong> is not high enough to run the bitweaver installer. Please up the memory limit in you php.ini to at least 16M to install and run bitweaver.</p>
+							<p class="alert alert-danger">The memory limit of <strong>"'.get_cfg_var( 'memory_limit' ).'"</strong> is not high enough to run the bitweaver installer. Please up the memory limit in you php.ini to at least 16M to install and run bitweaver.</p>
 						</fieldset>
 						<div class="row submit">
 							<input type="submit" value="Reload" size="20"/>

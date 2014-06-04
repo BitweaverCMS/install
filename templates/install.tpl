@@ -66,7 +66,7 @@
 
 	<div class="container">
 		<section class="row maincontent">
-			<div class="span12">
+			<div class="col-md-12">
 			{include file=$install_file}
 			</div>
 		<section>
