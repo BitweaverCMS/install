@@ -2,7 +2,7 @@
 
 <h1>{$title|default:"You must be logged in as an administrator to run the installer."}</h1>
 
-{form class="form-horizontal" name="login" legend="Please sign in to continue"}
+{form action="/install/install.php" class="form-horizontal" name="login" legend="Please sign in to continue"}
 	<div class="control-group">
 		{formfeedback error="$error"}
 		{formlabel label="Username or Email" for="user"}
