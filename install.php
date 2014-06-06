@@ -141,6 +141,13 @@ $install_file[$i]['name'] = 'Done';
 // Needed for version number
 $gBitSmarty->assign_by_ref( 'gBitSystem', $gBitSystem );
 
+if( !empty( $_POST['signin'] ) ) {
+	$gBitUser->login( $_POST['user'], $_POST['pass'] );
+	if( !$gBitUser->isRegistered() ) {
+		$gBitSmarty->assign( 'error', current( $gBitUser->mErrors ) );
+	}
+}
+
 // if we have to log in, call login template and die
 if( !empty( $gBitDbType ) && !empty( $gBitInstaller->mPackages['users']['installed'] ) && !$gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
 	$install_file = 'login';
