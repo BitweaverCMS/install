@@ -1,7 +1,7 @@
 <h1>Administrator Setup</h1>
 
 {strip}
-{form class="form-horizontal" legend="Please enter administrator information"}
+{form legend="Please enter administrator information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="form-group">

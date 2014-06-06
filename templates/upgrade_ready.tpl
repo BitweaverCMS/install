@@ -1,4 +1,4 @@
-{form class="form-horizontal" legend="Begin the upgrade process"}
+{form legend="Begin the upgrade process"}
 	<h3>Upgrading {$upgradeFrom} to {$gBitSystem->getBitVersion()}</h3>
 
 	<p>The following packages will be updated: </p>

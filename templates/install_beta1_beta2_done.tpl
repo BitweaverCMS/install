@@ -1,6 +1,6 @@
 <h1>Upgrade from Beta 1 to Beta 2</h1>
 
-{form class="form-horizontal" legend="Installed Packages"}
+{form legend="Installed Packages"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	{if $failedcommands}

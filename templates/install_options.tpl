@@ -1,6 +1,6 @@
 <h1>Install Options</h1>
 
-{form class="form-horizontal" legend="Install or upgrade Bitweaver" style="text-align:center"}
+{form legend="Install or upgrade Bitweaver" style="text-align:center"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<br />

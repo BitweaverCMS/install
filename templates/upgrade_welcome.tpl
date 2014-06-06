@@ -1,6 +1,6 @@
 <h1>Bitweaver upgrade tool</h1>
 
-{form class="form-horizontal" legend="Begin the upgrade process"}
+{form legend="Begin the upgrade process"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p>

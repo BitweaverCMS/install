@@ -1,6 +1,6 @@
 <h1>Bitweaver Settings</h1>
 
-{form class="form-horizontal" legend="Some Preliminary Settings"}
+{form legend="Some Preliminary Settings"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="form-group">
