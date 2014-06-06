@@ -1,5 +1,5 @@
 {strip}
-<div class="row">
+<div class="form-group">
 	<div class="col-md-8">
 		<h1>Welcome to the Bitweaver Installer</h1>
 
