@@ -14,7 +14,7 @@
 		<p>If you just can't figure out what the hell is going on, please contact the Bitweaver team via <a href="http://www.bitweaver.org/wiki/Live+Support">IRC</a> if possible or post to the forums on <a href="http://www.bitweaver.org">bitweaver.org</a>.</p>
 {else}
 	{formfeedback warning=$warning}
-	{form class="form-horizontal" id="installpackagesform"}
+	{form id="installpackagesform"}
 	{jstabs tab=0}
 		{jstab title="Install Packages"}
 				<input type="hidden" name="resetdb" value="{$resetdb}" />

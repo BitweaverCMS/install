@@ -10,7 +10,7 @@
 		<p>If you are interested in debugging or developing Bitweaver, please view this file, as there are important additional options that can not be set elsewhere. Web designers can also find some settings that helps with theme creation.</p>
 	</div>
 
-{form class="form-horizontal" legend="Your database connection information"}
+{form legend="Your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="form-group">

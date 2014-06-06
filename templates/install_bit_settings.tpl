@@ -1,6 +1,6 @@
 <h1>Bitweaver Settings</h1>
 
-{form class="form-horizontal" legend="Some Preliminary Settings"}
+{form legend="Some Preliminary Settings"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p>Since Bitweaver has so many settings and features, it might be useful to set some of the key settings on this screen already, to simplify the initial stages. These settings can be found later in the administration panel.</p>

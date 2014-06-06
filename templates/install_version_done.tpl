@@ -1,6 +1,6 @@
 <h1>Bitweaver version update</h1>
 
-{form class="form-horizontal" legend="Bitweaver version update"}
+{form legend="Bitweaver version update"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p class="alert alert-success">

@@ -1,6 +1,6 @@
 <h1>Server Settings Check</h1>
 
-{form class="form-horizontal" legend="Server settings" class=checks}
+{form legend="Server settings" class=checks}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	{jstabs tab=0}

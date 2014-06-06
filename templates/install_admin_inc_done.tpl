@@ -2,7 +2,7 @@
 
 <h1>Administrator Information</h1>
 
-{form class="form-horizontal" legend="Administrator Information"}
+{form legend="Administrator Information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	{if $warning}

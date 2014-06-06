@@ -1,6 +1,6 @@
 <h1>Database Connection Information</h1>
 
-{form class="form-horizontal" legend="Your database connection information"}
+{form legend="Your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="form-group">

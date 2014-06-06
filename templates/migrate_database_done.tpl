@@ -1,6 +1,6 @@
 <h1>Upgrade Process Completed</h1>
 
-{form class="form-horizontal" legend="Select what you want to do next"}
+{form legend="Select what you want to do next"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<div class="form-group">

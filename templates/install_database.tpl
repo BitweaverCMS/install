@@ -1,6 +1,6 @@
 <h1>Database Connection</h1>
 
-{form class="form-horizontal" legend="Please enter your database connection information"}
+{form legend="Please enter your database connection information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 	<input type="hidden" name="gBitDbPassword_hash" value="{$gBitDbPassword_hash}" />
 

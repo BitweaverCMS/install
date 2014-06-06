@@ -1,6 +1,6 @@
 <h1>Sample Data</h1>
 
-{form class="form-horizontal" legend="Populating the database with useful information"}
+{form legend="Populating the database with useful information"}
 	<input type="hidden" name="step" value="{$next_step}" />
 
 	<p>

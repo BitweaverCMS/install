@@ -6,7 +6,7 @@
 	{assign var="formlegend" value="Your Database has been Populated"}	
 {/if}
 	
-	{form class="form-horizontal" legend=$formlegend}
+	{form legend=$formlegend}
 
 	<input type="hidden" name="step" value="{$next_step}" />
 
