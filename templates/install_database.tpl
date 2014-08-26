@@ -68,7 +68,7 @@
 	<div class="form-group">
 		{formlabel label="Host" for="host"}
 		{forminput}
-			<input type="text" size="25" name="host" id="host" value="{if $gBitDbHost ne '' }{$gBitDbHost}{/if}" />
+			<input type="text" class="form-control" name="host" id="host" value="{if $gBitDbHost ne '' }{$gBitDbHost}{/if}" />
 			{formhelp note="Hostname or IP for your MySQL database, example:<br />
 				Use 'localhost' if your database is on the same machine as your server.<br />
 				If you use Oracle, insert your TNS name here.<br />
@@ -80,7 +80,7 @@
 	<div class="form-group">
 		{formlabel label="User" for="user"}
 		{forminput}
-			<input type="text" size="25" name="user" id="user" value="{$gBitDbUser}" />
+			<input type="text" class="form-control" name="user" id="user" value="{$gBitDbUser}" />
 			{formhelp note="Database user"}
 		{/forminput}
 	</div>
@@ -88,7 +88,7 @@
 	<div class="form-group">
 		{formlabel label="Password" for="pass"}
 		{forminput}
-			<input type="password" size="25" name="pass" id="pass" value="{$gBitDbPassword_input}" />
+			<input type="password" class="form-control" name="pass" id="pass" value="{$gBitDbPassword_input}" />
 			{formhelp note="Database password"}
 		{/forminput}
 	</div>
@@ -96,7 +96,7 @@
 	<div class="form-group">
 		{formlabel label="Database name" for="name"}
 		{forminput}
-			<input type="text" size="25" name="name" id="name" value="{$gBitDbName}" />
+			<input type="text" class="form-control" name="name" id="name" value="{$gBitDbName}" />
 			{if $fbpath}
 				{formhelp note="The name of the database where Bitweaver will create tables. You can create a Firebird alias for the Bitweaver database in aliases.conf and then use that aliase as the database name, or provide a full path and file name to create the database in an existing directory."}
 			{else}
@@ -111,7 +111,7 @@
 	{/if}
 		{formlabel label="Database prefix" for="prefix"}
 		{forminput}
-			<input type="text" size="25" name="prefix" id="prefix" value="{$db_prefix_bit|replace:'`':''}" />
+			<input type="text" class="form-control" name="prefix" id="prefix" value="{$db_prefix_bit|replace:'`':''}" />
 			{formhelp note="This prefix will be prepended to the begining of every table name to allow multiple independent install to share a single database. To ensure problem free usage of Bitweaver with other applications in the same database, <strong>we highly recommend using a prefix</strong>.  If you are NOT running MySQL (i.e. Postgres, Oracle, etc.) you can end the prefix string with a '.' (period) to use a schema in systems that support it.  <strong>MySQL does NOT support schemas.</strong>"}
 		{/forminput}
 	</div>
@@ -120,7 +120,7 @@
 	<div class="form-group">
 		{formlabel label="Firebird installation path" for="fbpath"}
 		{forminput}
-			<input type="text" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
+			<input type="text" class="form-control" size="50" name="fbpath" id="fbpath" value="{$fbpath}" />
 			{formhelp note="If you have modified your Firebird installation from the default please enter the correct path to the base Firebird directory. This is used to find isql in order to create the initial blank database and should be maintained in the correct format for your operating system."}
 		{/forminput}
 	</div>
@@ -129,7 +129,7 @@
 	<div class="form-group">
 		{formlabel label="Site base URL" for="baseurl"}
 		{forminput}
-			<input type="text" size="25" name="baseurl" id="baseurl" value="{$bit_root_url}" />
+			<input type="text" class="form-control" name="baseurl" id="baseurl" value="{$bit_root_url}" />
 			{formhelp note="This is the path from the server root to your Bitweaver location.<br />
 				i.e. if you access Bitweaver as <kbd>http://MyServer.com/applications/new/wiki/index.php</kbd> you should enter <kbd>/applications/new/</kbd>"}
 		{/forminput}

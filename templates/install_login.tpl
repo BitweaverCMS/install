@@ -7,7 +7,7 @@
 		{formfeedback error="$error"}
 		{formlabel label="Username or Email" for="user"}
 		{forminput}
-			<input type="text" name="user" id="user" size="25" />
+			<input type="text" class="form-control" name="user" id="user" />
 			{formhelp note=""}
 		{/forminput}
 	</div>
@@ -15,7 +15,7 @@
 	<div class="form-group">
 		{formlabel label="Password" for="pass"}
 		{forminput}
-			<input type="password" name="pass" id="pass" size="25" />
+			<input type="password" class="form-control" name="pass" id="pass" />
 		{/forminput}
 	</div>
 

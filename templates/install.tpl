@@ -32,9 +32,18 @@
 </head>
 <body id="step{$smarty.request.step}">
 	<header class="container">
-		<div class="navbar">
-			<div  style="margin:10px;overflow:visible;">
-				<div class="brand">Install Bitweaver {$gBitSystem->getBitVersion()} </div>
+		<nav class="navbar navbar-default" role="navigation">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bit-install-navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<div class="navbar-brand">Install Bitweaver {$gBitSystem->getBitVersion()} </div>
+			</div>
+
 				<nav class="pull-right width60p" style="padding:10px 20px 0 0;">
 					<div class="pull-right">
 						<a href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc"><i class="icon-question-sign"></i> Help</a>
@@ -50,8 +59,8 @@
 					</div>
 				</nav>
 			</div>
-			<div class="navbar-inner">
-				<ul class="nav">
+			<div class="collapse navbar-collapse" id="bit-install-navbar-collapse">
+				<ul class="nav navbar-nav">
 					{foreach from=$menu_steps item=step key=key}
 						<li class="{if $smarty.request.step == $key}active{/if}">
 							<a href="{$menu_path|default:$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step={$key}" {if $step.state eq 'uncompleted'}onclick="return false;"{/if}>
@@ -61,12 +70,12 @@
 					{/foreach}
 				</ul>
 			</div>
-		</div>
+		</nav>
 	</header>
 
 	<div class="container">
 		<section class="row maincontent">
-			<div class="span12">
+			<div class="col-xs-12 col-sm-9">
 			{include file=$install_file}
 			</div>
 		<section>
