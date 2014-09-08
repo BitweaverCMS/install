@@ -58,7 +58,7 @@ function check_settings() {
 
 	$dir_check = array(
 		'storage' => defined( 'STORAGE_PKG_PATH' ) ? STORAGE_PKG_PATH : BIT_ROOT_PATH.'storage',
-		'temp' => defined( 'TEMP_PKG_PATH' ) ? TEMP_PKG_PATH : BIT_ROOT_PATH.'temp',
+		'temp' => defined( 'TEMP_PKG_PATH' ) ? TEMP_PKG_PATH : sys_get_temp_dir().'/bitweaver/'.$_SERVER['SERVER_NAME'],
 	);
 	foreach( $dir_check as $name => $d ) {
 		// final attempt to create the required directories
