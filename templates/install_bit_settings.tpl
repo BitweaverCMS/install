@@ -36,7 +36,7 @@
 		{forminput}
 			<select name="bit_index" id="bit_index">
 				<option value="my_home"{if $bit_index eq 'my_home'} selected="selected"{/if}>{tr}My home{/tr}</option>
-				{if $role_model }
+				{if $smarty.const.ROLE_MODEL}
 					<option value="role_home"{if $bit_index eq 'role_home'} selected="selected"{/if}>{tr}Role home{/tr}</option>
 				{else}
 					<option value="group_home"{if $bit_index eq 'group_home'} selected="selected"{/if}>{tr}Group home{/tr}</option>
