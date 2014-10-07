@@ -75,7 +75,7 @@
 
 	<div class="container">
 		<section class="row maincontent">
-			<div class="col-xs-12 col-sm-9">
+			<div class="col-xs-12">
 			{include file=$install_file}
 			</div>
 		<section>

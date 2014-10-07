@@ -18,7 +18,7 @@
 	<div class="form-group">
 		{formlabel label="Browser Title" for="site_title"}
 		{forminput}
-			<input size="40" type="text" name="site_title" id="site_title" value="{$gBitSystem->getConfig('site_title')|escape}" />
+			<input class="form-control" type="text" name="site_title" id="site_title" value="{$gBitSystem->getConfig('site_title')|escape}" />
 			{formhelp note="Enter the text that should appear in the title bar of the user's browser when visiting your site."}
 		{/forminput}
 	</div>
@@ -26,7 +26,7 @@
 	<div class="form-group">
 		{formlabel label="Site Slogan" for="site_slogan"}
 		{forminput}
-			<input size="40" type="text" name="site_slogan" id="site_slogan" value="{$gBitSystem->getConfig('site_slogan')|escape}" />
+			<input class="form-control" type="text" name="site_slogan" id="site_slogan" value="{$gBitSystem->getConfig('site_slogan')|escape}" />
 			{formhelp note="This slogan is (usually) shown below the site title."}
 		{/forminput}
 	</div>
@@ -34,7 +34,7 @@
 	<div class="form-group">
 		{formlabel label="Home Page" for="bit_index"}
 		{forminput}
-			<select name="bit_index" id="bit_index">
+			<select name="bit_index" id="bit_index" class="form-control">
 				<option value="my_home"{if $bit_index eq 'my_home'} selected="selected"{/if}>{tr}My home{/tr}</option>
 				{if $smarty.const.ROLE_MODEL}
 					<option value="role_home"{if $bit_index eq 'role_home'} selected="selected"{/if}>{tr}Role home{/tr}</option>
@@ -62,7 +62,7 @@
 	<div class="form-group">
 		{formlabel label="Site Style" for="site_style"}
 		{forminput}
-			<select name="site_style" id="site_style">
+			<select name="site_style" id="site_style" class="form-control">
 				{foreach from=$stylesList item=s}
 						<option value="{$s.style}" {if $s.style eq "basic"}selected="selected"{/if}>{$s.style}</option>
 				{/foreach}
@@ -74,7 +74,7 @@
 	<div class="form-group">
 		{formlabel label="Language" for="language"}
 		{forminput}
-			<select name="bitlanguage" id="bitlanguage">
+			<select name="bitlanguage" id="bitlanguage" class="form-control">
 				{foreach from=$languages key=langCode item=lang}
 						<option value="{$langCode}" {if $langCode eq "en"}selected="selected"{/if}>{$lang.full_name|escape}</option>
 				{/foreach}
