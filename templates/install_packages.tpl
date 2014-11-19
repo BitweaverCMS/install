@@ -42,9 +42,9 @@
 					<p class="alert alert-block">Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need.</p>
 
 					<div class="form-group">
-						{forminput}
+						{forminput label="checkbox"}
 							<script type="text/javascript">/* <![CDATA[ */
-								document.write("<label><input name=\"switcher\" id=\"switcher\" type=\"checkbox\" checked onclick=\"BitBase.switchCheckboxes(this.form.id,'packages[]','switcher')\" /> Batch (de)select all Packages and Services on this page</label>");
+								document.write("<input name=\"switcher\" id=\"switcher\" type=\"checkbox\" checked onclick=\"BitBase.switchCheckboxes(this.form.id,'packages[]','switcher')\" /> Batch (de)select all Packages and Services on this page");
 							/* ]]> */</script>
 						{/forminput}
 					</div>
@@ -53,8 +53,8 @@
 						{if !$item.installed and !$item.required}
 							<div class="form-group">
 								<label class="control-label" for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
-								{forminput}
-									{forminput label="checkbox"}<input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
+								{forminput label="checkbox"}
+									<input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
 									{formhelp note=$item.info is_installer=1}
 									{formhelp note="<strong>Location</strong>: `$item.url`"}
 									{formhelp package=$package}
