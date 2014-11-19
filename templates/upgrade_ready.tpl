@@ -22,10 +22,10 @@
 	</div>
 
 	<div class="form-group">
-		{forminput}
-			<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+		{forminput label="checkbox"}
+			<input type="checkbox" name="debug" id="debug" value="true" /> Debug mode
+			{formhelp note="Display SQL statements."}
 		{/forminput}
-		{formhelp note="Display SQL statements."}
 	</div>
 
 	<div class="form-group">

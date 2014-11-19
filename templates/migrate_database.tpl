@@ -234,10 +234,10 @@
 				</div>
 
 				<div class="form-group">
-					<label class="checkbox">
+					{forminput label="checkbox"}
 						<input type="checkbox" name="auto_bug_submit" id="auto_bug_submit"{if $auto_bug_submit} checked="checked"{/if} />Automatically submit bugs
 						{formhelp note="Checking this box will automatically submit fatal database errors to the Bitweaver team. If you are running a live site, we recommend you check this box, as it will also avoid horrible error messages from appearing in such cases."}
-					</label>
+					{/forminput}
 				</div>
 			{/legend}
 		{/jstab}
@@ -263,31 +263,31 @@
 				</div>
 
 				<div class="form-group">
-					<label class="checkbox">
+					{forminput label="checkbox"}
 						<input type="checkbox" name="empty_tables" id="empty_tables"{if $empty_tables} checked="checked"{/if} />DROP tables
 						{formhelp note="Checking this box DROP's tables before new data is migrated"}
-					</label>
+					{/forminput}
 				</div>
 
 				<div class="form-group">
-					<label class="checkbox">
+					{forminput label="checkbox"}
 						<input type="checkbox" name="convert_blobs" id="convert_blobs"{if $convert_blobs} checked="checked"{/if} />Convert Blobs
 						{formhelp note="Checking this box converts blobs from a MySQL type blob to a PgSQL encoded blob."}
-					</label>
+					{/forminput}
 				</div>
 
 				<div class="form-group">
-					{forminput}
-						<label class="checkbox"><input type="checkbox" name="debug" id="debug"{if $debug} checked="checked"{/if} /> Debug mode</label>
+					{forminput label="checkbox"}
+						<input type="checkbox" name="debug" id="debug"{if $debug} checked="checked"{/if} /> Debug mode
 						{formhelp note="Display SQL statements."}
 					{/forminput}
 				</div>
 
 				<div class="form-group">
-					<label class="checkbox">
+					{forminput label="checkbox"}
 						<input type="checkbox" name="stop_on_errors" id="stop_on_errors"{if $stop_on_errors} checked="checked"{/if} />Stop on Errors
 						{formhelp note="Checking this box will cause the script to stop on the first error."}
-					</label>
+					{/forminput}
 				</div>
 			{/legend}
 		{/jstab}

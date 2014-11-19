@@ -56,8 +56,8 @@
 			{/if}
 
 			<div class="form-group">
-				{forminput}
-					<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+				{forminput label="checkbox"}
+					<input type="checkbox" name="debug" id="debug" value="true" /> Debug mode
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>
@@ -162,8 +162,8 @@
 						<div class="formlabel">
 							<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 						</div>
-						{forminput}
-							<label class="checkbox"><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> {$package|capitalize}</label>
+						{forminput label="checkbox"}
+							<input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> {$package|capitalize}
 							{formhelp note=$schema.$package.info}
 							{formhelp note="<strong>Location</strong>: `$schema.$package.url`"}
 							{formhelp package=$package}
@@ -186,8 +186,8 @@
 			</div>
 
 			<div class="form-group">
-				{forminput}
-					<label class="checkbox"><input type="checkbox" name="debug" id="debug" value="true" /> Debug mode</label>
+				{forminput label="checkbox"}
+					<input type="checkbox" name="debug" id="debug" value="true" /> {tr}Debug mode{/tr}
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>

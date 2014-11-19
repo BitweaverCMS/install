@@ -10,7 +10,7 @@
 				<div class="alert alert-danger"><div class="pull-left"><i class="icon-warning-sign" style="font-size:3em;padding-right:20px;"></i></div> You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</div>
 				{foreach from=$packageUpgrades item=upgrade key=package}
 					{* users don't have the option to select what packages to upgrade since the code of the package is dependent on this upgrade
-					<h3><label class="checkbox"><input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}</label></h3> *}
+					<h3>{forminput label="checkbox"}<input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}{/forminput}</h3> *}
 
 					<h3>{$package}</h3>
 					<input type="hidden" name="packages[]" value="{$package}" />
@@ -153,8 +153,8 @@
 			{/if}
 
 			<div class="form-group">
-				{forminput}
-					<label class="checkbox"><input type="checkbox" name="debug" value="true" /> Debug mode</label>
+				{forminput label="checkbox"}
+					<input type="checkbox" name="debug" value="true" /> Debug mode
 					{formhelp note="Display SQL statements."}
 				{/forminput}
 			</div>

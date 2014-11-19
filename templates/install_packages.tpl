@@ -54,7 +54,7 @@
 							<div class="form-group">
 								<label class="control-label" for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 								{forminput}
-									<label class="checkbox"><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
+									{forminput label="checkbox"}<input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
 									{formhelp note=$item.info is_installer=1}
 									{formhelp note="<strong>Location</strong>: `$item.url`"}
 									{formhelp package=$package}
@@ -86,8 +86,8 @@
 					</p>
 				{/if}
 				<div class="form-group">
-					{forminput}
-						<label class="checkbox"><input type="checkbox" name="debug" value="true" /> Debug mode</label>
+					{forminput label="checkbox"}
+						<input type="checkbox" name="debug" value="true" /> {tr}Debug mode{/tr}
 						{formhelp note="Display SQL statements."}
 					{/forminput}
 				</div>
@@ -123,13 +123,16 @@
 					</div>
 
 					<div class="form-group">
-						{formlabel label=""}
-						{forminput}
-							<label class="checkbox"><input type="checkbox" name="remove_actions[]" value="tables" checked="checked" />&nbsp;Delete database tables</label>
+						{forminput label="checkbox"}
+							<input type="checkbox" name="remove_actions[]" value="tables" checked="checked" /> Delete database tables
 							{formhelp note="If selected, the package's database tables are deleted. If no other option is selected, specific settings might remain in Kernel configuration, and specific content might remain in Liberty tables, both of which might lead to undesired results."}
-							<label class="checkbox"><input type="checkbox" name="remove_actions[]" value="settings" checked="checked" />&nbsp;Delete package settings</label>
+						{/forminput}
+						{forminput label="checkbox"}
+							<input type="checkbox" name="remove_actions[]" value="settings" checked="checked" />&nbsp;Delete package settings
 							{formhelp note="If selected, all package specific settings are removed. Therefor the package is reset to it's default values, including permissions."}
-							<label class="checkbox"><input type="checkbox" name="remove_actions[]" value="content" checked="checked" />&nbsp;Delete stored content</label>
+						{/forminput}
+						{forminput label="checkbox"}
+							<input type="checkbox" name="remove_actions[]" value="content" checked="checked" />&nbsp;Delete stored content
 							{formhelp note="If selected, all content that has been stored in the common content storage area is removed."}
 						{/forminput}
 					</div>
@@ -140,11 +143,9 @@
 						{if $item.tables || $item.defaults}
 							{if $item.installed and !$item.required}
 								<div class="form-group">
-									<label class="control-label">
-										<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
-									</label>
-									{forminput}
-										<label class="checkbox"><input type="checkbox" name="packages[]" value="{$package}" id="{$package}" /> <strong>{$package|capitalize}</strong></label>
+									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
+									{forminput label="checkbox"}
+										<input type="checkbox" name="packages[]" value="{$package}" id="{$package}" /> <strong>{$package|capitalize}</strong>
 										{formhelp note=$item.info is_installer=1}
 										{formhelp note="<strong>Location</strong>: `$item.url`"}
 										{formhelp package=$package}
@@ -166,8 +167,8 @@
 					</div>
 
 					<div class="form-group">
-						{forminput}
-							<label class="checkbox"><input type="checkbox" name="debug" value="true" /> Debug mode</label>
+						{forminput label="checkbox"}
+							<input type="checkbox" name="debug" value="true" /> Debug mode
 							{formhelp note="Display SQL statements."}
 						{/forminput}
 					</div>

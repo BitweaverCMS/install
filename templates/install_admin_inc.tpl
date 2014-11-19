@@ -50,10 +50,10 @@
 
 	<div class="form-group">
 		{forminput}
-			<label class="checkbox">
+			{forminput label="checkbox"}
 				<input type="checkbox" name="testemail" id="testemail" value="y" checked="checked" />
 				{tr}Test Email Transport{/tr}
-			</label>
+			{/forminput}
 			{formhelp note="Check this box to send a test email to the above address. This will let you know if the mailing system is working."}
 		{/forminput}
 	</div>
