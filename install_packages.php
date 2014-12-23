@@ -65,7 +65,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 	$gBitInstallDb = ADONewConnection( $gBitDbType );
 
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
-		$gBitInstaller->debug();
+		$gBitInstaller->mDb->debug(99);
 		$gBitInstallDb->debug = 99;
 	}
 

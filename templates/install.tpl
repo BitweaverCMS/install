@@ -21,7 +21,7 @@
 		var bitIconDir = "{$smarty.const.LIBERTY_PKG_URL}icons/";
 		var bitRootUrl = "{$smarty.const.BIT_ROOT_URL}";
 	/* ]]> */</script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
 	<script type="text/javascript" src="{$smarty.const.CONFIG_PKG_URL}themes/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="{$smarty.const.BIT_ROOT_URL}util/javascript/bitweaver.js"></script>
 	{* if $gBrowserInfo.browser eq 'ie'}
