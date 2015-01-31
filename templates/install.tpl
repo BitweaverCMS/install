@@ -22,6 +22,7 @@
 		var bitRootUrl = "{$smarty.const.BIT_ROOT_URL}";
 	/* ]]> */</script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.js"></script>
 	<script type="text/javascript" src="{$smarty.const.CONFIG_PKG_URL}themes/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="{$smarty.const.BIT_ROOT_URL}util/javascript/bitweaver.js"></script>
 	{* if $gBrowserInfo.browser eq 'ie'}
