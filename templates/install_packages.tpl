@@ -39,7 +39,7 @@
 
 					<p>Packages are apps in Bitweaver that deal with content such as wiki pages, blogs or news articles. Below is a list with all available Bitweaver packages that are ready for installation. Packages that are installed now, can later be deactivated and even deleted from your server if you don't need them anymore.</p>
 
-					<p class="alert alert-block">Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need.</p>
+					<p class="alert alert-warning">Be conscientious about installing packages. The more packages you activate, the more computer power you will need. It is easy to install packages at a later date, so we advise initially installing just the packages you need.</p>
 
 					<div class="form-group">
 						{forminput label="checkbox"}
@@ -49,9 +49,11 @@
 						{/forminput}
 					</div>
 
+					<div class="bit-columns">
 					{foreach from=$schema key=package item=item}
 						{if !$item.installed and !$item.required}
-							<div class="form-group">
+							<div class="bit-column-cell">
+							<div class="well">
 								<label class="control-label" for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 								{forminput label="checkbox"}
 									<input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
@@ -60,8 +62,10 @@
 									{formhelp package=$package}
 								{/forminput}
 							</div>
+							</div>
 						{/if}
 					{/foreach}
+					</div>
 					{/legend}
 				{elseif $first_install}
 					<h2>Core System Installation</h2>
@@ -109,17 +113,17 @@
 					<input type="hidden" name="step" value="{$next_step}" />
 
 					<div class="form-group">
-						<p class="alert alert-block">These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it will be erased (depending on options below).</p>
+						<p class="alert alert-warning">These packages are already installed on your system. If you select any of these checkboxes, all the data associated with it will be erased (depending on options below).</p>
 					</div>
 
 					<div class="form-group">
-						{formlabel label="selected packages:"}
-						{forminput}
-							<label><input type="radio" name="method" value="reinstall" checked="checked" /> Reinstall</label>
-							<br />
-							<label><input type="radio" name="method" value="uninstall" /> Uninstall</label>
-							{formhelp note="Choose whether you want to uninstall or reinstall selected packages."}
+						{forminput label="radio"}
+							<input type="radio" name="method" value="reinstall" checked="checked" /> Reinstall Selected Packages
 						{/forminput}
+						{forminput label="radio"}
+							<input type="radio" name="method" value="uninstall" /> Uninstall Selected Packages
+						{/forminput}
+							{formhelp note="Choose whether you want to uninstall or reinstall selected packages."}
 					</div>
 
 					<div class="form-group">
@@ -137,12 +141,11 @@
 						{/forminput}
 					</div>
 
-					<div class="clear"><hr /></div>
-
+					<div class="bit-columns">
 					{foreach from=$schema key=package item=item}
 						{if $item.tables || $item.defaults}
 							{if $item.installed and !$item.required}
-								<div class="form-group">
+								<div class="bit-column-cell well">
 									<label for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
 									{forminput label="checkbox"}
 										<input type="checkbox" name="packages[]" value="{$package}" id="{$package}" /> <strong>{$package|capitalize}</strong>
@@ -154,6 +157,7 @@
 							{/if}
 						{/if}
 					{/foreach}
+					</div>
 
 					<div class="form-group">
 						{forminput}
@@ -179,13 +183,14 @@
 			{legend legend="Packages and services required by Bitweaver"}
 				{if !$first_install}
 					<div class="form-group">
-						<p class="alert alert-block">To reset the entire system, first create a new database (or empty the existing database manually).</p>
+						<p class="alert alert-warning">To reset the entire system, first create a new database (or empty the existing database manually).</p>
 					</div>
 				{/if}
 
+				<div class="bit-columns">
 				{foreach from=$schema key=package item=item}
 					{if $item.required}
-						<div class="form-group">
+						<div class="bit-column-cell well">
 							<label class="control-label">
 								{biticon ipackage=$package iname="pkg_$package" iexplain=$package}
 							</label>
@@ -198,6 +203,7 @@
 						</div>
 					{/if}
 				{/foreach}
+				</div>
 			{/legend}
 		{/jstab}
 	{/jstabs}
