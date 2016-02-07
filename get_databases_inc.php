@@ -50,7 +50,7 @@ if( function_exists( 'fbird_connect' ) ) {
 if( function_exists( 'sqlite_open' ) ) {
 	$dbtodsn['sqlite'] = 'SQLLite';
 }
-$gBitSmarty->assign_by_ref('dbservers', $dbtodsn);
+$gBitSmarty->assignByRef('dbservers', $dbtodsn);
 
 $gBitSmarty->assign( 'gBitDbType', $gBitDbType );
 $gBitSmarty->assign( 'gBitDbHost', $gBitDbHost );

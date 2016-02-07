@@ -25,7 +25,7 @@ $gBitSmarty->assign( 'next_step', $step );
 // pass all package data to template
 $schema = $gBitInstaller->mPackages;
 ksort( $schema );
-$gBitSmarty->assign_by_ref( 'schema', $schema );
+$gBitSmarty->assignByRef( 'schema', $schema );
 
 // confirm that we have all the admin data in the session before proceeding
 if( !empty( $_REQUEST['packages'] ) && in_array( 'users', $_REQUEST['packages'] ) && ( empty( $_SESSION['login'] ) || empty( $_SESSION['password'] ) || empty( $_SESSION['email'] ) ) ) {

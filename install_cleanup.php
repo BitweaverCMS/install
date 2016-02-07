@@ -10,7 +10,7 @@ $gBitSmarty->assign( 'next_step', $step );
 
 $schema = $gBitInstaller->mPackages;
 ksort( $schema );
-$gBitSmarty->assign_by_ref( 'schema', $schema );
+$gBitSmarty->assignByRef( 'schema', $schema );
 
 
 

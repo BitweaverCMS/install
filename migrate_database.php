@@ -75,7 +75,7 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 	$tables_src = $gDb_src->MetaTables();
 
 	if (isset($_REQUEST['fUpdateTables'])) {
-		$gBitSmarty->assign_by_ref( 'skip_tables', $tables_src );
+		$gBitSmarty->assignByRef( 'skip_tables', $tables_src );
 		return;
 	}
 
@@ -283,8 +283,8 @@ if (isset($_REQUEST['fSubmitDatabase']) || isset($_REQUEST['fUpdateTables'])) {
 		$results[]= "$table: migrated $q records".(($c > 0) ? "and converted $c blobs" : "");
 	}
 //vd($gDb_dst->mFailed);die;
-	$gBitSmarty->assign_by_ref( 'results', $results );
-	$gBitSmarty->assign_by_ref( 'errors', $gDb_dst->mFailed );
+	$gBitSmarty->assignByRef( 'results', $results );
+	$gBitSmarty->assignByRef( 'errors', $gDb_dst->mFailed );
 	$app = "_done";
 	$gBitSmarty->assign( 'next_step', $step + 1 );
 

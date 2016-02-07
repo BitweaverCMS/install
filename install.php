@@ -139,7 +139,7 @@ $install_file[$i]['name'] = 'Done';
 //don't increment last $i since it's used later on
 
 // Needed for version number
-$gBitSmarty->assign_by_ref( 'gBitSystem', $gBitSystem );
+$gBitSmarty->assignByRef( 'gBitSystem', $gBitSystem );
 
 if( !empty( $_POST['signin'] ) ) {
 	$gBitUser->login( $_POST['user'], $_POST['pass'] );

@@ -26,7 +26,7 @@ function simple_set_value( $package, $feature ) {
 }
 
 // pass all package data to template
-$gBitSmarty->assign_by_ref( 'schema', $gBitInstaller->mPackages );
+$gBitSmarty->assignByRef( 'schema', $gBitInstaller->mPackages );
 
 // settings that aren't just toggles
 $formInstallValues = array(
@@ -55,12 +55,12 @@ if( count( $processors ) > 0 ) {
 // list of available site styles
 $subDirs = array( 'style_info', 'alternate' );
 $stylesList = $gBitThemes->getStylesList( NULL, NULL, $subDirs );
-$gBitSmarty->assign_by_ref( "stylesList", $stylesList );
+$gBitSmarty->assignByRef( "stylesList", $stylesList );
 
 // get list of available languages
 $languages = array();
 $languages = $gBitLanguage->listLanguages();
-$gBitSmarty->assign_by_ref("languages",$languages );
+$gBitSmarty->assignByRef("languages",$languages );
 
 // process form
 if( isset( $_REQUEST['bit_settings'] ) ) {
