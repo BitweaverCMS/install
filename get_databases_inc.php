@@ -1,10 +1,9 @@
 <?php
 /**
- * @version $Header$
+ * check what db servers are available and display them accordingly - only seems to work with *nix
+ *
  * @package install
  * @subpackage functions
- *
- * check what db servers are available and display them accordingly - only seems to work with *nix
  */
 $gBitDbCaseSensitivity = TRUE;
 $dbtodsn = array();

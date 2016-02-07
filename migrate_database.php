@@ -1,15 +1,11 @@
 <?php
 /**
- * @version $Header$
+ * Migrate database to new schema.
+ *
+ * @copyright 2004-15 Stephan Borg, bitweaver.org
+ *
  * @package install
  * @subpackage upgrade
- *
- * Copyright (c) 2004 Stephan Borg, tikipro.org
- * All Rights Reserved. See below for details and a complete list of authors.
- *
- * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details
- *
- * $Id$
  */
 
 /**

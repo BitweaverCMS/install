@@ -1,13 +1,16 @@
 <?php
 /**
- * @version $Header$
+ * Page script - run an update process.
+ *
  * @package install
  * @subpackage upgrade
  */
 
-// Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
-// All Rights Reserved. See below for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details.
+/**
+ * @copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
+ * All Rights Reserved. See below for details and a complete list of authors.
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details.
+ */
 
 /**
  * required setup
@@ -56,7 +59,9 @@ if( isset( $_REQUEST['use_innodb'] ) ) {
 	$_SESSION['use_innodb'] = TRUE;
 }
 
-// finally we are ready to include the actual php file
+/**
+ * process upgrade step
+ */
 include_once( 'upgrade_'.$install_file[$step]['file'].'.php' );
 
 $install_file = set_menu( $install_file, $step );
