@@ -486,7 +486,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 
 		// ---------------------- 7. ----------------------
 		// Do stuff that only applies during the first install
-		$gBitSystem->mDb->StartTrans();
+		$gBitInstaller->StartTrans();
 		if( isset( $_SESSION['first_install'] ) && $_SESSION['first_install'] == TRUE ) {
 			// set the version of bitweaver in the database
 			$gBitSystem->storeVersion( NULL, $gBitSystem->getBitVersion() );
@@ -631,9 +631,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		if( !empty( $failedcommands ) ) {
 			$gBitSmarty->assign( 'errors', $errors);
 			$gBitSmarty->assign( 'failedcommands', $failedcommands);
-			$gBitSystem->mDb->RollbackTrans();
+			$gBitInstaller->RollbackTrans();
 		} else {
-			$gBitSystem->mDb->CompleteTrans();
+			$gBitInstaller->CompleteTrans();
 		}
 
 		// display the confirmation page
