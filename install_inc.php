@@ -104,9 +104,9 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 require_once("../kernel/setup_inc.php");
 require_once( 'BitInstaller.php' );
 if ( defined( 'ROLE_MODEL' ) ) {
-	require_once( USERS_PKG_PATH.'RoleUser.php' );
+	require_once( USERS_PKG_PATH.'includes/RoleUser.php' );
 } else {
-	require_once( USERS_PKG_PATH.'BitUser.php' );
+	require_once( USERS_PKG_PATH.'includes/BitUser.php' );
 }
 
 // set some preferences during installation
