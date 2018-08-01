@@ -150,7 +150,7 @@
 					<li>or download a pre-packed set of <a class="external"
 							href="http://www.bitweaver.org/downloads/file/11619">Bitweaver
 							PEAR extensions</a> and extract this to<br />
-						<kbd>{$smarty.const.UTIL_PKG_PATH}pear/</kbd></li>
+						<kbd>{$smarty.const.UTIL_PKG_INC}pear/</kbd></li>
 				</ul>
 			{else}
 				<p class="alert alert-success">
