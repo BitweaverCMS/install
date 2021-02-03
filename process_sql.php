@@ -19,7 +19,7 @@ $_SERVER['SERVER_SOFTWARE'] = 'command_line';
  * required setup
  */
 require_once( 'install_lib.php' );
-include("../kernel/setup_inc.php");
+include("../kernel/includes/setup_inc.php");
 
 if( count( $argv ) < 2) {
 	print "Please enter name of SQL file in db/ directory to process\n";

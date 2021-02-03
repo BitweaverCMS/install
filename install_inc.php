@@ -101,7 +101,7 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 		include( $config_file );
 	}
 }
-require_once("../kernel/setup_inc.php");
+require_once("../kernel/includes/setup_inc.php");
 require_once( 'BitInstaller.php' );
 if ( defined( 'ROLE_MODEL' ) ) {
 	require_once( USERS_PKG_PATH.'includes/RoleUser.php' );
