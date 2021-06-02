@@ -12,8 +12,8 @@
  * Initialization
  */
 $gBitSmarty->assign( 'next_step', $step );
-require_once( 'install_inc.php' );
-require_once( "get_databases_inc.php" );
+require_once( 'includes/install_inc.php' );
+require_once( 'includes/get_databases_inc.php' );
 
 // set the maximum execution time to very high
 ini_set( "max_execution_time", "86400" );

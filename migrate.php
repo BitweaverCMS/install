@@ -12,7 +12,7 @@
 /**
  * required setup
  */
-require_once( 'install_inc.php' );
+require_once( 'includes/install_inc.php' );
 
 // this variable will be appended to the template file called - useful for displaying messages after data input
 $app = '';

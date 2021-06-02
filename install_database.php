@@ -10,7 +10,7 @@
  */
 $gBitSmarty->assign( 'next_step',$step );
 
-require_once( "get_databases_inc.php" );
+require_once( "includes/get_databases_inc.php" );
 
 // next block checks if there is a config/kernel/config_inc.php and if we can connect through this.
 if( isset( $_REQUEST['submit_db_info'] )) {

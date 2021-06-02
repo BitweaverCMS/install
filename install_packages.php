@@ -118,7 +118,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 		sort( $_REQUEST['packages'] );
 
 		// Need to unquote constraints. but this need replacing with a datadict function
-		require_once('../kernel/BitDbBase.php');
+		require_once( KERNEL_PKG_CLASS_PATH.'BitDbBase.php');
 		$gBitKernelDb = new BitDb();
 		$gBitKernelDb->mType = $gBitDbType;
 

@@ -81,9 +81,6 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 	}
 	if ( empty( $gBitDbType ) ) {
 		$tmpHost = $_REQUEST['host'];
-		if ($_REQUEST['db'] == 'mssql' && get_magic_quotes_gpc() == 1) { // pull doubled up slashes from config
-			$tmpHost = stripslashes($tmpHost);
-		}
 		require_once( 'create_config_inc.php' );
 		$createHash = array(
 			"gBitDbType"            => $_REQUEST['db'],
@@ -101,12 +98,13 @@ if( isset( $_REQUEST['submit_db_info'] ) ) {
 		include( $config_file );
 	}
 }
-require_once("../kernel/setup_inc.php");
-require_once( 'BitInstaller.php' );
+require_once( '../kernel/includes/setup_inc.php' );
+require_once( INSTALL_PKG_CLASS_PATH.'BitInstaller.php' );
+
 if ( defined( 'ROLE_MODEL' ) ) {
-	require_once( USERS_PKG_PATH.'includes/RoleUser.php' );
+	require_once( USERS_PKG_CLASS_PATH.'RoleUser.php' );
 } else {
-	require_once( USERS_PKG_PATH.'includes/BitUser.php' );
+	require_once( USERS_PKG_CLASS_PATH.'BitUser.php' );
 }
 
 // set some preferences during installation

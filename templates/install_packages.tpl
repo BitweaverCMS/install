@@ -54,7 +54,7 @@
 						{if !$item.installed and !$item.required}
 							<div class="bit-column-cell">
 							<div class="well">
-								<label class="control-label" for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package}</label>
+								<label class="control-label" for="{$package}">{biticon ipackage=$package iname="pkg_$package" iexplain=$package class="img-responsive"}</label>
 								{forminput label="checkbox"}
 									<input type="checkbox" name="packages[]" value="{$package}" id="{$package}" checked="checked" /> <strong>{$package|capitalize}</strong></label>
 									{formhelp note=$item.info is_installer=1}
