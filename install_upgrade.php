@@ -14,7 +14,6 @@ $gBitInstaller->loadAllUpgradeFiles();
 
 if( !empty( $_REQUEST['upgrade_packages'] )) {
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
-		$gBitInstaller->debug();
 		$gBitInstallDb->debug = 99;
 	}
 

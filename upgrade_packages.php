@@ -66,7 +66,7 @@ $upPackages = array();
 if( !empty( $_REQUEST['upgrade'] ) ) {
 	if( isset( $upgradePath[$_REQUEST['upgrade_from']] ) ) {
 		if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
-			$gBitInstaller->debug();
+			$gBitInstaller->mDb->debug();
 		}
 
 		foreach( $upgradePath[$_REQUEST['upgrade_from']] as $from=>$to ) {

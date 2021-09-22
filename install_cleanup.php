@@ -110,7 +110,6 @@ if( !empty(  $_REQUEST['create_tables'] ) && !empty( $dbIntegrity )) {
 		}
 
 		if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] )) {
-			$gBitInstaller->debug();
 			$gBitInstallDb->debug = 99;
 		}
 
@@ -143,7 +142,6 @@ if( !empty(  $_REQUEST['create_tables'] ) && !empty( $dbIntegrity )) {
 // if any of the serviceList items have been unchecked, disable the appropriate packages
 if( !empty(  $_REQUEST['resolve_conflicts'] ) ) {
 	if( !empty( $gDebug ) || !empty( $_REQUEST['debug'] ) ) {
-		$gBitInstaller->debug();
 		$gBitInstallDb->debug = 99;
 	}
 	// === Permissions
