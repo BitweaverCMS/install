@@ -150,7 +150,8 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			$dependentsUninstalled = array_intersect( $dependentPackages, $uninstalledPackages );
 			if( !empty( $dependentPackages ) && (count( $dependentsUninstalled ) + count( $dependentsInstalled )) != count( $dependentPackages ) ) {
 				// total dependents is not the same as what is/will be installed
-				$errors[] = 'Required package is missing: '.$package.' requires '.$gBitInstaller->mPackages['info']['dependencies'];
+				$failedcommands[] = 'Dependency Check Failure';
+				$errors[] = 'Required package is missing: '.$package.' requires '.implode( ', ', $dependentPackages );
 			} elseif( empty( $gBitInstaller->mPackages[$package]['requirements'] ) && count( $dependentsInstalled ) == count( $dependentPackages ) ) {
 				unset( $build );
 				// work out what we're going to do with this package
