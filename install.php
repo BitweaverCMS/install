@@ -62,6 +62,16 @@ die;
  */
 require_once( 'includes/install_inc.php' );
 
+if( $gBitInstaller->isInstalled() && is_object( $gBitUser ) ) {
+	//$gBitUser->verifyAdmin();
+} else {
+	require_once( THEMES_PKG_CLASS_PATH.'BitThemes.php' );
+	BitThemes::loadSingleton();
+	$gBitThemes->setStyle( 'basic' );
+	require_once( LANGUAGES_PKG_CLASS_PATH.'BitLanguage.php' );
+	BitLanguage::loadSingleton();
+}
+
 // this variable will be appended to the template file called - useful for displaying messages after data input
 $app = '';
 
@@ -78,6 +88,7 @@ if( !empty( $_REQUEST['reload'] )) {
 // for pages that should only be shown during a first install
 if( ( empty( $gBitDbType ) || !$gBitUser->isAdmin() ) || ( $_SESSION['first_install'] ) ) {
 	$onlyDuringFirstInstall = TRUE;
+	$_SESSION['first_install'] = TRUE;
 } else {
 	$onlyDuringFirstInstall = FALSE;
 }
@@ -152,7 +163,6 @@ if( !empty( $_POST['signin'] ) ) {
 if( !empty( $gBitDbType ) && !empty( $gBitInstaller->mPackages['users']['installed'] ) && !$gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
 	$install_file = 'login';
 	$gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file.".tpl" );
-	$gBitSmarty->assign( 'progress', 0 );
 	$gBitSmarty->display( INSTALL_PKG_PATH.'templates/install.tpl' );
 	die;
 }
@@ -164,10 +174,11 @@ if( !strpos( $_SERVER['SCRIPT_NAME'],'install/install.php' ) ) {
 }
 
 // finally we are ready to include the actual php file
-include_once( 'install_'.$install_file[$step]['file'].'.php' );
+include_once( INSTALL_PKG_INCLUDE_PATH.'install_'.$install_file[$step]['file'].'.php' );
 
 $install_file = set_menu( $install_file, $step );
 
+$gBitSmarty->assign_by_ref( 'gBitInstaller', $gBitInstaller );
 $gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file[$step]['file'].$app.".tpl" );
 $gBitInstaller->in_display( $install_file[$step]['name'], INSTALL_PKG_PATH.'templates/install.tpl' );
 ?>

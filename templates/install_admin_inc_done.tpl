@@ -10,9 +10,7 @@
 			<ul class="result">
 			{foreach from=$warning item=warn}
 				<li class="warning">
-					{booticon iname="icon-warning-sign"  ipackage="icons"  iexplain=warning}
-					&nbsp;
-					{$warn}
+					{booticon iname="fa-triangle-exclamation"} {$warn}
 				</li>
 			{/foreach}
 			</div>

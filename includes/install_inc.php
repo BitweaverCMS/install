@@ -18,33 +18,32 @@ function set_menu( $pInstallFiles, $pStep ) {
 	// here we set up the menu
 	for( $done = 0; $done < $pStep; $done++ ) {
 		$pInstallFiles[$done]['state'] = 'complete';
-		$pInstallFiles[$done]['icon'] = 'icon-ok';
+		$pInstallFiles[$done]['icon'] = 'fa-check';
 	}
 
 	// if the page is done, we can display the menu item as done and increase the progress bar
 	if( $failedcommands || !empty( $error ) ) {
 		$pInstallFiles[$pStep]['state'] = 'error';
-		$pInstallFiles[$pStep]['icon'] = 'dialog-error';
+		$pInstallFiles[$pStep]['icon'] = 'fa-octagon-exclamation';
 	} elseif( !empty( $warning ) ) {
 		$pInstallFiles[$pStep]['state'] = 'warning';
-		$pInstallFiles[$pStep]['icon'] = 'dialog-warning';
+		$pInstallFiles[$pStep]['icon'] = 'fa-triangle-exclamation';
 	} elseif( $app == "_done" ) {
 		$pInstallFiles[$pStep]['state'] = 'complete';
-		$pInstallFiles[$pStep]['icon'] = 'icon-ok';
+		$pInstallFiles[$pStep]['icon'] = 'fa-check';
 		$done++;
 	} else {
 		$pInstallFiles[$pStep]['state'] = 'current';
-		$pInstallFiles[$pStep]['icon'] = 'media-playback-start';
+		$pInstallFiles[$pStep]['icon'] = 'fa-angle-right';
 	}
 
 	foreach( $pInstallFiles as $key => $menu_step ) {
 		if( !isset( $menu_step['state'] ) ) {
 			if( !empty( $gBitDbType ) && $gBitUser->isAdmin() && !$_SESSION['first_install'] ) {
 				$pInstallFiles[$key]['state'] = 'complete';
-				$pInstallFiles[$key]['icon'] = 'icon-ok';
+				$pInstallFiles[$key]['icon'] = 'fa-check';
 			} else {
 				$pInstallFiles[$key]['state'] = 'uncompleted';
-				$pInstallFiles[$key]['icon'] = 'spacer';
 			}
 		}
 	}
@@ -52,7 +51,6 @@ function set_menu( $pInstallFiles, $pStep ) {
 	// assign all this work to the template
 	$gBitSmarty->assign( 'step', $pStep );
 	$gBitSmarty->assign( 'menu_steps', $pInstallFiles );
-	$gBitSmarty->assign( 'progress', ( ceil( 100 / ( count( $pInstallFiles ) ) * $done ) ) );
 
 	return $pInstallFiles;
 }
@@ -148,7 +146,7 @@ global $gBitUser;
 
 if( !empty( $_POST['signin'] ) ) {
 	$gBitInstaller->login( $_REQUEST['user'], $_REQUEST['pass'] );	
-} elseif( !empty( $_COOKIE[$gBitUser->getSiteCookieName()] ) && ( $gBitUser->mUserId = $gBitUser->getUserIdFromCookieHash( $_COOKIE[$gBitUser->getSiteCookieName()] ))) {
+} elseif( is_object( $gBitUser ) && !empty( $_COOKIE[$gBitUser->getSiteCookieName()] ) && ( $gBitUser->mUserId = $gBitUser->getUserIdFromCookieHash( $_COOKIE[$gBitUser->getSiteCookieName()] ))) {
 	$userInfo = $gBitUser->getUserInfo( array( 'user_id' => $gBitUser->mUserId ) );
 
 	if( $userInfo['user_id'] != ANONYMOUS_USER_ID ) {
@@ -170,7 +168,7 @@ if(
 		&& ( !strpos( $_SERVER['HTTP_REFERER'],'install/migrate.php' ))
 	)
 ) {
-	if( !$gBitUser->isAdmin() ) {
+	if( empty( $gBitUser ) || !$gBitUser->isAdmin() ) {
 		$_SESSION = NULL;
 	}
 	unset( $_SESSION['upgrade'] );

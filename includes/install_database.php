@@ -27,7 +27,7 @@ if( isset( $_REQUEST['submit_db_info'] )) {
 		$error = TRUE; 
 	} else {
 		
-		$gBitDb = &ADONewConnection( $gBitDbType );
+		$gBitDb = ADONewConnection( $gBitDbType );
 	
 		if( $gBitDb->Connect( $gBitDbHost, $gBitDbUser, $gBitDbPassword, $gBitDbName )) {
 			// display success page when done

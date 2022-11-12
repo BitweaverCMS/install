@@ -47,16 +47,7 @@
 
 				<nav class="pull-right width60p" style="padding:10px 20px 0 0;">
 					<div class="pull-right">
-						<a href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc"><i class="icon-question-sign"></i> Help</a>
-					</div>
-
-					<div class="pull-right width50p" style="padding:0 10px;">
-						<div class="progress">
-						  <div class="bar bar-success" style="width: {$progress|default:0}%;"></div>
-						</div>
-					</div>
-					<div class="pull-right">
-						<em>{$section|default:"Install"} Progress</em>
+						<a href="http://www.bitweaver.org/wiki/index.php?page={$section|default:"Install"}bitweaverDoc">{booticon iname="fa-question-circle"} Help</a>
 					</div>
 				</nav>
 			</div>
@@ -65,7 +56,7 @@
 					{foreach from=$menu_steps item=step key=key}
 						<li class="{if $smarty.request.step == $key}active{/if}">
 							<a href="{$menu_path|default:$smarty.const.INSTALL_PKG_URL}{$menu_file|default:"install.php"}?step={$key}" {if $step.state eq 'uncompleted'}onclick="return false;"{/if}>
-							{if $step.icon}<i class="{$step.icon}"></i> {/if} {$step.name}
+							{if $step.icon}{booticon iname=$step.icon} {/if}{$step.name}
 							</a>
 						</li>
 					{/foreach}
@@ -83,7 +74,9 @@
 	</div>
 
 	<footer class="container content-center">
-		{include file="bitpackage:kernel/bot_bar.tpl"}
+		{if $gBitInstaller->isInstalled()}
+			{include file="bitpackage:kernel/bot_bar.tpl"}
+		{/if}
 	</footer>
 </body>
 </html>

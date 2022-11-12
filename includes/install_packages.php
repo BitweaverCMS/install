@@ -501,10 +501,9 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 			$plugin_file = LIBERTY_PKG_PATH.'plugins/format.tikiwiki.php';
 			if( is_readable( $plugin_file ) ) {
 				require_once( $plugin_file );
-				// manually set the config settings to avoid problems
-				$gBitSystem->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."kernel_config` ( `config_name`, `package`, `config_value` ) VALUES ( 'liberty_plugin_file_".PLUGIN_GUID_TIKIWIKI."', '$plugin_file', '".LIBERTY_PKG_NAME."' )" );
-				$gBitSystem->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."kernel_config` ( `config_name`, `package`, `config_value` ) VALUES ( 'liberty_plugin_status_".PLUGIN_GUID_TIKIWIKI."', 'y', '".LIBERTY_PKG_NAME."' )" );
-				// it appear default_format is already set.
+				// manually set the config format to avoid problems
+				$gBitSystem->storeConfig( 'liberty_plugin_file_'.PLUGIN_GUID_TIKIWIKI, $plugin_file, LIBERTY_PKG_NAME );
+				$gBitSystem->storeConfig( 'liberty_plugin_status_'.PLUGIN_GUID_TIKIWIKI, 'y', LIBERTY_PKG_NAME );
 				$gBitSystem->storeConfig( 'default_format', PLUGIN_GUID_TIKIWIKI, LIBERTY_PKG_NAME );
 			}
 
@@ -534,6 +533,7 @@ if( !empty( $_REQUEST['cancel'] ) ) {
 					$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_roles` (`user_id`, `role_id`, `role_name`,`role_desc`) VALUES ( ".ROOT_USER_ID.", 2, 'Editors','Site  Editors')" );
 					$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_roles` (`user_id`, `role_id`, `role_name`,`role_desc`,`is_default`) VALUES ( ".ROOT_USER_ID.", 3, 'Registered', 'Users logged into the system', 'y')" );
 				} else {
+//					$tempUser = new BitUser(); // for BitUser::registerContentType
 					$rootUser = new BitPermUser();
 					if( $rootUser->store( $storeHash ) ) {
 						$gBitUser->mDb->query( "INSERT INTO `".BIT_DB_PREFIX."users_groups` (`user_id`, `group_id`, `group_name`,`group_desc`) VALUES ( ".ROOT_USER_ID.", 1, 'Administrators','Site operators')" );

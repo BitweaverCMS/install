@@ -7,7 +7,7 @@
 
 			{if $packageUpgrades}
 				<h2>Packages and their upgrades</h2>
-				<div class="alert alert-danger"><div class="pull-left"><i class="icon-warning-sign" style="font-size:3em;padding-right:20px;"></i></div> You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</div>
+				<div class="alert alert-danger"><div class="pull-left">{booticon iname="fa-triangle-exclamation" style="font-size:3em;padding-right:20px;"}</div> You are about to run an upgrade which might make changes to your database. We <strong>strongly</strong> recommend that you back up your database (preferably carry out the entire <a class="external" href="http://www.bitweaver.org/wiki/bitweaverUpgrade#Generalproceduretoupgrade">backup procedure</a>).</div>
 				{foreach from=$packageUpgrades item=upgrade key=package}
 					{* users don't have the option to select what packages to upgrade since the code of the package is dependent on this upgrade
 					<h3>{forminput label="checkbox"}<input type="checkbox" name="packages[]" value="{$package}" checked="checked" /> {$package}{/forminput}</h3> *}
