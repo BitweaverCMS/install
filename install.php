@@ -178,7 +178,7 @@ include_once( INSTALL_PKG_INCLUDE_PATH.'install_'.$install_file[$step]['file'].'
 
 $install_file = set_menu( $install_file, $step );
 
-$gBitSmarty->assign_by_ref( 'gBitInstaller', $gBitInstaller );
+$gBitSmarty->assignByRef( 'gBitInstaller', $gBitInstaller );
 $gBitSmarty->assign( 'install_file', INSTALL_PKG_PATH."templates/install_".$install_file[$step]['file'].$app.".tpl" );
 $gBitInstaller->in_display( $install_file[$step]['name'], INSTALL_PKG_PATH.'templates/install.tpl' );
 ?>
