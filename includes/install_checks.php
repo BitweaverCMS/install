@@ -48,7 +48,7 @@ function check_settings() {
 		$required[$i]['note'] = 'The Bitweaver configuration file is available and the file is writeable:<br /><code>'.$config_file.'</code>';
 		$required[$i]['passed'] = TRUE;
 	} elseif( @file_exists( $config_file ) && !@bw_is_writeable( $config_file ) ) {
-		$required[$i]['note'] = 'The Bitweaver configuration file is available but the file is not writeable. Please execute something like:<br /><code>chmod 777 '.$config_file.'</code>';
+		$required[$i]['note'] = 'The Bitweaver configuration file is available but the file is not writeable. Please execute something like:<br /><code>chmod 777 '.$config_file.'<br>chcon unconfined_u:object_r:httpd_sys_rw_content_t:s0 '.$config_file.'</code>';
 		$required[$i]['passed'] = FALSE;
 	} else {
 		$required[$i]['note'] = 'The Bitweaver configuration file is not available. Please execute something like:<br /><code>touch '.$config_file.';<br />chmod 777 '.$config_file.'</code>';
