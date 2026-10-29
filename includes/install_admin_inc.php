@@ -50,7 +50,7 @@ if( !empty( $_REQUEST['admin_submit'] )) {
 					"Reply-To: $from\r\n".
 					"X-Mailer: PHP/".phpversion();
 
-				if( mail( $to, $subject, $message, $headers )) {
+				if( bit_mail( $to, $subject, $message, $headers )) {
 					$mail['success'] = "We sent an email to <strong>$to</strong>.";
 				} else {
 					$mail['warning'] = "We have tried to send an email to <strong>$to</strong> and the mailing system on the server has not accepted the email.";
